@@ -1,30 +1,35 @@
-set number
-set ts=4
+" Pathogen
+execute pathogen#infect()
+syntax on " Syntax Highlighting
+filetype plugin indent on
 
-syntax on
-filetype on
-filetype plugin on
-set ofu=syntaxcomplete#Complete
-au BufNewFile,BufRead *.wlpp set filetype=cpp
-au BufNewFile,BufRead *.cclass set filetype=cpp
+set nocompatible
 
-nnoremap <silent> <F8> :TlistToggle<CR>
-autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
+set tabstop=4
+set backspace=indent,eol,start
 
-" configure tags - add additional tags here or comment out not-used ones
-set tags+=~/.vim/tags/cpp
-" build tags of your own project with Ctrl-F12
-map <C-F12> :!ctags -R --sort=yes --c++-kinds=+pl --fields=+iaS --extra=+q .<CR>
+set autoindent
+"set copyindent
+set shiftwidth=4
+set shiftround
+set showmatch
+set ignorecase
+set smartcase " Ignore case when search is all lowercase
 
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
+set number " Line Numbers
+set hidden " When opening new files, keep old one in a buffer
+
+set nohlsearch
+set incsearch
+
+autocmd filetype python set expandtab
+
+" Toggle paste
+set pastetoggle=<F11>
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+" noremap ; :
