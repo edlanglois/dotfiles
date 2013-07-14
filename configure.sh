@@ -5,6 +5,7 @@ shopt -s dotglob
 prep_dir=prep
 patch_dir=.patch
 dotfiles=(.gitconfig .vimrc .bashrc)
+dotdirs=(.vim)
 patchdirs=(waterloo)
 
 rm -f Makefile
@@ -13,14 +14,18 @@ PREP_DIR:=${prep_dir}
 PATCH_DIR:=${patch_dir}
 DOTFILES:=${dotfiles[@]}
 PREPARED_DOTS:=\$(addprefix \$(PREP_DIR)/, \$(DOTFILES))
+DOTDIRS:=${dotdirs[@]}
 
-.PHONY: all prepare
+.PHONY: all prepare linkdirs \$(DOTDIRS)
 all: prepare
 prepare: \$(PREPARED_DOTS)
-install:
+install: prepare linkdirs
 	cp \$(PREPARED_DOTS) \$(HOME)
 clean:
 	rm -rf \$(PREP_DIR) \$(PATCH_DIR)
+linkdirs: \$(DOTDIRS)
+\$(DOTDIRS): % :
+	ln -sf \$(CURDIR)/\$@ \$(HOME)/\$@
 \$(PREP_DIR):
 	mkdir \$(PREP_DIR)
 \$(PATCH_DIR):
