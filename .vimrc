@@ -49,3 +49,6 @@ let g:clang_exec="clang"
 let g:clang_complete_macros=1
 let g:clang_complete_patterns=0
 
+" Close preview window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
