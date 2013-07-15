@@ -1,7 +1,7 @@
 " Pathogen
 execute pathogen#infect()
 syntax on " Syntax Highlighting
-filetype plugin indent on
+filetype plugin on
 
 set nocompatible
 
@@ -34,16 +34,18 @@ map <C-l> <C-w>l
 
 " noremap ; :
 
+let g:clang_user_options="|| exit 0"
+
 let g:clang_auto_select=1
-let g:clang_complete_auto=0
-let g:clang_complete_copen=1
+let g:clang_complete_auto=1
+let g:clang_complete_copen=0
 let g:clang_hl_errors=1
-let g:clang_periodic_quickfix=1
+let g:clang_periodic_quickfix=0
 let g:clang_snippets=1
 let g:clang_snippets_engine="clang_complete"
 let g:clang_conceal_snippets=1
+let g:clang_close_preview=1
 let g:clang_exec="clang"
-let g:clang__sort_algor="priority"
-let g:clang_complete_macros=0
-let g:clang_complete_patterns
+let g:clang_complete_macros=1
+let g:clang_complete_patterns=0
 

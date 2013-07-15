@@ -34,10 +34,13 @@ linkdirs: \$(DOTDIRS)
 	mkdir \$(PREP_DIR)
 \$(PATCH_DIR):
 	mkdir \$(PATCH_DIR)
-\$(PREPARED_DOTS): \$(PREP_DIR)/% : % \$(PREP_DIR) \$(PATCH_DIR)/%.patch
+\$(PREPARED_DOTS): \$(PREP_DIR)/% : % \$(PREP_DIR) \$(PATCH_DIR)/%.patch \$(PATCH_DIR)/%.append
 	cp \$< \$(PREP_DIR)
 	if [ -e \"\$(PATCH_DIR)/\$<.patch\" ]; then \\
 	patch \"\$(PREP_DIR)/\$<\" \"\$(PATCH_DIR)/\$<.patch\"; \\
+	fi
+	if [ -e \"\$(PATCH_DIR)/\$<.append\" ]; then \\
+	cat \"\$(PATCH_DIR)/\$<.append\" >> \"\$(PREP_DIR)/\$<\"; \\
 	fi
 " > Makefile
 
@@ -50,9 +53,14 @@ for patchdir in "${patchdirs[@]}"; do
 				break;
 			fi
 			patchbase="$(basename "$patchfile" | sed 's/\.[^.]*$//')"
-			echo "${patchfile}"
-			echo "${config_dir}/${patchbase}"
 			echo -n "${patchfile} " >> "${config_dir}/${patchbase}"
+		done
+		for appendfile in "${patchdir}"/*.append; do
+			if [ -z ${appendfile} ]; then
+				break;
+			fi
+			appbase="$(basename "$appendfile" | sed 's/\.[^.]*$//').append"
+			echo -n "${appendfile} " >> "${config_dir}/${appbase}"
 		done
 	fi
 done
@@ -63,13 +71,23 @@ for dfile in "${dotfiles[@]}"; do
 
 	dpatch="$dfile.patch"
 	echo "\$(PATCH_DIR)/$dpatch: \$(PATCH_DIR) ${d_patches[@]}" >> Makefile
-	if [ -z "$d_patches" ]; then
-		continue;
+	echo "	rm -f \$@ && touch \$@" >> Makefile
+	if [ -n "$d_patches" ]; then
+		for d_patch in "${d_patches[@]}"; do
+			echo "	combinediff \"\$(PATCH_DIR)/$dpatch\" \"${d_patch}\" > \"\$(PATCH_DIR)/$dpatch\"" >> Makefile
+		done
 	fi
 
-	echo "	cp ${d_patches[0]} \$(PATCH_DIR)/$dpatch" >> Makefile
-	for d_patch in "${d_patches[@]:1}"; do
-		echo "	combinediff \$(PATCH_DIR)/$dpatch ${d_patch} > \$(PATCH_DIR)/$dpatch" >> Makefile
-	done
+	touch "$config_dir/$dfile.append"
+	d_appends=($(cat "$config_dir/$dfile.append"))
+	
+	dapp="$dfile.append"
+	echo "\$(PATCH_DIR)/$dapp: \$(PATCH_DIR) ${d_appends[@]}" >> Makefile
+	echo "	rm -f \$@ && touch \$@" >> Makefile
+	if [ -n "$d_appends" ]; then
+		for d_app in "${d_appends[@]}"; do
+			echo "	cat \"$d_app\" >> \"\$(PATCH_DIR)/$dapp\"" >> Makefile
+		done
+	fi
 done
 rm -rf "$config_dir"
