@@ -22,6 +22,8 @@ set hidden " When opening new files, keep old one in a buffer
 set nohlsearch
 set incsearch
 
+set scrolloff=10
+
 autocmd filetype python set expandtab
 
 " Toggle paste
