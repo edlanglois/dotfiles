@@ -3,3 +3,6 @@
 prep/
 .patch/
 Makefile
+.vim/
+!.vim/autoload
+!.vim/bundle
