@@ -4,7 +4,7 @@ shopt -s dotglob
 
 prep_dir=prep
 patch_dir=.patch
-dotfiles=(.gitconfig .vimrc .bashrc .bash_aliases .profile)
+dotfiles=(.bash_aliases .bashrc .gitconfig .hgrc .profile .tmux.conf .vimrc)
 dotdirs=(.vim)
 patchdirs=($(find * -maxdepth 1 -name applies -exec dirname {} \;))
 
