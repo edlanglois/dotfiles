@@ -7,7 +7,7 @@
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
-HISTCONTROL=$HISTCONTROL${HISTCONTROL+:}ignoredups
+# HISTCONTROL=$HISTCONTROL${HISTCONTROL+:}ignoredups
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoreboth
 
@@ -83,11 +83,6 @@ if command -v fortune >/dev/null; then
 	FORTUNE=$!
 fi
 
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -102,15 +97,6 @@ fi
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
-fi
-
-if [ -d /u/cs350 ]; then
-	CLASSPATH=:/u/cs350/sys161/bin:/u/cs350/bin
-	export PATH=$PATH:$HOME/bin$CLASSPATH
-fi
-
-if [ -e /u/cs241/setup ]; then
-	source /u/cs241/setup
 fi
 
 export INPUTRC=$HOME/.inputrc

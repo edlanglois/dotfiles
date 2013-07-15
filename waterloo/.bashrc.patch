@@ -1,0 +1,29 @@
+--- .bashrc	2013-07-14 20:19:31.000000000 -0400
++++ .bashrc_uw	2013-07-14 20:19:33.000000000 -0400
+@@ -92,17 +92,26 @@
+     . ~/.bash_aliases
+ fi
+ 
+ # enable programmable completion features (you don't need to enable
+ # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+ # sources /etc/bash.bashrc).
+ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+     . /etc/bash_completion
+ fi
+ 
++if [ -d /u/cs350 ]; then
++	CLASSPATH=:/u/cs350/sys161/bin:/u/cs350/bin
++	export PATH=$PATH:$HOME/bin$CLASSPATH
++fi
++
++if [ -e /u/cs241/setup ]; then
++	source /u/cs241/setup
++fi
++
+ export INPUTRC=$HOME/.inputrc
+ export EDITOR=vim
+ 
+ if [ -n "$FORTUNE" ]; then
+ 	wait $FORTUNE
+ 	echo "Hello Eric. Welcome to $(hostname)."
+ fi
