@@ -33,3 +33,17 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " noremap ; :
+
+let g:clang_auto_select=1
+let g:clang_complete_auto=0
+let g:clang_complete_copen=1
+let g:clang_hl_errors=1
+let g:clang_periodic_quickfix=1
+let g:clang_snippets=1
+let g:clang_snippets_engine="clang_complete"
+let g:clang_conceal_snippets=1
+let g:clang_exec="clang"
+let g:clang__sort_algor="priority"
+let g:clang_complete_macros=0
+let g:clang_complete_patterns
+

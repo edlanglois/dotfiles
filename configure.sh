@@ -4,7 +4,7 @@ shopt -s dotglob
 
 prep_dir=prep
 patch_dir=.patch
-dotfiles=(.gitconfig .vimrc .bashrc .bash_aliases)
+dotfiles=(.gitconfig .vimrc .bashrc .bash_aliases .profile)
 dotdirs=(.vim)
 patchdirs=(waterloo)
 
