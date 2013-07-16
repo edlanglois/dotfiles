@@ -20,11 +20,12 @@ DOTFILES:=${dotfiles[@]}
 PREPARED_DOTS:=\$(addprefix \$(PREP_DIR)/, \$(DOTFILES))
 DOTDIRS:=${dotdirs[@]}
 
+.SUFFIXES:
 .PHONY: all prepare linkdirs \$(DOTDIRS)
 all: prepare
 prepare: \$(PREPARED_DOTS)
 install: prepare linkdirs
-	cp \$(PREPARED_DOTS) \$(HOME)
+	cp --remove-destination \$(PREPARED_DOTS) \$(HOME)
 clean:
 	rm -rf \$(PREP_DIR) \$(PATCH_DIR)
 linkdirs: \$(DOTDIRS)
@@ -34,7 +35,7 @@ linkdirs: \$(DOTDIRS)
 	mkdir \$(PREP_DIR)
 \$(PATCH_DIR):
 	mkdir \$(PATCH_DIR)
-\$(PREPARED_DOTS): \$(PREP_DIR)/% : % \$(PREP_DIR) \$(PATCH_DIR)/%.patch \$(PATCH_DIR)/%.append
+\$(PREPARED_DOTS): \$(PREP_DIR)/% : % \$(PATCH_DIR)/%.patch \$(PATCH_DIR)/%.append | \$(PREP_DIR) 
 	cp \$< \$(PREP_DIR)
 	if [ -e \"\$(PATCH_DIR)/\$<.patch\" ]; then \\
 	patch \"\$(PREP_DIR)/\$<\" \"\$(PATCH_DIR)/\$<.patch\"; \\
@@ -70,7 +71,7 @@ for dfile in "${dotfiles[@]}"; do
 	d_patches=($(cat "${config_dir}/$dfile"))
 
 	dpatch="$dfile.patch"
-	echo "\$(PATCH_DIR)/$dpatch: \$(PATCH_DIR) ${d_patches[@]}" >> Makefile
+	echo "\$(PATCH_DIR)/$dpatch: ${d_patches[@]} | \$(PATCH_DIR)" >> Makefile
 	echo "	rm -f \$@ && touch \$@" >> Makefile
 	if [ -n "$d_patches" ]; then
 		for d_patch in "${d_patches[@]}"; do
@@ -82,7 +83,7 @@ for dfile in "${dotfiles[@]}"; do
 	d_appends=($(cat "$config_dir/$dfile.append"))
 	
 	dapp="$dfile.append"
-	echo "\$(PATCH_DIR)/$dapp: \$(PATCH_DIR) ${d_appends[@]}" >> Makefile
+	echo "\$(PATCH_DIR)/$dapp: ${d_appends[@]} | \$(PATCH_DIR)" >> Makefile
 	echo "	rm -f \$@ && touch \$@" >> Makefile
 	if [ -n "$d_appends" ]; then
 		for d_app in "${d_appends[@]}"; do
