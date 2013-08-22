@@ -1,2 +1,2 @@
 #!/bin/bash
-hostname -f | grep uwaterloo
+hostname -f | grep uwaterloo &>/dev/null
