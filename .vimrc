@@ -4,6 +4,9 @@ execute pathogen#infect()
 syntax on " Syntax Highlighting
 filetype plugin on
 
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py' ]
+
 set nocompatible
 
 set tabstop=2
@@ -35,23 +38,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" noremap ; :
+noremap ; :
 
-"let g:clang_user_options="|| exit 0"
-"
-"let g:clang_auto_select=1
-"let g:clang_complete_auto=1
-"let g:clang_complete_copen=0
-"let g:clang_hl_errors=1
-"let g:clang_periodic_quickfix=0
-"let g:clang_snippets=1
-"let g:clang_snippets_engine="clang_complete"
-"let g:clang_conceal_snippets=1
-"let g:clang_close_preview=1
-"let g:clang_exec="clang"
-"let g:clang_complete_macros=1
-"let g:clang_complete_patterns=0
-"
-"" Close preview window
-"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
