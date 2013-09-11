@@ -6,3 +6,4 @@ Makefile
 .vim/*
 !.vim/autoload/
 !.vim/bundle/
+!.vim/unused_bundle/
