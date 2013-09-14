@@ -1,5 +1,5 @@
 " Pathogen
-let g:pathogen_disabled = [ 'clang_complete', 'command-t' ]
+let g:pathogen_disabled = [ 'clang_complete', 'syntastic' ]
 execute pathogen#infect()
 syntax on " Syntax Highlighting
 filetype plugin on
