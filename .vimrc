@@ -22,6 +22,7 @@ set smartcase " Ignore case when search is all lowercase
 
 set number " Line Numbers
 set hidden " When opening new files, keep old one in a buffer
+set ruler " Column Numbers
 
 set nohlsearch
 set incsearch
@@ -41,4 +42,4 @@ map <C-l> <C-w>l
 noremap ; :
 
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
