@@ -30,31 +30,31 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color) colour_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+force_colour_prompt=yes
 
-if [ -n "$force_color_prompt" ]; then
+if [ -n "$force_colour_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
 	# We have color support; assume it's compliant with Ecma-48
 	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
 	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+	colour_prompt=yes
     else
-	color_prompt=
+	colour_prompt=
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
+if [ "$colour_prompt" = yes ]; then
     export PS1="\`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
-unset color_prompt force_color_prompt
+unset force_colour_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -66,16 +66,12 @@ xterm*|rxvt*)
 esac
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if [ "$colour_prompt" = yes -a -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-
     export GREP_OPTIONS='--color=auto'
 fi
 
-if command -v fortune >/dev/null; then
+if [ "$TERM" != "dumb" ] && command -v fortune >/dev/null; then
 	command fortune&
 	FORTUNE=$!
 fi
@@ -86,7 +82,7 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    source ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -98,6 +94,9 @@ fi
 
 export INPUTRC=$HOME/.inputrc
 export EDITOR=vim
+
+# Set shared library path
+export LD_RUN_PATH=$HOME/lib:/usr/local/lib:/usr/lib
 
 if [ -n "$FORTUNE" ]; then
 	wait $FORTUNE

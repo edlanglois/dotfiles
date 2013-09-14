@@ -1,7 +1,7 @@
---- .bashrc	2013-07-14 20:19:31.000000000 -0400
-+++ .bashrc_uw	2013-07-14 20:19:33.000000000 -0400
-@@ -92,17 +92,26 @@
-     . ~/.bash_aliases
+--- .bashrc	2013-08-22 15:43:28.357704000 -0400
++++ .bashrc.uw	2013-08-22 15:53:47.465884000 -0400
+@@ -85,20 +85,30 @@
+     source ~/.bash_aliases
  fi
  
  # enable programmable completion features (you don't need to enable
@@ -20,8 +20,12 @@
 +	source /u/cs241/setup
 +fi
 +
++
  export INPUTRC=$HOME/.inputrc
  export EDITOR=vim
+ 
+ # Set shared library path
+ export LD_RUN_PATH=$HOME/lib:/usr/local/lib:/usr/lib
  
  if [ -n "$FORTUNE" ]; then
  	wait $FORTUNE

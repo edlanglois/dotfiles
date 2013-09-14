@@ -1,5 +1,6 @@
 [ui]
 username = Eric Langlois <email@example.com>
+editor = vim
 
 [extensions]
 hgext.purge=
