@@ -5,7 +5,7 @@
 #
 # Set command search rules
 #
-if [ -x /bin/showpath ] ; then
+if false && [ -x /bin/showpath ] ; then
 	export PATH; PATH=`/bin/showpath usedby=user /u/cs350/sys161/bin /u/cs350/bin standard $HOME/bin`
 #
 # Find out what kind of terminal we are using
