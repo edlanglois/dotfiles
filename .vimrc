@@ -45,3 +45,6 @@ set spell spelllang=en_ca
 
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+set exrc    " Enable per-directory .vimrc files
+set secure 	" Disable unsafe commands in local .vimrc files
