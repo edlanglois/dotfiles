@@ -41,5 +41,7 @@ map <C-l> <C-w>l
 
 noremap ; :
 
+set spell spelllang=en_ca
+
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
