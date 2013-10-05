@@ -41,8 +41,14 @@ map <C-l> <C-w>l
 
 noremap ; :
 
+set spell spelllang=en_ca " Spell check
+autocmd BufNewFile,BufRead .* setlocal nospell " Disable spell check on dotfiles
+
+
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 set exrc    " Enable per-directory .vimrc files
 set secure 	" Disable unsafe commands in local .vimrc files
+
+let g:tex_flavor = "latex" " Load .tex files as latex
