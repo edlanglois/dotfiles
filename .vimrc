@@ -41,8 +41,9 @@ map <C-l> <C-w>l
 
 noremap ; :
 
-set spell spelllang=en_ca " Spell check
-autocmd BufNewFile,BufRead .* setlocal nospell " Disable spell check on dotfiles
+" Enable spell check on text files
+autocmd BufNewFile,BufRead *.txt,*.tex,*.latex setlocal spell
+set spelllang=en_ca
 
 
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
