@@ -16,6 +16,7 @@ set autoindent
 "set copyindent
 set shiftwidth=2
 set shiftround
+set textwidth=80 "Auto wrap at 80 char line width
 set showmatch
 set ignorecase
 set smartcase " Ignore case when search is all lowercase
