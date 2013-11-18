@@ -1,3 +1,2 @@
 #!/bin/bash
-#test -e /usr/lib/libclang.so
-false
+${ROOTDIR}/clang_complete/applies && test -e /usr/lib/libclang.so

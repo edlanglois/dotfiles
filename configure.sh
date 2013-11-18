@@ -7,6 +7,7 @@ patch_dir=.patch
 dotfiles=(.bash_aliases .bashrc .gitconfig .hgrc .profile .tmux.conf .vimrc)
 dotdirs=(.vim)
 patchdirs=($(find * -maxdepth 1 -name applies -exec dirname {} \;))
+export ROOTDIR=$(pwd)
 
 if cp --help 2>&1 | grep remove-destination &>/dev/null; then
 	cpbin=cp
