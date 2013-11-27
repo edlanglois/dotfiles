@@ -3,6 +3,10 @@
 " Clang complete is off because YouCompleteMe replaces it
 let g:pathogen_disabled = [ 'clang_complete', 'syntastic' ]
 execute pathogen#infect()
+
+" Associate *.mac with maxima filetype "
+au BufRead,BufNewFile *.mac setfiletype maxima
+
 syntax on " Syntax Highlighting
 filetype plugin on
 
@@ -47,7 +51,6 @@ noremap ; :
 " Enable spell check on text files
 autocmd BufNewFile,BufRead *.txt,*.tex,*.latex setlocal spell
 set spelllang=en_ca
-
 
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
