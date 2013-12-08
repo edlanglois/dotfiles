@@ -1,19 +1,32 @@
+set nocompatible
+
 " Pathogen
 
 " Clang complete is off because YouCompleteMe replaces it
 let g:pathogen_disabled = [ 'clang_complete' ]
 execute pathogen#infect()
 
+" Vundle
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Let Vundle manage Vundle. Required
+Bundle 'gmarik/vundle'
+
+" My bundles here:
+
+" End Vundle
+
 " Associate *.mac with maxima filetype "
 au BufRead,BufNewFile *.mac setfiletype maxima
 
 syntax on " Syntax Highlighting
-filetype plugin on
+filetype plugin indent on
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py' ]
-
-set nocompatible
 
 set tabstop=2
 set backspace=indent,eol,start

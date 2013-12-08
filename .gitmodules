@@ -13,3 +13,6 @@
 [submodule ".vim/bundle/uCpp.vim"]
 	path = .vim/bundle/uCpp.vim
 	url = https://github.com/flxf/uCpp.vim.git
+[submodule ".vim/bundle/vundle"]
+	path = .vim/bundle/vundle
+	url = https://github.com/gmarik/vundle.git
