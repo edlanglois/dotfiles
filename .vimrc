@@ -1,7 +1,7 @@
 " Pathogen
 
 " Clang complete is off because YouCompleteMe replaces it
-let g:pathogen_disabled = [ 'clang_complete', 'syntastic' ]
+let g:pathogen_disabled = [ 'clang_complete' ]
 execute pathogen#infect()
 
 " Associate *.mac with maxima filetype "
