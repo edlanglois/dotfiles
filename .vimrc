@@ -16,6 +16,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " My bundles here:
+Bundle 'christoomey/vim-tmux-navigator'
 
 " End Vundle
 
