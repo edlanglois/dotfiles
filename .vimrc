@@ -60,7 +60,10 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-noremap ; :
+" noremap ; :
+
+" Make double semicolon escape
+:inoremap ;; <ESC>
 
 " Enable spell check on text files
 autocmd BufNewFile,BufRead *.txt,*.tex,*.latex setlocal spell
