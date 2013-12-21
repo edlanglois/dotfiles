@@ -39,7 +39,7 @@ clean:
 	rm -rf \$(PREP_DIR) \$(PATCH_DIR)
 linkdirs: \$(DOTDIRS)
 \$(DOTDIRS): % :
-	ln -sf \$(CURDIR)/\$@ \$(HOME)/\$@
+	ln -sfn \$(CURDIR)/\$@ \$(HOME)/\$@
 \$(PREP_DIR):
 	mkdir \$(PREP_DIR)
 \$(PATCH_DIR):
