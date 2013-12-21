@@ -3,3 +3,4 @@
 prep/
 .patch/
 Makefile
+*.pyc
