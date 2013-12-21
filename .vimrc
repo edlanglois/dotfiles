@@ -27,7 +27,7 @@ syntax on " Syntax Highlighting
 filetype plugin indent on
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py' ]
+let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/HackerRank/brawl/.ycm_extra_conf.py' ]
 
 set tabstop=2
 set backspace=indent,eol,start
