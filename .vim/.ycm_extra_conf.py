@@ -60,6 +60,14 @@ flags = [
 'c++',
 '-I',
 '.',
+'-isystem',
+'/usr/local/include',
+'-isystem',
+'/usr/include',
+'-isystem',
+'/home/eric/include',
+'-isystem',
+'~/include'
 ]
 
 
