@@ -76,3 +76,6 @@ set exrc    " Enable per-directory .vimrc files
 set secure 	" Disable unsafe commands in local .vimrc files
 
 let g:tex_flavor = "latex" " Load .tex files as latex
+
+set foldmethod=syntax
+set foldlevelstart=20
