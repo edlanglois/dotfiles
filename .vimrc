@@ -79,3 +79,6 @@ let g:tex_flavor = "latex" " Load .tex files as latex
 
 set foldmethod=syntax
 set foldlevelstart=20
+
+" Matching parens is very slow for latex files so disable it.
+autocmd filetype tex :NoMatchParen
