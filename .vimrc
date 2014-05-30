@@ -82,3 +82,4 @@ set foldlevelstart=20
 
 " Matching parens is very slow for latex files so disable it.
 autocmd filetype tex :NoMatchParen
+autocmd filetype tex set nofoldenable " Also disable code folding - slow on tex
