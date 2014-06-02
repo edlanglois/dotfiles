@@ -1,3 +1,4 @@
+" Run :PluginInstall to install or update plugins managed by Vundle
 set nocompatible
 
 " Vundle
@@ -12,7 +13,8 @@ Bundle 'gmarik/Vundle.vim'
 " My bundles here:
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'Valloric/YouCompleteMe'
-" TODO: Add syntastic
+Bundle 'scrooloose/syntastic'
+Bundle 'kien/ctrlp.vim'
 
 " End Vundle
 call vundle#end()
@@ -89,3 +91,7 @@ set foldlevelstart=20
 " Matching parens is very slow for latex files so disable it.
 autocmd filetype tex :NoMatchParen
 autocmd filetype tex set nofoldenable " Also disable code folding - slow on tex
+
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
