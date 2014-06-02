@@ -4,3 +4,6 @@ prep/
 .patch/
 Makefile
 *.pyc
+
+.vim/bundle/*
+!.vim/bundle/Vundle.vim

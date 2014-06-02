@@ -1,24 +1,30 @@
 set nocompatible
 
-" Pathogen
-
-" Clang complete is off because YouCompleteMe replaces it
-let g:pathogen_disabled = [ 'clang_complete' ]
-execute pathogen#infect()
-
 " Vundle
 filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " Let Vundle manage Vundle. Required
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 
 " My bundles here:
 Bundle 'christoomey/vim-tmux-navigator'
+Bundle 'Valloric/YouCompleteMe'
+" TODO: Add syntastic
 
 " End Vundle
+call vundle#end()
+
+" Brief help
+" :PluginList          - list configured plugins
+" :PluginInstall(!)    - install (update) plugins
+" :PluginSearch(!) foo - search (or refresh cache first) for foo
+" :PluginClean(!)      - confirm (or auto-approve) removal of unused plugins
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 " Associate *.mac with maxima filetype "
 au BufRead,BufNewFile *.mac setfiletype maxima
@@ -27,7 +33,7 @@ syntax on " Syntax Highlighting
 filetype plugin indent on
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/HackerRank/brawl/.ycm_extra_conf.py', '~/Programming/Minotaur/.ycm_extra_conf.py' ]
+let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
 
 set tabstop=2
 set backspace=indent,eol,start
