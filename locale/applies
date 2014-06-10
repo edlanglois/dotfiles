@@ -1,0 +1,1 @@
+locale -a | grep en_CA.utf8 >/dev/null
