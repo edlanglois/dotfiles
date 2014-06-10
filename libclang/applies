@@ -1,5 +1,0 @@
-#!/bin/bash
-if [ -z "${ROOTDIR}" ]; then
-	export ROOTDIR="$HOME/dotfiles";
-fi
-${ROOTDIR}/clang_complete/applies && test -e /usr/lib/libclang.so
