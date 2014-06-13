@@ -95,3 +95,5 @@ autocmd filetype tex set nofoldenable " Also disable code folding - slow on tex
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+
+set background=dark
