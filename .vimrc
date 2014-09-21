@@ -72,7 +72,7 @@ map <C-l> <C-w>l
 " noremap ; :
 
 " Make double semicolon escape
-:inoremap ;; <ESC>
+" :inoremap ;; <ESC>
 
 " Enable spell check on text files
 autocmd BufNewFile,BufRead *.txt,*.tex,*.latex setlocal spell
@@ -98,3 +98,6 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 set background=dark
+
+" Run syntastic check on F5
+nnoremap <slient> <F5> :SyntasticCheck<F5>
