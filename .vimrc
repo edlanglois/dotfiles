@@ -15,6 +15,7 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-repeat'
 
 " End Vundle
 call vundle#end()
