@@ -22,10 +22,10 @@ persistent=yes
 load-plugins=
 
 # DEPRECATED
-include-ids=no
+#include-ids=no
 
 # DEPRECATED
-symbols=no
+#symbols=no
 
 
 [MESSAGES CONTROL]
@@ -44,7 +44,7 @@ symbols=no
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-#disable=
+disable=W0621
 
 
 [REPORTS]
