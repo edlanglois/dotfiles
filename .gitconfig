@@ -6,4 +6,6 @@
 [core]
 	editor = vim
 [alias]
-	tree = log --graph
+	tree = log --graph --oneline --all --decorate --author-date-order
+[push]
+	default = simple
