@@ -38,12 +38,14 @@ filetype plugin indent on
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
 
-set tabstop=2
+set modeline
 set backspace=indent,eol,start
 
 set autoindent
 "set copyindent
+set tabstop=2
 set shiftwidth=2
+set softtabstop=2
 set shiftround
 set textwidth=80 "Auto wrap at 80 char line width
 set showmatch
@@ -60,6 +62,9 @@ set incsearch
 set scrolloff=10
 
 autocmd filetype python set expandtab
+autocmd filetype python set tabstop=4
+autocmd filetype python set shiftwidth=4
+autocmd filetype python set softtabstop=4
 
 " Toggle paste
 set pastetoggle=<F11>
