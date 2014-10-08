@@ -52,9 +52,10 @@ if [ -n "$force_colour_prompt" ]; then
 fi
 
 if [ "$colour_prompt" = yes ]; then
+    # Print username in cyan if last command succeeded and red if it failed.
     export PS1="\`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u:\w> '
 fi
 unset force_colour_prompt
 
@@ -102,5 +103,5 @@ export LD_RUN_PATH=$HOME/lib:/usr/local/lib:/usr/lib
 
 if [ -n "$FORTUNE" ]; then
 	wait $FORTUNE
-	echo "Hello Eric. Welcome to $(hostname)."
 fi
+echo "Hello $(whoami). Welcome to $(hostname)."
