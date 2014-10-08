@@ -7,7 +7,3 @@
 +	email = email@example.com
  [color]
  	ui = true
- [core]
- 	editor = vim
- [alias]
- 	tree = log --graph
