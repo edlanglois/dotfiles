@@ -65,6 +65,7 @@ autocmd filetype python set expandtab
 autocmd filetype python set tabstop=4
 autocmd filetype python set shiftwidth=4
 autocmd filetype python set softtabstop=4
+autocmd filetype python set textwidth=120
 
 " Toggle paste
 set pastetoggle=<F11>
