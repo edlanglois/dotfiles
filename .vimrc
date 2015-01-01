@@ -1,7 +1,8 @@
 " Function Keys
 " -------------
 " F5  - Run Syntastic Check
-" F8  - Generate ctags
+" F6  - Generate ctags
+" F8  - Toggle Tagbar
 " F11 - Paste Mode
 
 " Run :PluginInstall to install or update plugins managed by Vundle
@@ -22,6 +23,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-repeat'
+Bundle 'majutsushi/tagbar'
 
 " End Vundle
 call vundle#end()
@@ -113,4 +115,7 @@ set background=dark
 nnoremap <slient> <F5> :SyntasticCheck<CR>
 
 " Generate CTags
-nnoremap <slient> <F8> :!ctags -R --c++-kinds=+p --fields=+ialS --extra=+q .<CR>
+nnoremap <F6> :!echo 'Generating ctags' && ctags -R --c++-kinds=+p --fields=+ialS --extra=+q .<CR>
+
+" Toggle Tag Bar
+nnoremap <F8> :TagbarToggle<CR>
