@@ -1,3 +1,9 @@
+" Function Keys
+" -------------
+" F5  - Run Syntastic Check
+" F8  - Generate ctags
+" F11 - Paste Mode
+
 " Run :PluginInstall to install or update plugins managed by Vundle
 set nocompatible
 
@@ -37,6 +43,7 @@ filetype plugin indent on
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
+let g:ycm_collect_identifiers_from_tags_files = 1
 
 set modeline
 set backspace=indent,eol,start
@@ -61,6 +68,9 @@ set incsearch
 
 set scrolloff=10
 
+" Search for tags file first in cwd then recursively up to ~/Programming
+set tags=./tags;~/Programming
+
 autocmd filetype python set expandtab
 autocmd filetype python set tabstop=4
 autocmd filetype python set shiftwidth=4
@@ -73,11 +83,6 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-
-" noremap ; :
-
-" Make double semicolon escape
-" :inoremap ;; <ESC>
 
 " Enable spell check on text files
 autocmd BufNewFile,BufRead *.txt,*.tex,*.latex setlocal spell
@@ -105,4 +110,7 @@ let g:ctrlp_cmd = 'CtrlP'
 set background=dark
 
 " Run syntastic check on F5
-nnoremap <slient> <F5> :SyntasticCheck<F5>
+nnoremap <slient> <F5> :SyntasticCheck<CR>
+
+" Generate CTags
+nnoremap <slient> <F8> :!ctags -R --c++-kinds=+p --fields=+ialS --extra=+q .<CR>
