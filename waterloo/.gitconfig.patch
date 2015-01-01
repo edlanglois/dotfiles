@@ -1,5 +1,5 @@
 --- .gitconfig	2014-12-27 20:19:56.391316000 -0500
-+++ .gitconfig-waterloo	2014-12-27 20:34:52.818531000 -0500
++++ .gitconfig-waterloo	2014-12-27 20:43:37.551591000 -0500
 @@ -1,11 +1,9 @@
  [user]
  	name = Eric Langlois
@@ -10,6 +10,7 @@
  [core]
  	editor = vim
  [alias]
- 	tree = log --graph --oneline --all --decorate --author-date-order
+-	tree = log --graph --oneline --all --decorate --author-date-order
 -[push]
 -	default = simple
++	tree = log --graph --oneline --all --decorate
