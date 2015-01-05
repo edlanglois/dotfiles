@@ -131,3 +131,6 @@ nnoremap gB :bprev<CR>
 " Requires installing the powerline fonts:
 " https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
 " let g:airline_powerline_fonts = 1
+
+" Enable buffer display on airline
+let g:airline#extensions#tabline#enabled = 1
