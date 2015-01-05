@@ -141,3 +141,6 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Set the airline theme
 let g:airline_theme = 'wombat'
+
+" Check trailing whitespace with airline (but not mixed tabs/spaces)
+let g:airline#extensions#whitespace#checks = ['trailing']
