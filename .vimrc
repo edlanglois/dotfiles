@@ -130,7 +130,10 @@ nnoremap gB :bprev<CR>
 " Use non-standard symbols for a better-looking airline.
 " Requires installing the powerline fonts:
 " https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
-" let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 
 " Enable buffer display on airline
 let g:airline#extensions#tabline#enabled = 1
+
+" Set the airline theme
+let g:airline_theme = 'wombat'
