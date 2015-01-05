@@ -24,6 +24,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-repeat'
 Bundle 'majutsushi/tagbar'
+Bundle 'bling/vim-airline'
 
 " End Vundle
 call vundle#end()
@@ -69,6 +70,8 @@ set nohlsearch
 set incsearch
 
 set scrolloff=10
+
+set laststatus=2 " Always show status line
 
 " Search for tags file first in cwd then recursively up to ~/Programming
 set tags=./tags;~/Programming
@@ -123,3 +126,8 @@ nnoremap <F8> :TagbarToggle<CR>
 " Buffer navigation with gb and gB
 nnoremap gb :bnext<CR>
 nnoremap gB :bprev<CR>
+
+" Use non-standard symbols for a better-looking airline.
+" Requires installing the powerline fonts:
+" https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
+" let g:airline_powerline_fonts = 1
