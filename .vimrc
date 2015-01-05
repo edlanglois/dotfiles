@@ -25,6 +25,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-repeat'
 Bundle 'majutsushi/tagbar'
 Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-fugitive'
 
 " End Vundle
 call vundle#end()
