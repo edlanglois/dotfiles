@@ -27,6 +27,7 @@ Bundle 'majutsushi/tagbar'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'edkolev/tmuxline.vim'
+Bundle 'vim-scripts/Smart-Tabs'
 
 " End Vundle
 call vundle#end()
@@ -54,7 +55,8 @@ set modeline
 set backspace=indent,eol,start
 
 set autoindent
-"set copyindent
+set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
+
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
