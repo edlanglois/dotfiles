@@ -26,6 +26,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'majutsushi/tagbar'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
+Bundle 'edkolev/tmuxline.vim'
 
 " End Vundle
 call vundle#end()
