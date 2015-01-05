@@ -119,3 +119,7 @@ nnoremap <F6> :!echo 'Generating ctags' && ctags -R --c++-kinds=+p --fields=+ial
 
 " Toggle Tag Bar
 nnoremap <F8> :TagbarToggle<CR>
+
+" Buffer navigation with gb and gB
+nnoremap gb :bnext<CR>
+nnoremap gB :bprev<CR>
