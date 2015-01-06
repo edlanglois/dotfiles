@@ -144,3 +144,13 @@ let g:airline_theme = 'wombat'
 
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
+
+" Automatically strip trailing whitespace on save
+fun! <SID>StripTrailingWhitespace()
+	let l = line(".")
+	let c = col(".")
+	%s/\s\+$//e
+	call cursor(l, c)
+endfun
+
+autocmd Filetype c,cpp,java,php,ruby,python,html,xml autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
