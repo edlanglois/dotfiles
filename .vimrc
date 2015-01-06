@@ -18,15 +18,15 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 " My bundles here:
-Bundle 'christoomey/vim-tmux-navigator'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'scrooloose/syntastic'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-repeat'
-Bundle 'majutsushi/tagbar'
 Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-fugitive'
+Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/Smart-Tabs'
 
 " End Vundle
