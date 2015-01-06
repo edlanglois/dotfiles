@@ -2,6 +2,7 @@
 " -------------
 " F5  - Run Syntastic Check
 " F6  - Generate ctags
+" F7  - Select buffer
 " F8  - Toggle Tagbar
 " F11 - Paste Mode
 
@@ -124,6 +125,9 @@ nnoremap <F5> :SyntasticCheck<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --c++-kinds=+p --fields=+ialS --extra=+q .<CR>
+
+" Show list of buffers and select one by number
+nnoremap <F7> :buffers<CR>:buffer<Space>
 
 " Toggle Tag Bar
 nnoremap <F8> :TagbarToggle<CR>
