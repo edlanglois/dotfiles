@@ -119,7 +119,7 @@ let g:ctrlp_cmd = 'CtrlP'
 set background=dark
 
 " Run syntastic check on F5
-nnoremap <slient> <F5> :SyntasticCheck<CR>
+nnoremap <F5> :SyntasticCheck<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --c++-kinds=+p --fields=+ialS --extra=+q .<CR>
