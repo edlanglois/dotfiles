@@ -1,0 +1,75 @@
+INSTALL_PREFIX=/usr
+
+SOURCE_PREFIX:=$(shell if [ -z "$$SUDO_USER" ]; then echo "$$HOME"; else echo $$(getent passwd "$$SUDO_USER" | cut -d: -f6); fi)
+SOURCE_DIR_NAME=src
+SOURCE_PATH=$(SOURCE_PREFIX)/$(SOURCE_DIR_NAME)
+
+GIT_REPO_NAME=git
+GIT_REPO_ORIGIN_URL=https://github.com/git/$(GIT_REPO_NAME).git
+GIT_REPO_PATH=$(SOURCE_PATH)/$(GIT_REPO_NAME)
+GIT_DOT_GIT_PATH=$(GIT_REPO_PATH)/.git
+
+VIM_REPO_NAME=vim
+VIM_REPO_ORIGIN_URL=https://code.google.com/p/vim
+VIM_REPO_PATH=$(SOURCE_PATH)/$(VIM_REPO_NAME)
+VIM_DOT_HG_PATH=$(VIM_REPO_PATH)/.hg
+
+.PHONY: all git install-git apt-remove-git vim install-vim apt-remove-vim FORCE
+
+all: git vim
+
+install: install-git install-vim
+
+git: 
+	$(MAKE) -C $(GIT_REPO_PATH) prefix=$(INSTALL_PREFIX) all doc info
+
+install-git: 
+	cd $(GIT_REPO_PATH) && \
+		checkinstall --fstrans=no --backup=no --maintainer=email@example.com \
+		             --pkgname=git --provides=git\
+		             make prefix=$(INSTALL_PREFIX) install install-doc install-html install-info
+
+apt-remove-git:
+	apt-get remove git git-man
+
+$(GIT_DOT_GIT_PATH): FORCE | $(GIT_REPO_PATH)
+	git --git-dir $(GIT_DOT_GIT_PATH) fetch origin master:master
+	git --git-dir $(GIT_DOT_GIT_PATH) merge origin/master origin
+	cd $(GIT_REPO_PATH) && git checkout master
+
+$(GIT_REPO_PATH): | $(SOURCE_PATH)
+	git clone $(GIT_REPO_ORIGIN_URL) $(GIT_REPO_PATH)
+
+vim: $(VIM_DOT_HG_PATH) $(VIM_REPO_PATH)/Makefile
+	make -C $(VIM_REPO_PATH)
+
+$(VIM_REPO_PATH)/Makefile: $(VIM_REPO_PATH)/configure FORCE
+	cd $(VIM_REPO_PATH) && \
+		./configure --with-features=huge \
+		            --enable-multibyte \
+		            --enable-rubyinterp \
+		            --enable-pythoninterp \
+		            --enable-perlinterp \
+		            --enable-luainterp \
+		            --enable-cscope \
+		            --prefix=$(INSTALL_PREFIX)
+
+$(VIM_DOT_HG_PATH): FORCE | $(VIM_REPO_PATH)
+	cd $(VIM_REPO_PATH) && hg pull
+	cd $(VIM_REPO_PATH) && hg update
+
+$(VIM_REPO_PATH): | $(SOURCE_PATH)
+	hg clone $(VIM_REPO_ORIGIN_URL) $(VIM_REPO_PATH)
+
+install-vim:
+	cd $(VIM_REPO_PATH) && \
+		checkinstall --fstrans=no --backup=no --maintainer=email@example.com \
+		             --pkgname=vim --provides=vim
+
+apt-remove-vim:
+	apt-get remove vim vim-runtime gvim vim-tiny vim-common vim-gui-common
+
+$(SOURCE_PATH):
+	mkdir -p $(SOURCE_PATH)
+
+FORCE:

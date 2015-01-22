@@ -4,7 +4,7 @@ shopt -s dotglob
 
 prep_dir=prep
 patch_dir=.patch
-dotfiles=(.bash_aliases .bashrc .gitconfig .hgrc .profile .pylintrc .tmuxline.conf .tmux.conf .vimrc)
+dotfiles=(.bash_aliases .bashrc .gitconfig .hgrc .profile .pylintrc .tmuxline.conf .tmux.conf .vimrc Makefile-binaries)
 dotdirs=(.vim)
 patchdirs=($(find * -maxdepth 1 -name applies -exec dirname {} \;))
 export ROOTDIR=$(pwd)
