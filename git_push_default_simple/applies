@@ -1,2 +1,2 @@
 #!/bin/bash
-echo -e git version 2.0"\n"$(git --version) | sort -V --check=quiet
+echo -e git version 1.9.1"\n"$(git --version) | sort -V --check=quiet
