@@ -4,4 +4,4 @@
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-eval $(ssh-agent) >> /dev/null
+eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
