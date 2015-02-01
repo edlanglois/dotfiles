@@ -71,7 +71,6 @@ esac
 # enable color support of ls and also add handy aliases
 if [ "$colour_prompt" = yes -a -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    export GREP_OPTIONS='--color=auto'
 fi
 
 if [ "$TERM" != "dumb" ] && command -v fortune >/dev/null; then
