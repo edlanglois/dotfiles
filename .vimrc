@@ -95,6 +95,11 @@ set scrolloff=10
 
 set laststatus=2 " Always show status line
 
+" Set the highlighted column colour (grey)
+highlight ColorColumn ctermbg=233 guibg=#121212
+" Highlight the 81st column onward
+let &colorcolumn=join(range(81,999),",")
+
 " Search for tags file first in cwd then recursively up to ~/Programming
 set tags=./tags;~/Programming
 
