@@ -118,6 +118,8 @@ map <C-l> <C-w>l
 
 " Enable spell check on text files
 autocmd BufNewFile,BufRead *.txt,*.tex,*.latex setlocal spell
+" But not help files
+autocmd FileType help setlocal nospell
 set spelllang=en_ca
 
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
