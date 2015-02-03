@@ -96,7 +96,6 @@ set scrolloff=10
 
 set laststatus=2 " Always show status line
 
-set background=dark
 colorscheme desert
 
 " Set the highlighted column colour (grey)
@@ -109,6 +108,8 @@ highlight SpellBad ctermbg=052 guibg=#5f0000
 highlight Error ctermbg=052 guibg=#5f0000
 " Syntax/spelling  warning highlight colour (dark gold)
 highlight SpellCap ctermbg=058 guibg=#5f5f00
+" Set the search highlight colour (unsaturated purple)
+highlight IncSearch ctermbg=053 guibg=#5f005f
 
 " Search for tags file first in cwd then recursively up to ~/Programming
 set tags=./tags;~/Programming
