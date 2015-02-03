@@ -96,7 +96,7 @@ set scrolloff=10
 set laststatus=2 " Always show status line
 
 set background=dark
-colorscheme elflord
+colorscheme desert
 
 " Set the highlighted column colour (grey)
 highlight ColorColumn ctermbg=233 guibg=#121212
