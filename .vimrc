@@ -1,6 +1,6 @@
 " Function Keys
 " -------------
-" F5  - Run Syntastic Check
+" F5  - YCM Recompile and Regenerate diagnostics
 " F6  - Generate ctags
 " F7  - Select buffer
 " F8  - Toggle Tagbar
@@ -25,7 +25,7 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
-Bundle 'scrooloose/syntastic'
+" Bundle 'scrooloose/syntastic' " Unnecessary with YouCompleteMe
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
@@ -151,8 +151,8 @@ autocmd filetype tex set nofoldenable " Also disable code folding - slow on tex
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
-" Run syntastic check on F5
-nnoremap <F5> :SyntasticCheck<CR>
+" Refresh YCM diagnostics on F5
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --c++-kinds=+p --fields=+ialS --extra=+q .<CR>
