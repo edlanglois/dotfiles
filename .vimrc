@@ -53,6 +53,8 @@ filetype plugin indent on
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_filetype_blacklist = {'tex' : 1}
 
 set modeline
 set backspace=indent,eol,start
