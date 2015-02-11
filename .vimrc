@@ -143,11 +143,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 set exrc    " Enable per-directory .vimrc files
 set secure 	" Disable unsafe commands in local .vimrc files
 
-" Deal with latex - syntax highlighting makes everything slow
 let g:tex_flavor = "latex" " Load .tex files as latex
-
-autocmd filetype tex set nofoldenable " Also disable code folding - slow on tex
-autocmd filetype tex syntax sync minlines=50
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
