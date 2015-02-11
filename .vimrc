@@ -132,7 +132,7 @@ map <C-l> <C-w>l
 inoremap jk <Esc>
 
 " Enable spell check on text files
-autocmd BufNewFile,BufRead *.txt,*.tex,*.latex setlocal spell
+autocmd BufNewFile,BufRead *.txt setlocal spell
 " But not help files
 autocmd FileType help setlocal nospell
 set spelllang=en_ca
@@ -143,14 +143,11 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 set exrc    " Enable per-directory .vimrc files
 set secure 	" Disable unsafe commands in local .vimrc files
 
+" Deal with latex - syntax highlighting makes everything slow
 let g:tex_flavor = "latex" " Load .tex files as latex
 
-set foldmethod=syntax
-set foldlevelstart=20
-
-" Matching parens is very slow for latex files so disable it.
-autocmd filetype tex :NoMatchParen
 autocmd filetype tex set nofoldenable " Also disable code folding - slow on tex
+autocmd filetype tex syntax sync minlines=50
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
