@@ -147,7 +147,7 @@ set exrc    " Enable per-directory .vimrc files
 set secure 	" Disable unsafe commands in local .vimrc files
 
 let g:tex_flavor = "latex" " Load .tex files as latex
-let g:tex_conceal="abdmg"
+let g:tex_conceal="abdmgtD" " t is custom s, D is double-strike
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
