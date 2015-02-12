@@ -113,6 +113,9 @@ highlight SpellCap ctermbg=058 guibg=#5f5f00
 " Set the search highlight colour (unsaturated purple)
 highlight IncSearch ctermbg=053 guibg=#5f005f
 
+" Set the conceal background colour
+highlight Conceal ctermbg=233 guibg=#121212
+
 " Search for tags file first in cwd then recursively up to ~/Programming
 set tags=./tags;~/Programming
 
@@ -144,6 +147,7 @@ set exrc    " Enable per-directory .vimrc files
 set secure 	" Disable unsafe commands in local .vimrc files
 
 let g:tex_flavor = "latex" " Load .tex files as latex
+let g:tex_conceal="abdmg"
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
