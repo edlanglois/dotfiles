@@ -146,6 +146,14 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 set exrc    " Enable per-directory .vimrc files
 set secure 	" Disable unsafe commands in local .vimrc files
 
+" For vim-latex
+" IMPORTANT: grep will sometimes skip displaying the file name if you
+" search in a singe file. This will confuse Latex-Suite. Set your grep
+" program to always generate a file-name.
+set grepprg=grep\ -nH\ $*
+" Also for vim-latex
+let &runtimepath.=',$VIM/vimfiles'
+
 let g:tex_flavor = "latex" " Load .tex files as latex
 let g:tex_conceal="abdmgtD" " t is custom s, D is double-strike
 
