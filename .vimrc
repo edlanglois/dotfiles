@@ -61,6 +61,10 @@ set backspace=indent,eol,start
 
 set autoindent
 set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
+" Disable indentation while typing
+" Have to put this in autocmd because it's overwritten by the filetype
+" configuration.
+autocmd BufNewFile,BufRead * set indentkeys=
 
 set tabstop=2
 set shiftwidth=2
