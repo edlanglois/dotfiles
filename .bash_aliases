@@ -17,4 +17,4 @@ if [ "$colour_prompt" = yes ]; then
     alias grep='grep --color=auto'
 fi
 
-alias R='R --quit --no-save'
+alias R='R --quiet --no-save'
