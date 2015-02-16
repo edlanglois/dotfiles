@@ -16,3 +16,5 @@ if [ "$colour_prompt" = yes ]; then
     alias vdir='vdir --color=auto'
     alias grep='grep --color=auto'
 fi
+
+alias R='R --quit --no-save'
