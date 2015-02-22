@@ -170,7 +170,7 @@ let g:ctrlp_cmd = 'CtrlP'
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Generate CTags
-nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf .<CR>
+nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
 
 " Show list of buffers and select one by number
 nnoremap <F7> :buffers<CR>:buffer<Space>
