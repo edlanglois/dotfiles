@@ -21,6 +21,7 @@ Bundle 'gmarik/Vundle.vim'
 " My bundles here:
 Bundle 'bbchung/clighter'
 Bundle 'bling/vim-airline'
+Bundle 'chrisbra/Recover.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'kien/ctrlp.vim'
@@ -169,7 +170,7 @@ let g:ctrlp_cmd = 'CtrlP'
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Generate CTags
-nnoremap <F6> :!echo 'Generating ctags' && ctags -R --c++-kinds=+p --fields=+ialS --extra=+q .<CR>
+nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf .<CR>
 
 " Show list of buffers and select one by number
 nnoremap <F7> :buffers<CR>:buffer<Space>
