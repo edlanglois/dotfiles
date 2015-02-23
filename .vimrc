@@ -57,6 +57,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_filetype_blacklist = {'tex' : 1}
 
+let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
+
 set modeline
 set backspace=indent,eol,start
 
