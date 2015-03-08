@@ -133,7 +133,7 @@ autocmd filetype python set softtabstop=4
 
 " Display tabs as ⇥
 set list
-set listchars=tab:⇥\
+set listchars=tab:⇥\ ,
 
 " Toggle paste
 set pastetoggle=<F11>
