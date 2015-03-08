@@ -131,6 +131,10 @@ autocmd filetype python set tabstop=4
 autocmd filetype python set shiftwidth=4
 autocmd filetype python set softtabstop=4
 
+" Display tabs as ⇥
+set list
+set listchars=tab:⇥\
+
 " Toggle paste
 set pastetoggle=<F11>
 " Easy window navigation
