@@ -156,7 +156,7 @@ set spelllang=en_ca
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 set exrc    " Enable per-directory .vimrc files
-set secure 	" Disable unsafe commands in local .vimrc files
+set secure  " Disable unsafe commands in local .vimrc files
 
 " For vim-latex
 " IMPORTANT: grep will sometimes skip displaying the file name if you
