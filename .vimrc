@@ -26,6 +26,7 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
+Bundle 'moll/vim-bbye'
 " Bundle 'scrooloose/syntastic' " Unnecessary with YouCompleteMe
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
