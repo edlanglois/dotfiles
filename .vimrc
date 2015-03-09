@@ -4,6 +4,7 @@
 " F6  - Generate ctags
 " F7  - Select buffer
 " F8  - Toggle Tagbar
+" F10 - Syntax Group under cursor
 " F11 - Paste Mode
 
 " Run :PluginInstall to install or update plugins managed by Vundle
@@ -184,6 +185,11 @@ nnoremap <F7> :buffers<CR>:buffer<Space>
 
 " Toggle Tag Bar
 nnoremap <F8> :TagbarToggle<CR>
+
+" Syntax group under cursor"
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Buffer navigation with gb and gB
 nnoremap gb :bnext<CR>
