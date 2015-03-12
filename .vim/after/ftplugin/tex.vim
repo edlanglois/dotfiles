@@ -3,10 +3,10 @@ syntax sync minlines=50
 
 set conceallevel=2
 
-" left( right) mappints
-call IMAP(';(', '\left(', 'tex')
-call IMAP(';)', '\right)', 'tex')
-call IMAP(';{', '\left\{', 'tex')
-call IMAP(';}', '\right\}', 'tex')
-call IMAP(';[', '\left[', 'tex')
-call IMAP(';]', '\right]', 'tex')
+" Left and Right bracket shortcuts
+:inoremap <buffer> ;( \left(
+:inoremap <buffer> ;) \right)
+:inoremap <buffer> ;{ \left\{
+:inoremap <buffer> ;} \right\}
+:inoremap <buffer> ;[ \left[
+:inoremap <buffer> ;] \right]
