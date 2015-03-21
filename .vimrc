@@ -175,6 +175,14 @@ let g:tex_conceal="abdmgtD" " t is custom s, D is double-strike
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+" Use git or mercurial to generate list of files if possible
+let g:ctrlp_user_command = {
+  \ 'types': {
+    \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+  \ 'fallback': 'find %s -type f'
+  \ }
 
 " Refresh YCM diagnostics on F5
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
