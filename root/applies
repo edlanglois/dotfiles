@@ -1,0 +1,2 @@
+#!/bin/bash
+test $(id -u) -eq 0
