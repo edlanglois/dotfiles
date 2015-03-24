@@ -14,6 +14,9 @@ VIM_REPO_ORIGIN_URL=https://code.google.com/p/vim
 VIM_REPO_PATH=$(SOURCE_PATH)/$(VIM_REPO_NAME)
 VIM_DOT_HG_PATH=$(VIM_REPO_PATH)/.hg
 
+NUM_CORES=$(shell grep -c ^processor /proc/cpuinfo)
+MAKE_THREADS=$(shell expr 2 \* $(NUM_CORES))
+
 .PHONY: all git install-git apt-remove-git vim install-vim apt-remove-vim FORCE
 
 all: git vim
@@ -21,7 +24,7 @@ all: git vim
 install: install-git install-vim
 
 git: 
-	$(MAKE) -C $(GIT_REPO_PATH) prefix=$(INSTALL_PREFIX) all doc info
+	$(MAKE) -C $(GIT_REPO_PATH) -j $(MAKE_THREADS) prefix=$(INSTALL_PREFIX) all doc info
 
 install-git: 
 	cd $(GIT_REPO_PATH) && \
@@ -41,7 +44,8 @@ $(GIT_REPO_PATH): | $(SOURCE_PATH)
 	git clone $(GIT_REPO_ORIGIN_URL) $(GIT_REPO_PATH)
 
 vim: $(VIM_DOT_HG_PATH) $(VIM_REPO_PATH)/Makefile
-	make -C $(VIM_REPO_PATH)
+	make -C $(VIM_REPO_PATH) -j $(MAKE_THREADS)
+	make -C $(VIM_REPO_PATH) install
 
 $(VIM_REPO_PATH)/Makefile: $(VIM_REPO_PATH)/configure FORCE
 	cd $(VIM_REPO_PATH) && \
