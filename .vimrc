@@ -9,6 +9,8 @@
 
 " Run :PluginInstall to install or update plugins managed by Vundle
 set nocompatible
+scriptencoding utf-8
+set encoding=utf-8
 
 " Vundle
 filetype off
