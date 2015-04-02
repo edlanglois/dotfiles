@@ -6,5 +6,3 @@ if [[ -f ~/.profile ]]; then
 elif [[ -f ~/.bashrc ]]; then
 	source ~/.bashrc;
 fi
-
-eval $(keychain --eval --agents ssh -Q --quiet id_rsa)
