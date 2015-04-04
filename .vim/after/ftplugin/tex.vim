@@ -10,3 +10,6 @@ set conceallevel=2
 :inoremap <buffer> ;} \right\}
 :inoremap <buffer> ;[ \left[
 :inoremap <buffer> ;] \right]
+
+" Parenthesis matching is very slow
+:NoMatchParen
