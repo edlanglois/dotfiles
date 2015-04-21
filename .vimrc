@@ -27,6 +27,7 @@ Bundle 'bling/vim-airline'
 Bundle 'chrisbra/Recover.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
+" Bundle 'EdTsft/matchparen'
 Bundle 'kien/ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
@@ -59,7 +60,20 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_filetype_blacklist = {'tex' : 1}
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'qf' : 1,
+      \ 'notes' : 1,
+      \ 'markdown' : 1,
+      \ 'unite' : 1,
+      \ 'text' : 1,
+      \ 'vimwiki' : 1,
+      \ 'pandoc' : 1,
+      \ 'infolog' : 1,
+      \ 'mail' : 1,
+      \ 'tex' : 1,
+      \ 'rnoweb' : 1
+      \}
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
@@ -87,8 +101,8 @@ set formatoptions+=o " Automatically insert the comment leader after hitting 'o'
                      " or 'O' in Normal mode.
 set formatoptions+=q " Allow formatting of comments with "gq"
 set formatoptions+=l " Long lines are not broken in insert mode: When a line was
-										 " longer than 'textwidth' when the insert command started,
-										 " Vim does not automatically format it.
+                     " longer than 'textwidth' when the insert command started,
+                     " Vim does not automatically format it.
 set formatoptions+=1 " Don't break a line after a one-letter word.  It's broken
                      " before it instead (if possible).
 set formatoptions+=j " Where it makes sense, remove a comment leader when
