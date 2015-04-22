@@ -16,34 +16,50 @@ SOURCE_PATH=$(SOURCE_PREFIX)/$(SOURCE_DIR_NAME)
 GIT_REPO_NAME=git
 GIT_REPO_ORIGIN_URL=https://github.com/git/$(GIT_REPO_NAME).git
 GIT_REPO_PATH=$(SOURCE_PATH)/$(GIT_REPO_NAME)
-GIT_DOT_GIT_PATH=$(GIT_REPO_PATH)/.git
 
 VIM_REPO_NAME=vim
 VIM_REPO_ORIGIN_URL=https://code.google.com/p/vim
 VIM_REPO_PATH=$(SOURCE_PATH)/$(VIM_REPO_NAME)
-VIM_DOT_HG_PATH=$(VIM_REPO_PATH)/.hg
+
+LLVM_REPO_ORIGIN_URL=http://llvm.org/svn/llvm-project/llvm/trunk
+LLVM_REPO_PATH=$(SOURCE_PATH)/llvm
+
+CLANG_REPO_ORIGIN_URL=http://llvm.org/svn/llvm-project/cfe/trunk
+CLANG_REPO_PATH=$(LLVM_REPO_PATH)/tools/clang
+
+CLANG_TOOLS_REPO_ORIGIN_URL=http://llvm.org/svn/llvm-project/clang-tools-extra/trunk
+CLANG_TOOLS_REPO_PATH=$(CLANG_REPO_PATH)/tools/extra
+
+LLVM_COMPILER_RT_ORIGIN_URL=http://llvm.org/svn/llvm-project/compiler-rt/trunk
+LLVM_COMPILER_RT_REPO_PATH=$(LLVM_REPO_PATH)/projects/compiler-rt
+
+CLANG_BUILD_PATH=$(SOURCE_PATH)/llvm-build
 
 NUM_CORES=$(shell grep -c ^processor /proc/cpuinfo)
 MAKE_THREADS=$(shell expr 2 \* $(NUM_CORES))
 
-.PHONY: all git install-git apt-remove-git vim install-vim apt-remove-vim FORCE
+.PHONY: all FORCE \
+git install-git apt-remove-git update-git-repo \
+vim install-vim apt-remove-vim update-vim-repo \
+clang install-clang update-clang-repos update-llvm-repo \
+update-clang-tools-repo update-llvm-compiler-rt-repo
 
 all: git vim
 
 install: install-git install-vim
 
 ########### GIT ##########
-git: 
-	$(MAKE) -C $(GIT_REPO_PATH) -j $(MAKE_THREADS) prefix=$(INSTALL_PREFIX) all doc info
+git: update-git-repo
+	$(MAKE) -C $(GIT_REPO_PATH) prefix=$(INSTALL_PREFIX) all doc info
 
-install-git: 
+install-git:
 	cd $(GIT_REPO_PATH) && $(call CHECKINSTALL,git) \
 		make prefix=$(INSTALL_PREFIX) install install-doc install-html install-info
 
 apt-remove-git:
 	apt-get remove git git-man
 
-$(GIT_DOT_GIT_PATH): FORCE | $(GIT_REPO_PATH)
+update-git-repo: FORCE | $(GIT_REPO_PATH)
 	git --git-dir $(GIT_DOT_GIT_PATH) fetch origin master:master
 	git --git-dir $(GIT_DOT_GIT_PATH) merge origin/master origin
 	cd $(GIT_REPO_PATH) && git checkout master
@@ -52,8 +68,8 @@ $(GIT_REPO_PATH): | $(SOURCE_PATH)
 	git clone $(GIT_REPO_ORIGIN_URL) $(GIT_REPO_PATH)
 
 ########### VIM ##########
-vim: $(VIM_DOT_HG_PATH) $(VIM_REPO_PATH)/Makefile
-	make -C $(VIM_REPO_PATH) -j $(MAKE_THREADS)
+vim: update-vim-repo $(VIM_REPO_PATH)/Makefile
+	$(MAKE) -C $(VIM_REPO_PATH)
 
 $(VIM_REPO_PATH)/Makefile: $(VIM_REPO_PATH)/configure FORCE
 	cd $(VIM_REPO_PATH) && \
@@ -66,7 +82,7 @@ $(VIM_REPO_PATH)/Makefile: $(VIM_REPO_PATH)/configure FORCE
 		            --enable-cscope \
 		            --prefix=$(INSTALL_PREFIX)
 
-$(VIM_DOT_HG_PATH): FORCE | $(VIM_REPO_PATH)
+update-vim-repo: FORCE | $(VIM_REPO_PATH)
 	cd $(VIM_REPO_PATH) && hg pull
 	cd $(VIM_REPO_PATH) && hg update
 
@@ -80,6 +96,52 @@ install-vim:
 apt-remove-vim:
 	apt-get remove vim vim-runtime gvim vim-tiny vim-common vim-gui-common
 
+########## LLVM & CLANG ##########
+
+clang: update-clang-repos $(CLANG_BUILD_PATH)/Makefile
+	$(MAKE) -C $(CLANG_BUILD_PATH) ENABLE_OPTIMIZED=1
+
+install-clang:
+	cd $(CLANG_BUILD_PATH) && $(call CHECKINSTALL,clang) \
+		make install
+
+$(CLANG_BUILD_PATH)/Makefile: $(LLVM_REPO_PATH)/configure FORCE | $(CLANG_BUILD_PATH)
+	cd $(CLANG_BUILD_PATH) && CC=clang CXX=clang++ $(LLVM_REPO_PATH)/configure --prefix=$(INSTALL_PREFIX)
+
+$(CLANG_BUILD_PATH):
+	mkdir -p $(CLANG_BUILD_PATH)
+
+update-clang-repos: update-llvm-repo update-clang-repo update-clang-tools-repo update-llvm-compiler-rt-repo
+
+update-llvm-repo: FORCE | $(LLVM_REPO_PATH)
+	cd $(LLVM_REPO_PATH) && svn update
+
+update-clang-repo: FORCE | $(CLANG_REPO_PATH)
+	cd $(CLANG_REPO_PATH) && svn update
+
+update-clang-tools-repo: FORCE | $(CLANG_TOOLS_REPO_PATH)
+	cd $(CLANG_TOOLS_REPO_PATH) && svn update
+
+update-llvm-compiler-rt-repo: FORCE | $(LLVM_COMPILER_RT_REPO_PATH)
+	cd $(LLVM_COMPILER_RT_REPO_PATH) && svn update
+
+$(LLVM_REPO_PATH): | $(SOURCE_PATH)
+	svn co $(LLVM_REPO_ORIGIN_URL) $(LLVM_REPO_PATH)
+
+$(CLANG_REPO_PATH): | $(LLVM_REPO_PATH)
+	svn co $(CLANG_REPO_ORIGIN_URL) $(CLANG_REPO_PATH)
+
+$(CLANG_TOOLS_REPO_PATH): | $(CLANG_REPO_PATH)
+	svn co $(CLANG_TOOLS_REPO_ORIGIN_URL) $(CLANG_TOOLS_REPO_PATH)
+
+$(LLVM_COMPILER_RT_REPO_PATH): | $(LLVM_REPO_PATH)
+	svn co $(LLVM_COMPILER_RT_ORIGIN_URL) $(LLVM_COMPILER_RT_REPO_PATH)
+
+
+LLVM_COMPILER_RT_ORIGIN_URL=http://llvm.org/svn/llvm-project/compiler-rt/trunk
+LLVM_COMPILER_RT_REPO_PATH=$(LLVM_REPO_PATH)/projects/compiler-rt
+
+########### General ##########
 $(SOURCE_PATH):
 	mkdir -p $(SOURCE_PATH)
 
