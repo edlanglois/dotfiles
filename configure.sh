@@ -16,6 +16,7 @@ elif [ -x /bin/cp ] && /bin/cp --help 2>&1 | grep remove-destination &>/dev/null
 	cpbin=/bin/cp
 else
 	echo "Could not find a valid cp command. Need --remove-destination argument."
+	exit 1
 fi
 
 rm -f Makefile
