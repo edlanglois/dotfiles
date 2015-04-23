@@ -11,7 +11,9 @@ alias lld='ls -ld'
 alias vi="vim"
 
 if [ "$colour_prompt" = yes ]; then
-    alias ls='ls --color=auto'
+    if [ "$(uname)" != "Darwin" ]; then
+        alias ls='ls --color=auto'
+    fi
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
     alias grep='grep --color=auto'

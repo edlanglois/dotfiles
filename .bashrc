@@ -97,6 +97,9 @@ fi
 export INPUTRC=$HOME/.inputrc
 export EDITOR=vim
 
+# Colour for ls in BSD/OSX
+export CLICOLOR=1
+
 # Coloured Man Pages
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m' \
