@@ -1,4 +1,6 @@
 #!/bin/bash
+set -e
+# set -u # TODO
 shopt -s nullglob
 shopt -s dotglob
 
@@ -9,15 +11,7 @@ dotdirs=(.vim)
 patchdirs=($(find * -maxdepth 1 -name applies -exec dirname {} \;))
 export ROOTDIR=$(pwd)
 
-# Find a cp binary supporting --remove-destination
-if cp --help 2>&1 | grep remove-destination &>/dev/null; then
-	cpbin=cp
-elif [ -x /bin/cp ] && /bin/cp --help 2>&1 | grep remove-destination &>/dev/null; then
-	cpbin=/bin/cp
-else
-	echo "Could not find a valid cp command. Need --remove-destination argument."
-	exit 1
-fi
+cpbin=cp
 
 rm -f Makefile
 # Write the static parts of the makefile
@@ -37,7 +31,7 @@ DOTDIRS:=${dotdirs[@]}
 all: prepare
 prepare: \$(PREPARED_DOTS)
 install: prepare linkdirs
-	${cpbin} --remove-destination \$(PREPARED_DOTS) \$(HOME)
+	${cpbin} -f \$(PREPARED_DOTS) \$(HOME)
 clean:
 	rm -rf \$(PREP_DIR) \$(PATCH_DIR)
 linkdirs: \$(DOTDIRS)
@@ -86,8 +80,8 @@ for patchdir in "${patchdirs[@]}"; do
 done
 
 for dfile in "${dotfiles[@]}"; do
-	touch "$config_dir/$dfile"
-	d_patches=($(cat "${config_dir}/$dfile"))
+	touch "$config_dir/$dfile.patch"
+	d_patches=($(cat "${config_dir}/$dfile.patch"))
 
 	dpatch="$dfile.patch"
 	echo "\$(PATCH_DIR)/$dpatch: ${d_patches[@]} | \$(PATCH_DIR)" >> Makefile
