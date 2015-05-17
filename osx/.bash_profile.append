@@ -1,0 +1,2 @@
+#Put /usr/local in front of path so Brew binaries used preferentially
+export PATH="/usr/local/bin:$PATH"
