@@ -36,6 +36,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'vim-scripts/fish-syntax'
 Bundle 'vim-scripts/Smart-Tabs'
 
 " End Vundle
