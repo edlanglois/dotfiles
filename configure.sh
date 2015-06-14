@@ -6,7 +6,21 @@ shopt -s dotglob
 
 prep_dir=prep
 patch_dir=.patch
-dotfiles=(.bash_aliases .bash_profile .bashrc .gitconfig .hgrc .profile .pylintrc .tmuxline.conf .tmux.conf .vimrc .Rprofile)
+dotfiles=(\
+	.Rprofile\
+	.bash_aliases\
+	.bash_profile\
+	.bashrc\
+	.config/fish/config.fish\
+	.config/fish/functions/fish_prompt.fish\
+	.gitconfig\
+	.hgrc\
+	.profile\
+	.pylintrc\
+	.tmux.conf\
+	.tmuxline.conf\
+	.vimrc\
+)
 dotdirs=(.vim)
 patchdirs=($(find * -maxdepth 1 -name applies -exec dirname {} \;))
 export ROOTDIR=$(pwd)
@@ -31,7 +45,7 @@ DOTDIRS:=${dotdirs[@]}
 all: prepare
 prepare: \$(PREPARED_DOTS)
 install: prepare linkdirs
-	${cpbin} -f \$(PREPARED_DOTS) \$(HOME)
+	${cpbin} --verbose --recursive prep/. \$(HOME)/testm
 clean:
 	rm -rf \$(PREP_DIR) \$(PATCH_DIR)
 linkdirs: \$(DOTDIRS)
@@ -42,7 +56,7 @@ linkdirs: \$(DOTDIRS)
 \$(PATCH_DIR):
 	mkdir \$(PATCH_DIR)
 \$(PREPARED_DOTS): \$(PREP_DIR)/% : % \$(PATCH_DIR)/%.patch \$(PATCH_DIR)/%.append | \$(PREP_DIR)
-	cp \$< \$(PREP_DIR)
+	cp --parents \$< \$(PREP_DIR)
 	if [ -s \"\$(PATCH_DIR)/\$<.patch\" ]; then \\
 	patch \"\$(PREP_DIR)/\$<\" \"\$(PATCH_DIR)/\$<.patch\"; \\
 	fi
@@ -80,12 +94,13 @@ for patchdir in "${patchdirs[@]}"; do
 done
 
 for dfile in "${dotfiles[@]}"; do
+	mkdir -p $(dirname "$config_dir/$dfile.patch")
 	touch "$config_dir/$dfile.patch"
 	d_patches=($(cat "${config_dir}/$dfile.patch"))
 
 	dpatch="$dfile.patch"
 	echo "\$(PATCH_DIR)/$dpatch: ${d_patches[@]} | \$(PATCH_DIR)" >> Makefile
-	echo "	rm -f \$@ && touch \$@" >> Makefile
+	echo "	rm -f \$@ && mkdir -p \$(dir \$@) && touch \$@" >> Makefile
 	if [ -n "$d_patches" ]; then
 		for d_patch in "${d_patches[@]}"; do
 			echo "	combinediff \"\$(PATCH_DIR)/$dpatch\" \"${d_patch}\" > \"\$(PATCH_DIR)/$dpatch\"" >> Makefile
@@ -97,7 +112,7 @@ for dfile in "${dotfiles[@]}"; do
 
 	dapp="$dfile.append"
 	echo "\$(PATCH_DIR)/$dapp: ${d_appends[@]} | \$(PATCH_DIR)" >> Makefile
-	echo "	rm -f \$@ && touch \$@" >> Makefile
+	echo "	rm -f \$@ && mkdir -p \$(dir \$@) && touch \$@" >> Makefile
 	if [ -n "$d_appends" ]; then
 		for d_app in "${d_appends[@]}"; do
 			echo "	cat \"$d_app\" >> \"\$(PATCH_DIR)/$dapp\"" >> Makefile
