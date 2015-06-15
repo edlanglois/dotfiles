@@ -45,7 +45,7 @@ DOTDIRS:=${dotdirs[@]}
 all: prepare
 prepare: \$(PREPARED_DOTS)
 install: prepare linkdirs
-	${cpbin} --verbose --recursive prep/. \$(HOME)/testm
+	${cpbin} --verbose --recursive prep/. \$(HOME)
 clean:
 	rm -rf \$(PREP_DIR) \$(PATCH_DIR)
 linkdirs: \$(DOTDIRS)
