@@ -6,6 +6,7 @@
 " F8  - Toggle Tagbar
 " F10 - Syntax Group under cursor
 " F11 - Paste Mode
+set shell=/bin/bash " Vim doesn't like fish
 
 " Run :PluginInstall to install or update plugins managed by Vundle
 set nocompatible
