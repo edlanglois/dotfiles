@@ -30,6 +30,7 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 " Bundle 'EdTsft/matchparen'
 Bundle 'kien/ctrlp.vim'
+Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
 " Bundle 'scrooloose/syntastic' " Unnecessary with YouCompleteMe
