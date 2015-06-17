@@ -74,19 +74,23 @@ for patchdir in "${patchdirs[@]}"; do
 	echo -n "${patchdir}... "
 	if "${patchdir}/applies"; then
 		echo "yes"
-		for patchfile in "${patchdir}"/*.patch; do
+		for patchfile in $(find ${patchdir} -type f -name '*.patch'); do
 			if [ -z ${patchfile} ]; then
 				break;
 			fi
-			patchbase="$(basename "$patchfile" | sed 's/\.[^.]*$//')"
-			echo -n "${patchfile} " >> "${config_dir}/${patchbase}"
+			patchbase="${patchfile#${patchdir}/}"
+			patch_config_path="${config_dir}/${patchbase}"
+			mkdir -p "$(dirname ${patch_config_path})"
+			echo -n "${patchfile} " >> "${patch_config_path}"
 		done
-		for appendfile in "${patchdir}"/*.append; do
+		for appendfile in $(find ${patchdir} -type f -name '*.append'); do
 			if [ -z ${appendfile} ]; then
 				break;
 			fi
-			appbase="$(basename "$appendfile" | sed 's/\.[^.]*$//').append"
-			echo -n "${appendfile} " >> "${config_dir}/${appbase}"
+			appendbase="${appendfile#${patchdir}/}"
+			append_config_path="${config_dir}/${appendbase}"
+			mkdir -p "$(dirname ${append_config_path})"
+			echo -n "${appendfile} " >> "${config_dir}/${appendbase}"
 		done
 	else
 		echo "no"
