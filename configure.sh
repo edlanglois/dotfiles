@@ -25,7 +25,11 @@ dotdirs=(.vim)
 patchdirs=($(find * -maxdepth 1 -name applies -exec dirname {} \;))
 export ROOTDIR=$(pwd)
 
-cpbin=cp
+if hash gcp &>/dev/null; then
+	cpbin=gcp
+else
+	cpbin=cp
+fi
 
 rm -f Makefile
 # Write the static parts of the makefile
@@ -56,7 +60,7 @@ linkdirs: \$(DOTDIRS)
 \$(PATCH_DIR):
 	mkdir \$(PATCH_DIR)
 \$(PREPARED_DOTS): \$(PREP_DIR)/% : % \$(PATCH_DIR)/%.patch \$(PATCH_DIR)/%.append | \$(PREP_DIR)
-	cp --parents \$< \$(PREP_DIR)
+	${cpbin} --parents \$< \$(PREP_DIR)
 	if [ -s \"\$(PATCH_DIR)/\$<.patch\" ]; then \\
 	patch \"\$(PREP_DIR)/\$<\" \"\$(PATCH_DIR)/\$<.patch\"; \\
 	fi
