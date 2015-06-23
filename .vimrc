@@ -34,6 +34,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
+Bundle 'rdnetto/YCM-Generator'
 " Bundle 'scrooloose/syntastic' " Unnecessary with YouCompleteMe
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
