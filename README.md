@@ -42,6 +42,13 @@ then navigate to `dotfiles/.vim/bundle/YouCompleteMe` and run
 ```Shell
 ./install.sh --clang-completer
 ```
+Navigate to `dotfiles/.vim/bundle/color_coded` and run
+```Shell
+mkdir build && cd build
+cmake ..
+make && make install
+```
+
 
 ### Powerline Fonts
 Install the [patched powerline fonts](https://github.com/powerline/fonts).

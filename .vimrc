@@ -23,12 +23,13 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 " My bundles here:
-Bundle 'bbchung/clighter'
+" Bundle 'bbchung/clighter'
 Bundle 'bling/vim-airline'
 Bundle 'chrisbra/Recover.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 " Bundle 'EdTsft/matchparen'
+Bundle 'jeaye/color_coded'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
