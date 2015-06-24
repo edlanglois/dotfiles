@@ -226,6 +226,10 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 nnoremap gb :bnext<CR>
 nnoremap gB :bprev<CR>
 
+" Resize panes with ,. instead of <>
+nnoremap <C-W>, <C-W><
+nnoremap <C-W>. <C-W>>
+
 " Use non-standard symbols for a better-looking airline.
 " Requires installing the powerline fonts:
 " https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
