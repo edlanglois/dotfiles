@@ -35,6 +35,7 @@ Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
 Bundle 'rdnetto/YCM-Generator'
+Bundle 'scrooloose/nerdtree'
 " Bundle 'scrooloose/syntastic' " Unnecessary with YouCompleteMe
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
@@ -42,6 +43,7 @@ Bundle 'tpope/vim-unimpaired'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/fish-syntax'
 Bundle 'vim-scripts/Smart-Tabs'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
 
 " End Vundle
 call vundle#end()
