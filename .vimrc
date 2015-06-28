@@ -23,6 +23,7 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 " My bundles here:
+Bundle 'adimit/prolog.vim'
 " Bundle 'bbchung/clighter'
 Bundle 'bling/vim-airline'
 Bundle 'chrisbra/Recover.vim'
