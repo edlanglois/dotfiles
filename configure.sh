@@ -111,7 +111,7 @@ for dfile in "${dotfiles[@]}"; do
 	echo "	rm -f \$@ && mkdir -p \$(dir \$@) && touch \$@" >> Makefile
 	if [ -n "$d_patches" ]; then
 		for d_patch in "${d_patches[@]}"; do
-			echo "	combinediff \"\$(PATCH_DIR)/$dpatch\" \"${d_patch}\" > \"\$(PATCH_DIR)/$dpatch\"" >> Makefile
+			echo "	combinediff-careful \"\$(PATCH_DIR)/$dpatch\" \"${d_patch}\" > \"\$(PATCH_DIR)/$dpatch\"" >> Makefile
 		done
 	fi
 
