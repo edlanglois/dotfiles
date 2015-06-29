@@ -1,0 +1,9 @@
+#!/bin/bash
+set -eu
+DIR=$(cd "$(dirname ${BASH_SOURCE[0]} )" && pwd)
+which fish >/dev/null 2>&1
+echo "--- .tmux.conf
++++ .tmux.conf
+@@ -1,1 +1,2 @@
++set -g default-shell $(which fish)
+ set -g default-terminal \"screen-256color\""  > ${DIR}/.tmux.conf.patch

@@ -4,6 +4,13 @@ set -e
 shopt -s nullglob
 shopt -s dotglob
 
+COLOUR_START='\033['
+COLOUR_END=''
+
+RED="${COLOUR_START}0;31m${COLOUR_END}"
+GREEN="${COLOUR_START}0;32m${COLOUR_END}"
+COLOUR_OFF="${COLOUR_START}0m${COLOUR_END}"
+
 prep_dir=prep
 patch_dir=.patch
 dotfiles=(\
@@ -77,7 +84,7 @@ mkdir -p "${config_dir}"
 for patchdir in "${patchdirs[@]}"; do
 	echo -n "${patchdir}... "
 	if "${patchdir}/applies"; then
-		echo "yes"
+		echo -e "${GREEN}yes${COLOUR_OFF}"
 		for patchfile in $(find ${patchdir} -type f -name '*.patch'); do
 			if [ -z ${patchfile} ]; then
 				break;
@@ -97,7 +104,7 @@ for patchdir in "${patchdirs[@]}"; do
 			echo -n "${appendfile} " >> "${config_dir}/${appendbase}"
 		done
 	else
-		echo "no"
+		echo -e "${RED}no${COLOUR_OFF}"
 	fi
 done
 
@@ -111,7 +118,7 @@ for dfile in "${dotfiles[@]}"; do
 	echo "	rm -f \$@ && mkdir -p \$(dir \$@) && touch \$@" >> Makefile
 	if [ -n "$d_patches" ]; then
 		for d_patch in "${d_patches[@]}"; do
-			echo "	combinediff \"\$(PATCH_DIR)/$dpatch\" \"${d_patch}\" > \"\$(PATCH_DIR)/$dpatch\"" >> Makefile
+			echo "	combinediff-careful \"\$(PATCH_DIR)/$dpatch\" \"${d_patch}\" > \"\$(PATCH_DIR)/$dpatch\"" >> Makefile
 		done
 	fi
 
