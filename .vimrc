@@ -255,6 +255,8 @@ let g:airline#extensions#whitespace#checks = ['trailing']
 let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
 
+let NERDTreeIgnore = ['\.pyc$']
+
 " Automatically strip trailing whitespace on save
 fun! <SID>StripTrailingWhitespace()
 	let l = line(".")
@@ -263,4 +265,4 @@ fun! <SID>StripTrailingWhitespace()
 	call cursor(l, c)
 endfun
 
-autocmd Filetype c,cpp,java,php,ruby,python,html,xml autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
+autocmd Filetype c,cpp,java,php,qml,ruby,python,html,xml autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
