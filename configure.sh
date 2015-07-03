@@ -20,6 +20,7 @@ dotfiles=(\
 	.bashrc\
 	.config/fish/config.fish\
 	.config/fish/functions/fish_prompt.fish\
+	.config/flake8
 	.gitconfig\
 	.hgrc\
 	.profile\

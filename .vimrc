@@ -1,8 +1,9 @@
 " Function Keys
 " -------------
+" F4  - Select buffer
 " F5  - YCM Recompile and Regenerate diagnostics
 " F6  - Generate ctags
-" F7  - Select buffer
+" F7  - Flake8 (PEP8 checking)
 " F8  - Toggle Tagbar
 " F10 - Syntax Group under cursor
 " F11 - Paste Mode
@@ -24,6 +25,7 @@ Bundle 'gmarik/Vundle.vim'
 
 " My bundles here:
 Bundle 'adimit/prolog.vim'
+Bundle 'airblade/vim-gitgutter'
 " Bundle 'bbchung/clighter'
 Bundle 'bling/vim-airline'
 Bundle 'chrisbra/Recover.vim'
@@ -31,11 +33,13 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 " Bundle 'EdTsft/matchparen'
 Bundle 'FiloSpaTeam/vim-qrc'
+Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'jeaye/color_coded'
 Bundle 'kien/ctrlp.vim'
 Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
+Bundle 'nvie/vim-flake8'
 Bundle 'peterhoeg/vim-qml'
 Bundle 'rdnetto/YCM-Generator'
 Bundle 'scrooloose/nerdtree'
@@ -210,14 +214,14 @@ let g:ctrlp_user_command = {
   \ 'fallback': 'find %s -type f'
   \ }
 
+" Show list of buffers and select one by number
+nnoremap <F4> :buffers<CR>:buffer<Space>
+
 " Refresh YCM diagnostics on F5
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
-
-" Show list of buffers and select one by number
-nnoremap <F7> :buffers<CR>:buffer<Space>
 
 " Toggle Tag Bar
 nnoremap <F8> :TagbarToggle<CR>
@@ -249,6 +253,11 @@ let g:airline_theme = 'wombat'
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
 
+let g:flake8_show_in_gutter=1
+let g:flake8_show_in_file=1
+
+let NERDTreeIgnore = ['\.pyc$']
+
 " Automatically strip trailing whitespace on save
 fun! <SID>StripTrailingWhitespace()
 	let l = line(".")
@@ -257,4 +266,4 @@ fun! <SID>StripTrailingWhitespace()
 	call cursor(l, c)
 endfun
 
-autocmd Filetype c,cpp,java,php,ruby,python,html,xml autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
+autocmd Filetype c,cpp,java,php,qml,ruby,python,html,xml autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
