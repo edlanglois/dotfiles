@@ -158,11 +158,6 @@ highlight Conceal ctermbg=233 guibg=#121212
 " Search for tags file first in cwd then recursively up to ~/Programming
 set tags=./tags;~/Programming
 
-autocmd filetype python set expandtab
-autocmd filetype python set tabstop=4
-autocmd filetype python set shiftwidth=4
-autocmd filetype python set softtabstop=4
-
 " Display tabs as ⇥
 set list
 set listchars=tab:⇥\ ,
