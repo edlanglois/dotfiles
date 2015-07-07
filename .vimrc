@@ -34,13 +34,12 @@ Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 " Bundle 'EdTsft/matchparen'
 Bundle 'FiloSpaTeam/vim-qrc'
-Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'jeaye/color_coded'
 Bundle 'kien/ctrlp.vim'
+Bundle 'klen/python-mode'
 Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
-Bundle 'nvie/vim-flake8'
 Bundle 'peterhoeg/vim-qml'
 Bundle 'rdnetto/YCM-Generator'
 Bundle 'scrooloose/nerdtree'
@@ -70,6 +69,9 @@ au BufRead,BufNewFile *.mac setfiletype maxima
 
 syntax on " Syntax Highlighting
 filetype plugin indent on
+
+set foldmethod=indent
+set foldlevel=99
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
@@ -197,6 +199,17 @@ let &runtimepath.=',$VIM/vimfiles'
 
 let g:tex_flavor = "latex" " Load .tex files as latex
 let g:tex_conceal="abdmgtD" " t is custom s, D is double-strike
+
+let g:pymode = 1
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options_max_line_length = 79
+let g:pymode_options_colorcolumn = 1
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:pymode_lint_ignore = "E501,E129"
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
