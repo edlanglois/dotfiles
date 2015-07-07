@@ -209,6 +209,8 @@ let g:pymode_folding = 1
 let g:pymode_lint_ignore = "E501,E129"
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
+let g:pymode_rope_autoimport = 0 " Autoimport can be very slow
+let g:pymode_rope = 0 " Rope can be very slow
 
 
 " CtrlP
