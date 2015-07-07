@@ -1,5 +1,6 @@
 " Function Keys
 " -------------
+" F2  - Toggle NERDTree
 " F4  - Select buffer
 " F5  - YCM Recompile and Regenerate diagnostics
 " F6  - Generate ctags
@@ -208,6 +209,9 @@ let g:ctrlp_user_command = {
     \ },
   \ 'fallback': 'find %s -type f'
   \ }
+
+" Toggle NERDTree
+nnoremap <F2> :NERDTreeToggle<CR>
 
 " Show list of buffers and select one by number
 nnoremap <F4> :buffers<CR>:buffer<Space>
