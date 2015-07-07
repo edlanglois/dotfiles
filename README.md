@@ -35,7 +35,7 @@ same names!_
 ### Vim Set-up
 Vundle is used to manage vim plugins. After initializing all submodules open vim
 and run
-```
+```Shell
 :PluginInstall
 ```
 then navigate to `dotfiles/.vim/bundle/YouCompleteMe` and run
@@ -47,6 +47,12 @@ Navigate to `dotfiles/.vim/bundle/color_coded` and run
 mkdir build && cd build
 cmake ..
 make && make install
+```
+
+## Flake8
+Install flake8 for python linting in VIM (with F7)
+```Shell
+pip install flake8
 ```
 
 
