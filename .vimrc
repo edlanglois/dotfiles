@@ -138,6 +138,9 @@ set scrolloff=10
 
 set laststatus=2 " Always show status line
 
+set foldmethod=indent
+set foldlevel=99
+
 colorscheme desert
 
 " Set the highlighted column colour (grey)
