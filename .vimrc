@@ -267,4 +267,15 @@ fun! <SID>StripTrailingWhitespace()
 	call cursor(l, c)
 endfun
 
-autocmd Filetype c,cpp,java,php,qml,ruby,python,html,xml autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
+autocmd Filetype
+	\ c,
+	\ cpp,
+	\ html,
+	\ java,
+	\ php,
+	\ python,
+	\ qml,
+	\ ruby,
+	\ vim,
+	\ xml
+	\ autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
