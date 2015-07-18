@@ -39,6 +39,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
+Bundle 'ntpeters/vim-better-whitespace'
 Bundle 'nvie/vim-flake8'
 Bundle 'peterhoeg/vim-qml'
 Bundle 'rdnetto/YCM-Generator'
@@ -259,23 +260,14 @@ let g:flake8_show_in_file=1
 
 let NERDTreeIgnore = ['\.pyc$']
 
-" Automatically strip trailing whitespace on save
-fun! <SID>StripTrailingWhitespace()
-	let l = line(".")
-	let c = col(".")
-	%s/\s\+$//e
-	call cursor(l, c)
-endfun
-
 autocmd Filetype
 	\ c,
-	\ cpp,
-	\ html,
-	\ java,
-	\ php,
-	\ python,
-	\ qml,
-	\ ruby,
-	\ vim,
-	\ xml
-	\ autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
+	\cpp,
+	\html,
+	\java,
+	\php,
+	\python,
+	\qml,
+	\ruby,
+	\xml
+	\ autocmd BufWritePre <buffer> StripWhitespace
