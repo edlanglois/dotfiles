@@ -255,7 +255,11 @@ let g:airline#extensions#whitespace#checks = ['trailing']
 let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
 
-let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeIgnore = [
+	\'\.pyc$',
+	\'\.egg-info',
+	\'__pycache__',
+	\]
 
 autocmd Filetype
 	\ c,
