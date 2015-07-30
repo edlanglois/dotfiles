@@ -5,6 +5,10 @@
 	ui = true
 [core]
 	editor = vim
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
 [mergetool]
 	keepBackup = false
 [alias]
