@@ -4,7 +4,7 @@
 " F4  - Select buffer
 " F5  - YCM Recompile and Regenerate diagnostics
 " F6  - Generate ctags
-" F7  - Flake8 (PEP8 checking)
+" F7  - Python lint
 " F8  - Toggle Tagbar
 " F10 - Syntax Group under cursor
 " F11 - Paste Mode
@@ -38,12 +38,12 @@ Bundle 'FiloSpaTeam/vim-qrc'
 Bundle 'hynek/vim-python-pep8-indent'
 Bundle 'jeaye/color_coded'
 Bundle 'kien/ctrlp.vim'
+Bundle 'klen/python-mode'
 Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
 Bundle 'morhetz/gruvbox'
 Bundle 'ntpeters/vim-better-whitespace'
-Bundle 'nvie/vim-flake8'
 Bundle 'peterhoeg/vim-qml'
 Bundle 'rdnetto/YCM-Generator'
 Bundle 'scrooloose/nerdtree'
@@ -215,6 +215,9 @@ nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
 
+" Python Lint
+nnoremap <F7> :PymodeLint<CR>
+
 " Toggle Tag Bar
 nnoremap <F8> :TagbarToggle<CR>
 
@@ -244,9 +247,6 @@ let g:airline_theme = 'wombat'
 
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
-
-let g:flake8_show_in_gutter=1
-let g:flake8_show_in_file=1
 
 let NERDTreeIgnore = [
 	\'\.pyc$',
