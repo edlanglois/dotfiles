@@ -248,6 +248,7 @@ let g:airline_theme = 'wombat'
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
 
+let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
 
 let NERDTreeIgnore = [
 	\'\.pyc$',
