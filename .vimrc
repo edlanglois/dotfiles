@@ -248,7 +248,6 @@ let g:airline_theme = 'wombat'
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
 
-let g:pymode_python = 'python3'
 
 let NERDTreeIgnore = [
 	\'\.pyc$',
