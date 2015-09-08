@@ -2,19 +2,15 @@
 Configuration files along with a system to patch or append to them based on
 arbitrary conditions.
 
-Configuration files and directories are stored at the root level of the repository.
-
-## Patches
-Patches are stored in sub-directories. Each patch directory must contain an
-executable file called `applies` which returns with an exit code of 0 when the
-contents of that directory are to be applied.
-
-A file named `CONFIG_FILE.patch` in a patch directory will be applied as a patch
-to `CONFIG_FILE` while `CONFIG_FILE.append` will be appended. Use the `.append`
-version whenever possible since it is less likely to fail.
-
-Note that patches and appends cannot be applied to the contents of configuration
-directories, only to configuration files.
+## Get the Code
+Clone this directory recursively with
+```Shell
+git clone --recursive <url>
+```
+or if already cloned:
+```Shell
+git submodule update --init --recursive
+```
 
 ## Installation
 ```Shell
@@ -35,6 +31,46 @@ directory.
 to the configuration folders are also created in your home directory.
 _WARNING: This irrecoverably overwrites existing configuration files with the
 same names!_
+
+### Vim Set-up
+Vundle is used to manage vim plugins. After initializing all submodules open vim
+and run
+```Shell
+:PluginInstall
+```
+then navigate to `dotfiles/.vim/bundle/YouCompleteMe` and run
+```Shell
+./install.sh --clang-completer
+```
+Navigate to `dotfiles/.vim/bundle/color_coded` and run
+```Shell
+mkdir build && cd build
+cmake ..
+make && make install
+```
+
+## Flake8
+Install flake8 for python linting in VIM (with F7)
+```Shell
+pip install flake8
+```
+
+
+### Powerline Fonts
+Install the [patched powerline fonts](https://github.com/powerline/fonts).
+
+## Configuration
+### Patches
+Patches are stored in sub-directories. Each patch directory must contain an
+executable file called `applies` which returns with an exit code of 0 when the
+contents of that directory are to be applied.
+
+A file named `CONFIG_FILE.patch` in a patch directory will be applied as a patch
+to `CONFIG_FILE` while `CONFIG_FILE.append` will be appended. Use the `.append`
+version whenever possible since it is less likely to fail.
+
+Note that patches and appends cannot be applied to the contents of configuration
+directories, only to configuration files.
 
 ## Adding new files or directories
 New configuration files and directories should be placed in the root directory

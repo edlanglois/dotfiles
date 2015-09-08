@@ -5,5 +5,13 @@
 	ui = true
 [core]
 	editor = vim
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[mergetool]
+	keepBackup = false
 [alias]
 	tree = log --graph --oneline --all --decorate --author-date-order
+	and-submodules = submodule update --init --recursive
+	showtrackedignored = ls-files -i --exclude-standard

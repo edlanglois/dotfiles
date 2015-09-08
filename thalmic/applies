@@ -1,0 +1,5 @@
+#!/bin/bash
+# Lookup the hostname of the default entry on the routing table.
+# Default entry should be the router, which should have 'thalmic' in its
+# hostname.
+netstat -n -r | grep default | awk '{print $2}' | nslookup 2>/dev/null | grep thalmic >/dev/null

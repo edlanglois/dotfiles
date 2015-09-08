@@ -1,11 +1,14 @@
 " Function Keys
 " -------------
+" F2  - Toggle NERDTree
+" F4  - Select buffer
 " F5  - YCM Recompile and Regenerate diagnostics
 " F6  - Generate ctags
-" F7  - Select buffer
+" F7  - Python lint
 " F8  - Toggle Tagbar
 " F10 - Syntax Group under cursor
 " F11 - Paste Mode
+set shell=/bin/bash " Vim doesn't like fish
 
 " Run :PluginInstall to install or update plugins managed by Vundle
 set nocompatible
@@ -22,21 +25,36 @@ call vundle#begin()
 Bundle 'gmarik/Vundle.vim'
 
 " My bundles here:
-Bundle 'bbchung/clighter'
+Bundle 'adimit/prolog.vim'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'altercation/vim-colors-solarized'
+" Bundle 'bbchung/clighter'
 Bundle 'bling/vim-airline'
 Bundle 'chrisbra/Recover.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Bundle 'edkolev/tmuxline.vim'
 " Bundle 'EdTsft/matchparen'
+Bundle 'FiloSpaTeam/vim-qrc'
+Bundle 'jeaye/color_coded'
 Bundle 'kien/ctrlp.vim'
+Bundle 'klen/python-mode'
+Bundle 'Konfekt/FastFold'
+Bundle 'lyuts/vim-rtags'
 Bundle 'majutsushi/tagbar'
 Bundle 'moll/vim-bbye'
+Bundle 'morhetz/gruvbox'
+Bundle 'ntpeters/vim-better-whitespace'
+Bundle 'peterhoeg/vim-qml'
+Bundle 'rdnetto/YCM-Generator'
+Bundle 'scrooloose/nerdtree'
 " Bundle 'scrooloose/syntastic' " Unnecessary with YouCompleteMe
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'vim-scripts/fish-syntax'
 Bundle 'vim-scripts/Smart-Tabs'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
 
 " End Vundle
 call vundle#end()
@@ -82,10 +100,6 @@ set backspace=indent,eol,start
 
 set autoindent
 set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
-" Disable indentation while typing
-" Have to put this in autocmd because it's overwritten by the filetype
-" configuration.
-autocmd BufNewFile,BufRead * set indentkeys=
 
 set tabstop=2
 set shiftwidth=2
@@ -123,31 +137,20 @@ set scrolloff=10
 
 set laststatus=2 " Always show status line
 
+set foldmethod=indent
+set foldlevel=99
+
+set background=dark
 colorscheme desert
+hi Normal ctermbg=NONE
 
 " Set the highlighted column colour (grey)
 highlight ColorColumn ctermbg=233 guibg=#121212
-" Highlight the 81st column onward
-let &colorcolumn=join(range(81,999),",")
-
-" Set the syntax/spelling error highlight colour (dark red)
-highlight SpellBad ctermbg=052 guibg=#5f0000
-highlight Error ctermbg=052 guibg=#5f0000
-" Syntax/spelling  warning highlight colour (dark gold)
-highlight SpellCap ctermbg=058 guibg=#5f5f00
-" Set the search highlight colour (unsaturated purple)
-highlight IncSearch ctermbg=053 guibg=#5f005f
-
-" Set the conceal background colour
-highlight Conceal ctermbg=233 guibg=#121212
+" Highlight columns after textwidth
+let &colorcolumn=join(range((&textwidth + 1),999),",")
 
 " Search for tags file first in cwd then recursively up to ~/Programming
 set tags=./tags;~/Programming
-
-autocmd filetype python set expandtab
-autocmd filetype python set tabstop=4
-autocmd filetype python set shiftwidth=4
-autocmd filetype python set softtabstop=4
 
 " Display tabs as ⇥
 set list
@@ -200,14 +203,20 @@ let g:ctrlp_user_command = {
   \ 'fallback': 'find %s -type f'
   \ }
 
+" Toggle NERDTree
+nnoremap <F2> :NERDTreeToggle<CR>
+
+" Show list of buffers and select one by number
+nnoremap <F4> :buffers<CR>:buffer<Space>
+
 " Refresh YCM diagnostics on F5
 nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
 
-" Show list of buffers and select one by number
-nnoremap <F7> :buffers<CR>:buffer<Space>
+" Python Lint
+nnoremap <F7> :PymodeLint<CR>
 
 " Toggle Tag Bar
 nnoremap <F8> :TagbarToggle<CR>
@@ -220,6 +229,10 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " Buffer navigation with gb and gB
 nnoremap gb :bnext<CR>
 nnoremap gB :bprev<CR>
+
+" Resize panes with ,. instead of <>
+nnoremap <C-W>, <C-W><
+nnoremap <C-W>. <C-W>>
 
 " Use non-standard symbols for a better-looking airline.
 " Requires installing the powerline fonts:
@@ -235,12 +248,22 @@ let g:airline_theme = 'wombat'
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
 
-" Automatically strip trailing whitespace on save
-fun! <SID>StripTrailingWhitespace()
-	let l = line(".")
-	let c = col(".")
-	%s/\s\+$//e
-	call cursor(l, c)
-endfun
+let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
 
-autocmd Filetype c,cpp,java,php,ruby,python,html,xml autocmd bufWritePre <buffer> :call <SID>StripTrailingWhitespace()
+let NERDTreeIgnore = [
+	\'\.pyc$',
+	\'\.egg-info',
+	\'__pycache__',
+	\]
+
+autocmd Filetype
+	\ c,
+	\cpp,
+	\html,
+	\java,
+	\php,
+	\python,
+	\qml,
+	\ruby,
+	\xml
+	\ autocmd BufWritePre <buffer> StripWhitespace

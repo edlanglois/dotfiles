@@ -1,0 +1,7 @@
+--- .gitconfig	2015-06-30 16:43:01.000000000 -0400
++++ .gitconfig	2015-06-30 16:57:57.000000000 -0400
+@@ -2,3 +2,3 @@
+ 	name = Eric Langlois
+-	email = email@example.com
++	email = email@example.com
+ [color]
