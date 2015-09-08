@@ -3,7 +3,3 @@ if [ -d /u/cs350 ]; then
 	CLASSPATH=:/u/cs350/sys161/bin:/u/cs350/bin
 	export PATH=$PATH:$CLASSPATH
 fi
-
-if [ -e /u/cs241/setup ]; then
-	source /u/cs241/setup
-fi
