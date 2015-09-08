@@ -1,6 +1,6 @@
 --- .gitconfig	2014-12-27 20:19:56.391316000 -0500
 +++ .gitconfig-waterloo	2014-12-27 20:43:37.551591000 -0500
-@@ -1,9 +1,9 @@
+@@ -1,15 +1,15 @@
  [user]
  	name = Eric Langlois
 -	email = email@example.com
@@ -9,6 +9,12 @@
  	ui = true
  [core]
  	editor = vim
+ [diff]
+ 	tool = vimdiff
+ [merge]
+ 	tool = vimdiff
+ [mergetool]
+ 	keepBackup = false
  [alias]
 -	tree = log --graph --oneline --all --decorate --author-date-order
 +	tree = log --graph --oneline --all --decorate
