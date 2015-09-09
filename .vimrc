@@ -68,8 +68,11 @@ call vundle#end()
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" Associate *.mac with maxima filetype "
+" Filetype associations
 au BufRead,BufNewFile *.mac setfiletype maxima
+au BufRead,BufNewFile *.make setfiletype make
+au BufRead,BufNewFile *.prototxt setfiletype yaml
+
 
 syntax on " Syntax Highlighting
 filetype plugin indent on
