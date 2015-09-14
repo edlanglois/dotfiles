@@ -1,0 +1,1 @@
+set --global fish_user_paths $fish_user_paths (gem environment gempath | sed 's/:/\n/' | sed 's#$#/bin#' | xargs ls -d 2>/dev/null)
