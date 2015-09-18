@@ -252,6 +252,7 @@ let g:airline_theme = 'wombat'
 let g:airline#extensions#whitespace#checks = ['trailing']
 
 let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
+let g:pymode_rope_goto_definition_cmd = 'e'
 
 let NERDTreeIgnore = [
 	\'\.pyc$',
