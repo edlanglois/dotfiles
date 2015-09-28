@@ -96,6 +96,13 @@ let g:ycm_filetype_blacklist = {
       \ 'rnoweb' : 1
       \}
 
+if has('python3')
+	" Disable YCM and rtabs when running with Python3 - They require Python2
+	set runtimepath-=~/.vim/bundle/YouCompleteMe
+	set runtimepath-=~/.vim/bundle/vim-rtags
+
+endif
+
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
 set modeline
