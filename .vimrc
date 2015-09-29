@@ -48,6 +48,7 @@ Bundle 'peterhoeg/vim-qml'
 Bundle 'rdnetto/YCM-Generator'
 Bundle 'scrooloose/nerdtree'
 " Bundle 'scrooloose/syntastic' " Unnecessary with YouCompleteMe
+Bundle 'tmux-plugins/vim-tmux-focus-events'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-unimpaired'
