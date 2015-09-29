@@ -96,6 +96,17 @@ let g:ycm_filetype_blacklist = {
       \ 'rnoweb' : 1
       \}
 
+if has('python3')
+	" Disable YCM and rtabs when running with Python3 - They require Python2
+	set runtimepath-=~/.vim/bundle/YouCompleteMe
+	set runtimepath-=~/.vim/bundle/vim-rtags
+	let g:pymode_rope_completion = 1
+else
+	let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
+endif
+let g:pymode_rope_goto_definition_cmd = 'e'
+
+
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
 set modeline
@@ -250,9 +261,6 @@ let g:airline_theme = 'wombat'
 
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
-
-let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
-let g:pymode_rope_goto_definition_cmd = 'e'
 
 let NERDTreeIgnore = [
 	\'\.pyc$',
