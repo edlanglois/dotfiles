@@ -106,6 +106,7 @@ else
 	let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
 endif
 let g:pymode_rope_goto_definition_cmd = 'e'
+let g:pymode_lint_unmodified = 1 " Lint on write even when unmodified
 
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
