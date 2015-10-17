@@ -1,0 +1,8 @@
+#!/bin/bash
+set -eu
+if hash gsort &>/dev/null; then
+	sortcmd=gsort
+else
+	sortcmd=sort
+fi
+echo -e Python 3"\n"$(python --version) | ${sortcmd} -V --check=quiet
