@@ -22,6 +22,7 @@ dotfiles=(\
 	.config/fish/functions/fish_prompt.fish\
 	.config/flake8
 	.gitconfig\
+	.gitignore_global\
 	.hgrc\
 	.profile\
 	.pylintrc\

@@ -5,6 +5,7 @@
 	ui = true
 [core]
 	editor = vim
+	excludesfile = ~/.gitignore_global
 [diff]
 	tool = vimdiff
 [merge]
