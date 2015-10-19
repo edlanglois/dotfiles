@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """Git branching workflow with development and pull-request branches.
 
 Commits to development branches are squashed onto master to become pull-request
