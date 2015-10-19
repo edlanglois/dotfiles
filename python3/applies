@@ -5,4 +5,4 @@ if hash gsort &>/dev/null; then
 else
 	sortcmd=sort
 fi
-echo -e Python 3"\n"$(python --version) | ${sortcmd} -V --check=quiet
+echo -e Python 3"\n"$(python --version 2>&1) | ${sortcmd} -V --check=quiet
