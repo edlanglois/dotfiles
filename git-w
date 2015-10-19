@@ -1,0 +1,350 @@
+#!/usr/bin/python3
+"""Git branching workflow with development and pull-request branches.
+
+Commits to development branches are squashed onto master to become pull-request
+branches then pushed to origin where the PR can be submitted or updated.
+"""
+import argparse
+import os.path
+import shlex
+import subprocess
+import sys
+
+
+class CommandFailure(Exception):
+    pass
+
+
+class GitInterface(object):
+    """Git interface."""
+    def __init__(self, verbose=False):
+        """Initialize Git interface object.
+
+        Args:
+            verbose (bool): If True, prints out commands as they are executed.
+        """
+        self.verbose = verbose
+
+    def _prep_command(self, *arguments):
+        full_arguments = ('git',) + arguments
+        if self.verbose:
+            print('> {args}'.format(
+                args=' '.join(shlex.quote(arg) for arg in full_arguments)))
+        return full_arguments
+
+    def __call__(self, *arguments):
+        """Execute a git command with the given arguments.
+
+        Returns:
+            string: Output of command as a string. (stdout only, not stderr)
+
+        Raises:
+            `CalledProcessError`: If the command exits with a non-zero return
+                code.
+        """
+        full_arguments = self._prep_command(*arguments)
+        return subprocess.check_output(full_arguments).decode()
+
+    def query(self, *arguments, check=False):
+        """Execute a git command and return True if it succeeded.
+
+        WARNING: Side-effects of the command will still occur.
+
+        Args:
+            check (bool): Raise exception if query was not successful.
+
+        Raises:
+            `CalledProcessError`: If `check` is True and the command exits with
+                a non-zero return code.
+
+        Returns:
+            bool: True if the command exited with return code zero.
+        """
+        full_arguments = self._prep_command(*arguments)
+        if check:
+            return subprocess.check_call(full_arguments) == 0
+        else:
+            return subprocess.call(full_arguments) == 0
+
+    def root(self):
+        """Root directory of the current repo."""
+        return self('rev-parse', '--show-toplevel').strip()
+
+    def checkout(self, branch):
+        return self('checkout', branch)
+
+    def new_branch(self, branch):
+        return self('checkout', '-b', branch)
+
+    def commit(self, allow_empty=False, amend=False):
+        args = ['commit']
+        if allow_empty:
+            args.append('--allow-empty')
+        if amend:
+            args.append('--amend')
+        return self.query(*args, check=True)
+
+    def reset_hard(self, target_branch):
+        """Reset the current branch to the target_branch.
+
+        Removes any uncommitted changes.
+        """
+        return self('reset', '--hard', target_branch)
+
+    def squash(self, target_branch, cleanup=False):
+        """Squash changes from target_branch onto the current branch.
+
+        The changes are staged but not committed.
+
+        If a merge conflict occurs and `cleanup` is False, the command fails but
+        the files are left in the staging area.
+
+        Args:
+            cleanup (bool): If True, all file modifications are undone if the
+                command fails.
+
+        Raises:
+            `CalledProcessError`: If the command fails
+                (e.g. due to a merge conflict).
+        """
+        try:
+            return self('merge', '--squash', target_branch)
+        except subprocess.CalledProcessError:
+            if cleanup:
+                self('reset', 'HEAD')
+                self('checkout-index', '-a', '-f')
+            raise
+
+    def get_commit_message(self, commit):
+        return self('log', '--format=%B', '-n', '1', commit)
+
+    def is_ancestor(self, ancestor, descendant):
+        """Check if one git commit is an ancestor of another.
+
+        Returns:
+            bool: True if `ancestor` is an ancestor of `descendant`.
+        """
+        return self.query('merge-base', '--is-ancestor', ancestor, descendant)
+
+    def branch_exists(self, branch):
+        """Check if a branch exists."""
+        return self.query('show-branch', branch)
+
+    def commit_difference_count(self, commit1, commit2):
+        """Number of commits between two commits and their common ancestor.
+
+        Returns:
+            int: Number of commits commit1 is ahead of its common ancestor with
+                commit2.
+            int: Number of commits commit2 is ahead of its common ancestor with
+                commit1.
+        """
+        return (int(num_commits) for num_commits in
+                self('rev-list', '--count', '--left-right',
+                     '{}...{}'.format(commit1, commit2)).split())
+
+    # Note: Find most recent !update-from command
+    # git log dev/<name> --grep '!update-from:' -n 1 --pretty=oneline
+
+
+def development_name(base_name):
+    return 'dev/' + base_name
+
+
+def pull_request_name(base_name):
+    return 'pr/' + base_name
+
+
+def dev(args):
+    """Create a development branch with the prefix dev/.
+
+    Raises:
+        CommandFailure: If any of the git commands fail.
+    """
+    git = GitInterface(verbose=args.verbose)
+    try:
+        git.checkout(args.parent)
+        dev_branch = development_name(args.branch)
+        git.new_branch(dev_branch)
+        if (args.updates):
+            git('commit', '--allow-empty', '--message',
+                '!update-from: {}'.format(args.parent))
+    except subprocess.CalledProcessError:
+        raise CommandFailure()
+
+
+def _prepare_pr_branch(git, pr_branch, parent_branch):
+    """Check out the PR branch at the same commit as the parent branch.
+
+    If the PR branch already exists, it is reset to the parent branch.
+    Its old commit message is returned.
+
+    Returns:
+        Commit message (or None) to be used as the default message for the
+        new commit to the PR branch.
+
+    Raises:
+        CommandFailure: If existing PR branch has >1 commit.
+    """
+    commit_message = None
+    if git.branch_exists(pr_branch):
+        # First check that the pr_branch is no more than 1 commit ahead of
+        # parent. This script won't create a pr_branch consisting of more than
+        # 1 commit so additional commits must have been added by the user and
+        # we don't want to delete them.
+        _, num_commits_pr_is_ahead_of_parent = git.commit_difference_count(
+            parent_branch, pr_branch)
+
+        if num_commits_pr_is_ahead_of_parent > 1:
+            print(('Existing branch {pr} is too far ahead of parent {parent}. '
+                   'Check that nothing extra was committed to {pr}, delete it, '
+                   'and re-run this command.').format(pr=pr_branch,
+                                                      parent=parent_branch))
+            raise CommandFailure()
+
+        # Re-use the existing commit message, if possible.
+        if num_commits_pr_is_ahead_of_parent == 1:
+            commit_message = git.get_commit_message(pr_branch)
+
+        # Reset the pr branch to parent, discarding the old commit.
+        git.checkout(pr_branch)
+        git.reset_hard(parent_branch)
+    else:
+        # Create a new pr branch off of parent.
+        git.checkout(parent_branch)
+        git.new_branch(pr_branch)
+
+    return commit_message
+
+
+def _try_get_commit_message_from_dev_branch(git, dev_branch, parent_branch):
+    """Return a commit message from the dev branch if possible.
+
+    If the dev_branch has exactly 1 non-trivial commit, returns the message from
+    that commit. Otherwise, returns None.
+
+    A non-trivial commit is one that does not contain "!update-from:" at the
+    beginning of a line in the commit message.
+    """
+    dev_base = git('merge-base', parent_branch, dev_branch).strip()
+    non_trivial_dev_commits = git(
+        'log', '{}...{}'.format(dev_base, dev_branch),
+        '--grep', '^!update-from:', '--invert-grep',
+        '--format=%H').splitlines()
+
+    if len(non_trivial_dev_commits) == 1:
+        return git.get_commit_message(non_trivial_dev_commits[0].strip())
+
+    return None
+
+
+def pr(args):
+    """Create a pull request branch from a development branch."""
+    if args.dev is None:
+        args.dev = args.branch
+    git = GitInterface(verbose=args.verbose)
+
+    parent_branch = args.parent
+    dev_branch = development_name(args.dev)
+    pr_branch = pull_request_name(args.branch)
+
+    commit_message = _prepare_pr_branch(git=git,
+                                        pr_branch=pr_branch,
+                                        parent_branch=parent_branch)
+
+    if commit_message is None:
+        commit_message = _try_get_commit_message_from_dev_branch(
+            git=git, dev_branch=dev_branch, parent_branch=parent_branch)
+
+    try:
+        squash_message = git.squash(dev_branch, cleanup=True)
+        if len(squash_message.splitlines()) <= 3:
+            # No changes
+            return
+
+    except subprocess.CalledProcessError:
+        print('Merge conflit. Merge {parent} into {dev} and re-try.'.format(
+            parent=parent_branch, dev=dev_branch))
+        raise CommandFailure()
+
+    if commit_message is not None:
+        # Set a new default commit message
+        msg_filename = os.path.join(git.root(), '.git', 'SQUASH_MSG')
+        with open(msg_filename, 'r') as f:
+            old_message = f.readlines()
+
+        with open(msg_filename, 'w') as f:
+            f.write(commit_message)
+            f.write('\n')
+            for line in old_message:
+                if line[0] == '#':
+                    f.write(line)
+                else:
+                    f.write('# ' + line)
+
+    git.commit(allow_empty=True)
+
+
+def split_docstring(docstring):
+    """Split a docstring into a short description and the rest.
+
+    The short description is the first line.
+    The rest is everything after that.
+    """
+    docstring_lines = docstring.splitlines()
+    return docstring_lines[0], '\n'.join(docstring_lines[1:])
+
+
+def main():
+    module_description, module_epilog = split_docstring(__doc__)
+    parser = argparse.ArgumentParser(
+        description=module_description,
+        epilog=module_epilog)
+    subparsers = parser.add_subparsers(metavar='command')
+    subparsers.required = True
+
+    # Dev Parser
+    dev_description = split_docstring(dev.__doc__)[0]
+    dev_parser = subparsers.add_parser('dev',
+                                       help=dev_description,
+                                       description=dev_description)
+
+    dev_parser.add_argument('parent', default='master', nargs='?', type=str,
+                            help='Parent branch (default: master)')
+    dev_parser.add_argument('branch', type=str,
+                            help='Name of development branch.')
+    dev_parser.add_argument('--no-updates',
+                            dest='updates', action='store_false',
+                            help=('The new branch will not be subscribed to '
+                                  'merge updates made to its parent.'))
+    dev_parser.set_defaults(handler=dev)
+
+    # PR Parser
+    pr_description = split_docstring(pr.__doc__)[0]
+    pr_parser = subparsers.add_parser('pr',
+                                      help=pr_description,
+                                      description=dev_description)
+    pr_parser.add_argument('parent', default='master', nargs='?', type=str,
+                           help='Parent branch (default: master)')
+    pr_parser.add_argument('branch', type=str,
+                           help='Name of pull request branch.')
+    pr_parser.add_argument('-D', '--dev', type=str,
+                           help=('Development branch name '
+                                 '(default same as branch).'))
+    # pr_parser.add_argument('--dev-parent', type=str,
+    #                        help=('Development branch parent commit '
+    #                              '(default same as parent).'))
+    pr_parser.set_defaults(handler=pr)
+
+    parser.add_argument('--silent', '-S',
+                        dest='verbose', action='store_false',
+                        help="Don't print git commands executed.")
+
+    args = parser.parse_args()
+    try:
+        args.handler(args)
+    except CommandFailure:
+        sys.exit(1)
+
+if __name__ == '__main__':
+    main()
