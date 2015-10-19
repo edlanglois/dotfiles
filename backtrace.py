@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Run a program and print the colorized backtrace.
 import argparse
-import locale
 import re
 import subprocess
 import sys
 from termcolor import colored
+
 
 def ColourBacktraceLine(line):
     match = re.search(r'(.*?at\s*)(\S+)(\s*:\s*)(\d+)(.*)', line, flags=re.DOTALL)
@@ -15,6 +15,7 @@ def ColourBacktraceLine(line):
                         colored(lineno, 'yellow'), suffix))
     else:
         return line
+
 
 def PrettyPrintBacktrace(stream):
     return ''.join(map(ColourBacktraceLine, stream))
