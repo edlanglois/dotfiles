@@ -1,1 +1,6 @@
+#!/usr/bin/env bash
 test $(uname) = Darwin
+if hash python 2>/dev/null; then
+	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+	echo "let g:ycm_path_to_python_interpreter = '$(which python)'" > "${DIR}/.vimrc.append"
+fi
