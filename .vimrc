@@ -250,6 +250,9 @@ nnoremap gB :bprev<CR>
 nnoremap <C-W>, <C-W><
 nnoremap <C-W>. <C-W>>
 
+" Saves the current file using sudo
+cmap w!! w ! sudo tee > /dev/null %
+
 " Use non-standard symbols for a better-looking airline.
 " Requires installing the powerline fonts:
 " https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
