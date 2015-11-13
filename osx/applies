@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eu
 test $(uname) = Darwin
 if hash python 2>/dev/null; then
 	DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
