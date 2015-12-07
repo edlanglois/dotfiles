@@ -13,6 +13,15 @@ git submodule update --init --recursive
 ```
 
 ## Installation
+### User Information
+In the `dotfiles` directory, create the file `info.cfg` with the lines
+```
+NAME=<your name>
+EMAIL=<your email>
+```
+see also `info.cfg.example`.
+
+### Configure and Install
 ```Shell
 ./configure.sh
 make
