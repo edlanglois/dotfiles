@@ -109,6 +109,10 @@ for patchdir in "${patchdirs[@]}"; do
 			echo -n "${appendfile} " >> "${config_dir}/${appendbase}"
 		done
 	else
+		if [ "$?" -eq 100 ]; then
+			echo -e "${RED}FATAL CONFIGURATION ERROR${COLOUR_OFF}"
+			exit 1
+		fi
 		echo -e "${RED}no${COLOUR_OFF}"
 	fi
 done

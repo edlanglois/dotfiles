@@ -1,5 +1,5 @@
 [ui]
-username = Eric Langlois <email@example.com>
+username = {{NAME}} <{{EMAIL}}>
 editor = vim
 
 [extensions]

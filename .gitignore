@@ -9,3 +9,5 @@ Makefile
 !.vim/bundle/Vundle.vim
 
 osx/.vimrc.append
+
+info.cfg

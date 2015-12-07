@@ -1,0 +1,68 @@
+#!/bin/bash
+set -eu
+# This script creates patch files that replace {{SOMETHING}} with the value
+# SOMETHING is given in INFO_CONFIG_FILE.
+
+APPLIES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+DOTFILES_DIR=$( dirname "$APPLIES_DIR" )
+
+# Find all instances of {{...}}. These must be defined in INFO_CONFIG_FILE.
+VARIABLE_REGEX='{{[a-zA-Z0-9_]*}}'
+REQUIRED_VARIABLES=( $(\
+	grep -ohI "$VARIABLE_REGEX" "$DOTFILES_DIR"/.* 2>/dev/null | \
+	cut -c 3- | rev | cut -c 3- | rev | sort | uniq) )
+
+INFO_CONFIG_FILE=info.cfg
+
+config_file_message() {
+	echo "ERROR!"
+	echo "Must create $INFO_CONFIG_FILE with the contents:"
+	for required_variable in "${REQUIRED_VARIABLES[@]}"; do
+		echo "${required_variable}=..."
+	done;
+	exit 100
+}
+
+# Ensure the config file exists.
+if [ ! -f "$INFO_CONFIG_FILE" ]; then
+	config_file_message
+fi
+
+# Read the variable assignments in the config file.
+ASSIGNED_VARIABLES=()
+ASSIGNED_VALUES=()
+while IFS='=' read -r name value; do
+	ASSIGNED_VARIABLES+=("$name")
+	ASSIGNED_VALUES+=("$value")
+done < "$INFO_CONFIG_FILE"
+
+# Ensure the config file defines all required variables.
+for required_variable in "${REQUIRED_VARIABLES[@]}"; do
+	if [[ ! " ${ASSIGNED_VARIABLES[*]} " =~ " $required_variable " ]]; then
+		# If required_variable is not an assigned variable.
+		config_file_message
+	fi;
+done;
+
+# Copy affected dotfiles into this directory with the suffix .new
+grep -Il "$VARIABLE_REGEX" "$DOTFILES_DIR"/.* 2>/dev/null | \
+	xargs -I % basename % | \
+	xargs -I % cp "$DOTFILES_DIR/%" "$APPLIES_DIR/%.new"
+
+for f in "${APPLIES_DIR}"/.*.new; do
+	# Replace {{...}} in .new files with its value
+	for (( i=0; i<${#ASSIGNED_VARIABLES[@]}; ++i )); do
+		name="${ASSIGNED_VARIABLES[$i]}"
+		value="${ASSIGNED_VALUES[$i]}"
+		sed -e "s/{{${name}}}/${value}/g" "${f}" > "${f}.2"
+		mv "${f}.2" "${f}"
+	done
+
+	# Create a patch for the new file compared to the original
+	fbase="${f%.new}"
+	diff -u "$DOTFILES_DIR/$(basename ${fbase})" "${f}" > "${fbase}.patch" || \
+		true
+
+	# Delete the .new file
+	rm "${f}"
+done

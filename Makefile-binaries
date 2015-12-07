@@ -5,7 +5,7 @@ INSTALL_PREFIX=$(HOME)
 CHECKINSTALL=
 else
 INSTALL_PREFIX=/usr
-CHECKINSTALL= checkinstall --fstrans=no --backup=no --maintainer=email@example.com --pkgname=$(1) --provides=$(1)
+CHECKINSTALL= checkinstall --fstrans=no --backup=no --maintainer={{EMAIL}} --pkgname=$(1) --provides=$(1)
 endif
 
 

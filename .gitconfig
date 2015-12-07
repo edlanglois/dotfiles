@@ -1,6 +1,6 @@
 [user]
-	name = Eric Langlois
-	email = email@example.com
+	name = {{NAME}}
+	email = {{EMAIL}}
 [color]
 	ui = true
 [core]
