@@ -103,8 +103,7 @@ if has('python3')
 	set runtimepath-=~/.vim/bundle/vim-rtags
 	let g:pymode_rope_completion = 1
 else
-	" Disable Rope completion - competes with YCM
-	let g:pymode_rope_completion = 0
+	let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
 endif
 let g:pymode_rope_goto_definition_cmd = 'e'
 let g:pymode_lint_unmodified = 1 " Lint on write even when unmodified
@@ -116,25 +115,24 @@ set modeline
 set backspace=indent,eol,start
 
 set autoindent
-" Options to cindent (turned on automatically in c files)
-set cinoptions=(0,u0,U0
+set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
 
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set shiftround
-set textwidth=79     " Auto wrap at 80 char line width
+set textwidth=80 " Auto wrap at 80 char line width
 set formatoptions+=t " Auto-wrap text using textwidth
 set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
                      " current comment leader automatically.
 set formatoptions+=r " Automatically insert the current comment leader after
                      " hitting <Enter> in Insert mode.
-set formatoptions+=o " Automatically insert the comment leader after hitting
-                     " 'o' or 'O' in Normal mode.
+set formatoptions+=o " Automatically insert the comment leader after hitting 'o'
+                     " or 'O' in Normal mode.
 set formatoptions+=q " Allow formatting of comments with "gq"
-set formatoptions+=l " Long lines are not broken in insert mode: When a line
-                     " was longer than 'textwidth' when the insert command
-                     " started, Vim does not automatically format it.
+set formatoptions+=l " Long lines are not broken in insert mode: When a line was
+                     " longer than 'textwidth' when the insert command started,
+                     " Vim does not automatically format it.
 set formatoptions+=1 " Don't break a line after a one-letter word.  It's broken
                      " before it instead (if possible).
 set formatoptions+=j " Where it makes sense, remove a comment leader when
