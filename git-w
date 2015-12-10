@@ -331,9 +331,6 @@ def main():
     pr_parser.add_argument('-D', '--dev', type=str,
                            help=('Development branch name '
                                  '(default same as branch).'))
-    # pr_parser.add_argument('--dev-parent', type=str,
-    #                        help=('Development branch parent commit '
-    #                              '(default same as parent).'))
     pr_parser.set_defaults(handler=pr)
 
     parser.add_argument('--silent', '-S',
