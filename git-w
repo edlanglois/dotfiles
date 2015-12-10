@@ -267,6 +267,9 @@ def pr(args):
 
     parent_branch = args.parent
     dev_branch = development_name(args.dev)
+    if not git.branch_exists(dev_branch):
+        raise Exception('No branch named {dev_branch}.'.format(
+            dev_branch=dev_branch))
     pr_branch = pull_request_name(args.branch)
 
     commit_message = _prepare_pr_branch(git=git,
