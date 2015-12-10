@@ -70,6 +70,17 @@ class GitInterface(object):
         """Root directory of the current repo."""
         return self('rev-parse', '--show-toplevel').strip()
 
+    def current_branch(self):
+        """Returns the current branch.
+
+        Raises:
+            LookupError: If not currently on a branch.
+        """
+        try:
+            return self('symbolic-ref', '--short', 'HEAD').strip('\n')
+        except subprocess.CalledProcessError:
+            raise LookupError('Not on a branch.')
+
     def checkout(self, branch):
         return self('checkout', branch)
 
@@ -240,9 +251,19 @@ def _try_get_commit_message_from_dev_branch(git, dev_branch, parent_branch):
 
 def pr(args):
     """Create a pull request branch from a development branch."""
+    git = GitInterface(verbose=args.verbose)
+    if args.branch is None:
+        full_branch_name = git.current_branch()
+        prefix = 'dev/'
+        if full_branch_name[:len(prefix)] != prefix:
+            raise Exception((
+                'Current branch name ({branch_name}) does not begin with '
+                '{prefix}.').format(branch_name=full_branch_name,
+                                    prefix=prefix))
+        args.branch = full_branch_name[len(prefix):]
+
     if args.dev is None:
         args.dev = args.branch
-    git = GitInterface(verbose=args.verbose)
 
     parent_branch = args.parent
     dev_branch = development_name(args.dev)
@@ -309,10 +330,12 @@ def main():
                                        help=dev_description,
                                        description=dev_description)
 
-    dev_parser.add_argument('parent', default='master', nargs='?', type=str,
-                            help='Parent branch (default: master)')
     dev_parser.add_argument('branch', type=str,
                             help='Name of development branch.')
+    dev_parser.add_argument('--on', '-O', default='master', type=str,
+                            dest='parent',
+                            help=('Create the dev branch on top of this '
+                                  'branch. (default: master)'))
     dev_parser.add_argument('--no-updates',
                             dest='updates', action='store_false',
                             help=('The new branch will not be subscribed to '
@@ -321,21 +344,24 @@ def main():
 
     # PR Parser
     pr_description = split_docstring(pr.__doc__)[0]
-    pr_parser = subparsers.add_parser('pr',
-                                      help=pr_description,
+    pr_parser = subparsers.add_parser('pr', help=pr_description,
                                       description=pr_description)
-    pr_parser.add_argument('parent', default='master', nargs='?', type=str,
-                           help='Parent branch (default: master)')
-    pr_parser.add_argument('branch', type=str,
-                           help='Name of pull request branch.')
-    pr_parser.add_argument('-D', '--dev', type=str,
-                           help=('Development branch name '
-                                 '(default same as branch).'))
+
+    pr_parser.add_argument(
+        'branch', type=str, nargs='?',
+        help=('Name of pull request branch. '
+              "(default: current branch name without 'dev/')"))
+    pr_parser.add_argument(
+        '--on', '-O', default='master', type=str, dest='parent',
+        help='Create the pr branch on top of this branch. (default: master)')
+    pr_parser.add_argument(
+        '-D', '--dev', type=str,
+        help='Development branch name (default same as branch).')
     pr_parser.set_defaults(handler=pr)
 
-    parser.add_argument('--silent', '-S',
-                        dest='verbose', action='store_false',
-                        help="Don't print git commands executed.")
+    parser.add_argument(
+        '--silent', '-S', dest='verbose', action='store_false',
+        help="Don't print git commands executed.")
 
     args = parser.parse_args()
     try:
