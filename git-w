@@ -323,7 +323,7 @@ def main():
     pr_description = split_docstring(pr.__doc__)[0]
     pr_parser = subparsers.add_parser('pr',
                                       help=pr_description,
-                                      description=dev_description)
+                                      description=pr_description)
     pr_parser.add_argument('parent', default='master', nargs='?', type=str,
                            help='Parent branch (default: master)')
     pr_parser.add_argument('branch', type=str,
