@@ -1,6 +1,7 @@
+m4_include(user_config.m4)m4_dnl
 [user]
-	name = {{NAME}}
-	email = {{EMAIL}}
+	name = m4_user_config_NAME
+	email = m4_user_config_EMAIL
 [color]
 	ui = true
 [core]

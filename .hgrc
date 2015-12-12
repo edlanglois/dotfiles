@@ -1,6 +1,0 @@
-[ui]
-username = {{NAME}} <{{EMAIL}}>
-editor = vim
-
-[extensions]
-hgext.purge=

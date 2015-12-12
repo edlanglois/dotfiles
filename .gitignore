@@ -10,4 +10,4 @@ Makefile
 
 osx/.vimrc.append
 
-info.cfg
+user.cfg
