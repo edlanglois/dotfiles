@@ -1,12 +1,32 @@
 *.swp
 *.swo
-prep/
-.patch/
 *.pyc
 
 .vim/bundle/*
 !.vim/bundle/Vundle.vim
 
+prep/
+.patch/
+
 osx/.vimrc.append
 
 user.cfg
+
+.Rprofile
+.bash_aliases
+.bash_profile
+.bashrc
+.config/fish/config.fish
+.config/fish/functions/R.fish
+.config/fish/functions/fish_prompt.fish
+.config/flake8
+.gitconfig
+.gitignore_global
+.hgrc
+.profile
+.pylintrc
+.tmux.conf
+.tmuxline.conf
+.vimrc
+Makefile-binaries
+user_config.m4
