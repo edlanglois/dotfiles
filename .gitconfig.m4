@@ -1,4 +1,5 @@
 m4_include(user_config.m4)m4_dnl
+m4_include(env_config.m4)m4_dnl
 [user]
 	name = m4_user_config_NAME
 	email = m4_user_config_EMAIL
@@ -24,3 +25,7 @@ m4_include(user_config.m4)m4_dnl
 	showtrackedignored = ls-files -i --exclude-standard
 	tree = log --graph --oneline --decorate --author-date-order
 	treea = log --graph --oneline --all --decorate --author-date-order
+m4_ifdef(??[[<<m4_env_config_GIT_PUSH_DEFAULT_SIMPLE>>]]??,
+[push]
+	default = simple
+)m4_dnl

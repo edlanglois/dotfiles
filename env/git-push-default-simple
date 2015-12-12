@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+if hash gsort &>/dev/null; then
+	sortcmd=gsort
+else
+	sortcmd=sort
+fi
+if echo -e git version 1.9.1"\n"$(git --version) | ${sortcmd} -V --check=quiet; then
+	echo GIT_PUSH_DEFAULT_SIMPLE=
+fi;

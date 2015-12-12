@@ -30,3 +30,5 @@ user.cfg
 .vimrc
 Makefile-binaries
 user_config.m4
+env_config.m4
+env/*.m4

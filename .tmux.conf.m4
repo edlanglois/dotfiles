@@ -1,3 +1,7 @@
+m4_include(env_config.m4)m4_dnl
+m4_ifdef(??[[<<m4_env_config_DEFAULT_SHELL>>]]??,
+set -g default-shell m4_env_config_DEFAULT_SHELL
+)m4_dnl
 set -g default-terminal "xterm-256color"
 
 #Set Ctrl-a as the default prefix
