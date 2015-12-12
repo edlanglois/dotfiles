@@ -21,6 +21,7 @@ DOTFILES=\
 ENV_CONFIG_FILES=$(addprefix env/,\
 	default-shell\
 	git-push-default-simple\
+	keychain\
 )
 
 M4_CONFIG_GEN_FILES=$(DOTFILES) Makefile-binaries
@@ -59,4 +60,4 @@ clean:
 	rm -f user_config.m4 env_config.m4
 	rm -f Makefile-binaries
 	rm -f $(DOTFILES)
-	rm -r $(ENV_CONFIG_M4_FILES)
+	rm -f $(ENV_CONFIG_M4_FILES)

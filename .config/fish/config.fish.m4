@@ -1,3 +1,5 @@
+m4_include(user_config.m4)m4_dnl
+m4_include(env_config.m4)m4_dnl
 set -g fish_color_cwd yellow
 
 # Coloured man pages
@@ -11,3 +13,7 @@ set -x LESS_TERMCAP_us (printf "\e[04;38;5;146m")
 
 # Add user's bin to path
 set --global fish_user_paths $fish_user_paths $HOME/bin
+
+m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
+keychain --eval --agents ssh -Q --quiet m4_user_config_PRIVATE_KEYS | source
+)m4_dnl

@@ -1,1 +1,0 @@
-keychain --eval --agents ssh -Q --quiet id_rsa | sed 's/^\([^ =]*\)=/set -g -x \1 /' | sed 's/; export.*$//' | source
