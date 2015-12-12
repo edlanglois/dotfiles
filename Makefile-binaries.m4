@@ -1,3 +1,4 @@
+m4_include(user_config.m4)m4_dnl
 ROOT=1 # Set to 0 to install to $HOME
 
 ifeq ($(ROOT),0)
@@ -5,7 +6,7 @@ INSTALL_PREFIX=$(HOME)
 CHECKINSTALL=
 else
 INSTALL_PREFIX=/usr
-CHECKINSTALL= checkinstall --fstrans=no --backup=no --maintainer={{EMAIL}} --pkgname=$(1) --provides=$(1)
+CHECKINSTALL= checkinstall --fstrans=no --backup=no --maintainer=m4_user_config_EMAIL --pkgname=$(1) --provides=$(1)
 endif
 
 
