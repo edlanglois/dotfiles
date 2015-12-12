@@ -2,7 +2,6 @@
 *.swo
 prep/
 .patch/
-Makefile
 *.pyc
 
 .vim/bundle/*
