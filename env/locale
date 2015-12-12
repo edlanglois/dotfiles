@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+if locale -a | grep en_CA.utf8 >/dev/null; then
+	echo LOCALE=en_CA.utf8
+fi

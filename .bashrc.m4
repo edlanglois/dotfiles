@@ -1,9 +1,15 @@
+m4_include(user_config.m4)m4_dnl
+m4_include(env_config.m4)m4_dnl
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
+
+m4_ifdef(??[[<<m4_env_config_LOCALE>>]]??,
+export LC_ALL="m4_env_config_LOCALE"
+)m4_dnl
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
