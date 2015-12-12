@@ -109,6 +109,10 @@ endif
 let g:pymode_rope_goto_definition_cmd = 'e'
 let g:pymode_lint_unmodified = 1 " Lint on write even when unmodified
 
+m4_ifdef(??[[<<m4_env_config_USING_PYTHON3>>]]??,
+" Run lint checks against Python3 code (by using python3 interpreter)
+let g:pymode_lint_external_python = "m4_env_config_PYTHON"
+)m4_dnl
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
@@ -285,6 +289,3 @@ autocmd Filetype
 	\ruby,
 	\xml
 	\ autocmd BufWritePre <buffer> StripWhitespace
-m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,
-let g:ycm_path_to_python_interpreter = 'm4_env_config_PYTHON'
-)m4_dnl

@@ -1,2 +1,0 @@
-" Run lint checks against Python3 code (by using python3 interpreter)
-let g:pymode_lint_external_python = "/usr/bin/python3"
