@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -eu
+
+if hash python 2>/dev/null; then
+	echo PYTHON=$(which python)
+fi;

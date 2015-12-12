@@ -1,3 +1,4 @@
+m4_include(env_config.m4)
 " Function Keys
 " -------------
 " F2  - Toggle NERDTree
@@ -284,3 +285,6 @@ autocmd Filetype
 	\ruby,
 	\xml
 	\ autocmd BufWritePre <buffer> StripWhitespace
+m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,
+let g:ycm_path_to_python_interpreter = 'm4_env_config_PYTHON'
+)m4_dnl

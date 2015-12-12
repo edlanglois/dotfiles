@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eu
+if [ ! "$(uname)" == "Darwin" ]; then
+	exit 0
+fi
+
+echo BREW_BIN_PATH=/usr/local/bin

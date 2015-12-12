@@ -23,6 +23,8 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	git-push-default-simple\
 	keychain\
 	locale\
+	osx\
+	python\
 )
 
 M4_CONFIG_GEN_FILES=$(DOTFILES) Makefile-binaries
