@@ -25,6 +25,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	locale\
 	osx\
 	python\
+	ruby\
 )
 
 M4_CONFIG_GEN_FILES=$(DOTFILES) Makefile-binaries

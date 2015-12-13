@@ -17,3 +17,7 @@ set --global fish_user_paths $fish_user_paths $HOME/bin
 m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 keychain --eval --agents ssh -Q --quiet m4_user_config_PRIVATE_KEYS | source
 )m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
+set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH" | sed 's/:/\n/g')
+)
