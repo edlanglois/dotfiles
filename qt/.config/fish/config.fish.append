@@ -1,1 +1,0 @@
-set --global fish_user_paths $fish_user_paths (dirname (locate qmake | grep bin/qmake\$ | head -n 1))

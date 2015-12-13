@@ -1,3 +1,0 @@
-if [ -d "$(dirname $(locate qmake | grep bin/qmake$ | head -n 1))" ]; then
-	PATH="${PATH}:$(dirname $(locate qmake | grep bin/qmake$ | head -n 1))"
-fi
