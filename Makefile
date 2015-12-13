@@ -26,6 +26,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	osx\
 	python\
 	ruby\
+	virtualfish\
 )
 
 M4_CONFIG_GEN_FILES=$(DOTFILES) Makefile-binaries

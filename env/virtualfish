@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+if pip show virtualfish >/dev/null; then
+	echo VIRTUALFISH=
+fi

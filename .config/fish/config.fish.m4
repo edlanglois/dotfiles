@@ -21,3 +21,7 @@ keychain --eval --agents ssh -Q --quiet m4_user_config_PRIVATE_KEYS | source
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
 set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH" | sed 's/:/\n/g')
 )
+
+m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
+eval (python -m virtualfish auto_activation)
+)
