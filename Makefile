@@ -28,6 +28,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	locale\
 	osx\
 	python\
+	root\
 	ruby\
 	virtualfish\
 )
