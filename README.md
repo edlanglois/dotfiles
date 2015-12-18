@@ -2,6 +2,7 @@
 Configuration files along with a system to patch or append to them based on
 arbitrary conditions.
 
+
 ## Get the Code
 Clone this directory recursively with
 ```Shell
@@ -12,34 +13,22 @@ or if already cloned:
 git submodule update --init --recursive
 ```
 
+
 ## Installation
 ### User Information
-In the `dotfiles` directory, create the file `info.cfg` with the lines
+In the `dotfiles` directory, create the file `user.cfg` with the lines
 ```
 NAME=<your name>
-EMAIL=<your email>
+EMAIL=<your email address>
+PRIVATE_KEYS=<list of private key files relative to $HOME/.ssh/>
 ```
-see also `info.cfg.example`.
+see `user.cfg.example` for an example.
 
-### Configure and Install
+### Build and Install
 ```Shell
-./configure.sh
 make
 make install
 ```
-
-`./configure.sh` checks `applies` in each sub-directory and creates a Makefile
-that will apply the appropriate modifications. `configure.sh` must be re-run
-whenever you want to re-evaluate existing `applies` or add new patch
-directories.
-
-`make` creates patched versions of the configuration files in the `prep/`
-directory.
-
-`make install` places the configuration files in your home directory. Soft links
-to the configuration folders are also created in your home directory.
-_WARNING: This irrecoverably overwrites existing configuration files with the
-same names!_
 
 ### Vim Set-up
 Vundle is used to manage vim plugins. After initializing all submodules open vim
@@ -58,37 +47,46 @@ cmake ..
 make && make install
 ```
 
+
 ## Flake8
 Install flake8 for python linting in VIM (with F7)
 ```Shell
 pip install flake8
 ```
 
-
 ### Powerline Fonts
 Install the [patched powerline fonts](https://github.com/powerline/fonts).
 
-## Configuration
-### Patches
-Patches are stored in sub-directories. Each patch directory must contain an
-executable file called `applies` which returns with an exit code of 0 when the
-contents of that directory are to be applied.
 
-A file named `CONFIG_FILE.patch` in a patch directory will be applied as a patch
-to `CONFIG_FILE` while `CONFIG_FILE.append` will be appended. Use the `.append`
-version whenever possible since it is less likely to fail.
+## Making Changes
+The dotfiles are built for a specific user and system using the
+[m4 preprocessor](https://www.gnu.org/software/m4/m4.html). The source for each
+dotfile is a `.m4` file. User configuration variables are specified in
+`user.cfg` and written to `user_config.m4`. Environment configuration variables
+are emitted by shell scripts (in `env/`) and saved to `env_config.m4`.
 
-Note that patches and appends cannot be applied to the contents of configuration
-directories, only to configuration files.
+### New File
+To create a new dotfile named `NAME`, create the file `NAME.m4` in the same
+location relative to `dotfiles/` that the installed file is to be relative to
+`$HOME/`. Add `NAME` to the `DOTFILES` variable in `Makefile`.
 
-## Adding new files or directories
-New configuration files and directories should be placed in the root directory
-of the repository. `configure.sh` must be modified whenever configuration files
-or directories are added or removed. Configuration file names must be added to
-the variable `dotfiles` in `configure.sh` while directories must be added to
-`dotdirs`.
+The contents of the file will be processed using m4. The file contents will be
+passed through unchanged unless m4 macros are present. m4 macros may be used for
+configuration, and must be prefixed with `m4_`.
 
-A new patch directory is created by placing an executable file named `applies`
-within a new directory. `configure.sh` must be re-run after creating or removing
-patch directories.
+Use `m4_include(user_config.m4)` and `m4_include(env_config.m4)` to import user
+and environment configuration variables, respectively.
 
+### New Directory
+To create a new directory, create it in `dotfiles/` and add its name to the
+`DOTDIRS` variable in `Makefile`. A symbolic link will be created from within
+`$HOME` to this directory. 
+
+### New Environment Configuration
+Create an executable script in the `env/` directory that outputs lines of the
+form `NAME=VALUE`. If no value is necessary, the script can output `NAME=` but
+the `=` is always required. The set of variables emitted is permitted to vary.
+Add the script to the `ENV_CONFIG_FILES` variable in `Makefile`.
+
+The emitted variables will be saved to `env_config.m4` under the name
+`m4_env_config_NAME`, where `NAME` is the name emitted by the script.
