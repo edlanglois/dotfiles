@@ -18,6 +18,9 @@ DOTFILES=\
 	.tmuxline.conf\
 	.vimrc\
 
+DOTDIRS=\
+	.vim
+
 ENV_CONFIG_FILES=$(addprefix env/,\
 	default-shell\
 	git-push-default-simple\
@@ -28,6 +31,11 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	ruby\
 	virtualfish\
 )
+
+DOTFILES_DIR=$(shell pwd)
+INSTALL_DIR=$(HOME)
+INSTALLED_DOTFILES=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
+INSTALLED_DOTDIRS=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
 
 M4_CONFIG_GEN_FILES=$(DOTFILES) Makefile-binaries
 ENV_CONFIG_M4_FILES=$(addsuffix .m4,$(ENV_CONFIG_FILES))
@@ -40,7 +48,7 @@ QUOTE_END=>>]]??
 
 .PHONY: build
 
-build: $(DOTFILES) Makefile-binaries env_config.m4
+build: $(DOTFILES) Makefile-binaries
 
 define M4_CONFIG_GEN_TEMPLATE
 $1 : % : %.m4 user_config.m4 env_config.m4
@@ -60,6 +68,24 @@ env/%.m4: env/%
 
 env_config.m4: $(ENV_CONFIG_M4_FILES)
 	cat $^ > $@
+
+install: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
+
+define INSTALL_DOTFILE_TEMPLATE
+$1 : $(INSTALL_DIR)/% : %
+	@cp --verbose "$$<" "$$@"
+endef
+
+$(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \
+	$(eval $(call INSTALL_DOTFILE_TEMPLATE, $(INSTALLED_DOTFILE))))
+
+define INSTALL_DOTDIR_TEMPLATE
+$1 : $(INSTALL_DIR)/% : | %
+	ln -s "$(DOTFILES_DIR)/$$|" "$$@"
+endef
+
+$(foreach INSTALLED_DOTDIR, $(INSTALLED_DOTDIRS), \
+	$(eval $(call INSTALL_DOTDIR_TEMPLATE, $(INSTALLED_DOTDIR))))
 
 clean:
 	rm -f user_config.m4 env_config.m4
