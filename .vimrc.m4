@@ -144,8 +144,6 @@ set formatoptions+=j " Where it makes sense, remove a comment leader when
                      " joining lines.
 
 set showmatch
-set ignorecase
-set smartcase " Ignore case when search is all lowercase
 
 set number " Line Numbers
 set hidden " When opening new files, keep old one in a buffer
