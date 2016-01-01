@@ -125,7 +125,7 @@ set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set shiftround
+set noshiftround
 set textwidth=80 " Auto wrap at 80 char line width
 set formatoptions+=t " Auto-wrap text using textwidth
 set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
