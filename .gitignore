@@ -5,11 +5,6 @@
 .vim/bundle/*
 !.vim/bundle/Vundle.vim
 
-prep/
-.patch/
-
-osx/.vimrc.append
-
 user.cfg
 
 .Rprofile
@@ -28,6 +23,7 @@ user.cfg
 .tmux.conf
 .tmuxline.conf
 .vimrc
+
 Makefile-binaries
 user_config.m4
 env_config.m4
