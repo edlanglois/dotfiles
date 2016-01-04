@@ -74,7 +74,7 @@ install: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : %
-	@cp --verbose "$$<" "$$@"
+	@cp -v "$$<" "$$@"
 endef
 
 $(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \
