@@ -14,14 +14,17 @@ set -x LESS_TERMCAP_us (printf "\e[04;38;5;146m")
 # Add user's bin to path
 set --global fish_user_paths $fish_user_paths $HOME/bin
 
-m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
-keychain --eval --agents ssh -Q --quiet m4_user_config_PRIVATE_KEYS | source
-)m4_dnl
-
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
+# Add ruby gem bin directory to path
 set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH" | sed 's/:/\n/g')
 )
 
+m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
+# Add private keys to the keychain
+keychain --eval --agents ssh -Q --quiet m4_user_config_PRIVATE_KEYS | source
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
+# Enable virtualfish auto-activation.
 eval (python -m virtualfish auto_activation)
 )
