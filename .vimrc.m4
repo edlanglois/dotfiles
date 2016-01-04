@@ -70,6 +70,18 @@ call vundle#end()
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+"" Custom Commands
+" CommandCabbr enables arbitrary command abbreviations (including lower case)
+function! CommandCabbr(abbreviation, expansion)
+	execute 'cabbr ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
+endfunction
+command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
+
+" Reset the location list to default size (close it then re-open it)
+command! Lresize lclose|lopen
+CommandCabbr lresize Lresize
+CommandCabbr lrs Lresize
+
 " Filetype associations
 au BufRead,BufNewFile *.mac setfiletype maxima
 au BufRead,BufNewFile *.make setfiletype make
