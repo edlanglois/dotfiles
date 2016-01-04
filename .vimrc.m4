@@ -29,6 +29,7 @@ Bundle 'gmarik/Vundle.vim'
 Bundle 'adimit/prolog.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'bkad/CamelCaseMotion'
 Bundle 'bling/vim-airline'
 Bundle 'chrisbra/Recover.vim'
 Bundle 'christoomey/vim-tmux-navigator'
@@ -84,9 +85,10 @@ au BufRead,BufNewFile *.mac setfiletype maxima
 au BufRead,BufNewFile *.make setfiletype make
 au BufRead,BufNewFile *.prototxt setfiletype yaml
 
-
 syntax on " Syntax Highlighting
 filetype plugin indent on
+
+call camelcasemotion#CreateMotionMappings('<leader>')
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
