@@ -205,6 +205,9 @@ autocmd BufNewFile,BufRead *.txt setlocal spell
 autocmd FileType help setlocal nospell
 set spelllang=en_ca
 
+" Open spelling suggestions with <leader>s
+:nnoremap \s ea<C-X><C-S>
+
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
