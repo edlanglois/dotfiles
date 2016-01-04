@@ -1,5 +1,5 @@
 #!/bin/bash
 set -eu
 if hash gem 2>/dev/null; then
-	echo GEM_BIN_PATH=$(gem environment gempath | sed 's/:/\n/g' | sed 's#$#/bin#' | xargs ls -d 2>/dev/null | paste -sd':' -)
+	echo GEM_BIN_PATH=$(gem environment gempath | tr ':' '\n' | sed 's#$#/bin#' | xargs ls -d 2>/dev/null | paste -sd':' -)
 fi
