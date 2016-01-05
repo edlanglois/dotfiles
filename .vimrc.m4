@@ -120,6 +120,8 @@ else
 endif
 let g:pymode_rope_goto_definition_cmd = 'e'
 let g:pymode_lint_unmodified = 1 " Lint on write even when unmodified
+" Disable pymode's indentation. Using own in after/indent/python.vim
+let g:pymode_indent = 0
 
 m4_ifdef(??[[<<m4_env_config_USING_PYTHON3>>]]??,
 " Run lint checks against Python3 code (by using python3 interpreter)
@@ -133,12 +135,13 @@ set backspace=indent,eol,start
 
 set autoindent
 set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
+set indentkeys="" " Don't indent lines with stuff on them! That's the worst.
 
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set noshiftround
-set textwidth=80 " Auto wrap at 80 char line width
+set textwidth=80     " Auto wrap at 80 char line width
 set formatoptions+=t " Auto-wrap text using textwidth
 set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
                      " current comment leader automatically.
