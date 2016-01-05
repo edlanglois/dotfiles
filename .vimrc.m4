@@ -291,6 +291,12 @@ let g:airline_theme = 'wombat'
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
 
+" Smart-Tabs backspace deletes the last character along with trailing
+" whitespace. Don't want this behaviour so turn off remapping <Tab> and <BS>
+" TODO: Would be better to edit the plugin to remove the delete-last-char
+" behavour. See .vim/bundle/Smart-Tabs/plugin/ctab.vim
+let g:ctab_disable_tab_maps = 1
+
 let NERDTreeIgnore = [
 	\'\.pyc$',
 	\'\.egg-info',
