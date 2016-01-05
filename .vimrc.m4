@@ -135,7 +135,6 @@ set backspace=indent,eol,start
 
 set autoindent
 set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
-set indentkeys="" " Don't indent lines with stuff on them! That's the worst.
 
 set tabstop=2
 set shiftwidth=2
