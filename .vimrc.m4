@@ -164,7 +164,7 @@ set number " Line Numbers
 set hidden " When opening new files, keep old one in a buffer
 set ruler " Column Numbers
 
-set nohlsearch
+set hlsearch
 set incsearch
 
 set scrolloff=10
@@ -209,7 +209,10 @@ autocmd FileType help setlocal nospell
 set spelllang=en_ca
 
 " Open spelling suggestions with <leader>s
-:nnoremap \s ea<C-X><C-S>
+:nnoremap <leader>s ea<C-X><C-S>
+
+" Clear current search highlight
+:nnoremap <leader>h :nohlsearch<CR>
 
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
