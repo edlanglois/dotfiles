@@ -194,10 +194,10 @@ hi SpecialKey ctermfg=8
 " Toggle paste
 set pastetoggle=<F11>
 " Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 inoremap jk <Esc>
 
@@ -261,7 +261,7 @@ nnoremap <F7> :PymodeLint<CR>
 nnoremap <F8> :TagbarToggle<CR>
 
 " Syntax group under cursor"
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
@@ -274,7 +274,7 @@ nnoremap <C-W>, <C-W><
 nnoremap <C-W>. <C-W>>
 
 " Saves the current file using sudo
-cmap w!! w ! sudo tee > /dev/null %
+cnoremap w!! w ! sudo tee > /dev/null %
 
 " Use non-standard symbols for a better-looking airline.
 " Requires installing the powerline fonts:
