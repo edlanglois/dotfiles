@@ -55,7 +55,6 @@ Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-scripts/fish-syntax'
-Bundle 'vim-scripts/Smart-Tabs'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
 
 " End Vundle
