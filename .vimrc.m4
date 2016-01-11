@@ -312,6 +312,7 @@ let g:tmuxline_preset = {
 	\'cwin' : ['#I', '#W'],
 	\'y'    : ['%Y-%m-%d', '%I:%M %p'],
 	\'z'    : '#h',
+	\'options' : {'status-justify' : 'left'},
 \}
 
 let NERDTreeIgnore = [
