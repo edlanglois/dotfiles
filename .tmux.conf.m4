@@ -92,3 +92,7 @@ setw -g window-status-format '#I#F#W'
 
 # Use tmuxline status bar if available
 if-shell "test -f .tmuxline.conf" "source .tmuxline.conf"
+
+# Monitor and display activity
+set-window -g monitor-activity on
+set -g visual-activity on
