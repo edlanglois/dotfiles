@@ -86,7 +86,7 @@ set -g status-bg colour17
 set -g status-left-length 20
 set -g status-left '#[fg=green][#[fg=red]#S#[fg=green]]#[default]'
 set -g status-justify centre
-set -g status-right '#[fg=grey][ %b %d %H:%M:%S ]#[default]'
+set -g status-right '#[fg=grey][ %b %d %I:%M %p]#[default]'
 setw -g window-status-current-format '#[fg=yellow](#I.#P#F#W)#[default]'
 setw -g window-status-format '#I#F#W'
 

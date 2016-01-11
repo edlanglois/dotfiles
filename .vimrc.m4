@@ -304,6 +304,16 @@ let g:airline_theme = 'wombat'
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
 
+" Tmuxline based on the 'powerline' preset but with 12 hour time.
+let g:tmuxline_preset = {
+	\'a'    : '#S',
+	\'b'    : '#F',
+	\'win'  : ['#I', '#W'],
+	\'cwin' : ['#I', '#W'],
+	\'y'    : ['%Y-%m-%d', '%I:%M %p'],
+	\'z'    : '#h',
+\}
+
 let NERDTreeIgnore = [
 	\'\.pyc$',
 	\'\.egg-info',
