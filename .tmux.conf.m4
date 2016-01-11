@@ -36,11 +36,12 @@ set -g focus-events on
 bind | split-window -h
 bind - split-window -v
 
+# Use h and v to split windows horizontally and vertically, respectively.
+bind h split-window -h
+bind v split-window -v
+
 # Zoom with z
 bind z resize-pane -Z
-
-# Use ctrl-n and ctrl-N (without prefix) to split windows
-bind -n C-n split-window -h
 
 # Smart pane switching with awareness of vim splits
 # Ctrl-h,j,k,l => left,down,up,right
