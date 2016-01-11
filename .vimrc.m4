@@ -199,7 +199,21 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-inoremap jk <Esc>
+" Mappings (from Learn Vimscript the Hard Way)
+inoremap jk <esc>
+" Force use of jk rather than <esc>
+inoremap <esc> <nop>
+
+" Use <leader><c-u> to convert a word to upper case mode.
+inoremap <leader><c-u> <esc>viwUhea
+nnoremap <leader><c-u> viwUhe
+
+" Use <leader>sv to re-source VIMRC
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Move to beginning of line with H and end with L
+nnoremap H ^
+nnoremap L $
 
 " Enable spell check on text files
 autocmd BufNewFile,BufRead *.txt setlocal spell
