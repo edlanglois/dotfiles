@@ -40,9 +40,6 @@ bind - split-window -v
 bind h split-window -h
 bind v split-window -v
 
-# Zoom with z
-bind z resize-pane -Z
-
 # Smart pane switching with awareness of vim splits
 # Ctrl-h,j,k,l => left,down,up,right
 # Ctrl-\ previous split
