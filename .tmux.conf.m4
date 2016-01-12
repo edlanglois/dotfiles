@@ -77,8 +77,7 @@ bind Space next-layout
 set -g mouse off
 
 # reload config file
-unbind r
-bind r source-file ~/.tmux.conf \; display-message "Config reloaded."
+bind R source-file ~/.tmux.conf \; display-message "Config reloaded."
 
 # Status bar
 set -g status-keys vi
