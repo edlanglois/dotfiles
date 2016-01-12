@@ -215,10 +215,13 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
 
-" Enable spell check on text files
-autocmd BufNewFile,BufRead *.txt setlocal spell
-" But not help files
-autocmd FileType help setlocal nospell
+augroup spelling
+	autocmd!
+	" Enable spell check on text files
+	autocmd BufNewFile,BufRead *.txt setlocal spell
+	" But not help files
+	autocmd FileType help setlocal nospell
+augroup END
 set spelllang=en_ca
 
 " Open spelling suggestions with <leader>s
@@ -227,8 +230,11 @@ set spelllang=en_ca
 " Clear current search highlight
 :nnoremap <leader>h :nohlsearch<CR>
 
-" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+augroup preview
+	autocmd!
+	" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+augroup END
 
 set exrc    " Enable per-directory .vimrc files
 set secure  " Disable unsafe commands in local .vimrc files
@@ -325,14 +331,17 @@ let NERDTreeIgnore = [
 " The update interferes with python-mode's lint-on-write.
 let NERDTreeUpdateOnWrite=0
 
-autocmd Filetype
-	\ c,
-	\cpp,
-	\html,
-	\java,
-	\php,
-	\python,
-	\qml,
-	\ruby,
-	\xml
-	\ autocmd BufWritePre <buffer> StripWhitespace
+augroup strip_whitespace
+	autocmd!
+	autocmd Filetype
+		\ c,
+		\cpp,
+		\html,
+		\java,
+		\php,
+		\python,
+		\qml,
+		\ruby,
+		\xml
+		\ autocmd BufWritePre <buffer> StripWhitespace
+augroup END
