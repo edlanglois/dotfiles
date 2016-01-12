@@ -51,6 +51,10 @@ QUOTE_END=>>]]??
 
 build: $(DOTFILES) Makefile-binaries
 
+# Build Dotfiles
+# --------------
+# - Build each dotfile from the corresponding .m4 file, user_config.m4, and
+#   env_config.m4.
 define M4_CONFIG_GEN_TEMPLATE
 $1 : % : %.m4 user_config.m4 env_config.m4
 	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
@@ -61,6 +65,11 @@ endef
 $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	$(eval $(call M4_CONFIG_GEN_TEMPLATE, $(M4_CONFIG_GEN_FILE))))
 
+# Configuration Files
+# -------------------
+# - Build user_config.m4 from user.cfg
+# - Build env/*.m4 from ENV_CONFIG_FILES
+# - Build env_config.m4 from env/*.m4
 user_config.m4: user.cfg config_replace.sh
 	./config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" < $< > $@
 
@@ -70,6 +79,10 @@ env/%.m4: env/%
 env_config.m4: $(ENV_CONFIG_M4_FILES)
 	cat $^ > $@
 
+# Install Dotfiles & Dotdirs
+# --------------------------
+# - Copy dotfiles into INSTALL_DIR
+# - Symbolic link dotdirs into INSTALL_DIR
 install: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
 define INSTALL_DOTFILE_TEMPLATE
@@ -88,6 +101,9 @@ endef
 $(foreach INSTALLED_DOTDIR, $(INSTALLED_DOTDIRS), \
 	$(eval $(call INSTALL_DOTDIR_TEMPLATE, $(INSTALLED_DOTDIR))))
 
+# Clean
+# -----
+# - Delete all the build products.
 clean:
 	rm -f user_config.m4 env_config.m4
 	rm -f Makefile-binaries
