@@ -1,6 +1,6 @@
 SHELL=/bin/bash -o pipefail
 
-DOTFILES=\
+M4_DOTFILES=\
 	.Rprofile\
 	.bash_aliases\
 	.bash_profile\
@@ -15,8 +15,9 @@ DOTFILES=\
 	.profile\
 	.pylintrc\
 	.tmux.conf\
-	.tmuxline.conf\
 	.vimrc\
+
+DOTFILES=$(M4_DOTFILES) .tmuxline.conf
 
 DOTDIRS=\
 	.vim
@@ -38,7 +39,7 @@ INSTALL_DIR=$(HOME)
 INSTALLED_DOTFILES=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
 INSTALLED_DOTDIRS=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
 
-M4_CONFIG_GEN_FILES=$(DOTFILES) Makefile-binaries
+M4_CONFIG_GEN_FILES=$(M4_DOTFILES) Makefile-binaries
 ENV_CONFIG_M4_FILES=$(addsuffix .m4,$(ENV_CONFIG_FILES))
 
 USER_CONFIG_PREFIX=m4_user_config_
@@ -55,6 +56,7 @@ build: $(DOTFILES) Makefile-binaries
 # --------------
 # - Build each dotfile from the corresponding .m4 file, user_config.m4, and
 #   env_config.m4.
+# - Custom build for .tmuxline.conf
 define M4_CONFIG_GEN_TEMPLATE
 $1 : % : %.m4 user_config.m4 env_config.m4
 	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
@@ -64,6 +66,14 @@ endef
 
 $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	$(eval $(call M4_CONFIG_GEN_TEMPLATE, $(M4_CONFIG_GEN_FILE))))
+
+.tmuxline.conf: .vimrc
+	rm -f $@
+	vim -u ".vimrc" -c "Tmuxline|TmuxlineSnapshot! $@" -c "q"
+	@if [ ! -f $@ ]; then \
+		echo $$(tput setaf 1)WARNING$$(tput sgr0): Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake.;\
+		touch $@;\
+	fi
 
 # Configuration Files
 # -------------------
