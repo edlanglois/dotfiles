@@ -57,6 +57,10 @@ bind Enter swap-pane -s 0
 # Rotate with ctrl-o
 bind -r o rotate-window
 
+# Next / prev window while holding Ctrl.
+bind C-p previous-window
+bind C-n next-window
+
 # Last window
 bind l last-window
 
