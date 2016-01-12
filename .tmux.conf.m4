@@ -2,9 +2,10 @@ m4_include(env_config.m4)m4_dnl
 m4_ifdef(??[[<<m4_env_config_DEFAULT_SHELL>>]]??,
 set -g default-shell m4_env_config_DEFAULT_SHELL
 )m4_dnl
+# Force 256 colours.
 set -g default-terminal "screen-256color"
 
-#Set Ctrl-a as the default prefix
+# Set Ctrl-a as the default prefix
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
@@ -77,16 +78,7 @@ bind r source-file ~/.tmux.conf \; display-message "Config reloaded."
 
 # Status bar
 set -g status-keys vi
-set -g status-interval 1
-set -g status-attr bright
-set -g status-fg white
-set -g status-bg colour17
-set -g status-left-length 20
-set -g status-left '#[fg=green][#[fg=red]#S#[fg=green]]#[default]'
-set -g status-justify centre
-set -g status-right '#[fg=grey][ %b %d %I:%M %p]#[default]'
-setw -g window-status-current-format '#[fg=yellow](#I.#P#F#W)#[default]'
-setw -g window-status-format '#I#F#W'
+set -g status-interval 5
 
 # Use tmuxline status bar if available
 if-shell "test -f .tmuxline.conf" "source .tmuxline.conf"
