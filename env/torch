@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+# Search in $HOME/torch and $HOME/programs/torch
+TORCH_ACTIVATE=$(ls $HOME/{,programs/}torch/install/bin/torch-activate 2>/dev/null | head -n 1)
+if [ -n "$TORCH_ACTIVATE" ]; then
+	echo TORCH_ACTIVATE=$TORCH_ACTIVATE
+fi

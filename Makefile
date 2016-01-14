@@ -31,6 +31,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	python\
 	root\
 	ruby\
+	torch\
 	virtualfish\
 )
 
