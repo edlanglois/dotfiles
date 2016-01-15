@@ -8,6 +8,7 @@ M4_DOTFILES=\
 	.config/fish/config.fish\
 	.config/fish/functions/R.fish\
 	.config/fish/functions/fish_prompt.fish\
+	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
 	.gitconfig\
 	.gitignore_global\

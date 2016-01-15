@@ -125,11 +125,16 @@ man() {
 # Set shared library path
 export LD_RUN_PATH=$HOME/lib:/usr/local/lib:/usr/lib
 
-
-m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,
-# Source torch-activate. Sets environment variables for running torch (th).
-source "m4_env_config_TORCH_ACTIVATE"
-)m4_dnl
+m4_include(env_config.m4)m4_dnl
+function torch-activate() {
+m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
+??[[<<m4_dnl
+    # Source torch-activate. Sets environment variables for running torch (th).
+    source "m4_env_config_TORCH_ACTIVATE">>]]??,
+??[[<<m4_dnl
+    echo "Could not find torch-activate script."
+    return 1>>]]??)
+}
 
 if [ -n "$FORTUNE" ]; then
 	wait $FORTUNE
