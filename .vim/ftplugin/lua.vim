@@ -1,1 +1,1 @@
-:nnoremap <buffer> <localleader>r :! lua %<CR>
+:nnoremap <buffer> <localleader>r :! clear && lua %<CR>
