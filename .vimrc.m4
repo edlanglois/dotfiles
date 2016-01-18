@@ -36,6 +36,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'EdTsft/python-mode'
 Plugin 'EdTsft/vim-qrc'
+Plugin 'EdTsft/vim-tmux-focus-events'
 Plugin 'jeaye/color_coded'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
@@ -47,7 +48,6 @@ Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
 Plugin 'shaneharper/vim-rtags'
-Plugin 'tmux-plugins/vim-tmux-focus-events'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -328,12 +328,6 @@ let NERDTreeIgnore = [
 " Don't update the NERDTree git flags (nerdtree-git-plugin) on write.
 " The update interferes with python-mode's lint-on-write.
 let NERDTreeUpdateOnWrite=0
-
-augroup focus_check_time
-	" Check if file changed when focus is gained
-	autocmd!
-	autocmd FocusGained * :checktime
-augroup END
 
 augroup strip_whitespace
 	autocmd!
