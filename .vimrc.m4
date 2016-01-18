@@ -329,6 +329,12 @@ let NERDTreeIgnore = [
 " The update interferes with python-mode's lint-on-write.
 let NERDTreeUpdateOnWrite=0
 
+augroup focus_check_time
+	" Check if file changed when focus is gained
+	autocmd!
+	autocmd FocusGained * :checktime
+augroup END
+
 augroup strip_whitespace
 	autocmd!
 	autocmd Filetype
