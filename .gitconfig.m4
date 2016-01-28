@@ -29,8 +29,8 @@ m4_include(env_config.m4)m4_dnl
 	showtrackedignored = ls-files -i --exclude-standard
 	t = log --graph --oneline --decorate --author-date-order
 	ta = log --graph --oneline --decorate --author-date-order --all
-	tree = log --graph --oneline --decorate --author-date-order
-	treea = log --graph --oneline --decorate --author-date-order --all
+	tn = log --graph --decorate --author-date-order --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%"
+	tan = log --graph --decorate --author-date-order --all --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%"
 m4_ifdef(??[[<<m4_env_config_GIT_PUSH_DEFAULT_SIMPLE>>]]??,
 [push]
 	default = simple
