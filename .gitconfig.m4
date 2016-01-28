@@ -27,12 +27,12 @@ m4_include(env_config.m4)m4_dnl
 	s = status
 	ss = status --short
 	showtrackedignored = ls-files -i --exclude-standard
-	t = log --graph --oneline --author-date-order
-	ta = log --graph --oneline --author-date-order --all
+	t = log --graph --oneline --decorate --author-date-order
+	ta = log --graph --oneline --decorate --author-date-order --all
 	tn = log --graph --author-date-order --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s"
 	tan = log --graph --author-date-order --all --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s"
-	ts = log --graph --oneline --author-date-order --numstat
-	tas = log --graph --oneline --author-date-order --all --numstat
+	ts = log --graph --oneline --decorate --author-date-order --numstat
+	tas = log --graph --oneline --decorate --author-date-order --all --numstat
 	tns = log --graph --author-date-order --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%n" --numstat
 	tans = log --graph --author-date-order --all --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%n" --numstat
 m4_ifdef(??[[<<m4_env_config_GIT_PUSH_DEFAULT_SIMPLE>>]]??,
