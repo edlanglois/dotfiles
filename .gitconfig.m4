@@ -15,16 +15,26 @@ m4_include(env_config.m4)m4_dnl
 [mergetool]
 	keepBackup = false
 [alias]
+	a = add
 	and-submodules = submodule update --init --recursive
+	ap = add --patch
 	b = branch
 	bm = branch --merged
 	cb = checkout --branch
 	d = diff
 	dc = diff --cached
+	ds = diff --stat
 	s = status
+	ss = status --short
 	showtrackedignored = ls-files -i --exclude-standard
-	tree = log --graph --oneline --decorate --author-date-order
-	treea = log --graph --oneline --all --decorate --author-date-order
+	t = log --graph --oneline --decorate --author-date-order
+	ta = log --graph --oneline --decorate --author-date-order --all
+	tn = log --graph --author-date-order --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s"
+	tan = log --graph --author-date-order --all --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s"
+	ts = log --graph --oneline --decorate --author-date-order --numstat
+	tas = log --graph --oneline --decorate --author-date-order --all --numstat
+	tns = log --graph --author-date-order --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%n" --numstat
+	tans = log --graph --author-date-order --all --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%n" --numstat
 m4_ifdef(??[[<<m4_env_config_GIT_PUSH_DEFAULT_SIMPLE>>]]??,
 [push]
 	default = simple
