@@ -50,6 +50,8 @@ ENV_CONFIG_PREFIX=m4_env_config_
 QUOTE_START=??[[<<
 QUOTE_END=>>]]??
 
+WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
+
 .PHONY: build
 
 build: $(DOTFILES) Makefile-binaries
@@ -71,11 +73,16 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 
 .tmuxline.conf: .vimrc
 	rm -f $@
+ifdef TMUX
 	vim -u ".vimrc" -c "TmuxlineSnapshot $@" -c "q"
 	@if [ ! -f $@ ]; then \
-		echo $$(tput setaf 1)WARNING$$(tput sgr0): Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake.;\
-		touch $@;\
+		echo "$(WARNING_PREFIX) Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake."; \
+		touch $@; \
 	fi
+else
+	@echo "$(WARNING_PREFIX) Tmuxline config not generated. Re-run from within tmux."
+	touch $@
+endif
 
 # Configuration Files
 # -------------------
