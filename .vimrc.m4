@@ -295,6 +295,16 @@ nnoremap <C-W>. <C-W>>
 " Saves the current file using sudo
 cnoremap w!! w ! sudo tee > /dev/null %
 
+" Next/Last (,{ operator mode mappings.
+onoremap in( :<c-u>normal! f(vi(<cr>
+onoremap il( :<c-u>normal! F)vi(<cr>
+onoremap in{ :<c-u>normal! f{vi{<cr>
+onoremap il{ :<c-u>normal! F}vi}<cr>
+onoremap an( :<c-u>normal! f(va(<cr>
+onoremap al( :<c-u>normal! F)va(<cr>
+onoremap an{ :<c-u>normal! f{va{<cr>
+onoremap al{ :<c-u>normal! F}va}<cr>
+
 " Use non-standard symbols for a better-looking airline.
 " Requires installing the powerline fonts:
 " https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
