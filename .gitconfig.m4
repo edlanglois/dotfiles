@@ -19,8 +19,9 @@ m4_include(env_config.m4)m4_dnl
 	and-submodules = submodule update --init --recursive
 	ap = add --patch
 	b = branch
+	bd = branch -d
 	bm = branch --merged
-	cb = checkout --branch
+	cb = checkout -b
 	d = diff
 	dc = diff --cached
 	ds = diff --stat
