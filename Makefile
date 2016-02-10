@@ -52,7 +52,9 @@ QUOTE_END=>>]]??
 
 WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 
-.PHONY: build
+PYGMENTIZE:=$(shell command -v pygmentize)
+
+.PHONY: build clean show show-config
 
 build: $(DOTFILES) Makefile-binaries
 
@@ -128,3 +130,29 @@ clean:
 	rm -f Makefile-binaries
 	rm -f $(DOTFILES)
 	rm -f $(ENV_CONFIG_M4_FILES)
+
+ifdef PYGMENTIZE
+COLORIZE_CONFIG:=pygmentize -l 'cfg'
+else
+COLORIZE_CONFIG:=cat
+endif
+
+ESCAPED_QUOTE_START=$(subst [,\[,$(subst ],\],$(QUOTE_START)))
+ESCAPED_QUOTE_END=$(subst [,\[,$(subst ],\],$(QUOTE_END)))
+
+# Show Configuration
+show: show-config
+show-config: user.cfg env_config.m4
+ifndef PYGMENTIZE
+	@echo "Install pygmentize to view coloured output."
+	@echo
+endif
+	@echo '# User Config' | cat - user.cfg | $(COLORIZE_CONFIG)
+	@echo
+	@echo '# Environment Config' | cat - env_config.m4 | \
+		sed -e "s/$(ESCAPED_QUOTE_START)//g" | \
+		sed -e "s/$(ESCAPED_QUOTE_END)//g" | \
+		sed -e "s/^m4_define(m4_env_config_//" | \
+		sed -e "s/)m4_dnl$$//" | \
+		sed -e "s/,/=/" | \
+		$(COLORIZE_CONFIG)
