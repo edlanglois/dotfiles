@@ -309,11 +309,6 @@ onoremap al( :<c-u>normal! F)va(<cr>
 onoremap an{ :<c-u>normal! f{va{<cr>
 onoremap al{ :<c-u>normal! F}va}<cr>
 
-" Use non-standard symbols for a better-looking airline.
-" Requires installing the powerline fonts:
-" https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
-let g:airline_powerline_fonts = 1
-
 " Enable buffer display on airline
 let g:airline#extensions#tabline#enabled = 1
 
@@ -322,6 +317,18 @@ let g:airline_theme = 'wombat'
 
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
+
+m4_ifelse(m4_user_config_LIGHTWEIGHT,true,
+" Use standard symbols. Don't have to install special font.
+let g:airline_powerline_fonts = 0
+let g:tmuxline_powerline_separators = 0,
+" Use non-standard symbols for a better-looking airline.
+" Requires installing the powerline fonts:
+" https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
+let g:airline_powerline_fonts = 1
+let g:tmuxline_powerline_separators = 1
+)
+
 
 " Tmuxline based on the 'powerline' preset but with 12 hour time.
 let g:tmuxline_preset = {
