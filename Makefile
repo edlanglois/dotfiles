@@ -17,6 +17,7 @@ M4_DOTFILES=\
 	.pylintrc\
 	.tmux.conf\
 	.vimrc\
+	.Xmodmap\
 
 DOTFILES=$(M4_DOTFILES) .tmuxline.conf
 
