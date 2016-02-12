@@ -1,4 +1,5 @@
-m4_include(env_config.m4)
+m4_include(user_config.m4)m4_dnl
+m4_include(env_config.m4)m4_dnl
 " Function Keys
 " -------------
 " F2  - Toggle NERDTree
@@ -33,10 +34,8 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'edkolev/tmuxline.vim'
-Plugin 'EdTsft/python-mode'
 Plugin 'EdTsft/vim-qrc'
 Plugin 'EdTsft/vim-tmux-focus-events'
-Plugin 'jeaye/color_coded'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
@@ -52,11 +51,16 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
+" Heavywight plugins
+Plugin 'EdTsft/python-mode'
+Plugin 'jeaye/color_coded'
+Plugin 'Valloric/YouCompleteMe'
+)m4_dnl
 
 " End Vundle
 call vundle#end()
