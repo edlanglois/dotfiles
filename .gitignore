@@ -24,7 +24,6 @@ user.cfg
 .tmux.conf
 .tmuxline.conf
 .vimrc
-.Xmodmap
 
 Makefile-binaries
 user_config.m4
