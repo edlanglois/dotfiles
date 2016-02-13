@@ -74,7 +74,9 @@ bind -r L resize-pane -R
 bind Space next-layout
 
 # explicitly disable mouse control
-set -g mouse off
+m4_ifdef(??[[<<m4_env_config_TMUX_2>>]]??,
+set -g mouse off,
+set -g mode-mouse off)
 
 # reload config file
 bind R source-file ~/.tmux.conf \; display-message "Config reloaded."

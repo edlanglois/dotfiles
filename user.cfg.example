@@ -1,3 +1,4 @@
 NAME=Firstname Lastname
 EMAIL=email@example.com
 PRIVATE_KEYS=id_rsa id_rsa_github
+LIGHTWEIGHT=false

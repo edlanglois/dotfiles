@@ -6,8 +6,10 @@ M4_DOTFILES=\
 	.bash_profile\
 	.bashrc\
 	.config/fish/config.fish\
-	.config/fish/functions/R.fish\
 	.config/fish/functions/fish_prompt.fish\
+	.config/fish/functions/pbcopy.fish\
+	.config/fish/functions/pbpaste.fish\
+	.config/fish/functions/R.fish\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
 	.gitconfig\
@@ -32,6 +34,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	python\
 	root\
 	ruby\
+	tmux-2\
 	torch\
 	virtualfish\
 )
@@ -40,6 +43,8 @@ DOTFILES_DIR=$(shell pwd)
 INSTALL_DIR=$(HOME)
 INSTALLED_DOTFILES=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
 INSTALLED_DOTDIRS=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
+# Sort to remove duplicates
+INSTALLATION_DIRS = $(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
 
 M4_CONFIG_GEN_FILES=$(M4_DOTFILES) Makefile-binaries
 ENV_CONFIG_M4_FILES=$(addsuffix .m4,$(ENV_CONFIG_FILES))
@@ -107,7 +112,7 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 install: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
 define INSTALL_DOTFILE_TEMPLATE
-$1 : $(INSTALL_DIR)/% : %
+$1 : $(INSTALL_DIR)/% : % | $(dir $1)
 	@cp -v "$$<" "$$@"
 endef
 
@@ -121,6 +126,10 @@ endef
 
 $(foreach INSTALLED_DOTDIR, $(INSTALLED_DOTDIRS), \
 	$(eval $(call INSTALL_DOTDIR_TEMPLATE, $(INSTALLED_DOTDIR))))
+
+
+$(INSTALLATION_DIRS):
+	mkdir -p $@
 
 # Clean
 # -----
