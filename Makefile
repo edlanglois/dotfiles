@@ -1,7 +1,6 @@
 SHELL=/bin/bash -o pipefail
 
 M4_DOTFILES=\
-	.Rprofile\
 	.bash_aliases\
 	.bash_profile\
 	.bashrc\
@@ -15,10 +14,13 @@ M4_DOTFILES=\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
+	.imwheelrc\
 	.profile\
 	.pylintrc\
+	.Rprofile\
 	.tmux.conf\
 	.vimrc\
+	.xprofile\
 
 DOTFILES=$(M4_DOTFILES) .tmuxline.conf
 

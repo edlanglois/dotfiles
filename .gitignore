@@ -7,7 +7,6 @@
 
 user.cfg
 
-.Rprofile
 .bash_aliases
 .bash_profile
 .bashrc
@@ -21,11 +20,14 @@ user.cfg
 .gitconfig
 .gitignore_global
 .hgrc
+.imwheelrc
 .profile
 .pylintrc
+.Rprofile
 .tmux.conf
 .tmuxline.conf
 .vimrc
+.xprofile
 
 Makefile-binaries
 user_config.m4
