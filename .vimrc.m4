@@ -115,14 +115,7 @@ let g:ycm_filetype_blacklist = {
       \ 'rnoweb' : 1
       \}
 
-if has('python3')
-	" Disable YCM and rtabs when running with Python3 - They require Python2
-	set runtimepath-=~/.vim/bundle/YouCompleteMe
-	set runtimepath-=~/.vim/bundle/vim-rtags
-	let g:pymode_rope_completion = 1
-else
-	let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
-endif
+let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
 let g:pymode_rope_goto_definition_cmd = 'e'
 let g:pymode_lint_unmodified = 1 " Lint on write even when unmodified
 " Disable pymode's indentation. Using own in after/indent/python.vim
