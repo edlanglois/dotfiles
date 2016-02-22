@@ -155,7 +155,7 @@ ESCAPED_QUOTE_END=$(subst [,\[,$(subst ],\],$(QUOTE_END)))
 show: show-config
 show-config: user.cfg env_config.m4
 ifndef PYGMENTIZE
-	@echo "Install pygmentize to view coloured output."
+	@echo "Install pygmentize (python pygments) to view coloured output."
 	@echo
 endif
 	@echo '# User Config' | cat - user.cfg | $(COLORIZE_CONFIG)
