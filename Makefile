@@ -18,6 +18,7 @@ M4_DOTFILES=\
 	.profile\
 	.pylintrc\
 	.Rprofile\
+	.theanorc\
 	.tmux.conf\
 	.vimrc\
 	.xprofile\
@@ -28,6 +29,7 @@ DOTDIRS=\
 	.vim
 
 ENV_CONFIG_FILES=$(addprefix env/,\
+	cuda\
 	default-shell\
 	git-push-default-simple\
 	keychain\
