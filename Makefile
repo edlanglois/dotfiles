@@ -63,7 +63,8 @@ WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 
 PYGMENTIZE:=$(shell command -v pygmentize)
 
-.PHONY: build clean show show-config
+.PHONY: build install install-dotfiles set-persistent-configs clean show \
+	show-config
 
 build: $(DOTFILES) Makefile-binaries
 
@@ -113,7 +114,12 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 # --------------------------
 # - Copy dotfiles into INSTALL_DIR
 # - Symbolic link dotdirs into INSTALL_DIR
-install: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
+install: install-dotfiles set-persistent-configs
+
+set-persistent-configs:
+	./set-persistent-configs.sh
+
+install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : % | $(dir $1)
