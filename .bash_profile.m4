@@ -9,5 +9,5 @@ m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 eval $(keychain --eval --agents ssh -Q --quiet m4_user_config_PRIVATE_KEYS)
 )m4_dnl
 m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,
-export PATH=m4_env_config_BREW_BIN_PATH
+export PATH=$PATH:m4_env_config_BREW_BIN_PATH
 )m4_dnl
