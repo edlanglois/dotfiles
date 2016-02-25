@@ -1,4 +1,5 @@
-m4_include(env_config.m4)
+m4_include(user_config.m4)m4_dnl
+m4_include(env_config.m4)m4_dnl
 " Function Keys
 " -------------
 " F2  - Toggle NERDTree
@@ -33,10 +34,8 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'edkolev/tmuxline.vim'
-Plugin 'EdTsft/python-mode'
 Plugin 'EdTsft/vim-qrc'
 Plugin 'EdTsft/vim-tmux-focus-events'
-Plugin 'jeaye/color_coded'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
@@ -52,11 +51,16 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
+" Heavywight plugins
+Plugin 'EdTsft/python-mode'
+Plugin 'jeaye/color_coded'
+Plugin 'Valloric/YouCompleteMe'
+)m4_dnl
 
 " End Vundle
 call vundle#end()
@@ -111,14 +115,7 @@ let g:ycm_filetype_blacklist = {
       \ 'rnoweb' : 1
       \}
 
-if has('python3')
-	" Disable YCM and rtabs when running with Python3 - They require Python2
-	set runtimepath-=~/.vim/bundle/YouCompleteMe
-	set runtimepath-=~/.vim/bundle/vim-rtags
-	let g:pymode_rope_completion = 1
-else
-	let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
-endif
+let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
 let g:pymode_rope_goto_definition_cmd = 'e'
 let g:pymode_lint_unmodified = 1 " Lint on write even when unmodified
 " Disable pymode's indentation. Using own in after/indent/python.vim
@@ -305,11 +302,6 @@ onoremap al( :<c-u>normal! F)va(<cr>
 onoremap an{ :<c-u>normal! f{va{<cr>
 onoremap al{ :<c-u>normal! F}va}<cr>
 
-" Use non-standard symbols for a better-looking airline.
-" Requires installing the powerline fonts:
-" https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
-let g:airline_powerline_fonts = 1
-
 " Enable buffer display on airline
 let g:airline#extensions#tabline#enabled = 1
 
@@ -318,6 +310,18 @@ let g:airline_theme = 'wombat'
 
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
+
+m4_ifelse(m4_user_config_LIGHTWEIGHT,true,
+" Use standard symbols. Don't have to install special font.
+let g:airline_powerline_fonts = 0
+let g:tmuxline_powerline_separators = 0,
+" Use non-standard symbols for a better-looking airline.
+" Requires installing the powerline fonts:
+" https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
+let g:airline_powerline_fonts = 1
+let g:tmuxline_powerline_separators = 1
+)
+
 
 " Tmuxline based on the 'powerline' preset but with 12 hour time.
 let g:tmuxline_preset = {
