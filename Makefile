@@ -18,6 +18,7 @@ M4_DOTFILES=\
 	.profile\
 	.pylintrc\
 	.Rprofile\
+	.theanorc\
 	.tmux.conf\
 	.vimrc\
 	.xprofile\
@@ -28,6 +29,7 @@ DOTDIRS=\
 	.vim
 
 ENV_CONFIG_FILES=$(addprefix env/,\
+	cuda\
 	default-shell\
 	git-push-default-simple\
 	keychain\
@@ -61,7 +63,8 @@ WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 
 PYGMENTIZE:=$(shell command -v pygmentize)
 
-.PHONY: build clean show show-config
+.PHONY: build install install-dotfiles set-persistent-configs clean show \
+	show-config
 
 build: $(DOTFILES) Makefile-binaries
 
@@ -111,7 +114,12 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 # --------------------------
 # - Copy dotfiles into INSTALL_DIR
 # - Symbolic link dotdirs into INSTALL_DIR
-install: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
+install: install-dotfiles set-persistent-configs
+
+set-persistent-configs:
+	./set-persistent-configs.sh
+
+install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : % | $(dir $1)
@@ -155,7 +163,7 @@ ESCAPED_QUOTE_END=$(subst [,\[,$(subst ],\],$(QUOTE_END)))
 show: show-config
 show-config: user.cfg env_config.m4
 ifndef PYGMENTIZE
-	@echo "Install pygmentize to view coloured output."
+	@echo "Install pygmentize (python pygments) to view coloured output."
 	@echo
 endif
 	@echo '# User Config' | cat - user.cfg | $(COLORIZE_CONFIG)
