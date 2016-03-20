@@ -1,0 +1,121 @@
+#!/usr/bin/env sh
+set -eu
+
+usage() {
+	echo "usage: plot [option] ... [file]"
+}
+
+help() {
+	echo "Plot the columns of a file."
+	echo ""
+	usage
+	echo "  file                : File to plot. Plots from STDIN if no file given."
+	echo ""
+	echo "Options:"
+	echo "  -h,--help           : Show this help"
+	echo "  -x COL              : Select column to plot on the x axis (1-based indexing)."
+	echo "  -y START:END[:STEP] : Select columns to plot on the y axis (1-based indexing)."
+	echo "  -s SEPARATOR        : Column separator (Whitespace by default)."
+	echo "  -t TERMINAL         : Gnuplot terminal. Terminal '?' displays the available terminals."
+	echo "  -b,--batch          : Don't pause for interaction with the plot."
+	echo "                        Use this with non-interactive terminals."
+}
+
+batchmode=false
+pos=0
+while [ "$#" -ge 1 ]; do
+	arg=$1
+	shift
+	case "$arg" in
+		-h|--help)
+			help
+			exit 0
+			;;
+		-x)
+			x_col="$1"
+			shift
+			;;
+		-y)
+			y_cols="$1"
+			shift
+			;;
+		-s)
+			separator="$1"
+			shift
+			;;
+		-t)
+			terminal="$1"
+			shift
+			;;
+		-b|--batch)
+			batchmode=true
+			;;
+		*)
+			case "$pos" in
+				0)
+					file="$arg"
+					;;
+				*)
+					usage
+					exit 1
+					;;
+			esac
+			pos=`expr $pos + 1`
+			;;
+	esac
+done
+
+if [ "${terminal:-}" = "?" ]; then
+	gnuplot -e "set terminal"
+	exit 0
+fi
+
+if [ "${file:-"-"}" == "-" ]; then
+	tempfile=`mktemp`
+	trap "rm -f ${tempfile}" EXIT
+	file="${tempfile}"
+	cat - > "${tempfile}"
+fi
+
+if [ -z "${x_col:-}" ]; then
+	x_col_prefix=""
+else
+	x_col_prefix="${x_col}:"
+fi
+
+
+if [ -z "${y_cols:-}" ]; then
+	separator_expr=${separator:-"\s\+"}
+	num_cols=`head -n1 "$file" | grep -o "$separator_expr" | wc -l | xargs expr 1 +`
+	y_cols="1:$num_cols"
+fi
+
+if [ -z "${terminal:-}" ]; then
+	gnuplot_terminal_cmd=""
+else
+	gnuplot_terminal_cmd="set terminal ${terminal}"
+fi
+
+if [ -z "${separator:-}" ]; then
+	gnuplot_separator_cmd=""
+else
+	gnuplot_separator_cmd="set datafile separator \"$2\""
+fi
+
+if [ "${batchmode}" == true ]; then
+	gnuplot_pause_cmd=""
+else
+	# Gnuplot doesn't have a pause-forever command. Instead, there are
+	#  `pause -1`, which pauses until a newline is received; and
+	#  `pause [seconds]`.
+	# Depending on the plotting terminal and whether stdin is interactive, either
+	# can return immediately, so use both the interactive pause and a 3-year fixed
+	# pause.
+	gnuplot_pause_cmd="pause -1; pause 100000000"
+fi
+
+gnuplot \
+	-e "$gnuplot_terminal_cmd" \
+	-e "$gnuplot_separator_cmd" \
+	-e "plot for [col=$y_cols] \"$file\" using ${x_col_prefix}col title sprintf(\"%d\", col) with lines" \
+	-e "$gnuplot_pause_cmd"
