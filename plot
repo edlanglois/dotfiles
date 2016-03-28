@@ -99,7 +99,7 @@ fi
 if [ -z "${separator:-}" ]; then
 	gnuplot_separator_cmd=""
 else
-	gnuplot_separator_cmd="set datafile separator \"$2\""
+	gnuplot_separator_cmd="set datafile separator \"${separator}\""
 fi
 
 if [ "${batchmode}" == true ]; then
