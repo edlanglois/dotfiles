@@ -9,6 +9,7 @@ M4_DOTFILES=\
 	.config/fish/functions/pbcopy.fish\
 	.config/fish/functions/pbpaste.fish\
 	.config/fish/functions/R.fish\
+	.config/fish/functions/tmuxm.fish\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
 	.gitconfig\
