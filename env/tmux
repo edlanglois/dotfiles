@@ -6,5 +6,8 @@ else
 	sortcmd=sort
 fi
 if echo -e tmux 2.0"\n"$(tmux -V) | ${sortcmd} -V --check=quiet; then
-	echo TMUX_2=
+	echo TMUX_GE_2_0=
+fi;
+if echo -e tmux 2.2"\n"$(tmux -V) | ${sortcmd} -V --check=quiet; then
+	echo TMUX_GE_2_2=
 fi;

@@ -10,10 +10,12 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
+m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,,m4_dnl
 # Use UTF8
 set -g utf8
 set-window-option -g utf8 on
 
+)m4_dnl
 # Make window full sized when looking at different windows with different
 # sessions.
 set-window-option -g aggressive-resize on
@@ -74,7 +76,7 @@ bind -r L resize-pane -R
 bind Space next-layout
 
 # explicitly disable mouse control
-m4_ifdef(??[[<<m4_env_config_TMUX_2>>]]??,
+m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_0>>]]??,m4_dnl
 set -g mouse off,
 set -g mode-mouse off)
 
