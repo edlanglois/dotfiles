@@ -33,7 +33,9 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'edkolev/tmuxline.vim'
+m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
+Plugin 'EdTsft/tmuxline.vim',
+Plugin 'edkolev/tmuxline.vim')
 Plugin 'EdTsft/vim-qrc'
 Plugin 'EdTsft/vim-tmux-focus-events'
 Plugin 'kien/ctrlp.vim'
