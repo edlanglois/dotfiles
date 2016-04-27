@@ -58,7 +58,6 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
 Plugin 'EdTsft/python-mode'
-Plugin 'jeaye/color_coded'
 Plugin 'Valloric/YouCompleteMe'
 )m4_dnl
 
