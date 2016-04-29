@@ -24,7 +24,7 @@ M4_DOTFILES=\
 	.vimrc\
 	.xprofile\
 
-DOTFILES=$(M4_DOTFILES) .tmuxline.conf
+DOTFILES=$(M4_DOTFILES) .tmuxline.conf .config/nvim
 
 DOTDIRS=\
 	.vim
@@ -124,7 +124,7 @@ install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : % | $(dir $1)
-	@cp -v "$$<" "$$@"
+	@cp -av "$$<" "$$@"
 endef
 
 $(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \
