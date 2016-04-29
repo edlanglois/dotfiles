@@ -56,15 +56,9 @@ bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 # Make the current pane the first pane
 bind Enter swap-pane -s 0
 
-# Rotate with ctrl-o
-bind -r o rotate-window
-
 # Next / prev window while holding Ctrl.
 bind C-p previous-window
 bind C-n next-window
-
-# Last window
-bind l last-window
 
 # resize panes using HJKL
 bind -r H resize-pane -L
