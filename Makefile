@@ -35,6 +35,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	default-shell\
 	git-push-default-simple\
 	github_id\
+	keychain\
 	locale\
 	osx\
 	python\
