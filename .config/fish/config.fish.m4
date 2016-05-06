@@ -21,7 +21,9 @@ set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH"
 m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 
 # Add private keys to the keychain
-keychain --eval --agents ssh -Q --quiet m4_user_config_PRIVATE_KEYS | source
+if status --is-interactive
+	keychain --eval --agents ssh -Q --quiet (find ~/.ssh/ -name 'id_*.pub' | sed 's/\.pub$//') | source
+end
 )m4_dnl
 m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
 
