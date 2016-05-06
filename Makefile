@@ -25,7 +25,12 @@ M4_DOTFILES=\
 	.vimrc\
 	.xprofile\
 
-DOTFILES=$(M4_DOTFILES) .tmuxline.conf .config/nvim
+DOTFILES=\
+	$(M4_DOTFILES)\
+	.config/fontconfig/conf.d/10-powerline-symbols.conf\
+	.config/nvim\
+	.fonts/PowerlineSymbols.otf\
+	.tmuxline.conf\
 
 DOTDIRS=\
 	.vim
@@ -119,7 +124,7 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 # - Symbolic link dotdirs into INSTALL_DIR
 install: install-dotfiles set-persistent-configs
 
-set-persistent-configs:
+set-persistent-configs: $(INSTALL_DIR)/.fonts/PowerlineSymbols.otf
 	./set-persistent-configs.sh
 
 install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
