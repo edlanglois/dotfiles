@@ -3,6 +3,8 @@ m4_ifdef(??[[<<m4_env_config_GITHUB_ID>>]]??,
 Host github.com
 	IdentityFile m4_env_config_GITHUB_ID
 )
+
+# Settings from https://stribika.github.io/2015/01/04/secure-secure-shell.html
 Host *
 	KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
 	PubkeyAuthentication yes
