@@ -7,11 +7,7 @@ fi
 
 # Start an ssh agent if none is running
 if [[ -z $SSH_AUTH_SOCK ]] || ssh-add -l 2>&1 | grep 'Error connecting to agent' >/dev/null; then
-	if hash gnome-keyring-daemon 2>/dev/null; then
-		eval $(gnome-keyring-daemon --start)
-		export SSH_AUTH_SOCK
-		# Auto adds keys, no need to call ssh-add manually
-	elif hash ssh-agent 2>/dev/null; then
+	if hash ssh-agent 2>/dev/null; then
 		eval $(ssh-agent)
 		# Add private keys to the keychain
 		if ls .ssh/*.pub &>/dev/null; then
