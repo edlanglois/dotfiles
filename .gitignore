@@ -25,6 +25,7 @@ user.cfg
 .profile
 .pylintrc
 .Rprofile
+.ssh/config
 .theanorc
 .tmux.conf
 .tmuxline.conf

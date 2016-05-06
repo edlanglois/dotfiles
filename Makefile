@@ -19,6 +19,7 @@ M4_DOTFILES=\
 	.profile\
 	.pylintrc\
 	.Rprofile\
+	.ssh/config\
 	.theanorc\
 	.tmux.conf\
 	.vimrc\
