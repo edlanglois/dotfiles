@@ -149,7 +149,7 @@ $(INSTALLATION_DIRS):
 clean:
 	rm -f user_config.m4 env_config.m4
 	rm -f Makefile-binaries
-	rm -f $(DOTFILES)
+	rm -f $(M4_DOTFILES) .tmuxline.conf
 	rm -f $(ENV_CONFIG_M4_FILES)
 
 ifdef PYGMENTIZE
