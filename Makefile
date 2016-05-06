@@ -34,6 +34,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	cuda\
 	default-shell\
 	git-push-default-simple\
+	github_id\
 	locale\
 	osx\
 	python\
