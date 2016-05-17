@@ -2,6 +2,9 @@ m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 set -g fish_color_cwd yellow
 
+# Disable greeting message
+set fish_greeting ""
+
 # Coloured man pages
 set -x LESS_TERMCAP_mb (printf "\e[01;31m")
 set -x LESS_TERMCAP_md (printf "\e[01;38;5;74m")
