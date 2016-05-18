@@ -13,6 +13,7 @@ M4_DOTFILES=\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
 	.config/i3/config\
+	.config/termite/config\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
