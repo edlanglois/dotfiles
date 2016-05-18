@@ -14,6 +14,9 @@ set -x LESS_TERMCAP_so (printf "\e[38;5;246m")
 set -x LESS_TERMCAP_ue (printf "\e[0m")
 set -x LESS_TERMCAP_us (printf "\e[04;38;5;146m")
 
+# Set editor to vim
+set --global -x EDITOR vim
+
 # Add user's bin to path
 set --global fish_user_paths $fish_user_paths $HOME/bin
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
