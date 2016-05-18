@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+# Find a preferred terminal
+if hash termite 2>/dev/null; then
+	echo TERMINAL=termite
+fi
+exit 0

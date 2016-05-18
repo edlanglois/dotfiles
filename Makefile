@@ -12,6 +12,7 @@ M4_DOTFILES=\
 	.config/fish/functions/tmuxm.fish\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
+	.config/i3/config\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
@@ -46,6 +47,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	python\
 	root\
 	ruby\
+	terminal\
 	tmux\
 	torch\
 	virtualfish\
