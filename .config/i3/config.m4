@@ -156,6 +156,19 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Forward exec playerctl next
+bindsym XF86Back exec playerctl previous
+
+# Volume
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute
+bindsym XF86AudioMute exec amixer -q set Master toggle
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
