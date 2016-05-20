@@ -13,6 +13,7 @@ M4_DOTFILES=\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
 	.config/i3/config\
+	.config/i3blocks/config\
 	.config/termite/config\
 	.gitconfig\
 	.gitignore_global\
@@ -30,6 +31,7 @@ M4_DOTFILES=\
 DOTFILES=\
 	$(M4_DOTFILES)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
+	.config/i3blocks/scripts/weather-ca\
 	.config/nvim\
 	.fonts/PowerlineSymbols.otf\
 	.tmuxline.conf\
@@ -113,7 +115,8 @@ endif
 # - Build env/*.m4 from ENV_CONFIG_FILES
 # - Build env_config.m4 from env/*.m4
 user_config.m4: user.cfg config_replace.sh
-	./config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" < $< > $@
+	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
+		./config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
 env/%.m4: env/%
 	$< | ./config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
