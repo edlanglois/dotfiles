@@ -31,7 +31,7 @@ color=#ffffff
 separator=false
 separator_block_width=15
 
-[mediaplayer label]
+[mediaplayer-label]
 full_text=♫
 color=#00ffff
 separator_block_width=4
@@ -50,7 +50,7 @@ signal=10
 # The first parameter sets the step (and units to display)
 # The second parameter overrides the mixer selection
 # See the script for details.
-[volume label]
+[volume-label]
 full_text=🔊
 color=#00ffff
 separator_block_width=4
@@ -61,7 +61,7 @@ interval=once
 signal=1
 
 m4_ifdef(??[[<<m4_user_config_CANADA_WEATHER_REGION_NUMBER>>]]??,m4_dnl
-[weather-ca label]
+[weather-ca-label]
 command=/home/eric/.config/i3blocks/scripts/weather-ca m4_user_config_CANADA_WEATHER_PROVINCE m4_user_config_CANADA_WEATHER_REGION_NUMBER '%i'
 interval=600
 color=#00ffff
@@ -75,7 +75,7 @@ interval=600)
 #
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-[cpu_usage label]
+[cpu_usage-label]
 full_text=CPU
 color=#00ffff
 separator_block_width=4
@@ -121,7 +121,7 @@ interval=30
 # Support multiple chips, though lm-sensors.
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
-[temperature label]
+[temperature-label]
 full_text=🌡
 color=#00ffff
 separator_block_width=4
@@ -133,7 +133,7 @@ interval=10
 #
 # If the instance is not specified, use the interface used for default route.
 # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
-[iface label]
+[iface-label]
 full_text=🖧
 color=#00ffff
 separator_block_width=4
@@ -157,7 +157,7 @@ interval=10
 # interval=30
 
 # Date
-[time label]
+[time-label]
 full_text=📅
 color=#00ffff
 separator_block_width=4
@@ -166,7 +166,7 @@ separator_block_width=4
 command=date '+%Y-%m-%d %a'
 interval=60
 
-[time label]
+[time-label]
 full_text=🕒
 color=#00ffff
 separator_block_width=4
