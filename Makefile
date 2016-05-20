@@ -14,6 +14,7 @@ M4_DOTFILES=\
 	.config/flake8\
 	.config/i3/config\
 	.config/i3blocks/config\
+	.config/locale.conf\
 	.config/termite/config\
 	.gitconfig\
 	.gitignore_global\

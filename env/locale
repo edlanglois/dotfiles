@@ -1,5 +1,8 @@
 #!/bin/bash
 set -eu
 if locale -a | grep en_CA.utf8 >/dev/null; then
-	echo LOCALE=en_CA.utf8
+	echo LANG=en_CA.utf8
+fi
+if locale -a | grep en_DK.utf8 > /dev/null; then
+	echo LC_TIME=en_DK.utf8
 fi
