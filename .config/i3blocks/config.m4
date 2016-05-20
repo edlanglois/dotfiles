@@ -163,7 +163,7 @@ color=#00ffff
 separator_block_width=4
 
 [time]
-command=date -I
+command=date '+%Y-%m-%d %a'
 interval=60
 
 [time label]
