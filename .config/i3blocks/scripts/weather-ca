@@ -4,7 +4,7 @@ set -eu
 # Weather provided by weather.gc.ca
 
 PROVINCE_CODE="$1"
-CITY_CODE="$2" # Guelph
+CITY_CODE="$2"
 FORMAT_STR="${3:-%i  %t %s (%c)}"
 SHORT_FORMAT_STR="${4:-}"
 
@@ -31,7 +31,7 @@ case ${CONDITIONS,,} in
 		ICON=🌣;;
 		# ICON=☀;;
 		# ICON=☼;;
-	'partly cloudy'|'a mix of sun and cloud')
+	'partly cloudy'|'a mix of sun and cloud'|'a few clouds')
 		ICON=🌤;;
 		# ICON=⛅;;
 	'mainly cloudy'|'mostly cloudy'|'cloudy')
