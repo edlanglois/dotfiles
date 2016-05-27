@@ -44,6 +44,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'moll/vim-bbye'
 Plugin 'morhetz/gruvbox'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'nvie/vim-flake8'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
@@ -59,7 +60,6 @@ Plugin 'vim-scripts/fish-syntax'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
-Plugin 'EdTsft/python-mode'
 Plugin 'Valloric/YouCompleteMe'
 )m4_dnl
 
@@ -116,16 +116,15 @@ let g:ycm_filetype_blacklist = {
       \ 'rnoweb' : 1
       \}
 
-let g:pymode_rope_completion = 0 " Disable Rope completion - competes with YCM
-let g:pymode_rope_goto_definition_cmd = 'e'
-let g:pymode_lint_unmodified = 1 " Lint on write even when unmodified
-" Disable pymode's indentation. Using own in after/indent/python.vim
-let g:pymode_indent = 0
 
-m4_ifdef(??[[<<m4_env_config_USING_PYTHON3>>]]??,
-" Run lint checks against Python3 code (by using python3 interpreter)
-let g:pymode_lint_external_python = "m4_env_config_PYTHON"
-)m4_dnl
+let g:flake8_show_quickfix=1
+let g:flake8_show_in_gutter=1
+" Run linting on save
+autocmd BufWritePost *.py call Flake8()
+augroup python_lint
+	autocmd!
+	autocmd Filetype python autocmd BufWritePost call Flake8()
+augroup END
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
@@ -270,9 +269,6 @@ nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
-
-" Python Lint
-nnoremap <F7> :PymodeLint<CR>
 
 " Toggle Tag Bar
 nnoremap <F8> :TagbarToggle<CR>
