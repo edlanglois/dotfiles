@@ -3,11 +3,11 @@ m4_include(env_config.m4)m4_dnl
 " Function Keys
 " -------------
 " F2  - Toggle NERDTree
+" F3  - Toggle Tagbar
 " F4  - Select buffer
 " F5  - YCM Recompile and Regenerate diagnostics
 " F6  - Generate ctags
 " F7  - Python lint
-" F8  - Toggle Tagbar
 " F10 - Syntax Group under cursor
 " F11 - Paste Mode
 set shell=/bin/bash " Vim doesn't like fish
@@ -46,6 +46,7 @@ Plugin 'moll/vim-bbye'
 Plugin 'morhetz/gruvbox'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'nvie/vim-flake8'
+Plugin 'nvie/vim-pyunit'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
@@ -126,6 +127,9 @@ augroup python_lint
 	autocmd!
 	autocmd Filetype python autocmd BufWritePost call Flake8()
 augroup END
+
+let g:PyUnitTestsStructure = "nose"
+let g:PyUnitTestsSplitWindow = "no"
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
@@ -264,6 +268,9 @@ let g:ctrlp_user_command = {
 " Toggle NERDTree
 nnoremap <F2> :NERDTreeToggle<CR>
 
+" Toggle Tag Bar
+nnoremap <F3> :TagbarToggle<CR>
+
 " Show list of buffers and select one by number
 nnoremap <F4> :buffers<CR>:buffer<Space>
 
@@ -272,9 +279,6 @@ nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
-
-" Toggle Tag Bar
-nnoremap <F8> :TagbarToggle<CR>
 
 " Syntax group under cursor"
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
