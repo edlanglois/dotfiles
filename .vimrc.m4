@@ -38,6 +38,7 @@ Plugin 'EdTsft/tmuxline.vim',
 Plugin 'edkolev/tmuxline.vim')
 Plugin 'EdTsft/vim-qrc'
 Plugin 'EdTsft/vim-tmux-focus-events'
+Plugin 'EdTsft/vim-gdl-syntax'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
