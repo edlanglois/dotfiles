@@ -121,12 +121,6 @@ let g:ycm_filetype_blacklist = {
 
 let g:flake8_show_quickfix=1
 let g:flake8_show_in_gutter=1
-" Run linting on save
-autocmd BufWritePost *.py call Flake8()
-augroup python_lint
-	autocmd!
-	autocmd Filetype python autocmd BufWritePost call Flake8()
-augroup END
 
 let g:PyUnitTestsStructure = "nose"
 let g:PyUnitTestsSplitWindow = "no"
