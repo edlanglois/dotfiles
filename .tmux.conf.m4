@@ -32,9 +32,11 @@ set-window-option -g mode-keys vi
 # 12 Hour Clock
 set-window-option -g clock-mode-style 12
 
+m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_0>>]]??,m4_dnl
 # Send focus events
 set -g focus-events on
 
+)m4_dnl
 # Use | and - to split windows
 bind | split-window -h
 bind - split-window -v
