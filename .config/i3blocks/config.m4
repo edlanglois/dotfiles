@@ -1,4 +1,5 @@
 m4_include(user_config.m4)m4_dnl
+m4_include(env_config.m4)m4_dnl
 # i3blocks config file
 #
 # Please see man i3blocks for a complete reference!
@@ -25,7 +26,9 @@ m4_include(user_config.m4)m4_dnl
 #
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
-command=/usr/lib/i3blocks/$BLOCK_NAME
+m4_ifdef(??[[<<m4_env_config_I3BLOCKS_DIR>>]]??,m4_dnl
+command=m4_env_config_I3BLOCKS_DIR/$BLOCK_NAME
+)
 align=left
 color=#ffffff
 separator=false

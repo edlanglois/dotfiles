@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eu
+
+possible_i3blocks_dirs=( "/usr/lib/i3blocks" "/usr/share/i3blocks" )
+
+for i3blocks_dir in "${possible_i3blocks_dirs[@]}"; do
+	if [ -d "${i3blocks_dir}" ]; then
+		echo "I3BLOCKS_DIR=${i3blocks_dir}"
+		exit 0
+	fi
+done
