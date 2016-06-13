@@ -1,7 +1,14 @@
 #!/bin/bash
 set -eu
+
+terminal_preferences=( termite urxvt )
+
 # Find a preferred terminal
-if hash termite 2>/dev/null; then
-	echo TERMINAL=termite
-fi
+for terminal in "${terminal_preferences[@]}"; do
+	if hash "${terminal}" 2>/dev/null; then
+		echo "TERMINAL=$(which ${terminal})"
+		exit 0
+	fi
+done
+
 exit 0
