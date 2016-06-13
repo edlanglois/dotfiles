@@ -3,7 +3,7 @@
 set -eux
 
 # Set Capslock to the control key on GNOME
-if hash dconf 2>/dev/null; then
+if hash dconf 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 	dconf write /org/gnome/desktop/input-sources/xkb-options "['ctrl:nocaps']"
 fi
 
