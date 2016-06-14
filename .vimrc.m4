@@ -163,6 +163,8 @@ set ruler " Column Numbers
 
 set hlsearch
 set incsearch
+set ignorecase
+set smartcase
 
 set scrolloff=10
 
