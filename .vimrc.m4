@@ -175,6 +175,7 @@ set foldlevel=99
 
 set background=dark
 colorscheme desert
+highlight Search ctermfg=black ctermbg=blue
 hi Normal ctermbg=NONE
 
 " Set the highlighted column colour (grey)
