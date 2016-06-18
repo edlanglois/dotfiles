@@ -97,14 +97,14 @@ separator_block_width=4
 [memory]
 interval=30
 
-[memory lable]
-full_text=SWAP
-color=#00ffff
-separator_block_width=4
-
-[memory]
-instance=swap
-interval=30
+# [memory lable]
+# full_text=SWAP
+# color=#00ffff
+# separator_block_width=4
+#
+# [memory]
+# instance=swap
+# interval=30
 
 # # Disk usage
 # [disk]
