@@ -132,19 +132,19 @@ separator_block_width=4
 [temperature -w 50 -c 65]
 interval=10
 
-# Network interface monitoring
-#
-# If the instance is not specified, use the interface used for default route.
-# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
-[iface-label]
-full_text=🖧
-color=#00ffff
-separator_block_width=4
-
-[iface]
-#instance=wlan0
-#color=#00FF00
-interval=10
+# # Network interface monitoring
+# #
+# # If the instance is not specified, use the interface used for default route.
+# # The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
+# [iface-label]
+# full_text=🖧
+# color=#00ffff
+# separator_block_width=4
+# 
+# [iface]
+# #instance=wlan0
+# #color=#00FF00
+# interval=10
 m4_ifdef(??[[<<m4_env_config_WIRELESS_INTERFACE>>]]??,m4_dnl
 
 [wifi-label]
