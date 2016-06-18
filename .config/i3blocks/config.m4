@@ -145,19 +145,30 @@ separator_block_width=4
 #instance=wlan0
 #color=#00FF00
 interval=10
+m4_ifdef(??[[<<m4_env_config_WIRELESS_INTERFACE>>]]??,m4_dnl
 
-#[wifi]
-##instance=wlp3s0
-#interval=10
+[wifi-label]
+full_text=📶
+color=#00ffff
+separator_block_width=4
 
-# # Battery indicator
-# #
-# # The battery instance defaults to 0.
-# [battery]
-# #label=BAT
-# label=⚡
-# #instance=1
-# interval=30
+[wifi]
+instance=m4_env_config_WIRELESS_INTERFACE
+interval=10)
+m4_ifdef(??[[<<m4_env_config_BATTERY>>]]??,m4_dnl
+
+# Battery indicator
+#
+# The battery instance defaults to 0.
+[battery-label]
+command=bash $HOME/.config/i3blocks/scripts/battery-label
+interval=30
+color=#00ffff
+separator_block_width=4
+
+[battery]
+command=m4_env_config_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
+interval=30)
 
 # Date
 [time-label]

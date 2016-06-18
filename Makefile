@@ -14,6 +14,7 @@ M4_DOTFILES=\
 	.config/flake8\
 	.config/i3/config\
 	.config/i3blocks/config\
+	.config/i3blocks/scripts/battery-label\
 	.config/locale.conf\
 	.config/termite/config\
 	.gitconfig\
@@ -41,6 +42,7 @@ DOTDIRS=\
 	.vim
 
 ENV_CONFIG_FILES=$(addprefix env/,\
+	battery\
 	cuda\
 	default-shell\
 	git-push-default-simple\
@@ -56,6 +58,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	tmux\
 	torch\
 	virtualfish\
+	wifi\
 )
 
 DOTFILES_DIR=$(shell pwd)

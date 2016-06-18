@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eu
+
+INTERFACE="wlp3s0"
+if [ -d "/sys/class/net/$INTERFACE/wireless" ]; then
+	echo "WIRELESS_INTERFACE=$INTERFACE"
+fi
