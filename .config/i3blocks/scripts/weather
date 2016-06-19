@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -eu
+# Weather provided by OpenWeatherMap
+
+APIKEY="$1"
+CITY_CODE="$2"
+UNITS="${3:-metric}"
+FORMAT_STR="${4:-%i  %t %s (%c)}"
+SHORT_FORMAT_STR="${5:-}"
+
+REPORT=$(curl -s "http://api.openweathermap.org/data/2.5/weather?appid=${APIKEY}&id=${CITY_CODE}&units=${UNITS}&lang=${LANG}")
+
+CITY_REGEXP='"name"[[:space:]]*:[[:space:]]*"([^"]*)"'
+[[ "$REPORT" =~ $CITY_REGEXP ]]
+CITY="${BASH_REMATCH[1]}"
+
+TEMP_REGEXP='"main"[[:space:]]*:[[:space:]]*\{[^}]*"temp"[[:space:]]*:[[:space:]]*([-0-9.]+)'
+[[ "$REPORT" =~ $TEMP_REGEXP ]]
+TEMP="${BASH_REMATCH[1]}"
+# Truncate
+# TEMP_TRUNCATE_REGEXP='[-0-9]*(\.[0-9])?' # 1 decimal
+TEMP_TRUNCATE_REGEXP='[-0-9]*' # No decimals
+[[ "$TEMP" =~ $TEMP_TRUNCATE_REGEXP ]];
+TEMP="${BASH_REMATCH[0]}"
+# Append units
+if [ "$UNITS" == "metric" ]; then
+	TEMP="$TEMP°C"
+elif [ "$UNITS" == "imperial" ]; then
+	TEMP="$TEMP°F"
+fi
+
+DESCRIPTION_REGEXP='"weather"[[:space:]]*:[[:space:]]*\[[[:space:]]*\{[^}]*"description"[[:space:]]*:[[:space:]]*"([^"]*)"'
+[[ "$REPORT" =~ $DESCRIPTION_REGEXP ]]
+DESCRIPTION="${BASH_REMATCH[1]}"
+
+WEATHER_CODE_REGEXP='"weather"[[:space:]]*:[[:space:]]*\[[[:space:]]*\{[^}]*"id"[[:space:]]*:[[:space:]]*([[:digit:]]*)'
+[[ "$REPORT" =~ $WEATHER_CODE_REGEXP ]]
+WEATHER_CODE="${BASH_REMATCH[1]}"
+
+ICON_REGEXP='"weather"[[:space:]]*:[[:space:]]*\[[[:space:]]*\{[^}]*"icon"[[:space:]]*:[[:space:]]*"([^"]*)"'
+[[ "$REPORT" =~ $ICON_REGEXP ]]
+ICON_CODE="${BASH_REMATCH[1]}"
+
+# Map icon codes to Unicode
+# 2 possible icons given for each code. The 1st from the
+# 'Miscellaneous Symbols' block, and the 2nd from the
+# 'Miscellaneous Symbols and Pictographs' block.
+# The first block has more font support.
+case "${ICON_CODE}" in
+	"01d")         # -- clear sky (day)
+		# ICON=☀;;     # WHITE SUN WITH RAYS
+		ICON=🌣;;   # WHITE SUN
+	"01n")         # -- clear sky (night)
+		# ICON=☽;;     # FIRST QUARTER MOON
+		ICON=🌙;;   # CRESCENT MOON
+	"02d"|"02n")   # -- few clouds
+		# ICON=⛅;;     # SUN BEHIND CLOUDS
+		ICON=🌤;;   # WHITE SUN WITH SMALL CLOUD
+	"03d"|"03n")   # -- scattered clouds
+		# ICON=☁;;     # CLOUD
+		ICON=🌥;;   # WHITE SUN BEHIND CLOUD
+	"04d"|"04n")   # -- broken clouds
+		# ICON=☁;;     # CLOUD
+		ICON=🌥;;   # WHITE SUN BEHIND CLOUD
+	"09d"|"09n")   # -- shower rain
+		# ICON=⛆;;     # RAIN
+		ICON=🌧;;   # CLOUD WITH RAIN
+	"10d"|"10n")   # -- rain
+		# ICON=⛆;;     # RAIN
+		ICON=🌧;;   # CLOUD WITH RAIN
+	"11d"|"11n")   # -- thunderstorm
+		# ICON=⛈;;     # THUNDER CLOUD AND RAIN
+		ICON=🌩;;   # CLOUD WITH LIGHTNING
+	"13d"|"13n")   # -- snow
+		# ICON=☃;;     # SNOWMAN
+		ICON=🌨;;   # CLOUD WITH SNOW
+	"50d"|"50n")   # -- mist
+		# ICON=☁;;     # CLOUD
+		ICON=🌫;;   # FOG
+	*)
+		ICON=;;
+esac
+
+FULL_TEXT="$FORMAT_STR"
+FULL_TEXT="${FULL_TEXT//'%i'/$ICON}"
+FULL_TEXT="${FULL_TEXT//'%t'/$TEMP}"
+FULL_TEXT="${FULL_TEXT//'%s'/$DESCRIPTION}"
+FULL_TEXT="${FULL_TEXT//'%c'/$CITY}"
+echo "$FULL_TEXT"
+
+if [ -n "$SHORT_FORMAT_STR" ]; then
+	SHORT_TEXT="$SHORT_FORMAT_STR"
+	SHORT_TEXT="${SHORT_TEXT//'%i'/$ICON}"
+	SHORT_TEXT="${SHORT_TEXT//'%t'/$TEMP}"
+	SHORT_TEXT="${SHORT_TEXT//'%s'/$DESCRIPTION}"
+	SHORT_TEXT="${SHORT_TEXT//'%c'/$CITY}"
+	echo "$SHORT_TEXT"
+fi
+
+if [[ "$WEATHER_CODE" == 90* ]]; then
+	# Extreme weather
+	# Set Urgent flag
+	exit 33
+fi

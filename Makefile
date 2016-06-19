@@ -33,7 +33,7 @@ M4_DOTFILES=\
 DOTFILES=\
 	$(M4_DOTFILES)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
-	.config/i3blocks/scripts/weather-ca\
+	.config/i3blocks/scripts/weather\
 	.config/nvim\
 	.fonts/PowerlineSymbols.otf\
 	.tmuxline.conf\

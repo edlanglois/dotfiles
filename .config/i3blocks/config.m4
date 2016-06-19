@@ -63,15 +63,15 @@ instance=Master
 interval=once
 signal=1
 
-m4_ifdef(??[[<<m4_user_config_CANADA_WEATHER_REGION_NUMBER>>]]??,m4_dnl
-[weather-ca-label]
-command=$HOME/.config/i3blocks/scripts/weather-ca m4_user_config_CANADA_WEATHER_PROVINCE m4_user_config_CANADA_WEATHER_REGION_NUMBER '%i'
+m4_ifdef(??[[<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>]]??,m4_dnl
+[weather-label]
+command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' 'm4_user_config_OPEN_WEATHER_MAP_UNITS' '%i'
 interval=600
 color=#00ffff
 separator_block_width=4
 
-[weather-ca]
-command=$HOME/.config/i3blocks/scripts/$BLOCK_NAME m4_user_config_CANADA_WEATHER_PROVINCE m4_user_config_CANADA_WEATHER_REGION_NUMBER '%t (%c)' '%t'
+[weather]
+command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' 'm4_user_config_OPEN_WEATHER_MAP_UNITS' '%t %s (%c)' '%t'
 interval=600)
 
 # CPU usage

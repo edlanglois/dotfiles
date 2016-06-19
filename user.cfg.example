@@ -2,10 +2,20 @@ NAME=Firstname Lastname
 EMAIL=email@example.com
 LIGHTWEIGHT=false
 
-# Canadian weather - optional
-# Province code and region number for weather.gc.ca
-# Search for here http://weather.gc.ca/canada_e.html
-# Look in the URL for the region number:
-# weather.gc.ca/city/pages/<province>-<region>_metric_e.html
-#CANADA_WEATHER_PROVINCE=on
-#CANADA_WEATHER_REGION_NUMBER=143 # Toronto
+# Weather provided by OpenWeatherMap
+# Uncomment and set these variables to get a weather report on the i3blocks
+# status line. All of them must be uncommented for the report to show.
+
+# Create a free account on openweathermap.org and copy-paste the API key they
+# give you.
+# OPEN_WEATHER_MAP_API_KEY=<your-key-here>
+
+# Find a city ID with the following query:
+# http://api.openweathermap.org/data/2.5/weather?q=<CITY>,<COUNTRY>&appid=<APIKEY>
+# Where <CITY>, <COUNTRY>, and <APIKEY> are replaced with the city name,
+# 2-letter country code, and your API key, respectively.
+# Look for the top-level field "id" in the response, that is the city id.
+# OPEN_WEATHER_MAP_CITY_ID=6167865
+
+# Can be set to 'metric' or 'imperial'
+# OPEN_WEATHER_MAP_UNITS=metric
