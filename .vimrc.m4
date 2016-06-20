@@ -36,10 +36,11 @@ Plugin 'christoomey/vim-tmux-navigator'
 m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
 Plugin 'EdTsft/tmuxline.vim',
 Plugin 'edkolev/tmuxline.vim')
+Plugin 'EdTsft/vim-gdl-syntax'
 Plugin 'EdTsft/vim-qrc'
 Plugin 'EdTsft/vim-tmux-focus-events'
-Plugin 'EdTsft/vim-gdl-syntax'
 Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'majutsushi/tagbar'
