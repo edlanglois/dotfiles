@@ -85,6 +85,8 @@ separator_block_width=4
 
 [cpu_usage -w 80 -c 95]
 interval=10
+min_width=99.99%
+align=right
 
 # Memory usage
 #
