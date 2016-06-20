@@ -37,6 +37,7 @@ DOTFILES=\
 	.config/nvim\
 	.fonts/PowerlineSymbols.otf\
 	.tmuxline.conf\
+	.virtualenvs/global_requirements.txt\
 
 DOTDIRS=\
 	.vim

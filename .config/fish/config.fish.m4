@@ -34,5 +34,5 @@ end
 m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
 
 # Enable virtualfish auto-activation.
-eval (python -m virtualfish auto_activation)
+eval (python -m virtualfish auto_activation global_requirements)
 )m4_dnl
