@@ -92,7 +92,7 @@ align=right
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.
-[memory lable]
+[memory-label]
 full_text=MEM
 color=#00ffff
 separator_block_width=4
@@ -100,7 +100,7 @@ separator_block_width=4
 [memory]
 interval=30
 
-# [memory lable]
+# [memory-label]
 # full_text=SWAP
 # color=#00ffff
 # separator_block_width=4
