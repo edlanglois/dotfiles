@@ -35,9 +35,10 @@ separator=false
 separator_block_width=15
 
 [mediaplayer-label]
-full_text=♫
+command=[ -n "$(m4_env_config_I3BLOCKS_DIR/mediaplayer)" ] && echo '♫' || echo ''
 color=#00ffff
 separator_block_width=4
+interval=5
 
 # Generic media player support
 #
