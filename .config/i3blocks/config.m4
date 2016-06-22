@@ -174,13 +174,15 @@ command=m4_env_config_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
 interval=30)
 
 # Date
-[time-label]
+[date-label]
 full_text=📅
 color=#00ffff
 separator_block_width=4
 
-[time]
-command=date '+%Y-%m-%d %a'
+[date]
+m4_ifdef(??[[<<m4_env_config_GSIMPLECAL>>]]??,m4_dnl
+command=date '+%Y-%m-%d %a' && ( [ "$BLOCK_BUTTON" != "1" ] || gsimplecal ),m4_dnl
+command=date '+%Y-%m-%d %a')
 interval=60
 
 [time-label]

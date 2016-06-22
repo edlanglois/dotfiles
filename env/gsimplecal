@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+if hash gsimplecal 2>/dev/null; then
+	echo GSIMPLECAL=
+fi

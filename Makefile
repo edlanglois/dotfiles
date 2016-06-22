@@ -48,6 +48,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	default-shell\
 	git-push-default-simple\
 	github_id\
+	gsimplecal\
 	i3blocks\
 	keychain\
 	locale\
