@@ -54,6 +54,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	keychain\
 	locale\
 	osx\
+	pulseaudio\
 	python\
 	root\
 	ruby\
