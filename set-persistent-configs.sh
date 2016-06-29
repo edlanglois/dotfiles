@@ -2,9 +2,10 @@
 # Persistent configurations that only need to be run once.
 set -eux
 
-# Set Capslock to the control key on GNOME
-if hash dconf 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
-	dconf write /org/gnome/desktop/input-sources/xkb-options "['ctrl:nocaps']"
+# GNOME configuration
+if hash gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
+	# Set Capslock to the control key on GNOME
+	gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
 fi
 
 # Generate the font configuration - Fonts must have been installed first.
