@@ -188,3 +188,5 @@ bar {
 	status_command i3blocks
 	position bottom
 }
+
+m4_include(.config/i3/config.local)m4_dnl

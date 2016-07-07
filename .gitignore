@@ -19,6 +19,7 @@ user.cfg
 .config/fish/functions/torch-activate.fish
 .config/flake8
 .config/i3/config
+.config/i3/config.local
 .config/i3blocks/config
 .config/i3blocks/scripts/battery-label
 .config/locale.conf

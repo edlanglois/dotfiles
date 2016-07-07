@@ -97,7 +97,7 @@ build: $(DOTFILES) Makefile-binaries
 #   env_config.m4.
 # - Custom build for .tmuxline.conf
 define M4_CONFIG_GEN_TEMPLATE
-$1 : % : %.m4 user_config.m4 env_config.m4
+$1 : % : %.m4 $(wildcard $1.local) user_config.m4 env_config.m4
 	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
 		cat - $$< | \
 		m4 --prefix-builtins > $$@
