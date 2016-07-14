@@ -33,6 +33,7 @@ M4_DOTFILES=\
 DOTFILES=\
 	$(M4_DOTFILES)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
+	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/nvim\
 	.fonts/PowerlineSymbols.otf\
@@ -53,6 +54,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	i3lock-extra\
 	keychain\
 	locale\
+	nvidia-smi\
 	osx\
 	pulseaudio\
 	python\

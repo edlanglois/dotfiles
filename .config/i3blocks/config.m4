@@ -89,6 +89,19 @@ interval=10
 min_width=99.99%
 align=right
 
+m4_ifdef(??[[<<m4_env_config_NVIDIA_SMI>>]]??,m4_dnl
+# GPU usage
+[gpu-usage-label]
+full_text=GPU
+color=#00ffff
+separator_block_width=4
+
+[gpu-usage]
+command=$HOME/.config/i3blocks/scripts/gpu-usage 80 95
+interval=10
+min_width=100%
+align=right)
+
 # Memory usage
 #
 # The type defaults to "mem" if the instance is not specified.
@@ -143,7 +156,7 @@ interval=10
 # full_text=🖧
 # color=#00ffff
 # separator_block_width=4
-# 
+#
 # [iface]
 # #instance=wlan0
 # #color=#00FF00

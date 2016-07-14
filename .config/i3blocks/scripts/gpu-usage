@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# usage: gpu-usage [WARNING_THRESHOLD [CRITICAL_THRESHOLD]]
+set -eu
+
+WARNING_THRESHOLD=${1:-200}
+ERROR_THRESHOLD=${2:-200}
+
+PCT_USAGE="$(nvidia-smi --query-gpu=utilization.gpu --format=csv,nounits,noheader)"
+echo "$PCT_USAGE%"
+echo "$PCT_USAGE%"
+if [ "$PCT_USAGE" -ge "$ERROR_THRESHOLD" ]; then
+	echo "#FF0000"
+elif [ "$PCT_USAGE" -ge "$WARNING_THRESHOLD" ]; then
+	echo "#FFFC00"
+fi
