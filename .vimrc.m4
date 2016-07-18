@@ -47,11 +47,10 @@ Plugin 'majutsushi/tagbar'
 Plugin 'moll/vim-bbye'
 Plugin 'morhetz/gruvbox'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'nvie/vim-flake8'
-Plugin 'nvie/vim-pyunit'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 Plugin 'shaneharper/vim-rtags'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
@@ -120,12 +119,12 @@ let g:ycm_filetype_blacklist = {
       \ 'rnoweb' : 1
       \}
 
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-let g:flake8_show_quickfix=1
-let g:flake8_show_in_gutter=1
-
-let g:PyUnitTestsStructure = "nose"
-let g:PyUnitTestsSplitWindow = "no"
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
