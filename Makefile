@@ -61,6 +61,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	torch\
 	virtualfish\
 	wifi\
+	xbacklight\
 )
 
 DOTFILES_DIR=$(shell pwd)

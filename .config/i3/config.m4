@@ -172,6 +172,12 @@ bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; pkill -RTMIN
 bindsym XF86AudioLowerVolume exec "amixer -q set Master 5%- unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioMute exec "amixer -q set Master toggle; pkill -RTMIN+1 i3blocks"
 
+m4_ifdef(??[[<<m4_env_config_XBACKLIGHT>>]]??,m4_dnl
+# Brightness
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
+)m4_dnl
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
