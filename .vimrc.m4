@@ -9,7 +9,6 @@ m4_include(env_config.m4)m4_dnl
 " F6  - Generate ctags
 " F7  - Python lint
 " F10 - Syntax Group under cursor
-" F11 - Paste Mode
 set shell=/bin/bash " Vim doesn't like fish
 
 " Run :PluginInstall to install or update plugins managed by Vundle
@@ -196,7 +195,8 @@ set listchars=tab:⇥\ ,
 hi SpecialKey ctermfg=8
 
 " Toggle paste
-set pastetoggle=<F11>
+set pastetoggle=<leader>p
+
 " Easy window navigation
 noremap <C-h> <C-w>h
 noremap <C-j> <C-w>j
