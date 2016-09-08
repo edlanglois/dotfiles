@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+if hash i3lock-extra 2>/dev/null; then
+	echo I3LOCK_EXTRA=
+fi
