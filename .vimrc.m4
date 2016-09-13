@@ -38,6 +38,8 @@ Plugin 'edkolev/tmuxline.vim')
 Plugin 'EdTsft/vim-gdl-syntax'
 Plugin 'EdTsft/vim-qrc'
 Plugin 'EdTsft/vim-tmux-focus-events'
+Plugin 'ervandew/supertab'
+Plugin 'honza/vim-snippets'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'kien/ctrlp.vim'
@@ -51,6 +53,7 @@ Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'shaneharper/vim-rtags'
+Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
@@ -117,6 +120,18 @@ let g:ycm_filetype_blacklist = {
       \ 'tex' : 1,
       \ 'rnoweb' : 1
       \}
+
+" make YCM compatible with UltiSnips
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+let g:ultisnips_python_style = 'google'
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
