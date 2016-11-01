@@ -140,7 +140,7 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 # --------------------------
 # - Copy dotfiles into INSTALL_DIR
 # - Symbolic link dotdirs into INSTALL_DIR
-install: install-dotfiles set-persistent-configs
+install: install-dotfiles
 
 set-persistent-configs: $(INSTALL_DIR)/.fonts/PowerlineSymbols.otf
 	./set-persistent-configs.sh
