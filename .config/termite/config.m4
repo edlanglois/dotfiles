@@ -4,7 +4,7 @@ clickable_url = true
 mouse_autohide = true
 scrollback_lines = 10000
 search_wrap = true
-font = DejaVu Sans Mono 10
+font = Noto Mono 11
 
 [colors]
 # This color scheme is what gnome-terminal calls the "xterm" profile
