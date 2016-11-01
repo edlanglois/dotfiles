@@ -171,7 +171,7 @@ separator_block_width=4
 [wifi]
 instance=m4_env_config_WIRELESS_INTERFACE
 interval=10)
-m4_ifdef(??[[<<m4_env_config_BATTERY>>]]??,m4_dnl
+m4_ifdef(??[[<<m4_env_config_BATTERY_0>>]]??,m4_dnl
 
 # Battery indicator
 #
@@ -184,6 +184,12 @@ separator_block_width=4
 
 [battery]
 command=m4_env_config_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
+instance=0
+interval=30)
+m4_ifdef(??[[<<m4_env_config_BATTERY_1>>]]??,m4_dnl
+[battery]
+command=m4_env_config_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
+instance=1
 interval=30)
 
 # Date

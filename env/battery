@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 set -eu
-if hash acpi 2>/dev/null && [ -n "$(acpi -b)" ]; then
-	echo BATTERY=
+if hash acpi 2>/dev/null; then
+	NUM_BATTERIES="$(acpi -b | wc -l)"
+	for IND in $(seq 0 $(expr "$NUM_BATTERIES" - 1)); do
+		echo "BATTERY_$IND="
+	done
 fi
