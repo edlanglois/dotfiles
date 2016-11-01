@@ -5,12 +5,11 @@ set -eux
 # GNOME configuration
 if hash gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 	# Set Capslock to the control key on GNOME
-	gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']"
+	gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']" || true
 
 	# Fix Nautilus on i3.
 	# Otherwise creates an invisible, unresponsive something when opened.
-	gsettings set org.gnome.desktop.background show-desktop-icons false
-
+	gsettings set org.gnome.desktop.background show-desktop-icons false || true
 fi
 
 # Generate the font configuration - Fonts must have been installed first.
