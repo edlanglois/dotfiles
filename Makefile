@@ -131,7 +131,7 @@ user_config.m4: user.cfg config_replace.sh
 		./config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
 env/%.m4: env/%
-	$< | ./config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
+	$< | ./config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | (echo "m4_dnl $<" && cat) > $@
 
 env_config.m4: $(ENV_CONFIG_M4_FILES)
 	cat $^ > $@
@@ -195,6 +195,7 @@ endif
 	@echo '# User Config' | cat - user.cfg | $(COLORIZE_CONFIG)
 	@echo
 	@echo '# Environment Config' | cat - env_config.m4 | \
+		sed -e "s/^m4_dnl/#/" | \
 		sed -e "s/$(ESCAPED_QUOTE_START)//g" | \
 		sed -e "s/$(ESCAPED_QUOTE_END)//g" | \
 		sed -e "s/^m4_define(m4_env_config_//" | \
