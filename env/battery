@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -eu
-if [ -n "$(acpi -b)" ]; then
+if hash acpi 2>/dev/null && [ -n "$(acpi -b)" ]; then
 	echo BATTERY=
 fi
