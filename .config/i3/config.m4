@@ -187,7 +187,9 @@ bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	status_command i3blocks
+m4_ifdef(??[[<<m4_env_config_I3BLOCKS>>]]??,m4_dnl
+	status_command i3blocks,
+	status_command i3status)
 	position bottom
 }
 
