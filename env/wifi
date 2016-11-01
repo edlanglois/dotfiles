@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-INTERFACE="wlp3s0"
-if [ -d "/sys/class/net/$INTERFACE/wireless" ]; then
+INTERFACE=$(find /sys/class/net/* -follow -maxdepth 1 -type d -name wireless -print -quit | sed -e 's!/sys/class/net/!!' -e 's!/wireless!!')
+if [ -n "$INTERFACE" ]; then
 	echo "WIRELESS_INTERFACE=$INTERFACE"
 fi
