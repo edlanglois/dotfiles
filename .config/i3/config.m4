@@ -189,4 +189,4 @@ bar {
 	position bottom
 }
 
-m4_include(.config/i3/config.local)m4_dnl
+m4_sinclude(.config/i3/config.local)m4_dnl
