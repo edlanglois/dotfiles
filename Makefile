@@ -62,6 +62,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	python\
 	root\
 	ruby\
+	setxkbmap\
 	terminal\
 	tmux\
 	torch\

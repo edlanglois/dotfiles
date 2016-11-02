@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+if hash setxkbmap 2>/dev/null; then
+	echo SETXKBMAP=
+fi
