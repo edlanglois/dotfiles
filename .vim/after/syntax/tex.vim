@@ -426,6 +426,13 @@ if has("conceal") && &enc == 'utf-8'
 	syn cluster texMathZoneGroup add=@texMathStyleGroup,texDoubleStrike
 	syn cluster texMathMatchGroup add=@texMathStyleGroup,texDoubleStrike
 
+	if !exists("g:tex_superscripts")
+		let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
+	endif
+	if !exists("g:tex_subscripts")
+	  let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
+	endif
+
 	" Superscripts/Subscripts {{{2
 	" Custom version of default super/subscripts that only allows single characters.
 	" Uses new 't' option in tex_conceal
