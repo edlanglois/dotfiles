@@ -178,6 +178,9 @@ set relativenumber " Hybrid number mode
 set hidden " When opening new files, keep old one in a buffer
 set ruler " Column Numbers
 
+" No bell / flash. Set to visualbell then make visualbell do nothing.
+set visualbell t_vb=
+
 set hlsearch
 set incsearch
 set ignorecase
