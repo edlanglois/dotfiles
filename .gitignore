@@ -35,6 +35,7 @@ user.cfg
 .tmux.conf
 .tmuxline.conf
 .vimrc
+.xbindkeysrc
 .Xmodmap
 .xprofile
 

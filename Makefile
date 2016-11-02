@@ -27,6 +27,7 @@ M4_DOTFILES=\
 	.theanorc\
 	.tmux.conf\
 	.vimrc\
+	.xbindkeysrc\
 	.Xmodmap\
 	.xprofile\
 
@@ -68,6 +69,8 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	virtualfish\
 	wifi\
 	xbacklight\
+	xbindkeys\
+	xdotool\
 	xmodmap\
 )
 

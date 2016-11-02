@@ -8,3 +8,7 @@ setxkbmap -option "ctrl:nocaps"
 m4_ifdef(??[[<<m4_env_config_XMODMAP>>]]??,m4_dnl
 xmodmap ~/.Xmodmap
 )m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_XBINDKEYS>>]]??,m4_dnl
+xbindkeys
+)m4_dnl
