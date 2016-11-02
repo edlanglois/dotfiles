@@ -109,8 +109,8 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	$(eval $(call M4_CONFIG_GEN_TEMPLATE, $(M4_CONFIG_GEN_FILE))))
 
 .tmuxline.conf: .vimrc
-	rm -f $@
 ifdef TMUX
+	rm -f $@
 	vim -u ".vimrc" -c "TmuxlineSnapshot $@" -c "q"
 	@if [ ! -f $@ ]; then \
 		echo "$(WARNING_PREFIX) Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake."; \
