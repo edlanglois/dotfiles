@@ -68,6 +68,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	virtualfish\
 	wifi\
 	xbacklight\
+	xmodmap\
 )
 
 DOTFILES_DIR=$(shell pwd)
