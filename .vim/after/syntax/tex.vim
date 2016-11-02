@@ -430,7 +430,7 @@ if has("conceal") && &enc == 'utf-8'
 		let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
 	endif
 	if !exists("g:tex_subscripts")
-	  let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
+		let g:tex_subscripts= "[0-9aehijklmnoprstuvx,+-/().]"
 	endif
 
 	" Superscripts/Subscripts {{{2
