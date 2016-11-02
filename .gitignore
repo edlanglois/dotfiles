@@ -36,6 +36,7 @@ user.cfg
 .tmux.conf
 .tmuxline.conf
 .vimrc
+.Xmodmap
 .xprofile
 
 Makefile-binaries

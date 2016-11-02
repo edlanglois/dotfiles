@@ -28,6 +28,7 @@ M4_DOTFILES=\
 	.theanorc\
 	.tmux.conf\
 	.vimrc\
+	.Xmodmap\
 	.xprofile\
 
 DOTFILES=\
