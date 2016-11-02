@@ -58,6 +58,9 @@ bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
+# Always wrap when moving
+force_focus_wrapping yes
+
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
