@@ -227,9 +227,8 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " Mappings (from Learn Vimscript the Hard Way)
-" Use jk or kj as <esc>
+" Use jk as <esc>
 inoremap jk <esc>
-inoremap kj <esc>
 
 " Use <leader><c-u> to convert a word to upper case mode.
 inoremap <leader><c-u> <esc>viwUhea
