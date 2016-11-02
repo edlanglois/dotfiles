@@ -20,7 +20,6 @@ M4_DOTFILES=\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
-	.imwheelrc\
 	.profile\
 	.pylintrc\
 	.Rprofile\

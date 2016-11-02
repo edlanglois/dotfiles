@@ -8,7 +8,3 @@ setxkbmap -option "ctrl:nocaps"
 m4_ifdef(??[[<<m4_env_config_XMODMAP>>]]??,m4_dnl
 xmodmap ~/.Xmodmap
 )m4_dnl
-
-if hash imwheel &>/dev/null && ! ps cax | grep imwheel &>/dev/null; then
-	imwheel
-fi

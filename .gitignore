@@ -27,7 +27,6 @@ user.cfg
 .gitconfig
 .gitignore_global
 .hgrc
-.imwheelrc
 .profile
 .pylintrc
 .Rprofile
