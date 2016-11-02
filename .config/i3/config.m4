@@ -166,13 +166,14 @@ m4_ifdef(??[[<<m4_env_config_I3LOCK_EXTRA>>]]??,m4_dnl
 bindsym $mod+Mod4+l exec "i3lock-extra -s -p -- -e",
 bindsym $mod+Mod4+l exec "i3lock -c 000000 -e")
 
+m4_ifdef(??[[<<m4_env_config_PLAYERCTL>>]]??,m4_dnl
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86Forward exec playerctl next
-bindsym XF86Back exec playerctl previous
+bindsym XF86Back exec playerctl previous)
 
 # Volume
 bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
