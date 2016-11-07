@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eu
+if hash xinput 2>/dev/null; then
+	echo XINPUT=
+fi

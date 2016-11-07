@@ -71,6 +71,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	xbacklight\
 	xbindkeys\
 	xdotool\
+	xinput\
 	xmodmap\
 )
 
