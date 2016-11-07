@@ -85,6 +85,9 @@ INSTALLATION_DIRS = $(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
 M4_CONFIG_GEN_FILES=$(M4_DOTFILES) Makefile-binaries
 ENV_CONFIG_M4_FILES=$(addsuffix .m4,$(ENV_CONFIG_FILES))
 
+INSTALLED_SYSTEM_FILES=$(shell find system/ -type f -printf "/%P\n")
+INSTALLATION_DIRS += $(sort $(dir $(INSTALLED_SYSTEM_FILES)))
+
 USER_CONFIG_PREFIX=m4_user_config_
 ENV_CONFIG_PREFIX=m4_env_config_
 # Hopefully unlikely to appear in the dotfiles.
@@ -95,8 +98,8 @@ WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 
 PYGMENTIZE:=$(shell command -v pygmentize)
 
-.PHONY: build install install-dotfiles set-persistent-configs clean show \
-	show-config
+.PHONY: build install install-dotfiles install-system install-all  \
+	install-udev set-persistent-configs clean show show-config
 
 build: $(DOTFILES) Makefile-binaries
 
@@ -173,6 +176,18 @@ $(foreach INSTALLED_DOTDIR, $(INSTALLED_DOTDIRS), \
 
 $(INSTALLATION_DIRS):
 	mkdir -p $@
+
+# Install system files
+install-all: install install-system
+install-system: $(INSTALLED_SYSTEM_FILES)
+
+define INSTALL_SYSTEM_FILE_TEMPLATE
+$1 : /% : system/% | $(dir $1)
+	cp --interactive "$$<" "$$@"
+endef
+
+$(foreach INSTALLED_SYSTEM_FILE, $(INSTALLED_SYSTEM_FILES), \
+	$(eval $(call INSTALL_SYSTEM_FILE_TEMPLATE, $(INSTALLED_SYSTEM_FILE))))
 
 # Clean
 # -----
