@@ -46,16 +46,16 @@ m4_ifdef(??[[<<m4_env_config_XDOTOOL>>]]??,m4_dnl
 "xdotool key XF86AudioPrev"
 	b:8
 
-"xodotool key XF86AudioPlay"
+"xdotool key --clearmodifiers XF86AudioPlay"
 	control + b:9
 
-"xdotool key XF86AudioPause"
+"xdotool key --clearmodifiers XF86AudioPause"
 	control + b:8
 
-"xdotool key XF86AudioRaiseVolume"
+"xdotool key --clearmodifiers XF86AudioRaiseVolume"
 	shift + b:9
 
-"xdotool key XF86AudioLowerVolume"
+"xdotool key --clearmodifiers XF86AudioLowerVolume"
 	shift + b:8
 )m4_dnl
 
