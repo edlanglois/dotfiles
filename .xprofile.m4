@@ -19,5 +19,6 @@ TOUCHPAD_DEVICE_NAME="SynPS/2 Synaptics TouchPad"
 if xinput list --id-only "$TOUCHPAD_DEVICE_NAME"; then
 	xinput set-prop "$TOUCHPAD_DEVICE_NAME" "libinput Tapping Enabled" 1
 	xinput set-prop "$TOUCHPAD_DEVICE_NAME" "libinput Click Method Enabled" 0 1
+	xinput set-prop "$TOUCHPAD_DEVICE_NAME" "libinput Disable While Typing Enabled" 0
 fi
 )m4_dnl
