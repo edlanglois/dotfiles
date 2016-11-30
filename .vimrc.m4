@@ -201,12 +201,9 @@ colorscheme desert
 highlight Search ctermfg=black ctermbg=blue
 hi Normal ctermbg=NONE
 
-" Set the highlighted column colour (grey)
-highlight ColorColumn ctermbg=233 guibg=#121212
-" Highlight columns after textwidth
-let s:colour_columns=range(1, 999)
-call map(s:colour_columns, '"+" . v:val')
-let &colorcolumn=join(s:colour_columns,",")
+" Use a single dark grey column to mark textwidth.
+highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
+set colorcolumn=+1  " Highlight the column after textwidth
 
 " Search for tags file first in cwd then recursively up to ~/Programming
 set tags=./tags;~/Programming
