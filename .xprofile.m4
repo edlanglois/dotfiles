@@ -16,7 +16,7 @@ xbindkeys
 m4_ifdef(??[[<<m4_env_config_XINPUT>>]]??,m4_dnl
 # Attempt to configure touchpad
 TOUCHPAD_DEVICE_NAME="SynPS/2 Synaptics TouchPad"
-if xinput list --id-only "$TOUCHPAD_DEVICE_NAME"; then
+if xinput list --id-only "$TOUCHPAD_DEVICE_NAME" &>/dev/null; then
 	xinput set-prop "$TOUCHPAD_DEVICE_NAME" "libinput Tapping Enabled" 1
 	xinput set-prop "$TOUCHPAD_DEVICE_NAME" "libinput Click Method Enabled" 0 1
 	xinput set-prop "$TOUCHPAD_DEVICE_NAME" "libinput Disable While Typing Enabled" 0
