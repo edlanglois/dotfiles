@@ -173,8 +173,8 @@ bindsym XF86AudioPause exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 bindsym XF86Forward exec playerctl next
-bindsym XF86Back exec playerctl previous)
-
+bindsym XF86Back exec playerctl previous
+)
 # Volume
 bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioLowerVolume exec "amixer -q set Master 5%- unmute; pkill -RTMIN+1 i3blocks"

@@ -57,6 +57,17 @@ m4_ifdef(??[[<<m4_env_config_XDOTOOL>>]]??,m4_dnl
 
 "xdotool key --clearmodifiers XF86AudioLowerVolume"
 	shift + b:8
+
+# Map Alt+Volume to media control
+"xdotool keyup XF86AudioMute key --clearmodifiers XF86AudioPlay"
+	alt + XF86AudioMute
+
+"xdotool keyup XF86AudioLowerVolume key --clearmodifiers XF86AudioPrev"
+	alt + XF86AudioLowerVolume
+
+"xdotool keyup XF86AudioRaiseVolume key --clearmodifiers XF86AudioNext"
+	alt + XF86AudioRaiseVolume
+
 )m4_dnl
 
 # Examples of commands:
