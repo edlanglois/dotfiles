@@ -37,6 +37,7 @@ DOTFILES=\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/nvim\
+	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
@@ -52,7 +53,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	github_id\
 	gsimplecal\
 	i3blocks\
-	i3lock-extra\
+	i3lock\
 	keychain\
 	locale\
 	nvidia-smi\
@@ -73,6 +74,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	xdotool\
 	xinput\
 	xmodmap\
+	xss-lock\
 )
 
 DOTFILES_DIR=$(shell pwd)
@@ -117,6 +119,12 @@ endef
 
 $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	$(eval $(call M4_CONFIG_GEN_TEMPLATE, $(M4_CONFIG_GEN_FILE))))
+
+.config/xss-lock/transfer-sleep-lock-i3lock.sh : % : %.m4 $(wildcard %.local) user_config.m4 env_config.m4
+	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
+		cat - $< | \
+		m4 --prefix-builtins > $@
+	chmod u+x $@
 
 .tmuxline.conf: .vimrc
 ifdef TMUX
@@ -196,6 +204,7 @@ clean:
 	rm -f user_config.m4 env_config.m4
 	rm -f Makefile-binaries
 	rm -f $(M4_DOTFILES) .tmuxline.conf
+	rm -f .config/xss-lock/transfer-sleep-lock-i3lock.sh
 	rm -f $(ENV_CONFIG_M4_FILES)
 
 ifdef PYGMENTIZE

@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+if hash i3lock-extra 2>/dev/null; then
+	echo "I3LOCK_CMD=i3lock-extra -s -p -- -e"
+else
+	echo "I3LOCK_CMD=i3lock -c 000000 -e"
+fi

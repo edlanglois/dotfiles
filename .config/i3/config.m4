@@ -162,9 +162,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Lock screen
-m4_ifdef(??[[<<m4_env_config_I3LOCK_EXTRA>>]]??,m4_dnl
-bindsym $mod+Mod4+l exec "i3lock-extra -s -p -- -e",
-bindsym $mod+Mod4+l exec "i3lock -c 000000 -e")
+bindsym $mod+Mod4+l exec "m4_env_config_I3LOCK_CMD"
 
 m4_ifdef(??[[<<m4_env_config_PLAYERCTL>>]]??,m4_dnl
 # Media player controls

@@ -22,3 +22,7 @@ if xinput list --id-only "$TOUCHPAD_DEVICE_NAME" &>/dev/null; then
 	xinput set-prop "$TOUCHPAD_DEVICE_NAME" "libinput Disable While Typing Enabled" 0
 fi
 )m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_XSS_LOCK>>]]??,m4_dnl
+xss-lock -l -- $HOME/.config/xss-lock/transfer-sleep-lock-i3lock.sh &
+)m4_dnl

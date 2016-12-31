@@ -24,6 +24,7 @@ user.cfg
 .config/i3blocks/scripts/battery-label
 .config/locale.conf
 .config/termite/config
+.config/xss-lock/transfer-sleep-lock-i3lock.sh
 .gitconfig
 .gitignore_global
 .hgrc
