@@ -66,13 +66,13 @@ signal=1
 
 m4_ifdef(??[[<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>]]??,m4_dnl
 [weather-label]
-command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' 'm4_user_config_OPEN_WEATHER_MAP_UNITS' '%i'
+command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%i'
 interval=600
 color=#00ffff
 separator_block_width=4
 
 [weather]
-command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' 'm4_user_config_OPEN_WEATHER_MAP_UNITS' '%t %s (%c)' '%t'
+command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%t %s (%c)' --sfmt '%t'
 interval=600)
 
 # CPU usage

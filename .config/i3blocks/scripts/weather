@@ -2,13 +2,53 @@
 set -eu
 # Weather provided by OpenWeatherMap
 
-APIKEY="$1"
-CITY_CODE="$2"
-UNITS="${3:-metric}"
-FORMAT_STR="${4:-%i  %t %s (%c)}"
-SHORT_FORMAT_STR="${5:-}"
+UNITS="metric"
+FORMAT_STR="%i  %t %s (%c)"
+SHORT_FORMAT_STR=""
 
-REPORT=$(curl -s "http://api.openweathermap.org/data/2.5/weather?appid=${APIKEY}&id=${CITY_CODE}&units=${UNITS}&lang=${LANG}")
+URL="http://api.openweathermap.org/data/2.5/weather"
+CURLARGS=("-s" "-G")
+
+APIKEY="$1"
+shift
+CURLARGS+=("--data-urlencode" "appid=${APIKEY}")
+
+while [[ "$#" -gt 1 ]]; do
+	key=$1
+	shift;
+	case $key in
+	--name)
+		CURLARGS+=("--data-urlencode" "q=$1")
+		shift;;
+	--id)
+		CURLARGS+=("--data-urlencode" "id=$1")
+		shift;;
+	--lat)
+		CURLARGS+=("--data-urlencode" "lat=$1")
+		shift;;
+	--lon)
+		CURLARGS+=("--data-urlencode" "lon=$1")
+		shift;;
+	--units)
+		UNITS="$1"
+		shift;;
+	--fmt)
+		FORMAT_STR="$1"
+		shift;;
+	--sfmt)
+		SHORT_FORMAT_STR="$1"
+		shift;;
+	*)
+		echo "Unknown argument \"$key\"".
+		exit 1
+	esac
+done
+
+CURLARGS+=("--data-urlencode" "units=${UNITS}")
+CURLARGS+=("--data-urlencode" "lang=${LANG}")
+CURLARGS+=("$URL")
+
+REPORT=$(curl "${CURLARGS[@]}")
 
 CITY_REGEXP='"name"[[:space:]]*:[[:space:]]*"([^"]*)"'
 [[ "$REPORT" =~ $CITY_REGEXP ]]
