@@ -200,7 +200,8 @@ separator_block_width=4
 
 [date]
 m4_ifdef(??[[<<m4_env_config_GSIMPLECAL>>]]??,m4_dnl
-command=date '+%Y-%m-%d %a' && ( [ "$BLOCK_BUTTON" != "1" ] || gsimplecal ),m4_dnl
+# Sending the outputs to IO is important to not block on gsimplecal
+command=date '+%Y-%m-%d %a' && ( if [ "$BLOCK_BUTTON" == "1" ]; then gsimplecal &>/dev/null & fi ),m4_dnl
 command=date '+%Y-%m-%d %a')
 interval=60
 
