@@ -54,6 +54,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	gsimplecal\
 	i3blocks\
 	i3lock\
+	icon\
 	keychain\
 	locale\
 	nvidia-smi\
