@@ -2,6 +2,7 @@
 allow_bold = true
 clickable_url = true
 mouse_autohide = true
+fullscreen = false
 scrollback_lines = 10000
 search_wrap = true
 font = Noto Mono 11
