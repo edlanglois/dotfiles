@@ -1,6 +1,5 @@
 # Dot-Files
-Configuration files along with a system to patch or append to them based on
-arbitrary conditions.
+Configuration files with user & system configuration based on M4.
 
 
 ## Get the Code
