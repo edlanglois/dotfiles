@@ -16,6 +16,9 @@ set -g utf8
 set-window-option -g utf8 on
 
 )m4_dnl
+# Support xterm keys (like ctrl-arrow for moving by word)
+set-window-option -g xterm-keys on
+
 # Make window full sized when looking at different windows with different
 # sessions.
 set-window-option -g aggressive-resize on
