@@ -32,6 +32,7 @@ user.cfg
 .pylintrc
 .Rprofile
 .ssh/config
+.ssh/config.local
 .theanorc
 .tmux.conf
 .tmuxline.conf
