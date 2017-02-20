@@ -9,7 +9,6 @@ M4_DOTFILES=\
 	.config/fish/functions/pbcopy.fish\
 	.config/fish/functions/pbpaste.fish\
 	.config/fish/functions/R.fish\
-	.config/fish/functions/tmuxm.fish\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
 	.config/i3/config\
@@ -41,6 +40,7 @@ DOTFILES=\
 	.fonts/PowerlineSymbols.otf\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
+	bin/tmuxm\
 
 DOTDIRS=\
 	.vim
