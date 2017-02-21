@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # List installed files that have been removed from the dotfiles repo
 
 # Files that have been removed from the repo at some point
