@@ -13,7 +13,6 @@ M4_DOTFILES=\
 	.config/flake8\
 	.config/i3/config\
 	.config/i3blocks/config\
-	.config/i3blocks/scripts/battery-label\
 	.config/locale.conf\
 	.config/termite/config\
 	.gitconfig\
@@ -33,6 +32,7 @@ M4_DOTFILES=\
 DOTFILES=\
 	$(M4_DOTFILES)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
+	.config/i3blocks/scripts/battery-label\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/nvim\

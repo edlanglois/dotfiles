@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -eu
+if acpi -a | grep 'on-line' &>/dev/null; then
+	echo 🔌
+	echo 🔌
+else
+	echo 🔋
+	echo 🔋
+fi

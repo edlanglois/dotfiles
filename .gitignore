@@ -20,7 +20,6 @@ user.cfg
 .config/i3/config
 .config/i3/config.local
 .config/i3blocks/config
-.config/i3blocks/scripts/battery-label
 .config/locale.conf
 .config/termite/config
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
