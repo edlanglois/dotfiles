@@ -1,5 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # Create and attach to a new session grouped with session "main"
 BASE_SESSION_NAME=main
-tmux new-session -t "${BASE_SESSION_NAME}" \; set-option destroy-unattached || \
+tmux new-session -t "${BASE_SESSION_NAME}" \; \
+	set-option destroy-unattached &>/dev/null || \
 	tmux new-session -s "${BASE_SESSION_NAME}"
