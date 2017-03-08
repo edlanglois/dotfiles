@@ -276,7 +276,7 @@ set grepprg=grep\ -nH\ $*
 let &runtimepath.=',$VIM/vimfiles'
 
 let g:tex_flavor = "latex" " Load .tex files as latex
-let g:tex_conceal="abdmgtD" " t is custom s, D is double-strike
+let g:tex_conceal="abdmgtDCF" " t is custom s, D is double-strike
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'

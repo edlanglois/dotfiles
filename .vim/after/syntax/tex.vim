@@ -102,9 +102,9 @@ else
 endif
 " let user determine which classes of concealment will be supported
 "   a=accents/ligatures d=delimiters m=math symbols  g=Greek  s=superscripts/subscripts
-"   D=double-struck
+"   D=double-struck C=caligraphy (script) F=fraktur
 if !exists("g:tex_conceal")
-	let s:tex_conceal= 'abdmgsSD'
+	let s:tex_conceal= 'abdmgsSDCF'
 else
 	let s:tex_conceal= g:tex_conceal
 endif
@@ -121,15 +121,179 @@ if has("conceal") && &enc == 'utf-8'
 		fun! s:DoubleStrike(let,cchar)
 			exe "syn match texDoubleStrike '\\\\mathbb\\s*{".a:let."}' conceal cchar=".a:cchar
 		endfun
-
+		call s:DoubleStrike('A','𝔸')
+		call s:DoubleStrike('B','𝔹')
 		call s:DoubleStrike('C','ℂ')
+		call s:DoubleStrike('D','𝔻')
+		call s:DoubleStrike('E','𝔼')
+		call s:DoubleStrike('F','𝔽')
+		call s:DoubleStrike('G','𝔾')
 		call s:DoubleStrike('H','ℍ')
+		call s:DoubleStrike('I','𝕀')
+		call s:DoubleStrike('J','𝕁')
+		call s:DoubleStrike('K','𝕂')
+		call s:DoubleStrike('L','𝕃')
+		call s:DoubleStrike('M','𝕄')
 		call s:DoubleStrike('N','ℕ')
+		call s:DoubleStrike('O','𝕆')
 		call s:DoubleStrike('P','ℙ')
 		call s:DoubleStrike('Q','ℚ')
 		call s:DoubleStrike('R','ℝ')
+		call s:DoubleStrike('S','𝕊')
+		call s:DoubleStrike('T','𝕋')
+		call s:DoubleStrike('U','𝕌')
+		call s:DoubleStrike('V','𝕍')
+		call s:DoubleStrike('W','𝕎')
+		call s:DoubleStrike('X','𝕏')
+		call s:DoubleStrike('Y','𝕐')
 		call s:DoubleStrike('Z','ℤ')
+		call s:DoubleStrike('a','𝕒')
+		call s:DoubleStrike('b','𝕓')
+		call s:DoubleStrike('c','𝕔')
+		call s:DoubleStrike('d','𝕕')
+		call s:DoubleStrike('e','𝕖')
+		call s:DoubleStrike('f','𝕗')
+		call s:DoubleStrike('g','𝕘')
+		call s:DoubleStrike('h','𝕙')
+		call s:DoubleStrike('i','𝕚')
+		call s:DoubleStrike('j','𝕛')
+		call s:DoubleStrike('k','𝕜')
+		call s:DoubleStrike('l','𝕝')
+		call s:DoubleStrike('m','𝕞')
+		call s:DoubleStrike('n','𝕟')
+		call s:DoubleStrike('o','𝕠')
+		call s:DoubleStrike('p','𝕡')
+		call s:DoubleStrike('q','𝕢')
+		call s:DoubleStrike('r','𝕣')
+		call s:DoubleStrike('s','𝕤')
+		call s:DoubleStrike('t','𝕥')
+		call s:DoubleStrike('u','𝕦')
+		call s:DoubleStrike('v','𝕧')
+		call s:DoubleStrike('w','𝕨')
+		call s:DoubleStrike('x','𝕩')
+		call s:DoubleStrike('y','𝕪')
+		call s:DoubleStrike('z','𝕫')
 		delfun s:DoubleStrike
+	endif
+
+	" Caligraphy (Script)
+	if s:tex_conceal =~ 'C'
+		fun! s:Caligraphy(let,cchar)
+			exe "syn match texCaligraphy '\\\\mathcal\\s*{".a:let."}' conceal cchar=".a:cchar
+		endfun
+		call s:Caligraphy('A','𝒜')
+		call s:Caligraphy('B','ℬ')
+		call s:Caligraphy('C','𝒞')
+		call s:Caligraphy('D','𝒟')
+		call s:Caligraphy('E','ℰ')
+		call s:Caligraphy('F','ℱ')
+		call s:Caligraphy('G','𝒢')
+		call s:Caligraphy('H','ℋ')
+		call s:Caligraphy('I','ℐ')
+		call s:Caligraphy('J','𝒥')
+		call s:Caligraphy('K','𝒦')
+		call s:Caligraphy('L','ℒ')
+		call s:Caligraphy('M','ℳ')
+		call s:Caligraphy('N','𝒩')
+		call s:Caligraphy('O','𝒪')
+		call s:Caligraphy('P','𝒫')
+		call s:Caligraphy('Q','𝒬')
+		call s:Caligraphy('R','ℛ')
+		call s:Caligraphy('S','𝒮')
+		call s:Caligraphy('T','𝒯')
+		call s:Caligraphy('U','𝒰')
+		call s:Caligraphy('V','𝒱')
+		call s:Caligraphy('W','𝒲')
+		call s:Caligraphy('X','𝒳')
+		call s:Caligraphy('Y','𝒴')
+		call s:Caligraphy('Z','𝒵')
+		call s:Caligraphy('a','𝒶')
+		call s:Caligraphy('b','𝒷')
+		call s:Caligraphy('c','𝒸')
+		call s:Caligraphy('d','𝒹')
+		call s:Caligraphy('e','ℯ')
+		call s:Caligraphy('f','𝒻')
+		call s:Caligraphy('g','ℊ')
+		call s:Caligraphy('h','𝒽')
+		call s:Caligraphy('i','𝒾')
+		call s:Caligraphy('j','𝒿')
+		call s:Caligraphy('k','𝓀')
+		call s:Caligraphy('l','𝓁')
+		call s:Caligraphy('m','𝓂')
+		call s:Caligraphy('n','𝓃')
+		call s:Caligraphy('o','ℴ')
+		call s:Caligraphy('p','𝓅')
+		call s:Caligraphy('q','𝓆')
+		call s:Caligraphy('r','𝓇')
+		call s:Caligraphy('s','𝓈')
+		call s:Caligraphy('t','𝓉')
+		call s:Caligraphy('u','𝓊')
+		call s:Caligraphy('v','𝓋')
+		call s:Caligraphy('w','𝓌')
+		call s:Caligraphy('x','𝓍')
+		call s:Caligraphy('y','𝓎')
+		call s:Caligraphy('z','𝓏')
+		delfun s:Caligraphy
+	endif
+
+	" Fraktur
+	if s:tex_conceal =~ 'F'
+		fun! s:Fraktur(let,cchar)
+			exe "syn match texFraktur '\\\\mathfrak\\s*{".a:let."}' conceal cchar=".a:cchar
+		endfun
+		call s:Fraktur('A','𝔄')
+		call s:Fraktur('B','𝔅')
+		call s:Fraktur('C','ℭ')
+		call s:Fraktur('D','𝔇')
+		call s:Fraktur('E','𝔈')
+		call s:Fraktur('F','𝔉')
+		call s:Fraktur('G','𝔊')
+		call s:Fraktur('H','ℌ')
+		call s:Fraktur('I','ℑ')
+		call s:Fraktur('J','𝔍')
+		call s:Fraktur('K','𝔎')
+		call s:Fraktur('L','𝔏')
+		call s:Fraktur('M','𝔐')
+		call s:Fraktur('N','𝔑')
+		call s:Fraktur('O','𝔒')
+		call s:Fraktur('P','𝔓')
+		call s:Fraktur('Q','𝔔')
+		call s:Fraktur('R','ℜ')
+		call s:Fraktur('S','𝔖')
+		call s:Fraktur('T','𝔗')
+		call s:Fraktur('U','𝔘')
+		call s:Fraktur('V','𝔙')
+		call s:Fraktur('W','𝔚')
+		call s:Fraktur('X','𝔛')
+		call s:Fraktur('Y','𝔜')
+		call s:Fraktur('Z','ℨ')
+		call s:Fraktur('a','𝔞')
+		call s:Fraktur('b','𝔟')
+		call s:Fraktur('c','𝔠')
+		call s:Fraktur('d','𝔡')
+		call s:Fraktur('e','𝔢')
+		call s:Fraktur('f','𝔣')
+		call s:Fraktur('g','𝔤')
+		call s:Fraktur('h','𝔥')
+		call s:Fraktur('i','𝔦')
+		call s:Fraktur('j','𝔧')
+		call s:Fraktur('k','𝔨')
+		call s:Fraktur('l','𝔩')
+		call s:Fraktur('m','𝔪')
+		call s:Fraktur('n','𝔫')
+		call s:Fraktur('o','𝔬')
+		call s:Fraktur('p','𝔭')
+		call s:Fraktur('q','𝔮')
+		call s:Fraktur('r','𝔯')
+		call s:Fraktur('s','𝔰')
+		call s:Fraktur('t','𝔱')
+		call s:Fraktur('u','𝔲')
+		call s:Fraktur('v','𝔳')
+		call s:Fraktur('w','𝔴')
+		call s:Fraktur('x','𝔵')
+		call s:Fraktur('y','𝔶')
+		call s:Fraktur('z','𝔷')
+		delfun s:Fraktur
 	endif
 
 	" Math symbols
@@ -425,6 +589,10 @@ if has("conceal") && &enc == 'utf-8'
 	syn cluster texMathStyleGroup contains=texBoldStyle,texItalStyle,texBoldItalStyle
 	syn cluster texMathZoneGroup add=@texMathStyleGroup,texDoubleStrike
 	syn cluster texMathMatchGroup add=@texMathStyleGroup,texDoubleStrike
+	syn cluster texMathZoneGroup add=@texMathStyleGroup,texCaligraphy
+	syn cluster texMathMatchGroup add=@texMathStyleGroup,texCaligraphy
+	syn cluster texMathZoneGroup add=@texMathStyleGroup,texFraktur
+	syn cluster texMathMatchGroup add=@texMathStyleGroup,texFraktur
 
 	if !exists("g:tex_superscripts")
 		let g:tex_superscripts= "[0-9a-zA-W.,:;+-<>/()=]"
