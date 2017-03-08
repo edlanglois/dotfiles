@@ -299,7 +299,6 @@ if has("conceal") && &enc == 'utf-8'
 	" Math symbols
 	if s:tex_conceal =~ 'm'
 		let s:texMathList=[
-			\ ['|'              , '‖'],
 			\ ['aleph'          , 'ℵ'],
 			\ ['amalg'          , '∐'],
 			\ ['angle'          , '∠'],
@@ -331,8 +330,8 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['boxplus'        , '⊞'],
 			\ ['boxtimes'       , '⊠'],
 			\ ['bullet'         , '•'],
-			\ ['bumpeq'         , '≏'],
 			\ ['Bumpeq'         , '≎'],
+			\ ['bumpeq'         , '≏'],
 			\ ['cap'            , '∩'],
 			\ ['Cap'            , '⋒'],
 			\ ['cdot'           , '·'],
@@ -405,13 +404,12 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['in'             , '∈'],
 			\ ['infty'          , '∞'],
 			\ ['int'            , '∫'],
+			\ ['langle'         , '<'],
 			\ ['lceil'          , '⌈'],
 			\ ['ldots'          , '…'],
 			\ ['le'             , '≤'],
 			\ ['leadsto'        , '↝'],
-			\ ['left('          , '('],
-			\ ['left\['         , '['],
-			\ ['left\\{'        , '{'],
+			\ ['left'           , ''],
 			\ ['leftarrow'      , '←'],
 			\ ['Leftarrow'      , '⇐'],
 			\ ['leftarrowtail'  , '↢'],
@@ -493,12 +491,11 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['prime'          , '′'],
 			\ ['prod'           , '∏'],
 			\ ['propto'         , '∝'],
+			\ ['rangle'         , '>'],
 			\ ['rceil'          , '⌉'],
 			\ ['Re'             , 'ℜ'],
 			\ ['rfloor'         , '⌋'],
-			\ ['right)'         , ')'],
-			\ ['right]'         , ']'],
-			\ ['right\\}'       , '}'],
+			\ ['right'          , ''],
 			\ ['rightarrow'     , '→'],
 			\ ['Rightarrow'     , '⇒'],
 			\ ['rightarrowtail' , '↣'],
@@ -574,14 +571,23 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['Vvdash'         , '⊪'],
 			\ ['wedge'          , '∧'],
 			\ ['wp'             , '℘'],
-			\ ['wr'             , '≀']]
+			\ ['wr'             , '≀'],
+			\ ['{'              , '{'],
+			\ ['|'              , '‖'],
+			\ ['}'              , '}']]
 		for texmath in s:texMathList
-			if texmath[0] =~ '\w$'
-				exe "syn match texMathSymbol '\\\\".texmath[0]."\\>' contained conceal cchar=".texmath[1]
-				exe "syn match texMathSymbol '\\\\".texmath[0]."\\d\\&\\\\".texmath[0]."' conceal cchar=".texmath[1]
+			if texmath[1] != ''
+				let cchar = " cchar=".texmath[1]
 			else
-				exe "syn match texMathSymbol '\\\\".texmath[0]."' contained conceal cchar=".texmath[1]
+				let cchar = ""
 			endif
+			if texmath[0] =~ '\w$'
+				exe "syn match texMathSymbol '\\\\".texmath[0]."\\>' contained conceal".cchar
+				exe "syn match texMathSymbol '\\\\".texmath[0]."\\d\\&\\\\".texmath[0]."' conceal".cchar
+			else
+				exe "syn match texMathSymbol '\\\\".texmath[0]."' contained conceal".cchar
+			endif
+			unlet cchar
 		endfor
 	endif
 
