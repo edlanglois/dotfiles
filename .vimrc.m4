@@ -183,7 +183,8 @@ set formatoptions+=j " Where it makes sense, remove a comment leader when
 set showmatch
 
 set number " Line Numbers
-set relativenumber " Hybrid number mode
+" set relativenumber " Hybrid number mode
+" Disabled because it's very slow in some cases (e.g. .tex files)
 set hidden " When opening new files, keep old one in a buffer
 set ruler " Column Numbers
 
@@ -206,8 +207,6 @@ set background=dark
 colorscheme desert
 highlight Search ctermfg=black ctermbg=blue
 hi Normal ctermbg=NONE
-
-set cursorline
 
 " Use a single dark grey column to mark textwidth.
 highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
@@ -333,6 +332,9 @@ onoremap an( :<c-u>normal! f(va(<cr>
 onoremap al( :<c-u>normal! F)va(<cr>
 onoremap an{ :<c-u>normal! f{va{<cr>
 onoremap al{ :<c-u>normal! F}va}<cr>
+
+" Vimtex paren matching is too slow.
+let g:vimtex_matchparen_enabled=0
 
 " Enable buffer display on airline
 let g:airline#extensions#tabline#enabled = 1
