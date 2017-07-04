@@ -207,6 +207,8 @@ colorscheme desert
 highlight Search ctermfg=black ctermbg=blue
 hi Normal ctermbg=NONE
 
+set cursorline
+
 " Use a single dark grey column to mark textwidth.
 highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 set colorcolumn=+1  " Highlight the column after textwidth
