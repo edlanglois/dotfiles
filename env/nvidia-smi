@@ -2,4 +2,5 @@
 set -eu
 if hash nvidia-smi 2>/dev/null; then
 	echo NVIDIA_SMI=
+	echo NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
 fi

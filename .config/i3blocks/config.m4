@@ -89,18 +89,20 @@ interval=10
 min_width=99.99%
 align=right
 
+m4_define(GPU_USAGE, ??[[<<m4_ifelse($1,-1,,??[[<<GPU_USAGE(m4_eval($1-1))
+[gpu-usage]
+command=$HOME/.config/i3blocks/scripts/gpu-usage $1 80 95
+interval=10
+min_width=100%
+align=right
+>>]]??)>>]]??)
 m4_ifdef(??[[<<m4_env_config_NVIDIA_SMI>>]]??,m4_dnl
 # GPU usage
 [gpu-usage-label]
 full_text=GPU
 color=#00ffff
 separator_block_width=4
-
-[gpu-usage]
-command=$HOME/.config/i3blocks/scripts/gpu-usage 80 95
-interval=10
-min_width=100%
-align=right)
+GPU_USAGE(m4_eval(m4_env_config_NUM_GPUS - 1)))
 
 # Memory usage
 #
