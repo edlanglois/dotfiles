@@ -284,6 +284,8 @@ let g:tex_conceal="abdmgtDCF" " t is custom s, D is double-strike
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+" Don't switch buffers when opening with <cr> (Default is 'Et')
+let g:ctrlp_switch_buffer = 't'
 " Use git or mercurial to generate list of files if possible
 let g:ctrlp_user_command = {
   \ 'types': {
