@@ -1,11 +1,15 @@
 #!/bin/bash
 set -eu
 if hash i3lock-extra 2>/dev/null; then
+	CMD="i3lock-extra -s -p --unsecure"
 	if i3lock-extra --help | grep -e '--paint' &>/dev/null; then
-		echo "I3LOCK_CMD=i3lock-extra -s -p --paint --unsecure -- -e"
-	else
-		echo "I3LOCK_CMD=i3lock-extra -s -p --unsecure -- -e"
+		CMD+=" --paint"
 	fi
+	CMD+=" --"
 else
-	echo "I3LOCK_CMD=i3lock -c 000000 -e"
+	CMD="i3lock -c 000000"
 fi
+if i3lock -h 2>&1 | grep '\[-e\]' &>/dev/null; then
+	CMD+=" -e"
+fi
+echo "I3LOCK_CMD=$CMD"
