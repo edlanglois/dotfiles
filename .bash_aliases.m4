@@ -21,5 +21,3 @@ if [ "$colour_prompt" = yes ]; then
 fi
 
 alias R='R --quiet --no-save'
-
-alias tmuxm='tmux new-session -A -s main'
