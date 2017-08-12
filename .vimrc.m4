@@ -185,6 +185,7 @@ set showmatch
 set number " Line Numbers
 " set relativenumber " Hybrid number mode
 " Disabled because it's very slow in some cases (e.g. .tex files)
+
 set hidden " When opening new files, keep old one in a buffer
 set ruler " Column Numbers
 
