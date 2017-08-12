@@ -156,8 +156,9 @@ set backspace=indent,eol,start
 
 set autoindent
 set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
+set indentkeys=0{,0,}0),0#,!^F,o,O " Never reindent nonempty lines when typing.
 
-set nojoinspaces    " Insert 1, not 2, spaces after period when joining text.
+set nojoinspaces     " Insert 1, not 2, spaces after period when joining text.
 
 set tabstop=2
 set shiftwidth=2
