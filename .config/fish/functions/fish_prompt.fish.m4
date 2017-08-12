@@ -46,6 +46,6 @@ function fish_prompt --description 'Write out the prompt'
 		set -g __fish_prompt_name (set_color $__fish_prompt_name_options red)
 	end
 
-		echo -n -s "$__fish_prompt_host" "m4_env_config_HOSTNAME_ICON " "$__fish_prompt_name" "$USER" "$__fish_prompt_normal" ': ' "$__fish_prompt_cwd" (prompt_pwd) "$virtualenv_msg" "$__fish_prompt_normal" "$__fish_prompt_symbol"
+	echo -n -s "$__fish_prompt_host" "m4_env_config_HOSTNAME_ICON " "$__fish_prompt_name" "$USER" "$__fish_prompt_normal" ': ' "$__fish_prompt_cwd" (prompt_pwd) "$virtualenv_msg" "$__fish_prompt_normal" "$__fish_prompt_symbol"
 
 end

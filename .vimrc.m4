@@ -356,7 +356,6 @@ let g:airline_powerline_fonts = 1
 let g:tmuxline_powerline_separators = 1
 )
 
-
 " Tmuxline based on the 'powerline' preset but with 12 hour time.
 let g:tmuxline_preset = {
 	\'a'    : '#S',
