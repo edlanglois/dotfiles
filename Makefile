@@ -24,6 +24,7 @@ M4_DOTFILES=\
 	.ssh/config\
 	.theanorc\
 	.tmux.conf\
+	.toprc\
 	.vimrc\
 	.xbindkeysrc\
 	.Xmodmap\
