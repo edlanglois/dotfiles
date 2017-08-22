@@ -15,13 +15,8 @@ git submodule update --init --recursive
 
 ## Installation
 ### User Information
-In the `dotfiles` directory, create the file `user.cfg` with the lines
-```
-NAME=<your name>
-EMAIL=<your email address>
-PRIVATE_KEYS=<list of private key files relative to $HOME/.ssh/>
-```
-see `user.cfg.example` for an example.
+In the `dotfiles` directory, copy `user.cfg.example` to `user.cfg` and fill in
+the variables.
 
 ### Build and Install
 ```Shell
