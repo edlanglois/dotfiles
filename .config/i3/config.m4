@@ -36,6 +36,9 @@ floating_modifier $mod
 bindsym $mod+Return exec m4_ifdef(??[[<<m4_env_config_TERMINAL>>]]??,m4_dnl
 m4_env_config_TERMINAL, i3-sensible-terminal)
 
+# Open a browser window
+bindsym $mod+b exec xdg-open http://
+
 # kill focused window
 bindsym $mod+Shift+q kill
 

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -eu
+
+desktop_path="/usr/share/applications"
+browsers=( "google-chrome" "chromium" )
+
+for browser in "${browsers[@]}"; do
+	if [ -f "${desktop_path}/${browser}.desktop" ]; then
+		echo "BROWSER=${browser}"
+		exit 0
+	fi
+done

@@ -48,6 +48,7 @@ DOTDIRS=\
 
 ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
+	browser\
 	cuda\
 	default-shell\
 	git-push-default-simple\
@@ -103,7 +104,7 @@ WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 PYGMENTIZE:=$(shell command -v pygmentize)
 
 .PHONY: build install install-dotfiles install-system install-all  \
-	install-udev set-persistent-configs clean show show-config vim \
+	set-persistent-configs clean show show-config vim \
 	vim-update-plugins vim-ycm
 
 build: $(DOTFILES) Makefile-binaries
