@@ -39,6 +39,9 @@ m4_env_config_TERMINAL, i3-sensible-terminal)
 # Open a browser window
 bindsym $mod+b exec xdg-open http://
 
+# Open the Google Play Music desktop player
+bindsym $mod+m exec gpmdp
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
