@@ -49,6 +49,9 @@ bindsym $mod+Shift+q kill
 # installed.
 bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
+# Switch to window when activated
+focus_on_window_activation focus
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
