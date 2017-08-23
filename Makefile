@@ -103,7 +103,8 @@ WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 PYGMENTIZE:=$(shell command -v pygmentize)
 
 .PHONY: build install install-dotfiles install-system install-all  \
-	install-udev set-persistent-configs clean show show-config
+	install-udev set-persistent-configs clean show show-config vim \
+	vim-update-plugins vim-ycm
 
 build: $(DOTFILES) Makefile-binaries
 
@@ -235,3 +236,13 @@ endif
 		sed -e "s/)m4_dnl$$//" | \
 		sed -e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
+
+# Update Build vim plugins
+vim: vim-update-plugins vim-ycm
+
+vim-update-plugins:
+	vim +PluginInstall +PluginUpdate +qall
+
+vim-ycm:
+	cd .vim/bundle/YouCompleteMe && \
+		./install.py --clang-completer
