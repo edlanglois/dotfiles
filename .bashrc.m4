@@ -54,10 +54,11 @@ if [ -n "$force_colour_prompt" ]; then
 fi
 
 if [ "$colour_prompt" = yes ]; then
+    export HOSTNAME_ICON="m4_env_config_HOSTNAME_ICON"
     # Print username in cyan if last command succeeded and red if it failed.
     m4_ifdef(??[[<<m4_env_config_ROOT>>]]??,
-    export PS1="\`if [ \$? = 0 ]; then echo \[\e[0\;30\;43m\]; else echo \[\e[0\;31\;43m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] ",
-    export PS1="\`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
+    export PS1="\[\e[33m${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;30\;43m\]; else echo \[\e[0\;31\;43m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] ",
+    export PS1="\[\e[33m${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
 )m4_dnl
 else
     PS1='${debian_chroot:+($debian_chroot)}\u:\w> '
