@@ -1,6 +1,5 @@
 XTerm.termName: xterm-256color
 UXTerm.termName: xterm-256color
-*.vt100.reverseVideo: true
 *.vt100.locale: true
 
 *faceName: Noto Mono
