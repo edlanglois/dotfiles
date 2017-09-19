@@ -172,7 +172,7 @@ install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : % | $(dir $1)
-	@cp -av "$$<" "$$@"
+	@cp -Rdv "$$<" "$$@"
 endef
 
 $(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \

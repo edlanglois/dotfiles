@@ -53,11 +53,19 @@ if [ -n "$force_colour_prompt" ]; then
     fi
 fi
 
+function set_hostname_icon() {
+	local HOSTNAME_HASH=$(hostname | md5sum)
+	local HASH_BYTE=${HOSTNAME_HASH:0:2}
+	# Character from the Miscellaneous Symbols block
+	HOSTNAME_ICON=$(echo -e "\\u26${HASH_BYTE}")
+}
+set_hostname_icon
+
 if [ "$colour_prompt" = yes ]; then
     # Print username in cyan if last command succeeded and red if it failed.
     m4_ifdef(??[[<<m4_env_config_ROOT>>]]??,
-    export PS1="\`if [ \$? = 0 ]; then echo \[\e[0\;30\;43m\]; else echo \[\e[0\;31\;43m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] ",
-    export PS1="\`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
+    export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;30\;43m\]; else echo \[\e[0\;31\;43m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] ",
+    export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
 )m4_dnl
 else
     PS1='${debian_chroot:+($debian_chroot)}\u:\w> '
