@@ -3,7 +3,7 @@ UXTerm.termName: xterm-256color
 *.vt100.locale: true
 
 *faceName: Noto Mono
-*faceSize: 11
+*faceSize: 10
 
 URxvt.font: xft:Noto Mono:size=11,xft:Symbola
 URxvt*scrollBar: false
