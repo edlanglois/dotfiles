@@ -37,8 +37,10 @@ user.cfg
 .toprc
 .vimrc
 .xbindkeysrc
+.xinitrc
 .Xmodmap
 .xprofile
+.Xresources
 
 Makefile-binaries
 user_config.m4

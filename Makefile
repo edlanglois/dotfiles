@@ -27,8 +27,10 @@ M4_DOTFILES=\
 	.toprc\
 	.vimrc\
 	.xbindkeysrc\
+	.xinitrc\
 	.Xmodmap\
 	.xprofile\
+	.Xresources\
 
 DOTFILES=\
 	$(M4_DOTFILES)\
