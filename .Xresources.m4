@@ -2,6 +2,8 @@ XTerm.termName: xterm-256color
 UXTerm.termName: xterm-256color
 *.vt100.locale: true
 
+Xft.rgba: rgb
+
 *faceName: Noto Mono
 *faceSize: 10
 
