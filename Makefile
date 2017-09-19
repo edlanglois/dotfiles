@@ -41,6 +41,7 @@ DOTFILES=\
 	.fonts/PowerlineSymbols.otf\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
+	bin/print256colours\
 	bin/tmuxm\
 
 DOTDIRS=\
