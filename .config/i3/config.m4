@@ -45,12 +45,9 @@ bindsym $mod+m exec gpmdp
 # kill focused window
 bindsym $mod+Shift+q kill
 
+m4_ifdef(??[[<<m4_env_config_DMENU>>]]??,m4_dnl
 # start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
+bindsym $mod+d exec --no-startup-id m4_env_config_DMENU)
 
 # Switch to window when activated
 focus_on_window_activation focus

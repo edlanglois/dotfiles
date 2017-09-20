@@ -54,6 +54,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	browser\
 	cuda\
 	default-shell\
+	dmenu\
 	git-push-default-simple\
 	github_id\
 	gsimplecal\
