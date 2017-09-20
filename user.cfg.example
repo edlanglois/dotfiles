@@ -2,6 +2,10 @@ NAME=Firstname Lastname
 EMAIL=email@example.com
 LIGHTWEIGHT=false
 
+# Whether to use powerline symbols.
+# Requires a powerline font - a fallback powerline font is in .fonts
+POWERLINE_SYMBOLS=true
+
 # Weather provided by OpenWeatherMap
 # Uncomment and set these variables to get a weather report on the i3blocks
 # status line. All of them must be uncommented for the report to show.
