@@ -4,10 +4,13 @@ UXTerm.termName: xterm-256color
 
 Xft.rgba: rgb
 
-*faceName: Noto Mono
+*faceName: Deja Vu Sans Mono
 *faceSize: 10
 
-URxvt.font: xft:Noto Mono:size=11,xft:Symbola
+URxvt.font: xft:Deja Vu Sans Mono:size=10,\
+	xft:Noto Sans Mono,\
+	xft:Symbola,\
+	xft:Symbola:size=8
 URxvt*scrollBar: false
 
 ! special
