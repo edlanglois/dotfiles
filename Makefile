@@ -59,7 +59,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	github_id\
 	gsimplecal\
 	i3blocks\
-	i3lock\
+	lock\
 	icon\
 	keychain\
 	locale\

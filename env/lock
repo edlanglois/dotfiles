@@ -7,9 +7,9 @@ if hash i3lock-extra 2>/dev/null; then
 	fi
 	CMD+=" --"
 else
-	CMD="i3lock -c 000000"
+	CMD="i3lock -c 500000"
 fi
 if i3lock -h 2>&1 | grep '\[-e\]' &>/dev/null; then
 	CMD+=" -e"
 fi
-echo "I3LOCK_CMD=$CMD"
+echo "LOCK_CMD=$CMD"
