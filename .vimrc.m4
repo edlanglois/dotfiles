@@ -400,8 +400,10 @@ augroup strip_whitespace
 		\ autocmd BufWritePre <buffer> StripWhitespace
 augroup END
 
-" Automatically format files on write
+" Automatically format on write
 augroup autoformat
 	autocmd!
-	autocmd BufWrite * :Autoformat
+	autocmd Filetype
+		\ python
+		\ autocmd BufWrite * :Autoformat
 augroup END
