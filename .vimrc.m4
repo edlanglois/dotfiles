@@ -31,6 +31,7 @@ Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bkad/CamelCaseMotion'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
@@ -397,4 +398,10 @@ augroup strip_whitespace
 		\ruby,
 		\xml
 		\ autocmd BufWritePre <buffer> StripWhitespace
+augroup END
+
+" Automatically format files on write
+augroup autoformat
+	autocmd!
+	autocmd BufWrite * :Autoformat
 augroup END
