@@ -180,6 +180,8 @@ bindsym XF86Forward exec playerctl next
 bindsym XF86Back exec playerctl previous
 )
 # Volume
+bindsym $mod+comma exec "amixer -q set Master 5%- unmute; pkill -RTMIN+1 i3blocks"
+bindsym $mod+period exec "amixer -q set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioLowerVolume exec "amixer -q set Master 5%- unmute; pkill -RTMIN+1 i3blocks"
 m4_ifdef(??[[<<m4_env_config_PULSEAUDIO>>]]??,m4_dnl
