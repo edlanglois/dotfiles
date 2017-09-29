@@ -232,6 +232,9 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
+" <C-l> was redraw, make <leader>r the new redraw
+noremap <leader>r :redraw!<cr>
+
 " Mappings (from Learn Vimscript the Hard Way)
 " Use jk as <esc>
 inoremap jk <esc>
