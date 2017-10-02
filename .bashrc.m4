@@ -139,6 +139,12 @@ m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
     return 1>>]]??)
 }
 
+# If $HOME is a symlink then `cd` so that we are pointing to the logical value
+# of $HOME and not to the underlying physical path.
+if [ -L "$HOME" ]; then
+	cd
+fi
+
 if [ -n "$FORTUNE" ]; then
 	wait $FORTUNE
 fi
