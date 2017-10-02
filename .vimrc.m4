@@ -31,7 +31,6 @@ Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bkad/CamelCaseMotion'
-Plugin 'Chiel92/vim-autoformat'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'christoomey/vim-tmux-navigator'
 m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
@@ -41,6 +40,9 @@ Plugin 'EdTsft/vim-gdl-syntax'
 Plugin 'EdTsft/vim-qrc'
 Plugin 'EdTsft/vim-tmux-focus-events'
 Plugin 'ervandew/supertab'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-glaive'
+Plugin 'google/vim-maktaba'
 Plugin 'honza/vim-snippets'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'jmcantrell/vim-virtualenv'
@@ -84,6 +86,8 @@ call vundle#end()
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
+call glaive#Install()
 
 "" Custom Commands
 " CommandCabbr enables arbitrary command abbreviations (including lower case)
@@ -400,10 +404,14 @@ augroup strip_whitespace
 		\ autocmd BufWritePre <buffer> StripWhitespace
 augroup END
 
-" Automatically format on write
-augroup autoformat
-	autocmd!
-	autocmd Filetype
-		\ python
-		\ autocmd BufWrite * :Autoformat
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
 augroup END
