@@ -2,6 +2,9 @@
 *.swp
 *.swo
 
+# Virtual environment connection
+.venv
+
 # Rope (python analysis)
 .ropeproject/
 
