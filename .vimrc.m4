@@ -155,7 +155,8 @@ set statusline+=%*
 
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-" Exclude pylint by default. It is slow, prone to false positives, and annoying.
+let g:syntastic_always_populate_loc_list = 1
+" Exclude pylint by default. It is slow and prone to false positives.
 let g:syntastic_python_checkers = ['python', 'flake8']
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
