@@ -275,6 +275,10 @@ set spelllang=en_ca
 " Clear current search highlight
 :nnoremap <leader>h :nohlsearch<CR>
 
+" Go to current location in the location / error list
+:nnoremap <leader>l :ll<CR>
+:nnoremap <leader>c :cc<CR>
+
 augroup preview
 	autocmd!
 	" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
