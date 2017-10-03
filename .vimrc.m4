@@ -68,6 +68,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-python/python-syntax'
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
@@ -108,6 +109,9 @@ au BufRead,BufNewFile *.prototxt setfiletype yaml
 
 syntax on " Syntax Highlighting
 filetype plugin indent on
+
+" Enable all highlighting options for vim-pyton/python-syntax plugin
+let g:python_highlight_all = 1
 
 call camelcasemotion#CreateMotionMappings('<leader>')
 
