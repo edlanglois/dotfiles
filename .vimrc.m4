@@ -110,8 +110,20 @@ au BufRead,BufNewFile *.prototxt setfiletype yaml
 syntax on " Syntax Highlighting
 filetype plugin indent on
 
-" Enable all highlighting options for vim-pyton/python-syntax plugin
-let g:python_highlight_all = 1
+" Enable most highlighting options for vim-pyton/python-syntax plugin
+let g:python_highlight_builtins = 1
+let g:python_highlight_builtin_objs = 1
+let g:python_highlight_builtin_funcs = 1
+let g:python_highlight_builtin_funcs_kwarg = 1
+let g:python_highlight_exceptions = 1
+let g:python_highlight_string_formatting = 1
+let g:python_highlight_string_formatting = 1
+let g:python_highlight_string_templates = 1
+let g:python_highlight_indent_errors = 1
+let g:python_highlight_space_errors = 0
+let g:python_highlight_doctests = 1
+let g:python_highlight_class_vars = 1
+let g:python_highlight_operators = 1
 
 call camelcasemotion#CreateMotionMappings('<leader>')
 
