@@ -250,4 +250,5 @@ vim-update-plugins:
 
 vim-ycm:
 	cd .vim/bundle/YouCompleteMe && \
-		./install.py --clang-completer
+		./install.py --clang-completer \
+		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)
