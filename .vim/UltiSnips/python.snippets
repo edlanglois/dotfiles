@@ -1,0 +1,25 @@
+snippet newscript "New python script template." b
+#!/usr/bin/env python
+"""${1:TODO: Program description.}"""
+
+import argparse
+
+
+def parse_args():
+    """Parse command-line arguments.
+
+    Returns:
+        An \`argparse.Namespace\` object containing the parsed arguments.
+    """
+    parser = argparse.ArgumentParser(description=__doc__)
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+    ${2}
+
+
+if __name__ == '__main__':
+    main()
+endsnippet
