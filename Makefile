@@ -6,6 +6,7 @@ M4_DOTFILES=\
 	.bashrc\
 	.config/fish/config.fish\
 	.config/fish/functions/fish_prompt.fish\
+	.config/fish/functions/hostname-icon.fish\
 	.config/fish/functions/pbcopy.fish\
 	.config/fish/functions/pbpaste.fish\
 	.config/fish/functions/R.fish\
@@ -60,7 +61,6 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	gsimplecal\
 	i3blocks\
 	lock\
-	icon\
 	keychain\
 	locale\
 	nvidia-smi\

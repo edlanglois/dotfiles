@@ -17,6 +17,9 @@ set -x LESS_TERMCAP_us (printf \e"[04;38;5;146m")
 # Set editor to vim
 set --global -x EDITOR vim
 
+# Set hostname icon
+set -x HOSTNAME_ICON (hostname-icon)
+
 # Aliases
 alias gr "grep -R"
 
