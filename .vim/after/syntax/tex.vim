@@ -433,6 +433,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['mapsto'         , '↦'],
 			\ ['measuredangle'  , '∡'],
 			\ ['mid'            , '∣'],
+			\ ['middle'         , ''],
 			\ ['models'         , '╞'],
 			\ ['mp'             , '∓'],
 			\ ['nabla'          , '∇'],

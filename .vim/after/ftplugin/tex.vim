@@ -16,5 +16,6 @@ inoremap <buffer> ;< \left\langle
 inoremap <buffer> ;> \right\rangle
 inoremap <buffer> ;<BSlash> \left<Bar>
 inoremap <buffer> ;<Bar> \right<Bar>
+inoremap <buffer> ;m \middle<Bar>
 inoremap <buffer> ;<Bslash><BSlash> \left\<Bar>
 inoremap <buffer> ;<Bslash><Bar> \right\<Bar>
