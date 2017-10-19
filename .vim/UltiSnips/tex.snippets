@@ -1,0 +1,12 @@
+snippet newdocument "New latex article template." b
+\documentclass{article}
+
+\title{${1:Title}}
+\author{${2:`getent passwd $(whoami) | cut -d: -f5 | cut -d, -f1`}}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\end{document}
+endsnippet
