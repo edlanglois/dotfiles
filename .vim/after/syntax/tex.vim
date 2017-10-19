@@ -482,6 +482,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['perp'           , '⊥'],
 			\ ['pitchfork'      , '⋔'],
 			\ ['pm'             , '±'],
+			\ ['Pr'             , 'ℙ'],
 			\ ['prec'           , '≺'],
 			\ ['precapprox'     , '⪷'],
 			\ ['preccurlyeq'    , '≼'],
