@@ -84,6 +84,8 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	xss-lock\
 )
 
+UTILS_DIR=utils
+
 DOTFILES_DIR=$(shell pwd)
 INSTALL_DIR=$(HOME)
 INSTALLED_DOTFILES=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
@@ -152,12 +154,12 @@ endif
 # - Build user_config.m4 from user.cfg
 # - Build env/*.m4 from ENV_CONFIG_FILES
 # - Build env_config.m4 from env/*.m4
-user_config.m4: user.cfg config_replace.sh
+user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
 	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
-		./config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
+		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
 env/%.m4: env/%
-	$< | ./config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | (echo "m4_dnl $<" && cat) > $@
+	$< | $(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | (echo "m4_dnl $<" && cat) > $@
 
 env_config.m4: $(ENV_CONFIG_M4_FILES)
 	cat $^ > $@
@@ -169,7 +171,7 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 install: install-dotfiles
 
 set-persistent-configs: $(INSTALL_DIR)/.fonts/PowerlineSymbols.otf
-	./set-persistent-configs.sh
+	$(UTILS_DIR)/set-persistent-configs.sh
 
 install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
