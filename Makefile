@@ -37,11 +37,14 @@ DOTFILES=\
 	$(M4_DOTFILES)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
 	.config/i3blocks/scripts/battery-label\
+	.config/i3blocks/scripts/gkrellm-toggle\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/nvim\
 	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
+	.gkrellm2/user-config-cpu\
+	.gkrellm2/user-config-memory\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
 	bin/print256colours\
@@ -58,11 +61,12 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	dmenu\
 	git-push-default-simple\
 	github_id\
+	gkrellm\
 	gsimplecal\
 	i3blocks\
-	lock\
 	keychain\
 	locale\
+	lock\
 	nvidia-smi\
 	osx\
 	playerctl\
