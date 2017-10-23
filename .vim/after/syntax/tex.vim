@@ -359,6 +359,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['ddots'          , '⋱'],
 			\ ['diamond'        , '⋄'],
 			\ ['diamondsuit'    , '♢'],
+			\ ['diff'           , 'd'],
 			\ ['div'            , '÷'],
 			\ ['doteq'          , '≐'],
 			\ ['doteqdot'       , '≑'],
