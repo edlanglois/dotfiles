@@ -4,16 +4,9 @@ Host github.com
 	IdentityFile m4_env_config_GITHUB_ID
 )
 m4_sinclude(.ssh/config.local)m4_dnl
-
-# Settings from https://stribika.github.io/2015/01/04/secure-secure-shell.html
 Host *
-	KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-	PubkeyAuthentication yes
-	Protocol 2
-	HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
-	Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
-	MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
-	UseRoaming no
-	# Below are not from the above guide.
 	# Add keys to ssh-agent if it is running
 	AddKeysToAgent yes
+	# Roaming is/was an experimental feature to allow resuming ssh connections
+	# but contained exploitable bugs.
+	UseRoaming no

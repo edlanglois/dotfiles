@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# usage: gkrellm-toggle [NAME]
+# Toggles a gkrellm instance with config suffix NAME
+set -eu
+
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.cache}/gkrellm-toggle"
+mkdir -p "$CONFIG_DIR"
+
+if [ -n "${1:-}" ]; then
+	PID_FILE_NAME="pid-$1"
+	ARGS=( "-c" "$1" )
+else
+	PID_FILE_NAME="pid"
+	ARGS=()
+fi
+
+PID_FILE="$CONFIG_DIR/$PID_FILE_NAME"
+
+if [ -e "$PID_FILE" ]; then
+	PID=$(cat "$PID_FILE")
+	# Don't want to leave PID file permanently there if the kill fails, so remove
+	# first.
+	rm $PID_FILE
+	kill $PID
+else
+	gkrellm "${ARGS[@]}" >/dev/null 2>&1 &
+	echo $! > "$PID_FILE"
+fi

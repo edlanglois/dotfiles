@@ -37,11 +37,14 @@ DOTFILES=\
 	$(M4_DOTFILES)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
 	.config/i3blocks/scripts/battery-label\
+	.config/i3blocks/scripts/gkrellm-toggle\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/nvim\
 	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
+	.gkrellm2/user-config-cpu\
+	.gkrellm2/user-config-memory\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
 	bin/print256colours\
@@ -58,11 +61,12 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	dmenu\
 	git-push-default-simple\
 	github_id\
+	gkrellm\
 	gsimplecal\
 	i3blocks\
-	lock\
 	keychain\
 	locale\
+	lock\
 	nvidia-smi\
 	osx\
 	playerctl\
@@ -83,6 +87,8 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	xmodmap\
 	xss-lock\
 )
+
+UTILS_DIR=utils
 
 DOTFILES_DIR=$(shell pwd)
 INSTALL_DIR=$(HOME)
@@ -152,12 +158,12 @@ endif
 # - Build user_config.m4 from user.cfg
 # - Build env/*.m4 from ENV_CONFIG_FILES
 # - Build env_config.m4 from env/*.m4
-user_config.m4: user.cfg config_replace.sh
+user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
 	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
-		./config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
+		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
 env/%.m4: env/%
-	$< | ./config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | (echo "m4_dnl $<" && cat) > $@
+	$< | $(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | (echo "m4_dnl $<" && cat) > $@
 
 env_config.m4: $(ENV_CONFIG_M4_FILES)
 	cat $^ > $@
@@ -169,7 +175,7 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 install: install-dotfiles
 
 set-persistent-configs: $(INSTALL_DIR)/.fonts/PowerlineSymbols.otf
-	./set-persistent-configs.sh
+	$(UTILS_DIR)/set-persistent-configs.sh
 
 install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 

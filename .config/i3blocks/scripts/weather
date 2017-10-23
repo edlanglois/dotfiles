@@ -6,7 +6,7 @@ UNITS="metric"
 FORMAT_STR="%i  %t %s (%c)"
 SHORT_FORMAT_STR=""
 
-URL="http://api.openweathermap.org/data/2.5/weather"
+URL="https://api.openweathermap.org/data/2.5/weather"
 CURLARGS=("-s" "-G")
 
 APIKEY="$1"

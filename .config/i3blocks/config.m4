@@ -85,6 +85,8 @@ color=#00ffff
 separator_block_width=4
 
 [cpu_usage -w 80 -c 95]
+m4_ifdef(??[[<<m4_env_config_GKRELLM>>]]??,m4_dnl
+command=m4_env_config_I3BLOCKS_DIR/$BLOCK_NAME && ( if [ "$BLOCK_BUTTON" == "1" ]; then $HOME/.config/i3blocks/scripts/gkrellm-toggle cpu; fi ))
 interval=10
 min_width=99.99%
 align=right
@@ -113,6 +115,8 @@ color=#00ffff
 separator_block_width=4
 
 [memory]
+m4_ifdef(??[[<<m4_env_config_GKRELLM>>]]??,m4_dnl
+command=m4_env_config_I3BLOCKS_DIR/$BLOCK_NAME && ( if [ "$BLOCK_BUTTON" == "1" ]; then $HOME/.config/i3blocks/scripts/gkrellm-toggle memory; fi ))
 interval=30
 
 # [memory-label]
