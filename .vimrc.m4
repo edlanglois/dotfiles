@@ -170,6 +170,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list = 1
 " Exclude pylint by default. It is slow and prone to false positives.
 let g:syntastic_python_checkers = ['python', 'flake8']
+" Exclude lacheck; it has no way to skip false positives.
+let g:syntastic_tex_checkers = ['chktex']
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
