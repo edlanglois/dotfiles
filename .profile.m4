@@ -21,6 +21,11 @@ fi
 if [ -d "$HOME/bin" ] ; then
 	PATH="$HOME/bin:$PATH"
 fi
+
+# same for LD_LIBRARY_PATH
+if [ -d "$HOME/lib" ] ; then
+	LD_LIBRARY_PATH="$HOME/lib:$LD_LIBRARY_PATH"
+fi
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
 PATH="${PATH}:m4_env_config_GEM_BIN_PATH"
 )

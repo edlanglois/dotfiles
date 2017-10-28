@@ -125,9 +125,6 @@ man() {
     man "$@"
 }
 
-# Set shared library path
-export LD_RUN_PATH=$HOME/lib:/usr/local/lib:/usr/lib
-
 m4_include(env_config.m4)m4_dnl
 function torch-activate() {
 m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
