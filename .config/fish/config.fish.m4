@@ -25,20 +25,26 @@ alias gr "grep -R"
 
 # Add user's bin to path
 set --global fish_user_paths $fish_user_paths $HOME/bin
-m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
 
+m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,
+# CUDA Path
+set --global -x CUDA_HOME "m4_env_config_CUDA_ROOT"
+set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$CUDA_HOME/lib64"
+)m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
 # Add ruby gem bin directory to path
 set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH" | sed 's/:/\n/g')
 )m4_dnl
-m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 
+m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 # Start keychain - ensures ssh-agent is running.
 if status --is-interactive
 	keychain --eval --agents ssh --quick --quiet | source
 end
 )m4_dnl
-m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
 
+m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
 # Enable virtualfish auto-activation.
 eval (python -m virtualfish auto_activation global_requirements)
 )m4_dnl
