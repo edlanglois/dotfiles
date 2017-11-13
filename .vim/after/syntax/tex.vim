@@ -720,28 +720,26 @@ if has("conceal") && &enc == 'utf-8'
 endif
 
 " ChkTex comments
-:syn keyword ChkTexKeyword chktex containedin=texComment nextgroup=ChkTexNumber skipwhite
-:syn match ChkTexNumber '\<\d\+\>' contained
-:highlight def link ChkTexNumber Number
+:syn match ChkTexCommandComment '\cchktex\s\+\d\+\>' contained containedin=texComment
+:highlight def link ChkTexCommandComment SpecialComment
 
 " Tex Commands in comments
-:syn match TexCommandComment '\\\i\+' containedin=texComment
+:syn match TexCommandComment '\\\i\+' contained containedin=texComment
 :highlight def link TexCommandComment SpecialComment
-
 
 " Disable spell checking for some entities within comments
 " URL
-:syn match UrlComment "\w\+:\/\/[^[:space:]]\+" contains=@NoSpell containedin=texComment
+:syn match UrlComment "\w\+:\/\/[^[:space:]]\+" contains=@NoSpell contained containedin=texComment
 :highlight def link UrlComment Comment
 
 " Abbreviation (Starts with upper case letter, contains 1 more upper case)
- syn match AcronymComment '\<\u\w*\u\w*' contains=@NoSpell containedin=texComment
+ syn match AcronymComment '\<\u\w*\u\w*' contains=@NoSpell contained containedin=texComment
 :highlight def link AcronymComment Comment
 
 " Camel case word
-syn match CamelCaseComment '\<\l\w*\u\w*' contains=@NoSpell containedin=texComment
+syn match CamelCaseComment '\<\l\w*\u\w*' contains=@NoSpell contained containedin=texComment
 :highlight def link CamelCaseComment SpecialComment
 
 " Underscore-separated word
-syn match UnderscoreWordComment '\w*_\w*' contains=@NoSpell containedin=texComment
+syn match UnderscoreWordComment '\w*_\w*' contains=@NoSpell contained containedin=texComment
 :highlight def link UnderscoreWordComment SpecialComment
