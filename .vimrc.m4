@@ -260,8 +260,12 @@ noremap <C-l> <C-w>l
 noremap <leader>r :redraw!<cr>
 
 " Mappings (from Learn Vimscript the Hard Way)
-" Use jk as <esc>
-inoremap jk <esc>
+" Use kj as <esc> and `^ to prevent the cursor from moving
+inoremap kj <Esc>`^
+" Also save
+inoremap lkj <Esc>`^:w<CR>
+" Also save and quit
+inoremap ;lkj <Esc>:wq<CR>
 
 " Use <leader><c-u> to convert a word to upper case mode.
 inoremap <leader><c-u> <esc>viwUhea
