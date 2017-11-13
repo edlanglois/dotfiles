@@ -281,7 +281,7 @@ augroup spelling
 	" But not help files
 	autocmd FileType help setlocal nospell
 augroup END
-set spelllang=en_ca
+set spelllang=en_ca,en
 
 " Open spelling suggestions with <leader>s
 :nnoremap <leader>s ea<C-X><C-S>
