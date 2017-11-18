@@ -281,9 +281,7 @@ nnoremap L $
 augroup spelling
 	autocmd!
 	" Enable spell check on text files
-	autocmd BufNewFile,BufRead *.txt setlocal spell
-	" But not help files
-	autocmd FileType help setlocal nospell
+	autocmd FileType text,markdown,vim setlocal spell
 augroup END
 set spelllang=en_ca,en
 
