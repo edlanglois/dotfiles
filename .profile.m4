@@ -25,6 +25,7 @@ fi
 # same for LD_LIBRARY_PATH
 if [ -d "$HOME/lib" ] ; then
 	export LD_LIBRARY_PATH="$HOME/lib:$LD_LIBRARY_PATH"
+fi
 
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,
 # CUDA Path
