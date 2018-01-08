@@ -58,7 +58,6 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
 Plugin 'shaneharper/vim-rtags'
 Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-commentary'
@@ -70,6 +69,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-python/python-syntax'
 Plugin 'vim-scripts/fish-syntax'
+Plugin 'w0rp/ale'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -163,17 +163,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 let g:ultisnips_python_style = 'google'
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_always_populate_loc_list = 1
-" Exclude pylint by default. It is slow and prone to false positives.
-let g:syntastic_python_checkers = ['python', 'flake8']
-" Exclude lacheck; it has no way to skip false positives.
-let g:syntastic_tex_checkers = ['chktex']
+let g:ale_fix_on_save = 1
+let g:airline#extensions#ale#enabled = 1
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
