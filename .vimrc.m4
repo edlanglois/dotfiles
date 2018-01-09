@@ -164,6 +164,7 @@ let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:ultisnips_python_style = 'google'
 
 let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
 let g:airline#extensions#ale#enabled = 1
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
