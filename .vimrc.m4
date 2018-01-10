@@ -165,6 +165,11 @@ let g:ultisnips_python_style = 'google'
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
+" Don't run pylint on testing python files.
+let g:ale_pattern_options = {
+\    'test_.*\.py': {'ale_linters': ['flake8', 'mypy']},
+\}
+
 let g:airline#extensions#ale#enabled = 1
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
