@@ -228,7 +228,8 @@ set foldmethod=indent
 set foldlevel=99
 
 set background=dark
-colorscheme desert
+let g:gruvbox_contrast_dark='hard'
+colorscheme gruvbox
 highlight Search ctermfg=black ctermbg=blue
 hi Normal ctermbg=NONE
 
