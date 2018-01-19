@@ -31,6 +31,7 @@ Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
+Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
 m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
 Plugin 'EdTsft/tmuxline.vim',
