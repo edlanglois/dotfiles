@@ -227,14 +227,13 @@ set laststatus=2 " Always show status line
 set foldmethod=indent
 set foldlevel=99
 
+set termguicolors " Use 24-bit colours
 set background=dark
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
-highlight Search ctermfg=black ctermbg=blue
-hi Normal ctermbg=NONE
+hi Normal ctermbg=black guibg=black ctermfg=white guifg=white
+hi Comment ctermfg=darkcyan guifg=darkcyan
 
-" Use a single dark grey column to mark textwidth.
-highlight ColorColumn ctermbg=darkgrey guibg=darkgrey
 set colorcolumn=+1  " Highlight the column after textwidth
 
 " Search for tags file first in cwd then recursively up to ~/Programming
