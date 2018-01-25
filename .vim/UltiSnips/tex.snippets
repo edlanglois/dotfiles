@@ -10,3 +10,29 @@ snippet newdocument "New latex article template." b
 
 \end{document}
 endsnippet
+
+snippet newbeamer "New latex beamer template." b
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+
+\usetheme{Madrid}
+
+\title{${1:Title}}
+\author{${2:`getent passwd $(whoami) | cut -d: -f5 | cut -d, -f1`}}
+\institute{${3:Institute}}
+\date{\today}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Slide Title}
+Some \alert{info} \pause
+More info to appear on next slide
+
+\begin{block}{Remark}
+Sample text
+\end{block}
+\end{frame}
+
+\end{document}
+endsnippet
