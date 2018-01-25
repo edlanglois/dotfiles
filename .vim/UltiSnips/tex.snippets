@@ -13,8 +13,6 @@ endsnippet
 
 snippet newbeamer "New latex beamer template." b
 \documentclass{beamer}
-\usepackage[utf8]{inputenc}
-
 \usetheme{Madrid}
 
 \title{${1:Title}}
@@ -35,4 +33,24 @@ Sample text
 \end{frame}
 
 \end{document}
+endsnippet
+
+snippet stdheader "Standard latex header contents." b
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}   % Linked references + autoref + hyperlinks
+\usepackage{mathtools}  % \substack and \mathclap commands
+\usepackage{microtype}  % Minor kerning/font adjustments to improve look.
+
+% Additional operators commands.
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+
+% Fixes to spacing on the \left and \right commands
+\let\originalleft\left
+\let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+\renewcommand{\right}{\aftergroup\egroup\originalright}
 endsnippet
