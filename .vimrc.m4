@@ -165,6 +165,11 @@ let g:ultisnips_python_style = 'google'
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
+" Exclude lacheck from tex linters; it has false positives with no way to
+" disable.
+let g:ale_linters = {
+\    'tex': ['chktex', 'proselint', 'redpen', 'vale', 'write-good']
+\}
 " Don't run pylint on testing python files.
 let g:ale_pattern_options = {
 \    'test_.*\.py': {'ale_linters': ['flake8', 'mypy']},
