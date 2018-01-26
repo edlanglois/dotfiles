@@ -54,3 +54,27 @@ snippet stdheader "Standard latex header contents." b
 \renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}  % chktex 43
 \renewcommand{\right}{\aftergroup\egroup\originalright}          % chktex 43
 endsnippet
+
+snippet beq "Equation environment." b
+\begin{equation}
+	${0:${VISUAL}}
+\end{equation}
+endsnippet
+
+snippet beqq "Equation environment without numbering." b
+\begin{equation*}
+	${0:${VISUAL}}
+\end{equation*}
+endsnippet
+
+snippet beal "Align equation environment." b
+\begin{align}
+	${0:${VISUAL}}
+\end{align}
+endsnippet
+
+snippet beala "Align equation environment without numbering." b
+\begin{align*}
+	${0:${VISUAL}}
+\end{align*}
+endsnippet
