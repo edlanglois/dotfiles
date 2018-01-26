@@ -49,8 +49,8 @@ snippet stdheader "Standard latex header contents." b
 \DeclareMathOperator{\Cov}{Cov}
 
 % Fixes to spacing on the \left and \right commands
-\let\originalleft\left
-\let\originalright\right
-\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
-\renewcommand{\right}{\aftergroup\egroup\originalright}
+\let\originalleft\left                                           % chktex 43
+\let\originalright\right                                         % chktex 43
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}  % chktex 43
+\renewcommand{\right}{\aftergroup\egroup\originalright}          % chktex 43
 endsnippet
