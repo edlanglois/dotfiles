@@ -47,6 +47,7 @@ DOTFILES=\
 	.gkrellm2/user-config-memory\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
+	bin/get-gitignore\
 	bin/print256colours\
 	bin/tmuxm\
 
