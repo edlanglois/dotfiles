@@ -25,7 +25,7 @@
 "     maintainer will do with your changes and under what license they
 "     will be distributed is negotiable.  If there has been no negotiation
 "     then this license, or a later version, also applies to your changes.
-"   The current maintainer is Bram Moolenaar <Bram@vim.org>. If this 
+"   The current maintainer is Bram Moolenaar <Bram@vim.org>. If this
 "     changes it will be announced in appropriate places (most likely
 "     vim.sf.net, www.vim.org and/or comp.editors).  When it is completely
 "     impossible to contact the maintainer, the obligation to send him
@@ -81,7 +81,21 @@
 "      license for previous Vim releases instead of the license that they came
 "      with, at your option.
 
-call TexNewMathZone("M", "dmath", 1)
+if !exists("g:tex_no_math")
+	" Syntax highlighting for amsmath and breqn math environments.
+	" Default syntax defines the built-in zones:
+	" A: displaymath
+	" B: eqnarray
+	" C: equation
+	" D: math
+	" Start from M to avoid name conflict.
+	call TexNewMathZone("M", "align", 1)
+	call TexNewMathZone("N", "alignat", 1)
+	call TexNewMathZone("O", "dmath", 1)
+	call TexNewMathZone("P", "flalign", 1)
+	call TexNewMathZone("Q", "gather", 1)
+	call TexNewMathZone("R", "multline", 1)
+endif
 
 syn sync maxlines=200
 syn sync minlines=20
