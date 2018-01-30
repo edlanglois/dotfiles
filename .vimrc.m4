@@ -34,11 +34,11 @@ Plugin 'chrisbra/Recover.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
 m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
-Plugin 'EdTsft/tmuxline.vim',
+Plugin 'edlanglois/tmuxline.vim',
 Plugin 'edkolev/tmuxline.vim')
-Plugin 'EdTsft/vim-gdl-syntax'
-Plugin 'EdTsft/vim-qrc'
-Plugin 'EdTsft/vim-tmux-focus-events'
+Plugin 'edlanglois/vim-gdl-syntax'
+Plugin 'edlanglois/vim-qrc'
+Plugin 'edlanglois/vim-tmux-focus-events'
 Plugin 'ervandew/supertab'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
