@@ -621,7 +621,8 @@ if has("conceal") && &enc == 'utf-8'
 		endfor
 
 		" Conceal ends of \text{}
-		syn region texStatement matchgroup=texStatement start="\\text\s*{" end="}" concealends
+		" TODO: fix the group/region
+		" syn region texStatement matchgroup=texStatement start="\\text\s*{" end="}" concealends
 	endif
 
 	" Clusters for concealing in math mode
