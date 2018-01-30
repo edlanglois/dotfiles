@@ -620,10 +620,18 @@ if has("conceal") && &enc == 'utf-8'
 			unlet cchar
 		endfor
 
-		" Conceal ends of \text{}
-		" TODO: fix the group/region
-		" syn region texStatement matchgroup=texStatement start="\\text\s*{" end="}" concealends
+		" Conceal Ends Of Text Inside Math Zones: {{{2
+		if s:tex_fast =~# 'M'
+			if !exists("g:tex_nospell") || !g:tex_nospell
+				syn region texMathText matchgroup=texStatement start='\\\(\(inter\)\=text\|mbox\)\s*{' end='}' contains=@texFoldGroup,@Spell concealends
+			else
+				syn region texMathText matchgroup=texStatement start='\\\(\(inter\)\=text\|mbox\)\s*{' end='}' contains=@texFoldGroup concealends
+			endif
+		endif
 	endif
+
+	" Fix texMathText matching within non-top-level math environments
+	syn cluster texMathMatchGroup add=texMathText
 
 	" Clusters for concealing in math mode
 	syn cluster texMathStyleGroup contains=texBoldStyle,texItalStyle,texBoldItalStyle
