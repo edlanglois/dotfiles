@@ -26,7 +26,6 @@ call vundle#begin()
 " Let Vundle manage Vundle. Required
 Plugin 'gmarik/Vundle.vim'
 
-" My bundles here:
 Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'bkad/CamelCaseMotion'
@@ -37,6 +36,7 @@ m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
 Plugin 'edlanglois/tmuxline.vim',
 Plugin 'edkolev/tmuxline.vim')
 Plugin 'edlanglois/vim-gdl-syntax'
+Plugin 'edlanglois/vim-HiLinkTrace'
 Plugin 'edlanglois/vim-qrc'
 Plugin 'edlanglois/vim-tmux-focus-events'
 Plugin 'ervandew/supertab'
@@ -178,6 +178,8 @@ let g:ale_pattern_options = {
 let g:airline#extensions#ale#enabled = 1
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
+
+let g:hilinks_map = 0  " Don't create \hlt mapping for hilinks
 
 set modeline
 set backspace=indent,eol,start
