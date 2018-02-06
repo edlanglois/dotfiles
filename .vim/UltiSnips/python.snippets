@@ -12,7 +12,9 @@ def parse_args():
         An \`argparse.Namespace\` object containing the parsed arguments.
     """
     parser = argparse.ArgumentParser(
-        description=__doc__.splitlines()[0] if __doc__ else None)
+        description=__doc__.splitlines()[0] if __doc__ else None,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     return parser.parse_args()
 
 
