@@ -5,8 +5,11 @@ snippet newscript "New python script template." b
 import argparse
 
 
-def parse_args():
+def parse_args(args=None):
     """Parse command-line arguments.
+
+    Args:
+        args: A list of argument strings to use instead of sys.argv.
 
     Returns:
         An \`argparse.Namespace\` object containing the parsed arguments.
@@ -15,12 +18,16 @@ def parse_args():
         description=__doc__.splitlines()[0] if __doc__ else None,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    return parser.parse_args()
+    return parser.parse_args(args)
 
 
-def main():
-    """Run script."""
-    args = parse_args()
+def main(args=None):
+    """Run script.
+
+    Args:
+        args: A list of argument strings to use instead of sys.argv.
+    """
+    args = parse_args(args)
     ${2}
 
 
