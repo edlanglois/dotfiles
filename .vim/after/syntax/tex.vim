@@ -368,6 +368,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['circledast'     , '⊛'],
 			\ ['circledcirc'    , '⊚'],
 			\ ['clubsuit'       , '♣'],
+			\ ['coloneqq'       , '≔'],
 			\ ['complement'     , '∁'],
 			\ ['cong'           , '≅'],
 			\ ['coprod'         , '∐'],
