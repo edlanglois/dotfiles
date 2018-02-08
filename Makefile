@@ -19,6 +19,7 @@ M4_DOTFILES=\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
+	.latexmkrc\
 	.profile\
 	.pylintrc\
 	.Rprofile\
@@ -58,6 +59,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
 	browser\
 	cuda\
+	dblpbib\
 	default-shell\
 	dmenu\
 	git-push-default-simple\

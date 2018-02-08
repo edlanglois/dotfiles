@@ -27,6 +27,7 @@ user.cfg
 .gitconfig
 .gitignore_global
 .hgrc
+.latexmkrc
 .profile
 .pylintrc
 .Rprofile
