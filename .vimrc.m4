@@ -177,6 +177,8 @@ let g:ale_pattern_options = {
 
 let g:airline#extensions#ale#enabled = 1
 
+let g:notes_directories = ['~/Dropbox/notes', '~/Documents/notes']
+
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
 let g:hilinks_map = 0  " Don't create \hlt mapping for hilinks
