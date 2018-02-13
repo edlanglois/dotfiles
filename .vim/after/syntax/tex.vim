@@ -126,6 +126,7 @@ endif
 if s:tex_fast =~ 'b'
 	if s:tex_conceal =~ 'b'
 		syn region texBoldStyle matchgroup=texTypeStyle start="\\bm\s*{" end="}" concealends contains=@texBoldGroup
+		syn region texBoldStyle matchgroup=texTypeStyle start="\\mathbf\s*{" end="}" concealends contains=@texBoldGroup
 	endif
 endif
 
