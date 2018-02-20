@@ -49,6 +49,7 @@ DOTFILES=\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
 	bin/get-gitignore\
+	bin/gr\
 	bin/print256colours\
 	bin/tmuxm\
 

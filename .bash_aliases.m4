@@ -2,7 +2,6 @@ alias apox='apropos'
 alias quit='exit'
 alias hex='xxd -c 4'
 alias tmux='tmux -2'
-alias gr='grep -R'
 
 alias la='ls -a'
 alias ll='ls -l'
