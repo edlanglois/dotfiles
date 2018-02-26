@@ -25,6 +25,7 @@ user.cfg
 .config/matplotlib/matplotlibrc
 .config/termite/config
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
+.config/yapf/style
 .gitconfig
 .gitignore_global
 .hgrc

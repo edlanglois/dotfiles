@@ -17,6 +17,7 @@ M4_DOTFILES=\
 	.config/locale.conf\
 	.config/matplotlib/matplotlibrc\
 	.config/termite/config\
+	.config/yapf/style\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
