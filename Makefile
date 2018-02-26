@@ -15,6 +15,7 @@ M4_DOTFILES=\
 	.config/i3/config\
 	.config/i3blocks/config\
 	.config/locale.conf\
+	.config/matplotlib/matplotlibrc\
 	.config/termite/config\
 	.gitconfig\
 	.gitignore_global\
