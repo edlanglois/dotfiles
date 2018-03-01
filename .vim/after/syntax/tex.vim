@@ -599,6 +599,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['vDash'          , '⊨'],
 			\ ['Vdash'          , '⊩'],
 			\ ['vdots'          , '⋮'],
+			\ ['vec'            , '⇀'],
 			\ ['vee'            , '∨'],
 			\ ['veebar'         , '⊻'],
 			\ ['Vvdash'         , '⊪'],
