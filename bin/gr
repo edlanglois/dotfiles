@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -eu # Fail on errors or undeclared variables
+
+MAXDEPTH=
+DASHES=
+
+# Exclude binary files and display with colour
+GREP_ARGS=("-I" "--color=auto")
+
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-d|--maxdepth)
+			MAXDEPTH="$2";
+			shift; shift
+			;;
+		--)
+			DASHES=1
+			GREP_ARGS+=("$1")
+			shift
+			;;
+		*)
+			GREP_ARGS+=("$1")
+			shift
+			;;
+	esac
+done
+
+if [ -n "$MAXDEPTH" ]; then
+	if [ -z "$DASHES" ]; then
+		GREP_ARGS+=('--')
+		DASHES=1
+	fi
+		GREP_ARGS+=( $(find . -maxdepth "$MAXDEPTH" -type f) )
+else
+	GREP_ARGS+=('-R')  # Recursive
+fi
+grep "${GREP_ARGS[@]}"

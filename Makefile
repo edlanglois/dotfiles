@@ -15,10 +15,13 @@ M4_DOTFILES=\
 	.config/i3/config\
 	.config/i3blocks/config\
 	.config/locale.conf\
+	.config/matplotlib/matplotlibrc\
 	.config/termite/config\
+	.config/yapf/style\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
+	.latexmkrc\
 	.profile\
 	.pylintrc\
 	.Rprofile\
@@ -48,6 +51,7 @@ DOTFILES=\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
 	bin/get-gitignore\
+	bin/gr\
 	bin/print256colours\
 	bin/tmuxm\
 
@@ -58,6 +62,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
 	browser\
 	cuda\
+	dblpbib\
 	default-shell\
 	dmenu\
 	git-push-default-simple\

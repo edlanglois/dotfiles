@@ -90,7 +90,7 @@ bad-functions=apply
 good-names=i,j,k,ex,Run,_
 
 # Bad variable names which should always be refused, separated by a comma
-bad-names=foo,bar,baz,toto,tutu,tata
+bad-names=
 
 # Colon-delimited sets of names that determine each other's naming style when
 # the name regexes allow several styles.

@@ -20,9 +20,6 @@ set --global -x EDITOR vim
 # Set hostname icon
 set -x HOSTNAME_ICON (hostname-icon)
 
-# Aliases
-alias gr "grep -R"
-
 # Add user's bin to path
 set --global fish_user_paths $fish_user_paths $HOME/bin
 

@@ -22,11 +22,14 @@ user.cfg
 .config/i3/config.local
 .config/i3blocks/config
 .config/locale.conf
+.config/matplotlib/matplotlibrc
 .config/termite/config
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
+.config/yapf/style
 .gitconfig
 .gitignore_global
 .hgrc
+.latexmkrc
 .profile
 .pylintrc
 .Rprofile

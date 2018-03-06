@@ -40,9 +40,10 @@ snippet stdheader "Standard latex header contents." b
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{commath}    % Math commands, in particular: \dif, \od, \pd
-\usepackage{hyperref}   % Linked references + autoref + hyperlinks
-\usepackage{mathtools}  % \substack and \mathclap commands
+\usepackage{hyperref}   % Linked references + autoref + hyperlinks.
+\usepackage{mathtools}  % Many additional math commands.
 \usepackage{microtype}  % Minor kerning/font adjustments to improve look.
+\usepackage{natbib}     % \citep and \citet citation commands. option: [round]
 
 % Additional operators commands.
 \DeclareMathOperator{\E}{\mathbb{E}}
@@ -54,6 +55,12 @@ snippet stdheader "Standard latex header contents." b
 \let\originalright\right                                         % chktex 43
 \renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}  % chktex 43
 \renewcommand{\right}{\aftergroup\egroup\originalright}          % chktex 43
+
+\bibliographystyle{abbrvnat}
+endsnippet
+
+snippet bib "Bibliography." b
+\bibliography{${1:\jobname}}
 endsnippet
 
 snippet beq "Equation environment." b

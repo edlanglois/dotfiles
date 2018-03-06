@@ -126,6 +126,7 @@ endif
 if s:tex_fast =~ 'b'
 	if s:tex_conceal =~ 'b'
 		syn region texBoldStyle matchgroup=texTypeStyle start="\\bm\s*{" end="}" concealends contains=@texBoldGroup
+		syn region texBoldStyle matchgroup=texTypeStyle start="\\mathbf\s*{" end="}" concealends contains=@texBoldGroup
 	endif
 endif
 
@@ -134,6 +135,7 @@ if has("conceal") && &enc == 'utf-8'
 	if s:tex_conceal =~ 'D'
 		fun! s:DoubleStrike(let,cchar)
 			exe "syn match texDoubleStrike '\\\\mathbb\\s*{".a:let."}' conceal cchar=".a:cchar
+			exe "syn match texDoubleStrike '\\\\mathbbm\\s*{".a:let."}' conceal cchar=".a:cchar
 		endfun
 		call s:DoubleStrike('A','𝔸')
 		call s:DoubleStrike('B','𝔹')
@@ -187,6 +189,16 @@ if has("conceal") && &enc == 'utf-8'
 		call s:DoubleStrike('x','𝕩')
 		call s:DoubleStrike('y','𝕪')
 		call s:DoubleStrike('z','𝕫')
+		call s:DoubleStrike('0','𝟘')
+		call s:DoubleStrike('1','𝟙')
+		call s:DoubleStrike('2','𝟚')
+		call s:DoubleStrike('3','𝟛')
+		call s:DoubleStrike('4','𝟜')
+		call s:DoubleStrike('5','𝟝')
+		call s:DoubleStrike('6','𝟞')
+		call s:DoubleStrike('7','𝟟')
+		call s:DoubleStrike('8','𝟠')
+		call s:DoubleStrike('9','𝟡')
 		delfun s:DoubleStrike
 	endif
 
@@ -357,6 +369,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['circledast'     , '⊛'],
 			\ ['circledcirc'    , '⊚'],
 			\ ['clubsuit'       , '♣'],
+			\ ['coloneqq'       , '≔'],
 			\ ['complement'     , '∁'],
 			\ ['cong'           , '≅'],
 			\ ['coprod'         , '∐'],
@@ -373,7 +386,8 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['ddots'          , '⋱'],
 			\ ['diamond'        , '⋄'],
 			\ ['diamondsuit'    , '♢'],
-			\ ['diff'           , 'd'],
+			\ ['dif'            , 'd'],
+			\ ['Dif'            , 'D'],
 			\ ['div'            , '÷'],
 			\ ['doteq'          , '≐'],
 			\ ['doteqdot'       , '≑'],
@@ -397,6 +411,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['fallingdotseq'  , '≒'],
 			\ ['flat'           , '♭'],
 			\ ['forall'         , '∀'],
+			\ ['frac'           , '÷'],
 			\ ['frown'          , '⁔'],
 			\ ['ge'             , '≥'],
 			\ ['geq'            , '≥'],
@@ -408,6 +423,7 @@ if has("conceal") && &enc == 'utf-8'
 			\ ['gtreqless'      , '⋛'],
 			\ ['gtrless'        , '≷'],
 			\ ['gtrsim'         , '≳'],
+			\ ['hat'            , '^'],
 			\ ['hbar'           , 'ℏ'],
 			\ ['heartsuit'      , '♡'],
 			\ ['hookleftarrow'  , '↩'],
@@ -606,7 +622,19 @@ if has("conceal") && &enc == 'utf-8'
 			endif
 			unlet cchar
 		endfor
+
+		" Conceal Ends Of Text Inside Math Zones: {{{2
+		if s:tex_fast =~# 'M'
+			if !exists("g:tex_nospell") || !g:tex_nospell
+				syn region texMathText matchgroup=texStatement start='\\\(\(inter\)\=text\|mbox\)\s*{' end='}' contains=@texFoldGroup,@Spell concealends
+			else
+				syn region texMathText matchgroup=texStatement start='\\\(\(inter\)\=text\|mbox\)\s*{' end='}' contains=@texFoldGroup concealends
+			endif
+		endif
 	endif
+
+	" Fix texMathText matching within non-top-level math environments
+	syn cluster texMathMatchGroup add=texMathText
 
 	" Clusters for concealing in math mode
 	syn cluster texMathStyleGroup contains=texBoldStyle,texItalStyle,texBoldItalStyle
