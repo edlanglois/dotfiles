@@ -267,6 +267,9 @@ noremap <C-l> <C-w>l
 " <C-l> was redraw, make <leader>r the new redraw
 noremap <leader>r :redraw!<cr>
 
+" Execute the current file
+noremap <leader>e :!"%:p"<cr>
+
 " Mappings (from Learn Vimscript the Hard Way)
 " Use kj as <esc> and `^ to prevent the cursor from moving
 inoremap kj <Esc>`^
