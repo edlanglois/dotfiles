@@ -1,6 +1,7 @@
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 set -g fish_color_cwd yellow
+set -g fish_pager_color_description cea746
 
 # Disable greeting message
 set fish_greeting ""
