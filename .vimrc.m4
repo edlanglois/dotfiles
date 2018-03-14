@@ -104,6 +104,9 @@ command! Lresize lclose|lopen
 CommandCabbr lresize Lresize
 CommandCabbr lrs Lresize
 
+" Tex import sorting (ignores everything before package name)
+command -range Tsort <line1>,<line2>sort i /[^{]*{/
+
 " Filetype associations
 au BufRead,BufNewFile *.mac setfiletype maxima
 au BufRead,BufNewFile *.make setfiletype make
