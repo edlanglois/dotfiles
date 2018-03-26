@@ -278,9 +278,9 @@ noremap <leader>e :!"%:p"<cr>
 " Use kj as <esc> and `^ to prevent the cursor from moving
 inoremap kj <Esc>`^
 " Also save
-inoremap lkj <Esc>`^:w<CR>
+" inoremap lkj <Esc>`^:w<CR>
 " Also save and quit
-inoremap ;lkj <Esc>:wq<CR>
+" inoremap ;lkj <Esc>:wq<CR>
 
 " Use <leader><c-u> to convert a word to upper case mode.
 inoremap <leader><c-u> <esc>viwUhea
