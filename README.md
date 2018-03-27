@@ -84,3 +84,14 @@ Add the script to the `ENV_CONFIG_FILES` variable in `Makefile`.
 
 The emitted variables will be saved to `env_config.m4` under the name
 `m4_env_config_NAME`, where `NAME` is the name emitted by the script.
+
+## Misc
+### Bootstrap Local Python
+Assumes that python in installed along with setuptools but nothing else.
+```bash
+python -m easy_install --user pip
+python -m pip install --user virtualenv
+python -m virtualenv -p python3 --system-site-packages ~/.virtualenvs/<name>
+source ~/.virtualenvs/<name>/bin/activate
+pip install <...>
+```
