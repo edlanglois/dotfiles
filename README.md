@@ -87,7 +87,7 @@ The emitted variables will be saved to `env_config.m4` under the name
 
 ## Misc
 ### Bootstrap Local Python
-Assumes that python in installed along with setuptools but nothing else.
+Assumes that python is installed along with setuptools but nothing else.
 ```bash
 python -m easy_install --user pip
 python -m pip install --user virtualenv
