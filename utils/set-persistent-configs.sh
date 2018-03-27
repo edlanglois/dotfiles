@@ -2,6 +2,12 @@
 # Persistent configurations that only need to be run once.
 set -eux
 
+# Terminal info for termite
+if ! infocmp xterm-termite 1>/dev/null 2>&1; then
+	curl 'https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo' -o '/tmp/termite.terminfo'
+	tic -x '/tmp/termite.terminfo'
+fi
+
 # GNOME configuration
 if hash gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 	# Set Capslock to the control key on GNOME
