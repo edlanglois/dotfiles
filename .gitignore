@@ -4,6 +4,7 @@
 
 .vim/bundle/*
 !.vim/bundle/Vundle.vim
+.vim/swap
 
 user.cfg
 
