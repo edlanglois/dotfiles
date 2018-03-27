@@ -241,7 +241,9 @@ set laststatus=2 " Always show status line
 set foldmethod=indent
 set foldlevel=99
 
-set termguicolors " Use 24-bit colours
+if has('termguicolors')
+	set termguicolors " Use 24-bit colours
+endif
 set background=dark
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
