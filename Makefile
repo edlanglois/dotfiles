@@ -52,6 +52,7 @@ DOTFILES=\
 	.virtualenvs/global_requirements.txt\
 	bin/get-gitignore\
 	bin/gr\
+	bin/print24bitcolours\
 	bin/print256colours\
 	bin/tmuxm\
 
