@@ -243,8 +243,8 @@ set foldlevel=99
 
 if has('termguicolors')
 	" See :help xterm-true-color
-	let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-	let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+	set t_8f=[38;2;%lu;%lu;%lum
+	set t_8b=[48;2;%lu;%lu;%lum
 	set termguicolors " Use 24-bit colours
 endif
 set background=dark
