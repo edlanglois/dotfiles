@@ -45,6 +45,7 @@ Plugin 'google/vim-glaive'
 Plugin 'google/vim-maktaba'
 Plugin 'honza/vim-snippets'
 Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'Julian/vim-textobj-variable-segment'
 Plugin 'kana/vim-textobj-user'
@@ -433,6 +434,9 @@ let NERDTreeIgnore = [
 " Don't update the NERDTree git flags (nerdtree-git-plugin) on write.
 " The update interferes with python-mode's lint-on-write.
 let NERDTreeUpdateOnWrite=0
+
+let vim_markdown_preview_hotkey='<leader>lv'
+let vim_markdown_preview_use_xdg_open=1
 
 augroup strip_whitespace
 	autocmd!
