@@ -32,9 +32,7 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
-m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,m4_dnl
-Plugin 'edlanglois/tmuxline.vim',
-Plugin 'edkolev/tmuxline.vim')
+Plugin 'edkolev/tmuxline.vim',
 Plugin 'edlanglois/vim-gdl-syntax'
 Plugin 'edlanglois/vim-HiLinkTrace'
 Plugin 'edlanglois/vim-qrc'
