@@ -5,7 +5,7 @@ mouse_autohide = true
 fullscreen = false
 scrollback_lines = 10000
 search_wrap = true
-font = Noto Mono 11
+font = Noto Sans Mono 11
 
 [colors]
 # This color scheme is what gnome-terminal calls the "xterm" profile
