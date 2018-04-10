@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -eu # Fail on errors or undeclared variables
+# Reset all displays
+
+MONITORS=$(xrandr --listmonitors | tail +2 | tr -s ' ' | cut -d' ' -f5)
+for DISP in ${MONITORS}; do
+	xrandr --output "$DISP" --off
+done
+xrandr --auto

@@ -50,6 +50,7 @@ DOTFILES=\
 	.gkrellm2/user-config-memory\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
+	bin/dfix\
 	bin/get-gitignore\
 	bin/gr\
 	bin/print24bitcolours\
