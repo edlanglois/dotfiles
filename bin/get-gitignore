@@ -12,6 +12,8 @@ import urllib.request
 
 
 class _ListLanguagesAction(argparse.Action):
+    """Argparse action that lists available gitignore languages."""
+
     def __init__(self,
                  option_strings,
                  dest=argparse.SUPPRESS,
@@ -51,6 +53,8 @@ def parse_args():
 
 
 class GithubGitignore:
+    """Interface to Github's gitignore repository."""
+
     def __init__(self,
                  owner_name='github',
                  repo_name='gitignore',
@@ -73,14 +77,17 @@ class GithubGitignore:
         self._gitignore_file_map = None
 
     def _query_json(self, url):
+        """Retrieve JSON data at a URL."""
         request = urllib.request.Request(url=url, headers=self.headers)
         with urllib.request.urlopen(request) as response:
-            return json.loads(response.read())
+            encoding = response.headers.get_content_charset()
+            return json.loads(response.read().decode(encoding))
 
     def _query_repo_info(self):
         return self._query_json(self.base_url + '/git/trees/master')
 
     def get_repo_info(self):
+        """Repository metadata."""
         if self._repo_info is not None:
             return self._repo_info
 
@@ -102,6 +109,7 @@ class GithubGitignore:
         return self._repo_info
 
     def get_gitignore_file_map(self):
+        """Dictionary mapping languages names to URLs."""
         if self._gitignore_file_map is not None:
             return self._gitignore_file_map
         suffix = '.gitignore'
@@ -113,6 +121,7 @@ class GithubGitignore:
         return self._gitignore_file_map
 
     def get_gitignore_file(self, language):
+        """The gitignore file contents for a given language."""
         gitignore_file_map = self.get_gitignore_file_map()
         info = gitignore_file_map[language]
         content_info = self._query_json(info['url'])
