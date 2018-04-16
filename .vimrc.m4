@@ -115,7 +115,7 @@ au BufRead,BufNewFile *.prototxt setfiletype yaml
 syntax on " Syntax Highlighting
 filetype plugin indent on
 
-" Enable most highlighting options for vim-pyton/python-syntax plugin
+" Enable most highlighting options for vim-python/python-syntax plugin
 let g:python_highlight_builtins = 1
 let g:python_highlight_builtin_objs = 1
 let g:python_highlight_builtin_funcs = 1
@@ -151,8 +151,9 @@ let g:ycm_filetype_blacklist = {
       \ 'rnoweb' : 1
       \}
 
-" YCM GoTo with gl
+" YCM shortcuts
 nnoremap gt :YcmCompleter GoTo<CR>
+nnoremap <leader>d :YcmCompleter GetDoc<CR>
 
 " make YCM compatible with UltiSnips
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
