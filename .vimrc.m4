@@ -69,6 +69,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-python/python-syntax'
 Plugin 'vim-scripts/fish-syntax'
+Plugin 'vimwiki/vimwiki'
 Plugin 'w0rp/ale'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
@@ -436,6 +437,8 @@ let NERDTreeUpdateOnWrite=0
 
 let vim_markdown_preview_hotkey='<leader>lv'
 let vim_markdown_preview_use_xdg_open=1
+
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/'}]
 
 augroup strip_whitespace
 	autocmd!
