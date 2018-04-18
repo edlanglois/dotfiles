@@ -222,7 +222,7 @@ set formatoptions+=n " Proper indendation with lists when auto-formatting.
 set formatoptions+=a " Automatically format paragraphs while typing.
                      " Reflow entire paragraph when editing anywhere within.
 set formatoptions+=2 " In multiline paragraphs, use the indentation level of the
-                       2nd line.
+                     " 2nd line.
 
 set showmatch
 
