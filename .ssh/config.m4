@@ -4,6 +4,7 @@ Host github.com
 	IdentityFile m4_env_config_GITHUB_ID
 )
 m4_sinclude(.ssh/config.local)m4_dnl
+
 Host *
 	# Add keys to ssh-agent if it is running
 	AddKeysToAgent yes
