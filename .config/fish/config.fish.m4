@@ -22,7 +22,7 @@ set --global -x EDITOR vim
 set -x HOSTNAME_ICON (hostname-icon)
 
 # Add user's bin to path
-set --global fish_user_paths $fish_user_paths $HOME/bin
+set --global fish_user_paths $fish_user_paths $HOME/bin $HOME/.local/bin
 
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,
 # CUDA Path
