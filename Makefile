@@ -68,6 +68,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	cuda\
 	dblpbib\
 	dmenu\
+	fontsize\
 	git-push-default-simple\
 	github_id\
 	gkrellm\

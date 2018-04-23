@@ -1,3 +1,4 @@
+m4_include(env_config.m4)m4_dnl
 [options]
 allow_bold = true
 clickable_url = true
@@ -5,7 +6,7 @@ mouse_autohide = true
 fullscreen = false
 scrollback_lines = 10000
 search_wrap = true
-font = monospace 11
+font = monospace m4_env_config_TERM_FONT_SIZE
 
 [colors]
 # This color scheme is what gnome-terminal calls the "xterm" profile

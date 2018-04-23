@@ -7,7 +7,7 @@ m4_ifdef(??[[<<m4_env_config_NETUSER>>]]??,m4_ifdef(??[[<<m4_env_config_SHELL>>]
     custom_command = m4_env_config_SHELL
     use_custom_command = True
 ))m4_dnl
-    font = monospace 11
+    font = monospace m4_env_config_TERM_FONT_SIZE
     foreground_color = "#ffffff"
     palette = "#000000:#cd0000:#00cd00:#cdcd00:#0000ee:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
     scrollback_lines = 10000
