@@ -77,6 +77,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	keychain\
 	locale\
 	lock\
+	netuser\
 	nvidia-smi\
 	osx\
 	playerctl\

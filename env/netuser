@@ -1,0 +1,6 @@
+#!/bin/bash
+# Outputs NETUSER if the user account is not defined locally.
+set -eu
+if ! grep "$USER" /etc/passwd >/dev/null; then
+	echo NETUSER=
+fi
