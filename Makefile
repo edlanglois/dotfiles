@@ -67,7 +67,6 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	browser\
 	cuda\
 	dblpbib\
-	default-shell\
 	dmenu\
 	git-push-default-simple\
 	github_id\
@@ -86,6 +85,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	root\
 	ruby\
 	setxkbmap\
+	shell\
 	terminal\
 	tmux\
 	torch\
