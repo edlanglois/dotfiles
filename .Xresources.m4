@@ -4,13 +4,10 @@ UXTerm.termName: xterm-256color
 
 Xft.rgba: rgb
 
-*faceName: Deja Vu Sans Mono
-*faceSize: 10
+*renderFont: true
+*faceName: DejaVu Sans Mono
+*faceSize: 11
 
-URxvt.font: xft:Deja Vu Sans Mono:size=10,\
-	xft:Noto Sans Mono,\
-	xft:Symbola,\
-	xft:Symbola:size=8
 URxvt*scrollBar: false
 
 ! special
