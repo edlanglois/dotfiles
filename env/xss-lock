@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-if hash xss-lock 2>/dev/null; then
-	echo XSS_LOCK=
-fi

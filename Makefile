@@ -97,7 +97,6 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	xdotool\
 	xinput\
 	xmodmap\
-	xss-lock\
 )
 
 UTILS_DIR=utils

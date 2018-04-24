@@ -203,4 +203,7 @@ m4_ifdef(??[[<<m4_env_config_I3BLOCKS>>]]??,m4_dnl
 	position bottom
 }
 
+m4_ifdef(??[[<<m4_env_config_START_SCREENSAVER>>]]??,m4_dnl
+	exec m4_env_config_START_SCREENSAVER)
+
 m4_sinclude(.config/i3/config.local)m4_dnl

@@ -1,5 +1,22 @@
 #!/bin/bash
 set -eu
+
+# Prefer xscreensaver if present
+if hash xscreensaver 2>/dev/null; then
+	echo "START_SCREENSAVER=$(which xscreensaver) -nosplash"
+	if hash xdg-screensaver 2>/dev/null; then
+		echo "LOCK_CMD=xdg-screensaver lock"
+	else
+		echo "LOCK_CMD=xscreensaver-command -l"
+	fi
+	exit 0
+fi
+
+# Otherwise use i3lock & xss-lock
+if hash xss-lock 2>/dev/null; then
+	echo XSS_LOCK=
+fi
+
 if hash i3lock-extra 2>/dev/null; then
 	CMD="i3lock-extra -s -p --unsecure"
 	if i3lock-extra --help | grep -e '--paint' &>/dev/null; then
