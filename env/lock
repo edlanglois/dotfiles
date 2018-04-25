@@ -18,7 +18,7 @@ if hash xss-lock 2>/dev/null; then
 fi
 
 if hash i3lock-extra 2>/dev/null; then
-	CMD="i3lock-extra -s -p --unsecure"
+	CMD="i3lock-extra -s -p"
 	if i3lock-extra --help | grep -e '--paint' &>/dev/null; then
 		CMD+=" --paint"
 	fi
