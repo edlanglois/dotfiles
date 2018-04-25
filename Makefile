@@ -19,6 +19,7 @@ M4_DOTFILES=\
 	.config/terminator/config\
 	.config/termite/config\
 	.config/yapf/style\
+	.env_profile\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\

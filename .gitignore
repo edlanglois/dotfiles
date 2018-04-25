@@ -28,6 +28,7 @@ user.cfg
 .config/termite/config
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
 .config/yapf/style
+.env_profile
 .gitconfig
 .gitignore_global
 .hgrc
