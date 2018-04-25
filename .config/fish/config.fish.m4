@@ -15,6 +15,9 @@ set -x LESS_TERMCAP_so (printf \e"[38;5;246m")
 set -x LESS_TERMCAP_ue (printf \e"[0m")
 set -x LESS_TERMCAP_us (printf \e"[04;38;5;146m")
 
+# Set SHELL
+set --global -x SHELL (which fish)
+
 # Set editor to vim
 set --global -x EDITOR vim
 
