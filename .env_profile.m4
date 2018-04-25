@@ -23,6 +23,13 @@ export CUDA_HOME="m4_env_config_CUDA_ROOT"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$CUDA_HOME/lib64"
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_GOROOT>>]]??,
+# Go Path
+export GOROOT="m4_env_config_GOROOT"
+PATH="${PATH}:${GOROOT}/bin"
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
+# Ruby Path
 PATH="${PATH}:m4_env_config_GEM_BIN_PATH"
 )m4_dnl

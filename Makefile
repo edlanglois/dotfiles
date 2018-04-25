@@ -74,6 +74,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	git-push-default-simple\
 	github_id\
 	gkrellm\
+	go\
 	gsimplecal\
 	i3blocks\
 	keychain\

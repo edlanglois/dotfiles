@@ -30,6 +30,12 @@ set --global -x CUDA_HOME "m4_env_config_CUDA_ROOT"
 set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$CUDA_HOME/lib64"
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_GOROOT>>]]??,
+# Go Path
+set --global -x GOROOT "m4_env_config_GOROOT"
+set --global fish_user_paths $fish_user_paths "$GOROOT/bin"
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
 # Add ruby gem bin directory to path
 set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH" | sed 's/:/\n/g')

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eu
+
+possible_go_roots=( "$HOME/.local/go" )
+
+for go_root in "${possible_go_roots[@]}"; do
+	if [ -d "${go_root}" ]; then
+		echo "GOROOT=${go_root}"
+		exit 0
+	fi
+done
