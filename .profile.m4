@@ -26,6 +26,9 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 # same for LD_LIBRARY_PATH
+if [ -d "$HOME/.local/lib" ] ; then
+	export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+fi
 if [ -d "$HOME/lib" ] ; then
 	export LD_LIBRARY_PATH="$HOME/lib:$LD_LIBRARY_PATH"
 fi
