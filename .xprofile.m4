@@ -23,6 +23,14 @@ if xinput list --id-only "$TOUCHPAD_DEVICE_NAME" &>/dev/null; then
 fi
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_FEH>>]]??,m4_dnl
+# Set desktop background from .wallpaper
+WALLPAPER_DIR="$HOME/.wallpaper"
+if [ -d "$WALLPAPER_DIR" -a -n "$(ls -A "$WALLPAPER_DIR")" ]; then
+	m4_env_config_FEH --bg-scale --randomize "$WALLPAPER_DIR"
+fi
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_XSS_LOCK>>]]??,m4_dnl
 xss-lock -l -- $HOME/.config/xss-lock/transfer-sleep-lock-i3lock.sh &
 )m4_dnl
