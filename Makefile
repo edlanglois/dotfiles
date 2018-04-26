@@ -268,7 +268,9 @@ vim: vim-update-plugins vim-ycm
 vim-update-plugins:
 	vim +PluginInstall +PluginUpdate +qall
 
+PYTHON := $(shell which python3 || echo python)
+
 vim-ycm:
 	cd .vim/bundle/YouCompleteMe && \
-		./install.py --clang-completer \
+		$(PYTHON) ./install.py --clang-completer \
 		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)
