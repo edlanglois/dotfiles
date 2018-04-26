@@ -11,3 +11,6 @@
 # OS Directory Layout
 .DS_Store
 desktop.ini
+
+# Network filesystem
+.nfs*
