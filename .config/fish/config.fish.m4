@@ -25,7 +25,19 @@ set --global -x EDITOR vim
 set -x HOSTNAME_ICON (hostname-icon)
 
 # Add user's bin to path
-set --global fish_user_paths $fish_user_paths $HOME/bin $HOME/.local/bin
+if test -d $HOME/bin
+	set --global fish_user_paths $fish_user_paths $HOME/bin
+end
+if test -d $HOME/.local/bin
+	set --global fish_user_paths $fish_user_paths $HOME/.local/bin
+end
+# Add user's library to LD_LIBRARY_PATH
+if test -d $HOME/lib
+	set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$HOME/lib"
+end
+if test -d $HOME/.local/lib
+	set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$HOME/.local/lib"
+end
 
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,
 # CUDA Path
