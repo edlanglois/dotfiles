@@ -29,6 +29,7 @@
 # For more information, please refer to <http://unlicense.org/>
 
 import os
+import os.path
 import ycm_core
 
 # These are the compilation flags that will be used in case there's no
@@ -59,9 +60,9 @@ flags = [
     '-isystem',
     '/usr/include',
     '-isystem',
-    '/home/eric/include',
+    os.path.expanduser('~/.local/include'),
     '-isystem',
-    '~/include'
+    os.path.expanduser('~/include'),
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
