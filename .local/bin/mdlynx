@@ -1,0 +1,13 @@
+#!/bin/bash
+# Open markdown file in lynx
+set -eu
+usage="usage: $(basename $0) FILE
+
+Opens markdown file in lynx as an html file"
+
+if [ "$#" -ne 1 ]; then
+	echo "$usage"
+	exit 1
+fi
+
+markdown $1 | lynx -stdin

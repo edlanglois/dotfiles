@@ -1,0 +1,14 @@
+#!/bin/bash
+# combinediff but returns non-zero if anything went wrong
+set -eu
+tmpbase="/tmp/$(basename $0).$$"
+stderrfile="${tmpbase}.stderr"
+syncpipe="${tmpbase}.sync.pipe"
+
+# >(...) runs asynchronously so use pipe to synchronize
+mkfifo $syncpipe
+combinediff "$@" 2> >(tee $stderrfile >&2; echo >$syncpipe)
+read < $syncpipe
+rm $syncpipe
+
+! [ -s "$stderrfile" ]
