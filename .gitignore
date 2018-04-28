@@ -26,6 +26,7 @@ user.cfg
 .config/matplotlib/matplotlibrc
 .config/terminator/config
 .config/termite/config
+.config/user-dirs.dirs
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
 .config/yapf/style
 .env_profile

@@ -18,6 +18,7 @@ M4_DOTFILES=\
 	.config/matplotlib/matplotlibrc\
 	.config/terminator/config\
 	.config/termite/config\
+	.config/user-dirs.dirs\
 	.config/yapf/style\
 	.env_profile\
 	.gitconfig\
