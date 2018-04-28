@@ -54,12 +54,12 @@ DOTFILES=\
 	.gkrellm2/user-config-memory\
 	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
-	bin/dfix\
-	bin/get-gitignore\
-	bin/gr\
-	bin/print24bitcolours\
-	bin/print256colours\
-	bin/tmuxm\
+	.local/bin/dfix\
+	.local/bin/get-gitignore\
+	.local/bin/gr\
+	.local/bin/print24bitcolours\
+	.local/bin/print256colours\
+	.local/bin/tmuxm\
 
 DOTDIRS=\
 	.vim
