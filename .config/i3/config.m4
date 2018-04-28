@@ -49,6 +49,12 @@ m4_ifdef(??[[<<m4_env_config_DMENU>>]]??,m4_dnl
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id m4_env_config_DMENU)
 
+# mod+Escape to toggle pass-through mode. Resets afte 10s.
+mode "passthrough" {
+    bindsym $mod+Escape mode "default"
+}
+bindsym $mod+Escape mode "passthrough"
+
 # Switch to window when activated
 focus_on_window_activation focus
 
