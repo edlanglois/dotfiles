@@ -52,14 +52,19 @@ DOTFILES=\
 	.fonts/PowerlineSymbols.otf\
 	.gkrellm2/user-config-cpu\
 	.gkrellm2/user-config-memory\
-	.tmuxline.conf\
-	.virtualenvs/global_requirements.txt\
+	.local/bin/backtrace\
+	.local/bin/combinediff-careful\
 	.local/bin/dfix\
 	.local/bin/get-gitignore\
+	.local/bin/git-w\
 	.local/bin/gr\
+	.local/bin/mdlynx\
+	.local/bin/plot\
 	.local/bin/print24bitcolours\
 	.local/bin/print256colours\
 	.local/bin/tmuxm\
+	.tmuxline.conf\
+	.virtualenvs/global_requirements.txt\
 
 DOTDIRS=\
 	.vim
