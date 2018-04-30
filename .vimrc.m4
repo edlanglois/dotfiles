@@ -303,6 +303,12 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap H ^
 nnoremap L $
 
+" HACK: Fix undercurl
+" t_Cs (undercurl) is being set on terminals that do not support it, so change
+" to empty string causing vim to fall back to underline.
+let &t_Cs=""
+let &t_Ce=""
+
 augroup spelling
 	autocmd!
 	" Enable spell check on text files
