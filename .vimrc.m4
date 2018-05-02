@@ -2,7 +2,6 @@ m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 " Function Keys
 " -------------
-" F2  - Toggle NERDTree
 " F3  - Toggle Tagbar
 " F4  - Select buffer
 " F5  - YCM Recompile and Regenerate diagnostics
@@ -361,7 +360,7 @@ let g:ctrlp_user_command = {
   \ }
 
 " Toggle NERDTree
-nnoremap <F2> :NERDTreeToggle<CR>
+nnoremap <leader>f :NERDTreeToggle<CR>
 
 " Toggle Tag Bar
 nnoremap <F3> :TagbarToggle<CR>
