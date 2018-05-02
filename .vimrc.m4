@@ -77,6 +77,8 @@ m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
 Plugin 'Valloric/YouCompleteMe'
 )m4_dnl
+" Must go after nerdtree
+Plugin 'EvanDotPro/nerdtree-chmod'
 
 " End Vundle
 call vundle#end()
