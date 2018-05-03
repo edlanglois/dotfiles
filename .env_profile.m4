@@ -21,6 +21,10 @@ m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,
 # CUDA Path
 export CUDA_HOME="m4_env_config_CUDA_ROOT"
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$CUDA_HOME/lib64"
+CUPTI_LIB="$CUDA_HOME/extras/CUPTI/lib64"
+if [ -d "$CUPTI_LIB" ] ; then
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$CUPTI_LIB"
+fi
 )m4_dnl
 m4_ifdef(??[[<<m4_env_config_CUDA_BIN>>]]??,
 PATH="${PATH}:m4_env_config_CUDA_BIN"
