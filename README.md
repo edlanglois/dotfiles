@@ -12,35 +12,22 @@ or if already cloned:
 git submodule update --init --recursive
 ```
 
-
 ## Installation
 ### User Information
 In the `dotfiles` directory, copy `user.cfg.example` to `user.cfg` and fill in
 the variables.
+See `utils/weather-city-id.py` to get your city ID for weather.
 
 ### Build and Install
 ```Shell
 make
 make install
+make vim
 ```
-
-### Vim Set-up
-Vundle is used to manage vim plugins. After initializing all submodules open vim
-and run
+If you have root access, system-wide configurations are installed with
 ```Shell
-:PluginInstall
+sudo make install-system
 ```
-then navigate to `dotfiles/.vim/bundle/YouCompleteMe` and run
-```Shell
-./install.sh --clang-completer
-```
-Navigate to `dotfiles/.vim/bundle/color_coded` and run
-```Shell
-mkdir build && cd build
-cmake ..
-make && make install
-```
-
 
 ## Flake8
 Install flake8 for python linting in VIM (with F7)
@@ -48,8 +35,11 @@ Install flake8 for python linting in VIM (with F7)
 pip install flake8
 ```
 
-### Powerline Fonts
-Install the [patched powerline fonts](https://github.com/powerline/fonts).
+## Extras
+Various persistent configurations: `utils/set-persistent-configs.sh`
+Powerline symbols: `utils/install-powerline-symbols.sh`
+Noto fonts: `utils/install-noto-fonts.sh`
+And more in `utils/`
 
 
 ## Making Changes
@@ -84,14 +74,3 @@ Add the script to the `ENV_CONFIG_FILES` variable in `Makefile`.
 
 The emitted variables will be saved to `env_config.m4` under the name
 `m4_env_config_NAME`, where `NAME` is the name emitted by the script.
-
-## Misc
-### Bootstrap Local Python
-Assumes that python is installed along with setuptools but nothing else.
-```bash
-python -m easy_install --user pip
-python -m pip install --user virtualenv
-python -m virtualenv -p python3 --system-site-packages ~/.virtualenvs/<name>
-source ~/.virtualenvs/<name>/bin/activate
-pip install <...>
-```
