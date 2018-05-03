@@ -44,6 +44,9 @@ m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,
 set --global -x CUDA_HOME "m4_env_config_CUDA_ROOT"
 set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$CUDA_HOME/lib64"
 )m4_dnl
+m4_ifdef(??[[<<m4_env_config_CUDA_BIN>>]]??,
+set --global fish_user_paths $fish_user_paths "m4_env_config_CUDA_BIN"
+)m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_GOROOT>>]]??,
 # Go Path

@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 set -eu
 
-possible_cuda_roots=( "/opt/cuda" "/usr/local/cuda" )
+possible_cuda_roots=( "/opt/cuda" "/usr/local/cuda" "$HOME/.local/cuda" )
 
 for cuda_root in "${possible_cuda_roots[@]}"; do
 	if [ -d "${cuda_root}" ]; then
 		echo "CUDA_ROOT=${cuda_root}"
+		if [ -d "${cuda_root}/bin" ]; then
+			echo "CUDA_BIN=${cuda_root}/bin"
+		fi
 		exit 0
 	fi
 done
