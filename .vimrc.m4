@@ -49,6 +49,7 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'lervag/vimtex'
+Plugin 'lyuts/vim-rtags'
 Plugin 'majutsushi/tagbar'
 Plugin 'moll/vim-bbye'
 Plugin 'morhetz/gruvbox'
@@ -57,7 +58,6 @@ Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
 Plugin 'sgur/vim-textobj-parameter'
-Plugin 'shaneharper/vim-rtags'
 Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
@@ -280,10 +280,10 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " <C-l> was redraw, make <leader>r the new redraw
-noremap <leader>r :redraw!<cr>
+nnoremap <leader>r :redraw!<cr>
 
 " Execute the current file
-noremap <leader>e :!"%:p"<cr>
+nnoremap <leader>e :!"%:p"<cr>
 
 " Mappings (from Learn Vimscript the Hard Way)
 " Use kj as <esc> and `^ to prevent the cursor from moving
