@@ -110,28 +110,30 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 
 UTILS_DIR=utils
 
-DOTFILES_DIR=$(shell pwd)
-INSTALL_DIR=$(HOME)
-INSTALLED_DOTFILES=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
-INSTALLED_DOTDIRS=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
+DOTFILES_DIR:=$(shell pwd)
+INSTALL_DIR:=$(HOME)
+INSTALLED_DOTFILES:=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
+INSTALLED_DOTDIRS:=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
 # Sort to remove duplicates
-INSTALLATION_DIRS = $(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
+INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
 
-M4_CONFIG_GEN_FILES=$(M4_DOTFILES) Makefile-binaries
-ENV_CONFIG_M4_FILES=$(addsuffix .m4,$(ENV_CONFIG_FILES))
+M4_CONFIG_GEN_FILES:=$(M4_DOTFILES) Makefile-binaries
+ENV_CONFIG_M4_FILES:=$(addsuffix .m4,$(ENV_CONFIG_FILES))
 
-INSTALLED_SYSTEM_FILES=$(shell find system/ -type f -printf "/%P\n")
-INSTALLATION_DIRS += $(sort $(dir $(INSTALLED_SYSTEM_FILES)))
+INSTALLED_SYSTEM_FILES:=$(shell find system/ -type f -printf "/%P\n")
+INSTALLATION_DIRS+=$(sort $(dir $(INSTALLED_SYSTEM_FILES)))
 
-USER_CONFIG_PREFIX=m4_user_config_
-ENV_CONFIG_PREFIX=m4_env_config_
+USER_CONFIG_PREFIX:=m4_user_config_
+ENV_CONFIG_PREFIX:=m4_env_config_
 # Hopefully unlikely to appear in the dotfiles.
-QUOTE_START=??[[<<
-QUOTE_END=>>]]??
+QUOTE_START:=??[[<<
+QUOTE_END:=>>]]??
 
-WARNING_PREFIX=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
+WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 
 PYGMENTIZE:=$(shell command -v pygmentize)
+
+RANDOM_ID:=$(shell echo $$RANDOM)
 
 .PHONY: build install install-dotfiles install-system install-all  \
 	set-persistent-configs clean show show-config vim \
@@ -161,17 +163,18 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	chmod u+x $@
 
 .tmuxline.conf: .vimrc
-ifdef TMUX
 	rm -f $@
-	vim -u ".vimrc" -c "TmuxlineSnapshot $@" -c "q"
+	# Start a new temporary tmux session and in that tmux session run vim
+	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
+	# .tmuxline.conf
+	tmux new-session -d -s 'tmuxline-${RANDOM_ID}' 'vim -u ".vimrc" -c "TmuxlineSnapshot $@" -c "q"'
+	while tmux list-sessions 2>/dev/null | grep 'tmuxline-${RANDOM_ID}' >/dev/null ; do \
+		sleep 0.05; \
+	done
 	@if [ ! -f $@ ]; then \
 		echo "$(WARNING_PREFIX) Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake."; \
 		touch $@; \
 	fi
-else
-	@echo "$(WARNING_PREFIX) Tmuxline config not generated. Re-run from within tmux."
-	touch $@
-endif
 
 # Configuration Files
 # -------------------
