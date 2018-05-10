@@ -92,4 +92,4 @@ set -g status-keys vi
 set -g status-interval 5
 
 # Use tmuxline status bar if available
-if-shell "test -f .tmuxline.conf" "source .tmuxline.conf"
+if-shell "test -f ~/.tmuxline.conf" "source ~/.tmuxline.conf"
