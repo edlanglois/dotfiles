@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-terminal_preferences=( termite terminator gnome-terminal xterm )
+terminal_preferences=( terminator termite gnome-terminal xterm )
 
 # Find a preferred terminal
 for terminal in "${terminal_preferences[@]}"; do
