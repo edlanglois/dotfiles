@@ -89,6 +89,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	netuser\
 	nvidia-smi\
 	osx\
+	paths\
 	playerctl\
 	pulseaudio\
 	python\
