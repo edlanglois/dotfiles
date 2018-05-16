@@ -10,5 +10,5 @@ root = m4_env_config_CUDA_ROOT
 
 m4_ifdef(??[[<<m4_env_config_USER_INCLUDE>>]]??,
 [gcc]
-cxxflags = -Im4_env_config_USER_INCLUDE
-)m4_dnl
+cxxflags = -I??[[<<>>]]??m4_env_config_USER_INCLUDE
+)m4_dnl ??[[<<>>]]?? to split -I and USER_INCLUDE without a space.
