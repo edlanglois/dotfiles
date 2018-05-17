@@ -1,0 +1,30 @@
+#!/bin/sh
+# Get the requirements of a python package without installing it.
+set -eu
+
+if [ "$#" -lt 1 -o "$#" -gt 3 ]; then
+	echo "Usage: $0 pkgname [ pip-binary [ python-binary ]]"
+	exit 1
+fi
+
+PACKAGE="$1"
+PIP="${2:-pip}"
+PYTHON="${3:-python}"
+
+>&2 echo "Downloading $PACKAGE"
+PKGFILE="$(\
+	"$PIP" download "$PACKAGE" --dest /tmp --no-binary :all: --no-deps | \
+	grep -o "/tmp/${PACKAGE}.*\.tar\.gz")"
+>&2 echo "Downloaded to $PKGFILE"
+>&2 echo "Extracting $PKGFILE"
+tar -xzf "$PKGFILE" -C "/tmp"
+PKGDIR="${PKGFILE%.tar.gz}"
+>&2 echo "Extracted to $PKGDIR"
+cd $PKGDIR
+>&2 echo "Creating package info"
+REQUIREMENTS_FILE="$(\
+	"$PYTHON" setup.py egg_info 2>/dev/null | \
+	sed -e 's/^.*writing requirements to  *//;t;d')"
+>&2 echo "Contents of $REQUIREMENTS_FILE:"
+>&2 echo ""
+cat "$REQUIREMENTS_FILE"
