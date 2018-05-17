@@ -59,6 +59,7 @@ DOTFILES=\
 	.local/bin/git-w\
 	.local/bin/gr\
 	.local/bin/mdlynx\
+	.local/bin/pip-deps\
 	.local/bin/plot\
 	.local/bin/print24bitcolours\
 	.local/bin/print256colours\
