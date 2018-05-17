@@ -42,3 +42,18 @@ endsnippet
 snippet tfprint "Tensorflow print op."
 ${5:$1} = tf.Print(${1}, [${2:$1}], '${3:$2}', summarize=${4:100})
 endsnippet
+
+snippet iarg "Add integer argument." w
+add_argument('--${1:name}', default=${2:0}, type=int,
+             help='${3}')
+endsnippet
+
+snippet farg "Add float argument." w
+add_argument('--${1:name}', default=${2:0}, type=float,
+             help='${3}')
+endsnippet
+
+snippet sarg "Add string argument." w
+add_argument('--${1:name}', default=${2:0}, type=str,
+             help='${3}')
+endsnippet
