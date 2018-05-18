@@ -43,6 +43,8 @@ snippet tfprint "Tensorflow print op."
 ${5:$1} = tf.Print(${1}, [${2:$1}], '${3:$2}', summarize=${4:100})
 endsnippet
 
+# Arguments
+
 snippet iarg "Add integer argument." w
 add_argument('--${1:name}', default=${2:0}, type=int,
              help='${3}')
@@ -56,4 +58,17 @@ endsnippet
 snippet sarg "Add string argument." w
 add_argument('--${1:name}', default=${2:0}, type=str,
              help='${3}')
+endsnippet
+
+# Imports
+snippet iplt "Import matplotlib.pyplot." b
+import matplotlib.pyplot as plt
+endsnippet
+
+snippet inp "Import numpy." b
+import numpy as np
+endsnippet
+
+snippet isns "Import seaborn." b
+import seaborn as sns
 endsnippet
