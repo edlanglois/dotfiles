@@ -449,7 +449,13 @@ let NERDTreeUpdateOnWrite=0
 let vim_markdown_preview_hotkey='<leader>lv'
 let vim_markdown_preview_use_xdg_open=1
 
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki/', 'auto_export': 1}]
+let g:vimwiki_list = [{
+	\ 'path': '~/Documents/vimwiki/',
+	\ 'template_path': '~/Documents/vimwiki/templates/',
+	\ 'template_default': 'default',
+	\ 'template_ext': '.html',
+	\ 'auto_export': 1,
+	\}]
 
 augroup strip_whitespace
 	autocmd!
