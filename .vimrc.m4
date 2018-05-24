@@ -27,6 +27,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'alfredodeza/coveragepy.vim'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'chriskempson/base16-vim'
