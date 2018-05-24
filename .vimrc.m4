@@ -37,6 +37,7 @@ Plugin 'edlanglois/vim-gdl-syntax'
 Plugin 'edlanglois/vim-HiLinkTrace'
 Plugin 'edlanglois/vim-qrc'
 Plugin 'edlanglois/vim-tmux-focus-events'
+Plugin 'edlanglois/vimwiki'
 Plugin 'ervandew/supertab'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-glaive'
@@ -69,7 +70,6 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-python/python-syntax'
 Plugin 'vim-scripts/fish-syntax'
-Plugin 'vimwiki/vimwiki'
 Plugin 'w0rp/ale'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
@@ -457,6 +457,7 @@ let g:vimwiki_list = [{
 	\ 'template_default': 'default',
 	\ 'template_ext': '.html',
 	\ 'auto_export': 1,
+	\ 'diary_subcaption_level': 1,
 	\}]
 
 augroup strip_whitespace
