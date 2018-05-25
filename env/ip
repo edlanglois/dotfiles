@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eu
+
+if hash ip 2>/dev/null; then
+	echo IP_CMD=$(which ip)
+fi
