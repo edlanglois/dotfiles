@@ -5,6 +5,7 @@
 .vim/bundle/*
 !.vim/bundle/Vundle.vim
 .vim/swap
+.vim/black
 
 user.cfg
 

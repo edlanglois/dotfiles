@@ -28,6 +28,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'alfredodeza/coveragepy.vim'
+Plugin 'ambv/black'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'chriskempson/base16-vim'
@@ -186,6 +187,8 @@ let g:notes_directories = ['~/Dropbox/notes', '~/Documents/notes']
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
 let g:hilinks_map = 0  " Don't create \hlt mapping for hilinks
+
+let g:black_linelength=79
 
 set modeline
 set backspace=indent,eol,start
@@ -470,18 +473,6 @@ augroup strip_whitespace
 		\ruby,
 		\xml
 		\ autocmd BufWritePre <buffer> StripWhitespace
-augroup END
-
-augroup autoformat_settings
-  autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
-  autocmd FileType dart AutoFormatBuffer dartfmt
-  autocmd FileType go AutoFormatBuffer gofmt
-  autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
-  autocmd FileType java AutoFormatBuffer google-java-format
-  autocmd FileType python AutoFormatBuffer yapf
-  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
 augroup END
 
 " Source files from .vim/vimrc.d
