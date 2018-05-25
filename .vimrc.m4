@@ -329,6 +329,7 @@ set spelllang=en_ca,en
 :nnoremap <leader>l :ll<CR>
 :nnoremap <leader>c :cc<CR>
 
+
 augroup preview
 	autocmd!
 	" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -474,6 +475,18 @@ augroup strip_whitespace
 		\xml
 		\ autocmd BufWritePre <buffer> StripWhitespace
 augroup END
+
+augroup autoformat_settings
+  autocmd FileType bzl nnoremap <leader>a :FormatCode buildifier<CR>
+  autocmd FileType c,cpp,proto,javascript nnoremap <leader>a :FormatCode clang-format<CR>
+  autocmd FileType dart nnoremap <leader>a :FormatCode dartfmt<CR>
+  autocmd FileType go nnoremap <leader>a :FormatCode gofmt<CR>
+  autocmd FileType gn nnoremap <leader>a :FormatCode gn<CR>
+  autocmd FileType html,css,json nnoremap <leader>a :FormatCode js-beautify<CR>
+  autocmd FileType java nnoremap <leader>a :FormatCode google-java-format<CR>
+  autocmd FileType python nnoremap <leader>a :Black<CR>
+augroup END
+
 
 " Source files from .vim/vimrc.d
 source ~/.vim/vimrc.d/vimwiki.vim
