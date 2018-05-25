@@ -1,0 +1,15 @@
+snippet mathjax "Use the mathjax template" b
+%template ${0:mathjax}
+endsnippet
+
+snippet beq "Equation environment." b
+{{$
+	${0:${VISUAL}}
+}}$
+endsnippet
+
+snippet bal "Align equation environment." b
+{{$%align%
+	${0:${VISUAL}}
+}}$
+endsnippet
