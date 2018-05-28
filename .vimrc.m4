@@ -168,12 +168,16 @@ let g:UltiSnipsExpandTrigger = '<c-j>'
 
 let g:ultisnips_python_style = 'google'
 
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
+nnoremap <leader>a :ALEFix<CR>
 let g:ale_lint_on_text_changed = 'never'
 " Exclude lacheck from tex linters; it has false positives with no way to
 " disable.
 let g:ale_linters = {
 \    'tex': ['chktex', 'proselint', 'redpen', 'vale', 'write-good']
+\}
+let g:ale_fixers = {
+\    'python': ['black']
 \}
 " Don't run pylint on testing python files.
 let g:ale_pattern_options = {
@@ -475,18 +479,6 @@ augroup strip_whitespace
 		\xml
 		\ autocmd BufWritePre <buffer> StripWhitespace
 augroup END
-
-augroup autoformat_settings
-  autocmd FileType bzl nnoremap <leader>a :FormatCode buildifier<CR>
-  autocmd FileType c,cpp,proto,javascript nnoremap <leader>a :FormatCode clang-format<CR>
-  autocmd FileType dart nnoremap <leader>a :FormatCode dartfmt<CR>
-  autocmd FileType go nnoremap <leader>a :FormatCode gofmt<CR>
-  autocmd FileType gn nnoremap <leader>a :FormatCode gn<CR>
-  autocmd FileType html,css,json nnoremap <leader>a :FormatCode js-beautify<CR>
-  autocmd FileType java nnoremap <leader>a :FormatCode google-java-format<CR>
-  autocmd FileType python nnoremap <leader>a :Black<CR>
-augroup END
-
 
 " Source files from .vim/vimrc.d
 source ~/.vim/vimrc.d/vimwiki.vim
