@@ -183,6 +183,8 @@ let g:ale_fixers = {
 let g:ale_pattern_options = {
 \    'test_.*\.py': {'ale_linters': ['flake8', 'mypy']},
 \}
+let g:ale_python_black_options = '--line-length=79'
+let g:black_linelength=79
 
 let g:airline#extensions#ale#enabled = 1
 
@@ -191,8 +193,6 @@ let g:notes_directories = ['~/Dropbox/notes', '~/Documents/notes']
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
 let g:hilinks_map = 0  " Don't create \hlt mapping for hilinks
-
-let g:black_linelength=79
 
 set modeline
 set backspace=indent,eol,start
