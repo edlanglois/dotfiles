@@ -168,7 +168,7 @@ let g:UltiSnipsExpandTrigger = '<c-j>'
 
 let g:ultisnips_python_style = 'google'
 
-let g:ale_fix_on_save = 0
+let g:ale_fix_on_save = 1
 nnoremap <leader>a :ALEFix<CR>
 let g:ale_lint_on_text_changed = 'never'
 " Exclude lacheck from tex linters; it has false positives with no way to
