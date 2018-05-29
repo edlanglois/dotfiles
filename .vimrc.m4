@@ -114,7 +114,7 @@ command! -range Tsort <line1>,<line2>sort i /[^{]*{/
 " Recursive grep
 " Usage:
 "    :Gr regex --extra-args-to-grep
-command! -nargs=+ Gr :grep <args> -I -R * | :copen
+command! -nargs=+ Gr :grep! <args> -I -R * | :copen
 
 " Filetype associations
 au BufRead,BufNewFile *.mac setfiletype maxima
