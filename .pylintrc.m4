@@ -44,7 +44,7 @@ load-plugins=
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
-disable=R,star-args,invalid-name,abstract-method,arguments-differ,wrong-import-position,ungrouped-imports
+disable=R,star-args,invalid-name,abstract-method,arguments-differ,wrong-import-position,ungrouped-imports,bad-continuation
 
 
 [REPORTS]
