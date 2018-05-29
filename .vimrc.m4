@@ -469,6 +469,7 @@ let g:vimwiki_list = [{
 	\ 'auto_export': 1,
 	\ 'diary_subcaption_level': 1,
 	\}]
+let g:vimwiki_auto_chdir = 1
 
 augroup strip_whitespace
 	autocmd!
