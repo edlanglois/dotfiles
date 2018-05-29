@@ -112,7 +112,9 @@ CommandCabbr lrs Lresize
 command! -range Tsort <line1>,<line2>sort i /[^{]*{/
 
 " Recursive grep
-command! -nargs=1 Gr :grep <q-args> -I -R * | :copen
+" Usage:
+"    :Gr regex --extra-args-to-grep
+command! -nargs=+ Gr :grep <args> -I -R * | :copen
 
 " Filetype associations
 au BufRead,BufNewFile *.mac setfiletype maxima
