@@ -111,6 +111,9 @@ CommandCabbr lrs Lresize
 " Tex import sorting (ignores everything before package name)
 command! -range Tsort <line1>,<line2>sort i /[^{]*{/
 
+" Recursive grep
+command! -nargs=1 Gr :grep <q-args> -I -R * | :copen
+
 " Filetype associations
 au BufRead,BufNewFile *.mac setfiletype maxima
 au BufRead,BufNewFile *.make setfiletype make
