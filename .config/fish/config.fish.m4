@@ -34,7 +34,7 @@ if status --is-interactive
 end
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
+m4_ifdef(??[[<<m4_env_config_VIRTUALFISH_INIT>>]]??,
 # Enable virtualfish auto-activation.
-eval (python -m virtualfish auto_activation global_requirements)
+m4_env_config_VIRTUALFISH_INIT
 )m4_dnl

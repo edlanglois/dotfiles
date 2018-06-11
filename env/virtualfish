@@ -1,5 +1,7 @@
 #!/bin/bash
 set -eu
 if [ -n "$(pip show virtualfish)" ]; then
-	echo VIRTUALFISH=
+  # Fish code to setup virtualfish auto-activation
+  # Python is slow to start so evaluate this here instead of in config.fish
+  echo VIRTUALFISH_INIT="$(python -m virtualfish auto_activation global_requirements)"
 fi
