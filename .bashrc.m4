@@ -112,7 +112,6 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 export INPUTRC=$HOME/.inputrc
-export EDITOR=vim
 
 # Colour for ls in BSD/OSX
 export CLICOLOR=1
