@@ -40,3 +40,7 @@ m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
 # Ruby Path
 PATH="${PATH}:m4_env_config_GEM_BIN_PATH"
 )m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,
+export PATH=$PATH:m4_env_config_BREW_BIN_PATH
+)m4_dnl

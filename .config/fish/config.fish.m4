@@ -63,6 +63,10 @@ m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
 set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH" | sed 's/:/\n/g')
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,
+set --global fish_user_paths $fish_user_paths "m4_env_config_BREW_BIN_PATH"
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 # Start keychain - ensures ssh-agent is running.
 if status --is-interactive

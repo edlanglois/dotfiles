@@ -5,12 +5,7 @@ if [[ -f ~/.profile ]]; then
 elif [[ -f ~/.bashrc ]]; then
 	source ~/.bashrc;
 fi
+
 m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 eval $(keychain --eval --agents ssh --quick --quiet)
-)m4_dnl
-m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,
-export PATH=$PATH:m4_env_config_BREW_BIN_PATH
-)m4_dnl
-m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
-export PATH=$PATH:m4_env_config_GEM_BIN_PATH
 )m4_dnl
