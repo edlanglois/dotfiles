@@ -21,54 +21,11 @@ set -x LESS_TERMCAP_us (printf \e"[04;38;5;146m")
 # Set SHELL
 set --global -x SHELL (which fish)
 
-# Set editor to vim
-set --global -x EDITOR vim
-
 # Set hostname icon
 set -x HOSTNAME_ICON (hostname-icon)
 
-# Add user's bin to path
-if test -d "$HOME/bin"
-	set --global fish_user_paths $fish_user_paths "$HOME/bin"
-end
-if test -d "$HOME/.local/bin"
-	set --global fish_user_paths $fish_user_paths "$HOME/.local/bin"
-end
-# Add user's library to LD_LIBRARY_PATH
-if test -d "$HOME/lib"
-	set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$HOME/lib"
-end
-if test -d "$HOME/.local/lib"
-	set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$HOME/.local/lib"
-end
-
-m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,
-# CUDA Path
-set --global -x CUDA_HOME "m4_env_config_CUDA_ROOT"
-set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$CUDA_HOME/lib64"
-set --local CUPTI_LIB "$CUDA_HOME/extras/CUPTI/lib64"
-if test -d "$CUPTI_LIB"
-set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"$CUPTI_LIB"
-end
-)m4_dnl
-m4_ifdef(??[[<<m4_env_config_CUDA_BIN>>]]??,
-set --global fish_user_paths $fish_user_paths "m4_env_config_CUDA_BIN"
-)m4_dnl
-
-m4_ifdef(??[[<<m4_env_config_GOROOT>>]]??,
-# Go Path
-set --global -x GOROOT "m4_env_config_GOROOT"
-set --global fish_user_paths $fish_user_paths "$GOROOT/bin"
-)m4_dnl
-
-m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
-# Add ruby gem bin directory to path
-set --global fish_user_paths $fish_user_paths (echo "m4_env_config_GEM_BIN_PATH" | sed 's/:/\n/g')
-)m4_dnl
-
-m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,
-set --global fish_user_paths $fish_user_paths "m4_env_config_BREW_BIN_PATH"
-)m4_dnl
+# Source environment variables from ~/.env_profile using the foreign env plugin.
+fenv source "$HOME/.env_profile"
 
 m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
 # Start keychain - ensures ssh-agent is running.
@@ -80,9 +37,4 @@ end
 m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
 # Enable virtualfish auto-activation.
 eval (python -m virtualfish auto_activation global_requirements)
-)m4_dnl
-
-m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
-# Mujoco Library Path
-set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"m4_env_config_MUJOCO_LIB"
 )m4_dnl
