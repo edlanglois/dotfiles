@@ -69,7 +69,8 @@ DOTFILES=\
 	.virtualenvs/global_requirements.txt\
 
 DOTDIRS=\
-	.vim
+	.vim\
+	.config/fish/plugins\
 
 ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\

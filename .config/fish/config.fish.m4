@@ -1,5 +1,8 @@
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
+# Plugins
+set fish_function_path $fish_function_path "$HOME/.config/fish/plugins/foreign-env/functions"
+
 set -g fish_color_cwd yellow
 set -g fish_pager_color_description cea746
 
