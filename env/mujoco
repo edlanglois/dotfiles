@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eu
+
+possible_mujoco_roots=( "$HOME/.mujoco/mjpro150" )
+
+for mujoco_root in "${possible_mujoco_roots[@]}"; do
+	if [ -d "${mujoco_root}" ]; then
+		if [ -d "${mujoco_root}/bin" ]; then
+			# Not a typo, mujoco lib dir is also the bin dir
+			echo "MUJOCO_LIB=${mujoco_root}/bin"
+		fi
+		exit 0
+	fi
+done

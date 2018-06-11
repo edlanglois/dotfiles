@@ -42,5 +42,10 @@ PATH="${PATH}:m4_env_config_GEM_BIN_PATH"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,
-export PATH=$PATH:m4_env_config_BREW_BIN_PATH
+PATH=$PATH:m4_env_config_BREW_BIN_PATH
+)m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_MUJOCO_LIB>>]]??,
+# Mujoco Library Path
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:m4_env_config_MUJOCO_LIB"
 )m4_dnl

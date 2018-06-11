@@ -89,6 +89,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	keychain\
 	locale\
 	lock\
+	mujoco\
 	netuser\
 	nvidia-smi\
 	osx\

@@ -78,3 +78,8 @@ m4_ifdef(??[[<<m4_env_config_VIRTUALFISH>>]]??,
 # Enable virtualfish auto-activation.
 eval (python -m virtualfish auto_activation global_requirements)
 )m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,
+# Mujoco Library Path
+set --global -x LD_LIBRARY_PATH (set -q LD_LIBRARY_PATH; and echo $LD_LIBRARY_PATH:; or echo)"m4_env_config_MUJOCO_LIB"
+)m4_dnl
