@@ -45,6 +45,7 @@ DOTFILES=\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
 	.config/fontconfig/fonts.conf\
 	.config/i3blocks/scripts/battery-label\
+	.config/i3blocks/scripts/date-calendar\
 	.config/i3blocks/scripts/gkrellm-toggle\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
