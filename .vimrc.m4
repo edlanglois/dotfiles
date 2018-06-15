@@ -72,8 +72,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-python/python-syntax'
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'w0rp/ale'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-notes'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
@@ -192,8 +190,6 @@ let g:ale_python_black_options = '--line-length=79'
 let g:black_linelength=79
 
 let g:airline#extensions#ale#enabled = 1
-
-let g:notes_directories = ['~/Dropbox/notes', '~/Documents/notes']
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
