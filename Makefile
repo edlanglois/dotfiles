@@ -50,6 +50,7 @@ DOTFILES=\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/nvim\
+	.config/pudb/pudb.cfg\
 	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
 	.gkrellm2/user-config-cpu\
