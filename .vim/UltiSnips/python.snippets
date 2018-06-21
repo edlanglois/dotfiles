@@ -2,6 +2,8 @@ snippet newscript "New python script template." b
 #!/usr/bin/env python
 """${1:TODO: Program description.}"""
 import argparse
+import shutil
+import sys
 
 
 def parse_args(args=None):
@@ -31,6 +33,12 @@ def main(args=None):
 
 
 if __name__ == '__main__':
+    try:
+        _np = sys.modules["numpy"]
+    except KeyError:
+        pass
+    else:
+        _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)
     main()
 endsnippet
 
