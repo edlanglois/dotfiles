@@ -175,7 +175,7 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	# Start a new temporary tmux session and in that tmux session run vim
 	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
 	# .tmuxline.conf
-	tmux new-session -d -s 'tmuxline-${RANDOM_ID}' 'vim -u ".vimrc" -c "TmuxlineSnapshot $@" -c "q"'
+	tmux new-session -d -s 'tmuxline-${RANDOM_ID}' 'vim -u ".vimrc" -Es -c "TmuxlineSnapshot $@" -c "q"'
 	while tmux list-sessions 2>/dev/null | grep 'tmuxline-${RANDOM_ID}' >/dev/null ; do \
 		sleep 0.05; \
 	done
