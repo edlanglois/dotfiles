@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eu
+
+possible_perl_roots=( "$HOME/.local/perl5" )
+
+for perl_root in "${possible_perl_roots[@]}"; do
+	if [ -d "${perl_root}" ]; then
+		echo "PERL_ROOT=${perl_root}"
+		exit 0
+	fi
+done
