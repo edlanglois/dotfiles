@@ -463,7 +463,7 @@ let g:vimwiki_list = [{
 	\ 'template_default': 'default',
 	\ 'template_ext': '.html',
 	\ 'auto_export': 1,
-	\ 'diary_subcaption_level': 1,
+	\ 'diary_caption_level': 1,
 	\}]
 let g:vimwiki_auto_chdir = 1
 
