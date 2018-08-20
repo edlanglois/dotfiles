@@ -29,18 +29,25 @@ If you have root access, system-wide configurations are installed with
 sudo make install-system
 ```
 
-## Flake8
+### Flake8
 Install flake8 for python linting in VIM (with F7)
 ```Shell
 pip install flake8
 ```
 
-## Extras
+### Extras
 Various persistent configurations: `utils/set-persistent-configs.sh`
 Powerline symbols: `utils/install-powerline-symbols.sh`
 Noto fonts: `utils/install-noto-fonts.sh`
 And more in `utils/`
 
+## Pre-Commit
+To set up pre-commit hooks, install the [pre-commit](http://pre-commit.com)
+package (`pip install pre-commit`) and run
+
+```bash
+pre-commit install
+```
 
 ## Making Changes
 The dotfiles are built for a specific user and system using the

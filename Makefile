@@ -144,6 +144,10 @@ PYGMENTIZE:=$(shell command -v pygmentize)
 
 RANDOM_ID:=$(shell echo $$RANDOM)
 
+YCM_DIR:=.vim/bundle/YouCompleteMe
+YCM_CORE:=$(YCM_DIR)/third_party/ycmd/ycm_core.so
+YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
+
 .PHONY: build install install-dotfiles install-system install-all  \
 	set-persistent-configs clean show show-config vim \
 	vim-update-plugins vim-ycm
@@ -288,7 +292,9 @@ vim-update-plugins:
 
 PYTHON := $(shell which python3 || echo python)
 
-vim-ycm:
+vim-ycm: $(YCM_CORE)
+
+$(YCM_CORE): $(YCM_GIT_CHECKOUT)
 	cd .vim/bundle/YouCompleteMe && \
 		$(PYTHON) ./install.py --clang-completer \
 		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)
