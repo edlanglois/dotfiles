@@ -178,8 +178,6 @@ let g:ale_pattern_options = {
 let g:ale_python_black_options = '--line-length=79'
 let g:black_linelength=79
 
-let g:airline#extensions#ale#enabled = 1
-
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
 let g:hilinks_map = 0  " Don't create \hlt mapping for hilinks
@@ -404,12 +402,27 @@ let g:vimtex_matchparen_enabled=0
 
 " Enable buffer display on airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
 
-" Set the airline theme
-let g:airline_theme = 'wombat'
+" Enable ALE integration
+let g:airline#extensions#ale#enabled = 1
 
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
+
+" Set the airline theme
+let g:airline_theme = 'wombat'
 
 m4_ifelse(m4_user_config_POWERLINE_SYMBOLS,true,
 " Use non-standard symbols for a better-looking airline.
