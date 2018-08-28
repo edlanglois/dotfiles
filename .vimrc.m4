@@ -418,6 +418,10 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 " Enable ALE integration
 let g:airline#extensions#ale#enabled = 1
 
+" Disable version control integration (slow when filesystem is slow)
+let g:airline#extensions#branch#enabled = 0
+let g:airline#extensions#hunks#enabled = 0
+
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']
 
