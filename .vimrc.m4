@@ -23,7 +23,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Let Vundle manage Vundle. Required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
@@ -33,6 +33,7 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'edkolev/tmuxline.vim',
 Plugin 'edlanglois/vim-gdl-syntax'
 Plugin 'edlanglois/vim-HiLinkTrace'
@@ -49,7 +50,6 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'Julian/vim-textobj-variable-segment'
 Plugin 'kana/vim-textobj-user'
-Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'lervag/vimtex'
 Plugin 'lyuts/vim-rtags'
