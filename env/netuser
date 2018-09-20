@@ -1,5 +1,8 @@
 #!/bin/bash
 # Outputs NETUSER if the user account is not defined locally.
+# TODO: This is actually used when we want to know if the home directory is
+# a network mount across multiple systems. Should make something that actually
+# checks that.
 set -eu
 if ! grep "$USER" /etc/passwd >/dev/null; then
 	echo NETUSER=
