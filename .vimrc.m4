@@ -163,10 +163,11 @@ let g:ultisnips_python_style = 'google'
 let g:ale_fix_on_save = 1
 nnoremap <leader>a :ALEFix<CR>
 let g:ale_lint_on_text_changed = 'never'
-" Exclude lacheck from tex linters; it has false positives with no way to
-" disable.
+" Python: exclude pylint - slow
+" Latex: Exclude lacheck - false positives that cannot be disabled
 let g:ale_linters = {
-\    'tex': ['chktex', 'proselint', 'redpen', 'vale', 'write-good']
+\   'python': ['flake8', 'mypy', 'prospector', 'pycodestyle', 'pyflakes', 'pyls', 'pyre'],
+\   'tex': ['chktex', 'proselint', 'redpen', 'vale', 'write-good'],
 \}
 let g:ale_fixers = {
 \    'python': ['black']
