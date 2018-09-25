@@ -158,6 +158,10 @@ let g:ycm_key_list_previous_completion = ['<C-p', '<Up>']
 " Supertab maps tab so use ctrl-j instead, same as forward in snippet.
 let g:UltiSnipsExpandTrigger = '<c-j>'
 
+" Default python line length.
+" Project-specific .vimrc files should set this rather than textwidth.
+let g:python_linelength=79
+
 let g:ultisnips_python_style = 'google'
 
 let g:ale_fix_on_save = 1
@@ -179,8 +183,6 @@ let g:ale_fixers = {
 let g:ale_pattern_options = {
 \    'test_.*\.py': {'ale_linters': ['flake8', 'mypy']},
 \}
-let g:ale_python_black_options = '--line-length=79'
-let g:black_linelength=79
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
