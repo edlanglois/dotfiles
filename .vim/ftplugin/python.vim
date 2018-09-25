@@ -4,4 +4,4 @@ if exists("g:python_linelength")
   let g:black_linelength=g:python_linelength
 endif
 
-nnoremap <buffer> <silent> <leader>b Oimport pdb; pdb.set_trace()  # XXX<esc>
+nnoremap <buffer> <silent> <localleader>b Oimport pdb; pdb.set_trace()  # XXX<esc>
