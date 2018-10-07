@@ -1,0 +1,6 @@
+[Unit]
+Description=Notify or suspend on low battery
+
+[Service]
+ExecStart=%h/.local/bin/low-battery-action
+Type=oneshot

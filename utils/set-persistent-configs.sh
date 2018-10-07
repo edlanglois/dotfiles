@@ -24,6 +24,11 @@ if [ -n "$DEFAULT_BROWSER" ]; then
 	xdg-settings set default-web-browser ${DEFAULT_BROWSER}.desktop
 fi
 
+# Enable low-battery monitor if have a battery and systemctl
+if hash systemctl 2>/dev/null && [ -n "$(env/battery)" ]; then
+  systemctl --user enable low-battery.timer
+fi
+
 # Generate the font configuration - Fonts must have been installed first.
 if hash fc-cache 2>/dev/null; then
 	fc-cache -vf ~/.fonts
