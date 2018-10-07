@@ -61,6 +61,7 @@ DOTFILES=\
 	.local/bin/get-gitignore\
 	.local/bin/git-w\
 	.local/bin/gr\
+	.local/bin/low-battery-action\
 	.local/bin/mdlynx\
 	.local/bin/pip-deps\
 	.local/bin/plot\

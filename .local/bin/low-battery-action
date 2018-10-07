@@ -1,0 +1,60 @@
+#!/bin/bash
+# Notify or suspend when the battery level is low.
+set -euo pipefail
+
+usage () {
+  cat << END
+Usage:
+  low-battery-action [OPTION]...
+
+Emit a warning or suspend the computer when the minimum battery level is below
+the given threshold.
+
+Options:
+  -w, --warn WARN_PERCENT         Default 10
+  -s, --suspend SUSPEND_PERCENT   Default 4
+  --help
+
+Returns with a non-zero exit code if there are no batteries.
+END
+}
+
+WARN_PERCENT=10
+SUSPEND_PERCENT=4
+while [ "$#" -gt 0 ]; do
+  key="$1"
+  case "$key" in
+    -w|--warn)
+      WARN_PERCENT="$2"
+      shift
+      shift
+      ;;
+    -s|--suspend)
+      SUSPEND_PERCENT="$2"
+      shift
+      shift
+      ;;
+    *)
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+warning () {
+  notify-send -u critical "$1"
+}
+
+do_suspend () {
+  systemctl suspend
+}
+
+MIN_CAPACITY=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | sort -g | head -n 1)
+
+if [ "$MIN_CAPACITY" -le "$SUSPEND_PERCENT" ]; then
+  do_suspend
+  exit 0
+elif [ "$MIN_CAPACITY" -le "$WARN_PERCENT" ]; then
+  warning "LOW BATTERY ($MIN_CAPACITY%)"
+  exit 0
+fi
