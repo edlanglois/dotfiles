@@ -23,7 +23,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " Let Vundle manage Vundle. Required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
@@ -33,6 +33,7 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'edkolev/tmuxline.vim',
 Plugin 'edlanglois/vim-gdl-syntax'
 Plugin 'edlanglois/vim-HiLinkTrace'
@@ -49,7 +50,6 @@ Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'Julian/vim-textobj-variable-segment'
 Plugin 'kana/vim-textobj-user'
-Plugin 'kien/ctrlp.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'lervag/vimtex'
 Plugin 'lyuts/vim-rtags'
@@ -158,15 +158,23 @@ let g:ycm_key_list_previous_completion = ['<C-p', '<Up>']
 " Supertab maps tab so use ctrl-j instead, same as forward in snippet.
 let g:UltiSnipsExpandTrigger = '<c-j>'
 
+" Default python line length.
+" Project-specific .vimrc files should set this rather than textwidth.
+let g:python_linelength=79
+
 let g:ultisnips_python_style = 'google'
 
 let g:ale_fix_on_save = 1
 nnoremap <leader>a :ALEFix<CR>
 let g:ale_lint_on_text_changed = 'never'
-" Exclude lacheck from tex linters; it has false positives with no way to
-" disable.
-let g:ale_linters = {
-\    'tex': ['chktex', 'proselint', 'redpen', 'vale', 'write-good']
+" Exclude the folling linters:
+" python:
+"   pylint - slow, must run on files in filesystem
+" latex:
+"   lacheck - false positives that cannot be disabled
+let g:ale_linters_ignore = {
+\   'python': ['pylint'],
+\   'tex': ['lacheck'],
 \}
 let g:ale_fixers = {
 \    'python': ['black']
@@ -175,8 +183,6 @@ let g:ale_fixers = {
 let g:ale_pattern_options = {
 \    'test_.*\.py': {'ale_linters': ['flake8', 'mypy']},
 \}
-let g:ale_python_black_options = '--line-length=79'
-let g:black_linelength=79
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
@@ -418,9 +424,12 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 " Enable ALE integration
 let g:airline#extensions#ale#enabled = 1
 
+m4_ifdef(??[[<<m4_env_config_NETUSER>>]]??,m4_dnl
 " Disable version control integration (slow when filesystem is slow)
 let g:airline#extensions#branch#enabled = 0
 let g:airline#extensions#hunks#enabled = 0
+let g:airline#extensions#fugitiveline#enabled = 0
+)m4_dnl
 
 " Check trailing whitespace with airline (but not mixed tabs/spaces)
 let g:airline#extensions#whitespace#checks = ['trailing']

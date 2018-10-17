@@ -40,8 +40,13 @@ M4_DOTFILES=\
 	.xprofile\
 	.Xresources\
 
+SYSTEMD_FILES=\
+	.config/systemd/user/low-battery.service\
+	.config/systemd/user/low-battery.timer\
+
 DOTFILES=\
 	$(M4_DOTFILES)\
+	$(SYSTEMD_FILES)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
 	.config/fontconfig/fonts.conf\
 	.config/i3blocks/scripts/battery-label\
@@ -61,6 +66,7 @@ DOTFILES=\
 	.local/bin/get-gitignore\
 	.local/bin/git-w\
 	.local/bin/gr\
+	.local/bin/low-battery-action\
 	.local/bin/mdlynx\
 	.local/bin/pip-deps\
 	.local/bin/plot\
@@ -122,6 +128,7 @@ UTILS_DIR=utils
 DOTFILES_DIR:=$(shell pwd)
 INSTALL_DIR:=$(HOME)
 INSTALLED_DOTFILES:=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
+INSTALLED_SYSTEMD_FILES:=$(addprefix $(INSTALL_DIR)/,$(SYSTEMD_FILES))
 INSTALLED_DOTDIRS:=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
 # Sort to remove duplicates
 INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
@@ -150,7 +157,7 @@ YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
 
 .PHONY: build install install-dotfiles install-system install-all  \
 	set-persistent-configs clean show show-config vim \
-	vim-update-plugins vim-ycm
+	vim-update-plugins vim-ycm systemd-reload \
 
 build: $(DOTFILES) Makefile-binaries
 
@@ -208,10 +215,23 @@ env_config.m4: $(ENV_CONFIG_M4_FILES)
 # --------------------------
 # - Copy dotfiles into INSTALL_DIR
 # - Symbolic link dotdirs into INSTALL_DIR
-install: install-dotfiles
+install: install-dotfiles systemd-reload
 
 set-persistent-configs: $(INSTALL_DIR)/.fonts/PowerlineSymbols.otf
 	$(UTILS_DIR)/set-persistent-configs.sh
+
+
+systemd-reload: .make/systemd-reload
+
+SYSTEMCTL := $(shell command -v systemctl 2>/dev/null)
+ifdef SYSTEMCTL
+.make/systemd-reload: $(INSTALLED_SYSTEMD_FILES)
+	systemctl --user daemon-reload
+else
+.make/systemd-reload:
+endif
+	touch $@
+
 
 install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
@@ -230,7 +250,6 @@ endef
 
 $(foreach INSTALLED_DOTDIR, $(INSTALLED_DOTDIRS), \
 	$(eval $(call INSTALL_DOTDIR_TEMPLATE, $(INSTALLED_DOTDIR))))
-
 
 $(INSTALLATION_DIRS):
 	mkdir -p $@
@@ -256,6 +275,7 @@ clean:
 	rm -f $(M4_DOTFILES) .tmuxline.conf
 	rm -f .config/xss-lock/transfer-sleep-lock-i3lock.sh
 	rm -f $(ENV_CONFIG_M4_FILES)
+	rm -f .make/*
 
 ifdef PYGMENTIZE
 COLORIZE_CONFIG:=pygmentize -l 'cfg'
