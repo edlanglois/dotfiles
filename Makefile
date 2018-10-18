@@ -225,13 +225,15 @@ systemd-reload: .make/systemd-reload
 
 SYSTEMCTL := $(shell command -v systemctl 2>/dev/null)
 ifdef SYSTEMCTL
-.make/systemd-reload: $(INSTALLED_SYSTEMD_FILES)
+.make/systemd-reload: $(INSTALLED_SYSTEMD_FILES) | .make/
 	systemctl --user daemon-reload
 else
-.make/systemd-reload:
+.make/systemd-reload: .make/
 endif
 	touch $@
 
+.make/:
+	mkdir -p $@
 
 install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
 
