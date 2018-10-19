@@ -70,6 +70,7 @@ DOTFILES=\
 	.local/bin/low-battery-action\
 	.local/bin/mdlynx\
 	.local/bin/pip-deps\
+	.local/bin/pip-update-all\
 	.local/bin/plot\
 	.local/bin/print24bitcolours\
 	.local/bin/print256colours\

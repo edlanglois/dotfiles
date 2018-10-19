@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -eu
+
+OUTDATED=$(pip list --outdated)
+if [ -z "$OUTDATED" ]; then
+  echo "Everything is up-to-date."
+  exit 0
+fi
+
+PACKAGES=$(echo "$OUTDATED" | tail -n +3 | cut -d' ' -f1)
+
+echo "$OUTDATED"
+echo ""
+read -p "Continue (y/N)? " choice
+case "$choice" in
+  y|Y)
+    pip install -U $PACKAGES;;
+  *)
+    exit 1;;
+esac
