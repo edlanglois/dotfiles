@@ -158,9 +158,8 @@ let g:ycm_key_list_previous_completion = ['<C-p', '<Up>']
 " Supertab maps tab so use ctrl-j instead, same as forward in snippet.
 let g:UltiSnipsExpandTrigger = '<c-j>'
 
-" Default python line length.
-" Project-specific .vimrc files should set this rather than textwidth.
-let g:python_linelength=79
+" Default python line length. Overrides textwidth
+let g:python_linelength=88
 
 let g:ultisnips_python_style = 'google'
 

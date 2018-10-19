@@ -171,7 +171,7 @@ docstring-min-length=3
 [FORMAT]
 
 # Maximum number of characters on a single line.
-max-line-length=80
+max-line-length=88
 
 # Regexp for a line that is allowed to be longer than the limit.
 ignore-long-lines=^\s*(# )?<?https?://\S+>?$
