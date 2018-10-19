@@ -37,6 +37,7 @@ user.cfg
 .gitconfig
 .gitignore_global
 .hgrc
+.isort.cfg
 .latexmkrc
 .profile
 .pylintrc

@@ -25,6 +25,7 @@ M4_DOTFILES=\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\
+	.isort.cfg\
 	.latexmkrc\
 	.profile\
 	.pylintrc\
