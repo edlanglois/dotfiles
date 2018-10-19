@@ -1,5 +1,10 @@
 #!/bin/bash
 set -eu
-if locale -a | grep en_CA.utf8 >/dev/null; then
-	echo LANG=en_CA.utf8
+
+LANGUAGE_=en_CA:en_US
+LANG_=en_CA.utf8
+
+if locale -a | grep "$LANG_" >/dev/null; then
+	echo LANG=$LANG_
+  echo LANGUAGE=$LANGUAGE_
 fi
