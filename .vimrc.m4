@@ -176,7 +176,7 @@ let g:ale_linters_ignore = {
 \   'tex': ['lacheck'],
 \}
 let g:ale_fixers = {
-\    'python': ['black']
+\    'python': ['black', 'isort']
 \}
 " Don't run pylint on testing python files.
 let g:ale_pattern_options = {
