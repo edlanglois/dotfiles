@@ -33,6 +33,7 @@ find_installed PULSEAUDIO pactl
 find_installed SETXKBMAP setxkbmap
 find_installed SHELL fish
 find_installed TERMINAL terminator termite gnome-terminal xterm
+find_installed VIMPAGER vimpager
 find_installed XBACKLIGHT xbacklight
 find_installed XBINDKEYS xbindkeys
 find_installed XDOTOOL xdotool
