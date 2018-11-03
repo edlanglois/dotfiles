@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
 set -eu
 
-if hash gsort &>/dev/null; then
+if command -v gsort >/dev/null 2>&1; then
 	sortcmd=gsort
 else
 	sortcmd=sort
 fi
 
-if hash python2 2>/dev/null; then
-	echo PYTHON2=$(which python2)
+if PYTHON2="$(command -v python2 2>/dev/null)"; then
+	echo "PYTHON2=$PYTHON2"
 fi;
 
-if hash python3 2>/dev/null; then
-	echo PYTHON3=$(which python3)
+if PYTHON3="$(command -v python3 2>/dev/null)"; then
+	echo "PYTHON3=$PYTHON3"
 fi;
 
-if hash python 2>/dev/null; then
-	echo PYTHON=$(which python)
+if PYTHON="$(command -v python 2>/dev/null)"; then
+	echo "PYTHON=$PYTHON"
 fi;
 
 if echo -e Python 3"\n"$(python --version 2>&1) | ${sortcmd} -V --check=quiet; then

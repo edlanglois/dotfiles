@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-if hash xdotool 2>/dev/null; then
-	echo XDOTOOL=
-fi

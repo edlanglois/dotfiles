@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-if hash pactl 2>/dev/null; then
-	echo PULSEAUDIO=
-fi

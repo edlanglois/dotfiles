@@ -1,6 +1,0 @@
-#!/bin/bash
-set -eu
-if hash keychain 2>/dev/null; then
-	echo KEYCHAIN=
-	exit 0
-fi;
