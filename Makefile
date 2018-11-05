@@ -26,7 +26,6 @@ M4_DOTFILES=\
 	.gitignore_global\
 	.hgrc\
 	.isort.cfg\
-	.latexmkrc\
 	.profile\
 	.pylintrc\
 	.Rprofile\
@@ -86,7 +85,6 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
 	browser\
 	cuda\
-	dblpbib\
 	dmenu\
 	feh\
 	fontsize\
