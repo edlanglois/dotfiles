@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eu
-if hash gsort &>/dev/null; then
+if command -v gsort >/dev/null 2>&1; then
 	sortcmd=gsort
 else
 	sortcmd=sort

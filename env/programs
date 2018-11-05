@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Simple checks for installed programms
+
+function find_installed() {
+  # Search for an installed program from a list of options
+  #
+  # find_installed VAR_NAME PROG_NAME [PROG_NAME]...
+  #
+  # Outputs
+  #   VAR_NAME=path_of(PROG_NAME)
+  # for the first found PROG_NAME
+  VARIABLE_NAME="$1"
+  shift
+  for PROGRAM_NAME in "$@"; do
+    if PROGRAM_PATH="$(command -v "$PROGRAM_NAME" 2>/dev/null)"; then
+      echo "$VARIABLE_NAME=$PROGRAM_PATH"
+      return
+    fi
+  done
+  # Echo commented out so that it shows up in `make show`
+  echo "# $VARIABLE_NAME not found"
+}
+
+find_installed DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run
+find_installed FEH feh
+find_installed GKRELLM gkrellm
+find_installed GSIMPLECAL gsimplecal
+find_installed IP_CMD ip
+find_installed KEYCHAIN keychain
+find_installed PLAYERCTL playerctl
+find_installed PULSEAUDIO pactl
+find_installed SETXKBMAP setxkbmap
+find_installed SHELL fish
+find_installed TERMINAL terminator termite gnome-terminal xterm
+find_installed VIMPAGER vimpager
+find_installed XBACKLIGHT xbacklight
+find_installed XBINDKEYS xbindkeys
+find_installed XDOTOOL xdotool
+find_installed XINPUT xinput
+find_installed XMODMAP xmodmap

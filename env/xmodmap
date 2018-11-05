@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-if hash xmodmap 2>/dev/null; then
-	echo XMODMAP=
-fi

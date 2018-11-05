@@ -50,6 +50,9 @@ pathappend_if_isdir() {
 # Set editor to vim
 export EDITOR=vim
 
+m4_ifdef(??[[<<m4_env_config_VIMPAGER>>]]??,m4_dnl
+export PAGER=vimpager)
+
 m4_ifdef(??[[<<m4_env_config_LANG>>]]??,m4_dnl
 # Set locale; also set in .config/locale.conf but that isn't always read.
 LANG=m4_env_config_LANG

@@ -85,17 +85,11 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
 	browser\
 	cuda\
-	dmenu\
-	feh\
 	fontsize\
 	git-push-default-simple\
 	github_id\
-	gkrellm\
 	go\
-	gsimplecal\
 	i3blocks\
-	ip\
-	keychain\
 	locale\
 	lock\
 	mujoco\
@@ -104,23 +98,14 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	osx\
 	paths\
 	perl\
-	playerctl\
-	pulseaudio\
+	programs\
 	python\
 	root\
 	ruby\
-	setxkbmap\
-	shell\
-	terminal\
 	tmux\
 	torch\
 	virtualfish\
 	wifi\
-	xbacklight\
-	xbindkeys\
-	xdotool\
-	xinput\
-	xmodmap\
 )
 
 UTILS_DIR=utils
@@ -206,7 +191,10 @@ user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
 		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
 env/%.m4: env/%
-	$< | $(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | (echo "m4_dnl $<" && cat) > $@
+	$< | \
+		$(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | \
+		sed -e "s/^\s*#/m4_dnl/" | \
+		(echo "m4_dnl $<" && cat) > $@
 
 env_config.m4: $(ENV_CONFIG_M4_FILES)
 	cat $^ > $@

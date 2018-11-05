@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-if hash gkrellm 2>/dev/null; then
-	echo GKRELLM=
-fi

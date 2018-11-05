@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-if hash i3blocks 2>/dev/null; then
+if command -v i3blocks >/dev/null 2>&1; then
 	echo "I3BLOCKS="
 	possible_i3blocks_dirs=( \
 		"$HOME/libexec/i3blocks" \

@@ -25,10 +25,18 @@ if [ "$#" -ne 3 ]; then
 	exit 1
 fi
 
-PREFIX="$1"
-START_QUOTE="$2"
-END_QUOTE="$3"
+# PREFIX="$1"
+# START_QUOTE="$2"
+# END_QUOTE="$3"
+# Used in a sed expression so escape the chracters: \ / &
+PREFIX_SED=$(sed -e 's/[\/&]/\\&/g' <<< "$1")
+START_QUOTE_SED=$(sed -e 's/[\/&]/\\&/g' <<< "$2")
+END_QUOTE_SED=$(sed -e 's/[\/&]/\\&/g' <<< "$3")
 
-while IFS='=' read -r NAME VALUE; do
-	echo "m4_define(${PREFIX}${NAME},${START_QUOTE}${VALUE}${END_QUOTE})m4_dnl"
-done
+# -t continues to the next line if the previous replace was successful
+# -d deletes the line
+# So this only prints matching comment or assignment lines
+sed \
+  -e 's/^\s*#/m4_dnl/' -e 't' \
+  -e 's/\([^=]\+\)=\(.*\)/m4_define('"${PREFIX_SED}\\1,${START_QUOTE_SED}\\2${END_QUOTE_SED}"')m4_dnl/' -e 't' \
+  -e 'd'

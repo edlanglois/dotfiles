@@ -1,6 +1,0 @@
-#!/bin/bash
-set -eu
-if hash fish 2>/dev/null; then
-	echo SHELL=$(which fish)
-	exit 0
-fi;

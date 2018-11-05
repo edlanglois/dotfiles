@@ -2,9 +2,9 @@
 set -eu
 
 # Prefer xscreensaver if present
-if hash xscreensaver 2>/dev/null; then
-	echo "START_SCREENSAVER=$(which xscreensaver) -nosplash"
-	if hash xdg-screensaver 2>/dev/null; then
+if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
+	echo "START_SCREENSAVER=$XSCREENSAVER -nosplash"
+  if command -v xdg-screensaver >/dev/null 2>&1; then
 		echo "LOCK_CMD=xdg-screensaver lock"
 	else
 		echo "LOCK_CMD=xscreensaver-command -l"
@@ -13,11 +13,11 @@ if hash xscreensaver 2>/dev/null; then
 fi
 
 # Otherwise use i3lock & xss-lock
-if hash xss-lock 2>/dev/null; then
+if command -v xss-lock >/dev/null 2>&1; then
 	echo XSS_LOCK=
 fi
 
-if hash i3lock-extra 2>/dev/null; then
+if command -v i3lock-extra >/dev/null 2>&1; then
 	CMD="i3lock-extra -s -p"
 	if i3lock-extra --help | grep -e '--paint' &>/dev/null; then
 		CMD+=" --paint"

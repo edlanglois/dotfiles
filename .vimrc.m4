@@ -347,6 +347,11 @@ let &runtimepath.=',$VIM/vimfiles'
 let g:tex_flavor = "latex" " Load .tex files as latex
 let g:tex_conceal=""
 
+" Vimpager
+let g:less = {}
+" Disable less compatibility mode
+let g:less.enabled = 0
+
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
