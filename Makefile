@@ -92,6 +92,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	i3blocks\
 	locale\
 	lock\
+	modules\
 	mujoco\
 	netuser\
 	nvidia-smi\

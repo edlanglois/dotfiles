@@ -128,7 +128,19 @@ man() {
     man "$@"
 }
 
-m4_include(env_config.m4)m4_dnl
+m4_ifdef(??[[<<m4_env_config_MODULE_GE_4>>]]??,m4_dnl
+# Enable the "module" command
+eval "$(modulecmd bash autoinit)"
+m4_ifdef(??[[<<m4_env_config_MODULE_DEFAULT_COLLECTION>>]]??,m4_dnl
+# Install the default modules
+module restore "m4_env_config_MODULE_DEFAULT_COLLECTION" >/dev/null
+),m4_ifdef(??[[<<m4_env_config_MODULE_INIT_DIR>>]]??,m4_dnl
+# Enable the "module" command
+if [ -f "m4_env_config_MODULE_INIT_DIR/bash" ]; then
+  source "m4_env_config_MODULE_INIT_DIR/bash"
+fi
+))m4_dnl
+
 function torch-activate() {
 m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
 ??[[<<m4_dnl
