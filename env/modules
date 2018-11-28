@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -eu
+
+if MODULECMD="$(command -v modulecmd 2>/dev/null)"; then
+  echo "MODULECMD=$MODULECMD"
+else
+  exit 0
+fi
+
+if command -v gsort >/dev/null 2>&1; then
+	sortcmd=gsort
+else
+	sortcmd=sort
+fi
+MODULE_VERSION="$("$MODULECMD" bash -V 2>&1 | grep -ow '[.0-9]\+' | head -n1)"
+if echo -e "4.0.0\n$MODULE_VERSION" | "$sortcmd" -V --check=quiet; then
+  echo MODULE_GE_4=
+fi;
+
+# Find the module command initialization directory.
+# Needed if autoinit is unavailable.
+INIT_DIRS=( "$HOME/.local/share/modules/init" "/usr/share/modules/init" )
+for INIT_DIR in "${INIT_DIRS[@]}"; do
+  if [ -d "$INIT_DIR" ]; then
+    echo "MODULE_INIT_DIR=$INIT_DIR"
+    break
+  fi
+done
+
+# Find the default collection to import immediately
+COLLECTIONS=( "$HOME/.config/modules/default" "$HOME/.module/default" )
+for COLLECTION in "${COLLECTIONS[@]}"; do
+  if [ -f "$COLLECTION" ]; then
+    echo "MODULE_DEFAULT_COLLECTION=$COLLECTION"
+    break
+  fi
+done
+

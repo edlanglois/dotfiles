@@ -58,11 +58,17 @@ m4_ifdef(??[[<<m4_env_config_LANG>>]]??,m4_dnl
 LANG=m4_env_config_LANG
 LANGUAGE=m4_env_config_LANGUAGE)
 
-# set PATH so it includes user's local bin & lib directories
-PATH="$(pathprepend_if_isdir "$PATH" "$HOME/.local/bin")"
+# Add user local directories to environment paths
 PATH="$(pathprepend_if_isdir "$PATH" "$HOME/bin")"
-LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$HOME/.local/lib")"
+PATH="$(pathprepend_if_isdir "$PATH" "$HOME/.local/bin")"
+
 LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$HOME/lib")"
+LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$HOME/.local/lib")"
+
+MANPATH="$(pathprepend_if_isdir "$(manpath -g)" "$HOME/man")"
+MANPATH="$(pathprepend_if_isdir "$MANPATH" "$HOME/share/man")"
+MANPATH="$(pathprepend_if_isdir "$MANPATH" "$HOME/.local/man")"
+MANPATH="$(pathprepend_if_isdir "$MANPATH" "$HOME/.local/share/man")"
 
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
 # CUDA Path
@@ -106,3 +112,4 @@ LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_
 
 export PATH
 export LD_LIBRARY_PATH
+export MANPATH

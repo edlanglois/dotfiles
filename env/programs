@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Simple checks for installed programms
+set -eu
 
 function find_installed() {
   # Search for an installed program from a list of options
