@@ -49,6 +49,11 @@ do_suspend () {
   systemctl suspend
 }
 
+CHARGING=$(cat /sys/class/power_supply/AC/online 2>/dev/null)
+if [ "$CHARGING" -eq "1" ]; then
+  exit 0
+fi
+
 MAX_CAPACITY=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | sort -gr | head -n 1)
 
 if [ "$MAX_CAPACITY" -le "$SUSPEND_PERCENT" ]; then
