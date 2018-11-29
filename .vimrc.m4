@@ -472,10 +472,11 @@ let NERDTreeIgnore = [
 " The update interferes with python-mode's lint-on-write.
 let NERDTreeUpdateOnWrite=0
 
-" Vimwiki
+" Vim Markdown Preview
 let vim_markdown_preview_hotkey='<leader>lv'
 let vim_markdown_preview_use_xdg_open=1
 
+" Vimwiki
 let g:vimwiki_list = [{
 	\ 'path': '~/Documents/vimwiki/',
 	\ 'template_path': '~/Documents/vimwiki/templates/',
