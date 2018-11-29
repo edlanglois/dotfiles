@@ -33,6 +33,7 @@ user.cfg
 .config/user-dirs.dirs
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
 .config/yapf/style
+.duplicacy/filters
 .env_profile
 .gitconfig
 .gitignore_global

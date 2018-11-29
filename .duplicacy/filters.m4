@@ -1,0 +1,4 @@
+-.cache/
+-.config/Google Play Music Desktop Player/Cache/
+-.config/google-chrome/
+-.dropbox/logs/

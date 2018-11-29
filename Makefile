@@ -21,6 +21,7 @@ M4_DOTFILES=\
 	.config/termite/config\
 	.config/user-dirs.dirs\
 	.config/yapf/style\
+	.duplicacy/filters\
 	.env_profile\
 	.gitconfig\
 	.gitignore_global\
