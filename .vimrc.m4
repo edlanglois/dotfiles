@@ -29,7 +29,7 @@ Plugin 'adimit/prolog.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'alfredodeza/coveragepy.vim'
 Plugin 'ambv/black'
-Plugin 'bkad/CamelCaseMotion'
+Plugin 'chaoren/vim-wordmotion'
 Plugin 'chrisbra/Recover.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -126,8 +126,6 @@ filetype plugin indent on
 " Enable most highlighting options for vim-python/python-syntax plugin
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
-
-call camelcasemotion#CreateMotionMappings('<leader>')
 
 let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
