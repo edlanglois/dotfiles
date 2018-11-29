@@ -54,6 +54,7 @@ Plugin 'Konfekt/FastFold'
 Plugin 'lervag/vimtex'
 Plugin 'lyuts/vim-rtags'
 Plugin 'majutsushi/tagbar'
+Plugin 'mileszs/ack.vim'
 Plugin 'moll/vim-bbye'
 Plugin 'morhetz/gruvbox'
 Plugin 'ntpeters/vim-better-whitespace'
@@ -473,6 +474,7 @@ let NERDTreeIgnore = [
 " The update interferes with python-mode's lint-on-write.
 let NERDTreeUpdateOnWrite=0
 
+" Vimwiki
 let vim_markdown_preview_hotkey='<leader>lv'
 let vim_markdown_preview_use_xdg_open=1
 
@@ -485,6 +487,11 @@ let g:vimwiki_list = [{
 	\ 'diary_caption_level': 1,
 	\}]
 let g:vimwiki_auto_chdir = 1
+
+" Ack / Ag
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
 
 augroup strip_whitespace
 	autocmd!
