@@ -25,7 +25,11 @@ call vundle#begin()
 " Let Vundle manage Vundle. Required
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'adimit/prolog.vim'
+" I have forked some plugins to add my own changes.
+" I also fork rarely maintained or unpopular plugins in order to protect myself
+" if they become compromised. You can usually find the original from my fork
+" on GitHub if you'd rather not trust my copy.
+
 Plugin 'airblade/vim-gitgutter'
 Plugin 'alfredodeza/coveragepy.vim'
 Plugin 'ambv/black'
@@ -35,9 +39,12 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'edkolev/tmuxline.vim',
+Plugin 'edlanglois/fish-syntax'
+Plugin 'edlanglois/prolog.vim'
 Plugin 'edlanglois/vim-gdl-syntax'
 Plugin 'edlanglois/vim-HiLinkTrace'
 Plugin 'edlanglois/vim-qrc'
+Plugin 'edlanglois/vim-textobj-parameter'
 Plugin 'edlanglois/vim-tmux-focus-events'
 Plugin 'edlanglois/vimwiki'
 Plugin 'ervandew/supertab'
@@ -61,7 +68,6 @@ Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
-Plugin 'sgur/vim-textobj-parameter'
 Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
@@ -71,7 +77,6 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-python/python-syntax'
-Plugin 'vim-scripts/fish-syntax'
 Plugin 'w0rp/ale'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
@@ -79,7 +84,7 @@ m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 Plugin 'Valloric/YouCompleteMe'
 )m4_dnl
 " Must go after nerdtree
-Plugin 'EvanDotPro/nerdtree-chmod'
+Plugin 'edlanglois/nerdtree-chmod'
 
 " End Vundle
 call vundle#end()
