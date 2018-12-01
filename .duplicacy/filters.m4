@@ -3,3 +3,4 @@
 -.config/google-chrome/
 -.config/Slack/Cache/
 -.dropbox/logs/
+-.local/share/Steam/config/htmlcache/Cache/
