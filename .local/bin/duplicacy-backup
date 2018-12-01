@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+# Usage: duplicacy-backup BACKUP_DIR
+set -eu
+BACKUP_DIR=${1:-$HOME}
+cd $BACKUP_DIR
+duplicacy -background -log backup

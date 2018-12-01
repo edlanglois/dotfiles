@@ -42,6 +42,8 @@ M4_DOTFILES=\
 	.Xresources\
 
 SYSTEMD_FILES=\
+	.config/systemd/user/duplicacy-backup.service\
+	.config/systemd/user/duplicacy-backup.timer\
 	.config/systemd/user/low-battery.service\
 	.config/systemd/user/low-battery.timer\
 
@@ -64,6 +66,7 @@ DOTFILES=\
 	.local/bin/backtrace\
 	.local/bin/combinediff-careful\
 	.local/bin/dfix\
+	.local/bin/duplicacy-backup\
 	.local/bin/get-gitignore\
 	.local/bin/git-w\
 	.local/bin/gr\
