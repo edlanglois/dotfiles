@@ -1,6 +1,13 @@
 #!/usr/bin/bash
 # Usage: duplicacy-backup BACKUP_DIR
 set -eu
+
+# Check if duplicacy is already running
+if ps -e -o command | grep '^duplicacy ' >/dev/null; then
+  echo "Duplicacy is already running. Aborting."
+  exit 1
+fi
+
 BACKUP_DIR=${1:-$HOME}
 cd $BACKUP_DIR
 duplicacy -background -log backup
