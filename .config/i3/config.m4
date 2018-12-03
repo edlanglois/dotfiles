@@ -198,6 +198,8 @@ m4_ifdef(??[[<<m4_env_config_XBACKLIGHT>>]]??,m4_dnl
 # Brightness
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
+bindsym $mod+XF86MonBrightnessUp exec "xbacklight -inc 1"
+bindsym $mod+XF86MonBrightnessDown exec "xbacklight -dec 1"
 )m4_dnl
 
 # Start i3bar to display a workspace bar (plus the system information i3status
