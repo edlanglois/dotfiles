@@ -205,7 +205,7 @@ set softtabstop=2
 set expandtab
 set noshiftround
 set textwidth=80     " Auto wrap at 80 char line width
-set formatoptions+=t " Auto-wrap text using textwidth
+set formatoptions-=t " Auto-wrap text using textwidth
 set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
                      " current comment leader automatically.
 set formatoptions+=r " Automatically insert the current comment leader after
