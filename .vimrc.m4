@@ -210,7 +210,7 @@ set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
                      " current comment leader automatically.
 set formatoptions+=r " Automatically insert the current comment leader after
                      " hitting <Enter> in Insert mode.
-set formatoptions+=o " Automatically insert the comment leader after hitting 'o'
+set formatoptions-=o " Automatically insert the comment leader after hitting 'o'
                      " or 'O' in Normal mode.
 set formatoptions+=q " Allow formatting of comments with "gq"
 set formatoptions+=l " Long lines are not broken in insert mode: When a line was
