@@ -39,7 +39,6 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'edkolev/tmuxline.vim',
 Plugin 'edlanglois/fish-syntax'
-Plugin 'edlanglois/latex-unicoder.vim'
 Plugin 'edlanglois/prolog.vim'
 Plugin 'edlanglois/vim-gdl-syntax'
 Plugin 'edlanglois/vim-HiLinkTrace'
