@@ -39,6 +39,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'edkolev/tmuxline.vim',
 Plugin 'edlanglois/fish-syntax'
+Plugin 'edlanglois/latex-unicoder.vim'
 Plugin 'edlanglois/prolog.vim'
 Plugin 'edlanglois/vim-gdl-syntax'
 Plugin 'edlanglois/vim-HiLinkTrace'
@@ -495,6 +496,14 @@ let g:vimwiki_auto_chdir = 1
 if executable('ag')
   let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
+
+" Unicoder
+let g:unicoder_cancel_normal = 1
+let g:unicoder_cancel_insert = 1
+let g:unicoder_cancel_visual = 1
+let g:unicoder_no_map = 1
+" map <leader>u <Plug>Unicoder
+nnoremap <leader>u :call unicoder#start(0)<CR>
 
 augroup strip_whitespace
 	autocmd!
