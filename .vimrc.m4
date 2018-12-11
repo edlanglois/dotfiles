@@ -503,7 +503,7 @@ let g:unicoder_cancel_insert = 1
 let g:unicoder_cancel_visual = 1
 let g:unicoder_no_map = 1
 " map <leader>u <Plug>Unicoder
-nnoremap <leader>u :call unicoder#start(0)<CR>
+nnoremap <leader>u :call unicoder#start(1)<CR>
 
 augroup strip_whitespace
 	autocmd!
