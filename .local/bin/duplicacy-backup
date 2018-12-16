@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
-# Usage: duplicacy-backup BACKUP_DIR
+# Usage: duplicacy-backup [BACKUP_DIR [RETRY_TIMEOUT_SECONDS [RETRY_SLEEP_SECONDS]]]
+#
+# If RETRY_TIMEOUT_SECONDS is given and > 0, then on duplicacy failure, if
+# RETRY_TIMEOUT_SECONDS has not elapsed, wait RETRY_SLEEP_SECONDS and retry.
+#
+# WARNING:
+#   - Race conditions may allow duplicacy to be run multiple times if multiple
+#     instances of this script are invoked at nearly the same time.
+#   - Using RETRY_TIMEOUT_SECONDS makes the script very vulnerable to duplicate
+#     calls to duplicacy.
+#     DO NOT invoke another instance of this script before RETRY_TIMEOUT_SECONDS
+#     has expired.
 set -eu
 
 # Check if duplicacy is already running
@@ -8,6 +19,19 @@ if ps -e -o command | grep '^duplicacy ' >/dev/null; then
   exit 1
 fi
 
-BACKUP_DIR=${1:-$HOME}
+BACKUP_DIR="${1:-$HOME}"
+RETRY_TIMEOUT_SECONDS="${2:-0}"
+if ! [ "$RETRY_TIMEOUT_SECONDS" -eq "$RETRY_TIMEOUT_SECONDS" ]; then
+  echo "$RETRY_TIMEOUT_SECONDS is not an integer"
+  exit 1
+fi
+RETRY_SLEEP_SECONDS="${3:-600}"
+if ! [ "$RETRY_SLEEP_SECONDS" -eq "$RETRY_SLEEP_SECONDS" ]; then
+  echo "$RETRY_SLEEP_SECONDS is not an integer"
+  exit 1
+fi
+
 cd $BACKUP_DIR
-duplicacy -background -log backup
+until duplicacy -background -log backup || [ "$SECONDS" -ge "$RETRY_TIMEOUT_SECONDS" ]; do
+  sleep "$RETRY_SLEEP_SECONDS"
+done
