@@ -64,7 +64,6 @@ Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'moll/vim-bbye'
 Plugin 'morhetz/gruvbox'
-Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'peterhoeg/vim-qml'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'scrooloose/nerdtree'
@@ -170,22 +169,7 @@ let g:ultisnips_python_style = 'google'
 let g:ale_fix_on_save = 1
 nnoremap <leader>a :ALEFix<CR>
 let g:ale_lint_on_text_changed = 'never'
-" Exclude the folling linters:
-" python:
-"   pylint - slow, must run on files in filesystem
-" latex:
-"   lacheck - false positives that cannot be disabled
-let g:ale_linters_ignore = {
-\   'python': ['pylint'],
-\   'tex': ['lacheck'],
-\}
-let g:ale_fixers = {
-\    'python': ['black', 'isort']
-\}
-" Don't run pylint on testing python files.
-let g:ale_pattern_options = {
-\    'test_.*\.py': {'ale_linters': ['flake8', 'mypy']},
-\}
+" NOTE: ALE linters and fixers are defined in .vim/ftplugin/<filetype>.vim
 
 let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
 
@@ -504,21 +488,6 @@ let g:unicoder_cancel_visual = 1
 let g:unicoder_no_map = 1
 " map <leader>u <Plug>Unicoder
 nnoremap <leader>u :call unicoder#start(1)<CR>
-
-augroup strip_whitespace
-	autocmd!
-	autocmd Filetype
-		\ c,
-		\cpp,
-		\html,
-		\java,
-		\php,
-		\python,
-		\qml,
-		\ruby,
-		\xml
-		\ autocmd BufWritePre <buffer> StripWhitespace
-augroup END
 
 " Source files from .vim/vimrc.d
 source ~/.vim/vimrc.d/vimwiki.vim
