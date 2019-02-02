@@ -231,8 +231,9 @@ set scrolloff=10
 
 set laststatus=2 " Always show status line
 
-set foldmethod=indent
 set foldlevel=99
+" FastFold
+let g:tex_fold_enabled = 1
 
 if has('termguicolors')
 	" See :help xterm-true-color
