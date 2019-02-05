@@ -123,7 +123,7 @@ INSTALLED_DOTDIRS:=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
 # Sort to remove duplicates
 INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
 
-M4_CONFIG_GEN_FILES:=$(M4_DOTFILES) Makefile-binaries
+M4_CONFIG_GEN_FILES:=$(M4_DOTFILES)
 ENV_CONFIG_M4_FILES:=$(addsuffix .m4,$(ENV_CONFIG_FILES))
 
 INSTALLED_SYSTEM_FILES:=$(shell find system/ -type f -printf "/%P\n")
@@ -149,7 +149,7 @@ YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
 	set-persistent-configs clean show show-config vim \
 	vim-update-plugins vim-ycm systemd-reload \
 
-build: $(DOTFILES) Makefile-binaries
+build: $(DOTFILES)
 
 # Build Dotfiles
 # --------------
@@ -266,7 +266,6 @@ $(foreach INSTALLED_SYSTEM_FILE, $(INSTALLED_SYSTEM_FILES), \
 # - Delete all the build products.
 clean:
 	rm -f user_config.m4 env_config.m4
-	rm -f Makefile-binaries
 	rm -f $(M4_DOTFILES) .tmuxline.conf
 	rm -f .config/xss-lock/transfer-sleep-lock-i3lock.sh
 	rm -f $(ENV_CONFIG_M4_FILES)
