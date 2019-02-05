@@ -110,6 +110,11 @@ m4_ifdef(??[[<<m4_env_config_MUJOCO_LIB>>]]??,m4_dnl
 LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_LIB")"
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_TASK>>]]??,m4_dnl
+# Task configuration file
+export TASKRC="${XDG_CACHE_HOME:-~/.config}/task/config"
+)m4_dnl
+
 export PATH
 export LD_LIBRARY_PATH
 export MANPATH

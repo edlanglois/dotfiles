@@ -32,6 +32,7 @@ find_installed PLAYERCTL playerctl
 find_installed PULSEAUDIO pactl
 find_installed SETXKBMAP setxkbmap
 find_installed SHELL fish
+find_installed TASK task
 find_installed TERMINAL terminator termite gnome-terminal xterm
 find_installed VIMPAGER vimpager
 find_installed XBACKLIGHT xbacklight
