@@ -1,6 +1,7 @@
 # Vim
 *.swp
 *.swo
+*.swn
 
 # Virtual environment connection
 .venv
