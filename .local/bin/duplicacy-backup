@@ -32,6 +32,20 @@ if ! [ "$RETRY_SLEEP_SECONDS" -eq "$RETRY_SLEEP_SECONDS" ]; then
 fi
 
 cd $BACKUP_DIR
+# Create a new snapshot
 until duplicacy -background -log backup || [ "$SECONDS" -ge "$RETRY_TIMEOUT_SECONDS" ]; do
+  sleep "$RETRY_SLEEP_SECONDS"
+done
+
+# Reset the timeout relative to the current seconds count
+TIMEOUT_SECONDS=$((SECONDS + RETRY_TIMEOUT_SECONDS))
+echo $TIMEOUT_SECONDS
+
+# Prune old snapshots
+# Keep 1 snapshot every 360 day(s) if older than 360 day(s)
+# Keep 1 snapshot every 30 day(s) if older than 180 day(s)
+# Keep 1 snapshot every 7 day(s) if older than 30 day(s)
+# Keep 1 snapshot every 1 day(s) if older than 7 day(s)
+until duplicacy prune -exhaustive -keep 360:360 -keep 30:180 -keep 7:30 -keep 1:7 || [ "$SECONDS" -ge "$RETRY_TIMEOUT_SECONDS" ]; do
   sleep "$RETRY_SLEEP_SECONDS"
 done
