@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# usage: conky-toggle CONFIG_NAME
+# Toggles a conky instance using $XDG_CONFIG_HOME/conky/$CONFIG_NAME.lua
+# CONFIG_NAME defaults to default-popup
+set -eu
+
+RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp}/conky"
+CONFIG_NAME=${1:-default-popup}
+CONFIG_FILE=${XDG_CONFIG_HOME:-$HOME/.config}/conky/default-popup.lua
+
+if [ -n "${1:-}" ]; then
+	PID_FILE_NAME="toggle-pid-$1"
+else
+	PID_FILE_NAME="toggle-pid"
+fi
+
+ARGS=( "-c" "$CONFIG_FILE" )
+ARGS+=( "--quiet" )
+
+PID_FILE="$RUNTIME_DIR/$PID_FILE_NAME"
+
+if [ -e "$PID_FILE" ]; then
+	PID=$(cat "$PID_FILE")
+	# Don't want to leave the PID file permanently there if the kill fails, so
+	# remove first.
+	rm $PID_FILE
+	kill $PID
+else
+	mkdir -p $RUNTIME_DIR
+	if [ -n "${BLOCK_X:-}" -a -n "${BLOCK_Y:-}" ]; then
+		ARGS+=( "-x" "$BLOCK_X" "-y" $(( BLOCK_Y - 400 )) )
+	fi
+	conky "${ARGS[@]}" >/dev/null 2>&1 &
+	echo $! > "$PID_FILE"
+fi

@@ -54,6 +54,7 @@ DOTFILES=\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
 	.config/fontconfig/fonts.conf\
 	.config/i3blocks/scripts/battery-label\
+	.config/i3blocks/scripts/conky-toggle\
 	.config/i3blocks/scripts/date-calendar\
 	.config/i3blocks/scripts/gkrellm-toggle\
 	.config/i3blocks/scripts/gpu-usage\
@@ -108,6 +109,7 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	python\
 	root\
 	ruby\
+	sys-monitor\
 	tmux\
 	torch\
 	virtualfish\

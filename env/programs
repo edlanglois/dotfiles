@@ -24,7 +24,6 @@ function find_installed() {
 
 find_installed DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run
 find_installed FEH feh
-find_installed GKRELLM gkrellm
 find_installed GSIMPLECAL gsimplecal
 find_installed IP_CMD ip
 find_installed KEYCHAIN keychain
