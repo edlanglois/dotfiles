@@ -40,7 +40,6 @@ user.cfg
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
 .config/yapf/style
 .duplicacy/filters
-.hgrc
 .isort.cfg
 .profile
 .pylintrc
