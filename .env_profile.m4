@@ -50,6 +50,10 @@ pathappend_if_isdir() {
 # Set editor to vim
 export EDITOR=vim
 
+m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
+# Set default browser
+export BROWSER=m4_env_config_BROWSER)
+
 m4_ifdef(??[[<<m4_env_config_LANG>>]]??,m4_dnl
 # Set locale; also set in .config/locale.conf but that isn't always read.
 LANG=m4_env_config_LANG
