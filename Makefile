@@ -17,6 +17,7 @@ M4_DOTFILES=\
 	.config/flake8\
 	.config/git/config\
 	.config/git/ignore\
+	.config/hg/hgrc\
 	.config/i3/config\
 	.config/i3blocks/config\
 	.config/locale.conf\
@@ -27,7 +28,6 @@ M4_DOTFILES=\
 	.config/user-dirs.dirs\
 	.config/yapf/style\
 	.duplicacy/filters\
-	.hgrc\
 	.isort.cfg\
 	.profile\
 	.pylintrc\

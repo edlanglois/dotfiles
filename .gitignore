@@ -27,6 +27,7 @@ user.cfg
 .config/flake8
 .config/git/config
 .config/git/ignore
+.config/hg/hgrc
 .config/i3/config
 .config/i3/config.local
 .config/i3blocks/config
