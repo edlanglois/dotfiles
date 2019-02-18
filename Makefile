@@ -30,7 +30,6 @@ M4_DOTFILES=\
 	.isort.cfg\
 	.profile\
 	.pylintrc\
-	.Rprofile\
 	.ssh/config\
 	.theanorc\
 	.tmux.conf\

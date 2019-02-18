@@ -42,7 +42,6 @@ user.cfg
 .isort.cfg
 .profile
 .pylintrc
-.Rprofile
 .ssh/config
 .ssh/config.local
 .theanorc
