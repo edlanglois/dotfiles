@@ -3,14 +3,14 @@
 # Toggles a gkrellm instance with config suffix NAME
 set -eu
 
-CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.cache}/gkrellm-toggle"
+CONFIG_DIR="${XDG_RUNTIME_DIR:-/tmp}/gkrellm"
 mkdir -p "$CONFIG_DIR"
 
 if [ -n "${1:-}" ]; then
-	PID_FILE_NAME="pid-$1"
+	PID_FILE_NAME="toggle-pid-$1"
 	ARGS=( "-c" "$1" )
 else
-	PID_FILE_NAME="pid"
+	PID_FILE_NAME="toggle-pid"
 	ARGS=()
 fi
 
@@ -23,6 +23,7 @@ if [ -e "$PID_FILE" ]; then
 	rm $PID_FILE
 	kill $PID
 else
+	mkdir -p $CONFIG_DIR
 	gkrellm "${ARGS[@]}" >/dev/null 2>&1 &
 	echo $! > "$PID_FILE"
 fi
