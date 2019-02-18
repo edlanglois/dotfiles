@@ -15,6 +15,8 @@ M4_DOTFILES=\
 	.config/fish/functions/R.fish\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
+	.config/git/config\
+	.config/git/ignore\
 	.config/i3/config\
 	.config/i3blocks/config\
 	.config/locale.conf\
@@ -25,8 +27,6 @@ M4_DOTFILES=\
 	.config/user-dirs.dirs\
 	.config/yapf/style\
 	.duplicacy/filters\
-	.gitconfig\
-	.gitignore_global\
 	.hgrc\
 	.isort.cfg\
 	.profile\

@@ -25,6 +25,8 @@ user.cfg
 .config/fish/functions/R.fish
 .config/fish/functions/torch-activate.fish
 .config/flake8
+.config/git/config
+.config/git/ignore
 .config/i3/config
 .config/i3/config.local
 .config/i3blocks/config
@@ -37,8 +39,6 @@ user.cfg
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
 .config/yapf/style
 .duplicacy/filters
-.gitconfig
-.gitignore_global
 .hgrc
 .isort.cfg
 .profile
