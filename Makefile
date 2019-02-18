@@ -4,6 +4,7 @@ M4_DOTFILES=\
 	.bash_aliases\
 	.bash_profile\
 	.bashrc\
+	.config/conky/default-popup.lua\
 	.config/fish/config.fish\
 	.config/fish/functions/fish_prompt.fish\
 	.config/fish/functions/hostname-icon.fish\
