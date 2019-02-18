@@ -14,8 +14,11 @@ POWERLINE_SYMBOLS=true
 # give you.
 # OPEN_WEATHER_MAP_API_KEY=<your-key-here>
 
-# Find a city ID with the following query:
-# http://api.openweathermap.org/data/2.5/weather?q=<CITY>,<COUNTRY>&appid=<APIKEY>
+# Find a city ID by filling in your API key above and running
+# utils/weather-city-id.py <City Name>
+#
+# Alternatively, use the query
+# https://api.openweathermap.org/data/2.5/weather?q=<CITY>,<COUNTRY>&appid=<APIKEY>
 # Where <CITY>, <COUNTRY>, and <APIKEY> are replaced with the city name,
 # 2-letter country code, and your API key, respectively.
 # Look for the top-level field "id" in the response, that is the city id.
