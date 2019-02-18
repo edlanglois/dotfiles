@@ -5,6 +5,7 @@ M4_DOTFILES=\
 	.bash_profile\
 	.bashrc\
 	.config/conky/default-popup.lua\
+	.config/env_profile\
 	.config/fish/config.fish\
 	.config/fish/functions/fish_prompt.fish\
 	.config/fish/functions/hostname-icon.fish\
@@ -24,7 +25,6 @@ M4_DOTFILES=\
 	.config/user-dirs.dirs\
 	.config/yapf/style\
 	.duplicacy/filters\
-	.env_profile\
 	.gitconfig\
 	.gitignore_global\
 	.hgrc\

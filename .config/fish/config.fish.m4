@@ -24,8 +24,8 @@ set --global -x SHELL (which fish)
 # Set hostname icon
 set -x HOSTNAME_ICON (hostname-icon)
 
-# Source environment variables from ~/.env_profile using the foreign env plugin.
-fenv source "$HOME/.env_profile"
+# Source environment variables from env_profile using the foreign env plugin.
+fenv source "$HOME/.config/env_profile"
 
 m4_ifdef(??[[<<m4_env_config_MODULE_GE_4>>]]??,m4_dnl
 # Enable the "module" command

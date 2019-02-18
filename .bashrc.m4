@@ -7,7 +7,7 @@ m4_include(env_config.m4)m4_dnl
 # If not running interactively, set environment variables (since .profile might
 # not be called) and don't do anything else.
 if [ -z "$PS1" ]; then
-    source ~/.env_profile
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/env_profile"
     return
 fi
 
