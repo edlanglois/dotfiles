@@ -210,6 +210,14 @@ set formatoptions+=n " Proper indendation with lists when auto-formatting.
 set formatoptions+=2 " In multiline paragraphs, use the indentation level of the
                      " 2nd line.
 
+" Filetype plugins tend to mess with these formatoptions.
+" In particular, most set -=t, +=croql
+" Re-apply the change we want
+augroup myformat
+	autocmd!
+	autocmd BufNewFile,BufRead * setlocal formatoptions -=o
+augroup END
+
 set showmatch
 
 set number " Line Numbers
@@ -334,7 +342,7 @@ set grepprg=grep\ -nH\ $*
 let &runtimepath.=',$VIM/vimfiles'
 
 let g:tex_flavor = "latex" " Load .tex files as latex
-let g:tex_conceal=""
+" let g:tex_conceal=""
 
 " Vimpager
 let g:less = {}
