@@ -2,7 +2,7 @@
 # System monitor
 set -eu
 
-if command -v netdata 2>/dev/null; then
+if command -v netdata 2>/dev/null 1>&2; then
 	NETDATA_POPUP="xdg-open http://localhost:19999"
 	echo I3BLOCKS_CPU_POPUP="$NETDATA_POPUP"
 	echo I3BLOCKS_MEM_POPUP="$NETDATA_POPUP"
@@ -10,14 +10,14 @@ if command -v netdata 2>/dev/null; then
 fi
 
 I3BLOCKS_SCRIPTS="${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/scripts"
-if command -v conky 2>/dev/null; then
+if command -v conky 2>/dev/null 1>&2; then
 	CONKY_POPUP="$I3BLOCKS_SCRIPTS/conky-toggle"
 	echo I3BLOCKS_CPU_POPUP="$CONKY_POPUP"
 	echo I3BLOCKS_MEM_POPUP="$CONKY_POPUP"
 	exit
 fi
 
-if command -v gkrellm 2>/dev/null; then
+if command -v gkrellm 2>/dev/null 1>&2; then
 	GKRELLM_POPUP="$I3BLOCKS_SCRIPTS/gkrellm-toggle"
 	echo I3BLOCKS_CPU_POPUP="$GKRELLM_POPUP cpu"
 	echo I3BLOCKS_MEM_POPUP="$GKRELLM_POPUP mem"
