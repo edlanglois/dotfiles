@@ -3,7 +3,8 @@ Description=Run the duplicacy backup daily.
 
 [Timer]
 OnCalendar=daily
-AccuracySec=1h
+AccuracySec=10min
+RandomizedDelaySec=1h
 Persistent=true
 
 [Install]
