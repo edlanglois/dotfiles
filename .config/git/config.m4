@@ -7,7 +7,7 @@ m4_include(env_config.m4)m4_dnl
 	ui = true
 [core]
 	editor = vim
-	excludesfile = ~/.gitignore_global
+	excludesfile = ~/.config/git/ignore
 [diff]
 	tool = vimdiff
 [merge]

@@ -1,6 +1,6 @@
 syntax sync minlines=50
 
-set conceallevel=2
+setlocal conceallevel=2
 " Set the conceal highlight to a dark grey.
 hi Conceal ctermbg=237
 

@@ -5,3 +5,4 @@
 -.dropbox/logs/
 -.local/share/Steam/config/htmlcache/Cache/
 -Dropbox/
+-Private/
