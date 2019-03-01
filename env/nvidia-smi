@@ -3,4 +3,6 @@ set -eu
 if command -v nvidia-smi >/dev/null 2>&1; then
 	echo NVIDIA_SMI=
 	echo NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
+else
+  echo NUM_GPUS=0
 fi
