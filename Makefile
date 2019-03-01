@@ -27,6 +27,7 @@ M4_DOTFILES=\
 	.config/termite/config\
 	.config/user-dirs.dirs\
 	.config/yapf/style\
+	.config/yay/config.json\
 	.duplicacy/filters\
 	.isort.cfg\
 	.profile\
