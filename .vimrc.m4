@@ -10,9 +10,27 @@ m4_include(env_config.m4)m4_dnl
 " F10 - Syntax Group under cursor
 " F11 - Toggle paste
 set shell=/bin/bash " Vim doesn't like fish
+set nocompatible
+
+" Environment
+if empty($XDG_CONFIG_HOME)
+  let s:xdg_config_home = $HOME . "/.config"
+else
+  let s:xdg_config_home = $XDG_CONFIG_HOME
+endif
+if empty($XDG_CACHE_HOME)
+  let s:xdg_cache_home = $HOME . "/.cache"
+else
+  let s:xdg_cache_home = $XDG_CACHE_HOME
+endif
+let &directory = s:xdg_cache_home . "/vim/swap"
+let &backupdir = s:xdg_cache_home . "/vim/backup"
+let &undodir = s:xdg_cache_home . "/vim/undo"
+let &viminfo .= ",'1000,n" . s:xdg_cache_home . "/vim/viminfo"
+let &runtimepath = s:xdg_config_home . "/vim," . &runtimepath .
+  \ "," . s:xdg_config_home . "/vim/after"
 
 " Run :PluginInstall to install or update plugins managed by Vundle
-set nocompatible
 scriptencoding utf-8
 set encoding=utf-8
 
