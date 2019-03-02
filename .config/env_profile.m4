@@ -47,6 +47,12 @@ pathappend_if_isdir() {
   fi
 }
 
+m4_dnl XDG config directories.
+m4_dnl No support for changing these currently (except cache)
+m4_define(m4_xdg_config_home,??[[<<$HOME/.config>>]]??)m4_dnl
+m4_define(m4_xdg_cache_home,??[[<<$HOME/.cache>>]]??)m4_dnl
+m4_define(m4_xdg_data_home,??[[<<$HOME/.local/share>>]]??)m4_dnl
+
 # Set editor to vim
 export EDITOR=vim
 
@@ -87,10 +93,6 @@ export GOROOT="m4_env_config_GOROOT"
 PATH="$(pathappend_if_isdir "$PATH" "$GOROOT/bin")"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,m4_dnl
-# Ruby Path
-PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_GEM_BIN_PATH")"
-)m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
 # Homebrew Path
@@ -111,9 +113,22 @@ m4_ifdef(??[[<<m4_env_config_MUJOCO_LIB>>]]??,m4_dnl
 LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_LIB")"
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl
+# Ruby Gem Configuration Directories
+export GEMRC="m4_xdg_config_home/gem/config.yaml"
+export GEM_HOME="m4_xdg_data_home/gem"
+export GEM_SPEC_CACHE="m4_xdg_cache_home/gem"
+)m4_dnl
+m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,m4_dnl
+# Ruby Gem Paths
+while IFS=: read -d: -r gempath; do
+  PATH="$(pathappend_if_isdir "$PATH" "$gempath")"
+done <<< "m4_env_config_GEM_BIN_PATH:"
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_TASK>>]]??,m4_dnl
 # Task configuration file
-export TASKRC="${XDG_CACHE_HOME:-~/.config}/task/config"
+export TASKRC="m4_xdg_config_home/task/config"
 )m4_dnl
 
 export PATH

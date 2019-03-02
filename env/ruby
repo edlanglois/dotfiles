@@ -1,7 +1,9 @@
 #!/bin/bash
 set -eu
-if command -v gem >/dev/null 2>&1; then
-	GEM_BIN_PATH=$(gem environment gempath | tr ':' '\n' | sed 's#$#/bin#' | xargs ls -d 2>/dev/null | paste -sd':' -)
+source "${BASH_SOURCE%/*}/env_utils"
+
+if find_installed RUBY_GEM gem; then
+  GEM_BIN_PATH="$(gem environment gempath | sed 's#\(:\|$\)#/bin\1#g')"
 	if [ -n "$GEM_BIN_PATH" ]; then
 		echo GEM_BIN_PATH=$GEM_BIN_PATH
 	fi
