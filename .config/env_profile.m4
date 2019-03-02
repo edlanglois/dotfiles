@@ -93,7 +93,6 @@ export GOROOT="m4_env_config_GOROOT"
 PATH="$(pathappend_if_isdir "$PATH" "$GOROOT/bin")"
 )m4_dnl
 
-
 m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
 # Homebrew Path
 PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
@@ -130,6 +129,9 @@ m4_ifdef(??[[<<m4_env_config_TASK>>]]??,m4_dnl
 # Task configuration file
 export TASKRC="m4_xdg_config_home/task/config"
 )m4_dnl
+
+# Vim Environment
+export VIMINIT=":source m4_xdg_config_home/vim/vimrc"
 
 export PATH
 export LD_LIBRARY_PATH

@@ -27,6 +27,7 @@ M4_DOTFILES=\
 	.config/terminator/config\
 	.config/termite/config\
 	.config/user-dirs.dirs\
+	.config/vim/vimrc\
 	.config/yapf/style\
 	.config/yay/config.json\
 	.duplicacy/filters\
@@ -37,7 +38,6 @@ M4_DOTFILES=\
 	.theanorc\
 	.tmux.conf\
 	.toprc\
-	.vimrc\
 	.xbindkeysrc\
 	.xinitrc\
 	.Xmodmap\
@@ -63,6 +63,25 @@ DOTFILES=\
 	.config/i3blocks/scripts/weather\
 	.config/nvim\
 	.config/pudb/pudb.cfg\
+	.config/vim/after/ftplugin/rnoweb.vim\
+	.config/vim/after/ftplugin/tex.vim\
+	.config/vim/after/indent/tex.vim\
+	.config/vim/after/syntax/rnoweb.vim\
+	.config/vim/after/syntax/tex.vim\
+	.config/vim/ftplugin/c.vim\
+	.config/vim/ftplugin/cpp.vim\
+	.config/vim/ftplugin/lua.vim\
+	.config/vim/ftplugin/markdown.vim\
+	.config/vim/ftplugin/python.vim\
+	.config/vim/ftplugin/rnoweb.vim\
+	.config/vim/ftplugin/tex.vim\
+	.config/vim/ftplugin/vim.vim\
+	.config/vim/indent/python.vim\
+	.config/vim/init.vim\
+	.config/vim/UltiSnips/python.snippets\
+	.config/vim/UltiSnips/tex.snippets\
+	.config/vim/UltiSnips/vimwiki.snippets\
+	.config/vim/vimrc.d/vimwiki.vim\
 	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
 	.gkrellm2/user-config-cpu\
@@ -86,8 +105,8 @@ DOTFILES=\
 	.virtualenvs/global_requirements.txt\
 
 DOTDIRS=\
-	.vim\
 	.config/fish/plugins\
+	.local/share/vim/bundle/Vundle.vim\
 
 ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
@@ -146,7 +165,7 @@ PYGMENTIZE:=$(shell command -v pygmentize)
 
 RANDOM_ID:=$(shell echo $$RANDOM)
 
-YCM_DIR:=.vim/bundle/YouCompleteMe
+YCM_DIR:=$(INSTALL_DIR)/.local/share/vim/bundle/YouCompleteMe
 YCM_CORE:=$(YCM_DIR)/third_party/ycmd/ycm_core.so
 YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
 
@@ -177,12 +196,12 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 		m4 --prefix-builtins > $@
 	chmod u+x $@
 
-.tmuxline.conf: .vimrc
+.tmuxline.conf: .config/vim/vimrc
 	rm -f $@
 	# Start a new temporary tmux session and in that tmux session run vim
 	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
 	# .tmuxline.conf
-	tmux new-session -d -s 'tmuxline-${RANDOM_ID}' 'vim -u ".vimrc" -Es -c "TmuxlineSnapshot $@" -c "q"'
+	tmux new-session -d -s 'tmuxline-${RANDOM_ID}' 'vim -u ".config/vim/vimrc" -Es -c "TmuxlineSnapshot $@" -c "q"'
 	while tmux list-sessions 2>/dev/null | grep 'tmuxline-${RANDOM_ID}' >/dev/null ; do \
 		sleep 0.05; \
 	done
@@ -244,8 +263,8 @@ $(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \
 	$(eval $(call INSTALL_DOTFILE_TEMPLATE, $(INSTALLED_DOTFILE))))
 
 define INSTALL_DOTDIR_TEMPLATE
-$1 : $(INSTALL_DIR)/% : | %
-	ln -s "$(DOTFILES_DIR)/$$|" "$$@"
+$1 : $(INSTALL_DIR)/% : | % $(dir $1)
+	ln -s "$(DOTFILES_DIR)/$$(firstword $$|)" "$$@"
 endef
 
 $(foreach INSTALLED_DOTDIR, $(INSTALLED_DOTDIRS), \
@@ -316,6 +335,6 @@ PYTHON := $(shell which python3 || echo python)
 vim-ycm: $(YCM_CORE)
 
 $(YCM_CORE): $(YCM_GIT_CHECKOUT)
-	cd .vim/bundle/YouCompleteMe && \
+	cd $(YCM_DIR) && \
 		$(PYTHON) ./install.py --clang-completer \
 		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)

@@ -18,6 +18,11 @@ if empty($XDG_CONFIG_HOME)
 else
   let s:xdg_config_home = $XDG_CONFIG_HOME
 endif
+if empty($XDG_DATA_HOME)
+  let s:xdg_data_home = $HOME . "/.local/share"
+else
+  let s:xdg_data_home = $XDG_DATA_HOME
+endif
 if empty($XDG_CACHE_HOME)
   let s:xdg_cache_home = $HOME . "/.cache"
 else
@@ -27,8 +32,10 @@ let &directory = s:xdg_cache_home . "/vim/swap"
 let &backupdir = s:xdg_cache_home . "/vim/backup"
 let &undodir = s:xdg_cache_home . "/vim/undo"
 let &viminfo .= ",'1000,n" . s:xdg_cache_home . "/vim/viminfo"
-let &runtimepath = s:xdg_config_home . "/vim," . &runtimepath .
-  \ "," . s:xdg_config_home . "/vim/after"
+
+let s:vim_config_dir = s:xdg_config_home . "/vim"
+let &runtimepath = s:vim_config_dir . "," . &runtimepath .
+  \ "," . s:vim_config_dir . "/after"
 
 " Run :PluginInstall to install or update plugins managed by Vundle
 scriptencoding utf-8
@@ -37,8 +44,9 @@ set encoding=utf-8
 " Vundle
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+let s:bundledir = s:xdg_data_home . "/vim/bundle"
+let &runtimepath .= "," . s:bundledir . "/Vundle.vim"
+call vundle#begin(s:bundledir)
 
 " Let Vundle manage Vundle. Required
 Plugin 'VundleVim/Vundle.vim'
@@ -149,8 +157,7 @@ filetype plugin indent on
 let g:python_highlight_all = 1
 let g:python_highlight_space_errors = 0
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = [ '~/.vim/.ycm_extra_conf.py', '~/Programming/*']
+let g:ycm_global_ycm_extra_conf = s:vim_config_dir . "/ycm_extra_conf.py"
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_filetype_blacklist = {
@@ -517,4 +524,4 @@ let g:unicoder_no_map = 1
 nnoremap <leader>u :call unicoder#start(1)<CR>
 
 " Source files from .vim/vimrc.d
-source ~/.vim/vimrc.d/vimwiki.vim
+exec 'source' s:vim_config_dir . "/vimrc.d/vimwiki.vim"
