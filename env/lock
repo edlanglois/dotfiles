@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eu
+source "${BASH_SOURCE%/*}/env_utils"
 
 # Prefer xscreensaver if present
 if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
@@ -13,11 +14,9 @@ if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
 fi
 
 # Otherwise use i3lock & xss-lock
-if command -v xss-lock >/dev/null 2>&1; then
-	echo XSS_LOCK=
-fi
+find_installed XSS_LOCK || true
 
-if command -v i3lock-extra >/dev/null 2>&1; then
+if program_exists i3lock-extra; then
 	CMD="i3lock-extra -s -p"
 	if i3lock-extra --help | grep -e '--paint' &>/dev/null; then
 		CMD+=" --paint"

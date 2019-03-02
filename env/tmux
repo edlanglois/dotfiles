@@ -1,13 +1,11 @@
 #!/bin/bash
 set -eu
-if command -v gsort >/dev/null 2>&1; then
-	sortcmd=gsort
-else
-	sortcmd=sort
-fi
-if echo -e tmux 2.0"\n"$(tmux -V) | ${sortcmd} -V --check=quiet; then
+source "${BASH_SOURCE%/*}/env_utils"
+
+TMUX_VERSION="$(tmux -V)"
+if version_ge "$TMUX_VERSION" "tmux 2.0"; then
 	echo TMUX_GE_2_0=
 fi;
-if echo -e tmux 2.2"\n"$(tmux -V) | ${sortcmd} -V --check=quiet; then
+if version_ge "$TMUX_VERSION" "tmux 2.2"; then
 	echo TMUX_GE_2_2=
 fi;

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eu
+source "${BASH_SOURCE%/*}/env_utils"
 
 if MODULECMD="$(command -v modulecmd 2>/dev/null)"; then
   echo "MODULECMD=$MODULECMD"
@@ -7,13 +8,8 @@ else
   exit 0
 fi
 
-if command -v gsort >/dev/null 2>&1; then
-	sortcmd=gsort
-else
-	sortcmd=sort
-fi
 MODULE_VERSION="$("$MODULECMD" bash -V 2>&1 | grep -ow '[.0-9]\+' | head -n1)"
-if echo -e "4.0.0\n$MODULE_VERSION" | "$sortcmd" -V --check=quiet; then
+if version_ge "$MODULE_VERSION" "4.0.0"; then
   echo MODULE_GE_4=
 fi;
 

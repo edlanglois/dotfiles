@@ -1,40 +1,21 @@
 #!/usr/bin/env bash
 # Simple checks for installed programms
 set -eu
+source "${BASH_SOURCE%/*}/env_utils"
 
-function find_installed() {
-  # Search for an installed program from a list of options
-  #
-  # find_installed VAR_NAME PROG_NAME [PROG_NAME]...
-  #
-  # Outputs
-  #   VAR_NAME=path_of(PROG_NAME)
-  # for the first found PROG_NAME
-  VARIABLE_NAME="$1"
-  shift
-  for PROGRAM_NAME in "$@"; do
-    if PROGRAM_PATH="$(command -v "$PROGRAM_NAME" 2>/dev/null)"; then
-      echo "$VARIABLE_NAME=$PROGRAM_PATH"
-      return
-    fi
-  done
-  # Echo commented out so that it shows up in `make show`
-  echo "# $VARIABLE_NAME not found"
-}
-
-find_installed DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run
-find_installed FEH feh
-find_installed GSIMPLECAL gsimplecal
-find_installed IP_CMD ip
-find_installed KEYCHAIN keychain
-find_installed PLAYERCTL playerctl
-find_installed PULSEAUDIO pactl
-find_installed SETXKBMAP setxkbmap
-find_installed SHELL fish
-find_installed TASK task
-find_installed TERMINAL terminator termite gnome-terminal xterm
-find_installed XBACKLIGHT xbacklight
-find_installed XBINDKEYS xbindkeys
-find_installed XDOTOOL xdotool
-find_installed XINPUT xinput
-find_installed XMODMAP xmodmap
+find_installed DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run || true
+find_installed FEH feh || true
+find_installed GSIMPLECAL gsimplecal || true
+find_installed IP_CMD ip || true
+find_installed KEYCHAIN keychain || true
+find_installed PLAYERCTL playerctl || true
+find_installed PULSEAUDIO pactl || true
+find_installed SETXKBMAP setxkbmap || true
+find_installed SHELL fish || true
+find_installed TASK task || true
+find_installed TERMINAL terminator termite gnome-terminal xterm || true
+find_installed XBACKLIGHT xbacklight || true
+find_installed XBINDKEYS xbindkeys || true
+find_installed XDOTOOL xdotool || true
+find_installed XINPUT xinput || true
+find_installed XMODMAP xmodmap || true

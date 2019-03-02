@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # System monitor
 set -eu
+source "${BASH_SOURCE%/*}/env_utils"
 
-if command -v netdata 2>/dev/null 1>&2; then
+if program_exists netdata; then
 	NETDATA_POPUP="xdg-open http://localhost:19999"
 	echo I3BLOCKS_CPU_POPUP="$NETDATA_POPUP"
 	echo I3BLOCKS_MEM_POPUP="$NETDATA_POPUP"
@@ -10,14 +11,14 @@ if command -v netdata 2>/dev/null 1>&2; then
 fi
 
 I3BLOCKS_SCRIPTS="${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/scripts"
-if command -v conky 2>/dev/null 1>&2; then
+if program_exists conky; then
 	CONKY_POPUP="$I3BLOCKS_SCRIPTS/conky-toggle"
 	echo I3BLOCKS_CPU_POPUP="$CONKY_POPUP"
 	echo I3BLOCKS_MEM_POPUP="$CONKY_POPUP"
 	exit
 fi
 
-if command -v gkrellm 2>/dev/null 1>&2; then
+if program_exists gkrellm; then
 	GKRELLM_POPUP="$I3BLOCKS_SCRIPTS/gkrellm-toggle"
 	echo I3BLOCKS_CPU_POPUP="$GKRELLM_POPUP cpu"
 	echo I3BLOCKS_MEM_POPUP="$GKRELLM_POPUP mem"

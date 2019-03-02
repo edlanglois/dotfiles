@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Utilities for env scripts
+
+function find_installed() {
+  # Search for an installed program from a list of options
+  #
+  # find_installed VAR_NAME PROG_NAME [PROG_NAME]...
+  #
+  # Outputs
+  #   VAR_NAME=path_of(PROG_NAME)
+  # for the first found PROG_NAME
+  #
+  # Returns 0 if a program was found, 1 otherwise.
+  VARIABLE_NAME="$1"
+  shift
+  for PROGRAM_NAME in "$@"; do
+    if PROGRAM_PATH="$(command -v "$PROGRAM_NAME" 2>/dev/null)"; then
+      echo "$VARIABLE_NAME=$PROGRAM_PATH"
+      return 0
+    fi
+  done
+  # Echo commented out so that it shows up in `make show`
+  echo "# $VARIABLE_NAME not found"
+  return 1
+}
+
+function program_exists() {
+  # Silently check if a program exists in PATH
+  #
+  # program_exists PROGRAM_NAME
+  #
+  # Returns 0 (true) if the program exists, 1 otherwise
+  command -v "$1" 2>/dev/null 1>&2
+}
+
+if command -v gsort >/dev/null 2>&1; then
+	sortcmd=gsort
+else
+	sortcmd=sort
+fi
+
+function version_ge() {
+  # Check that a version greater than or equal to a target version
+  #
+  # version_ge VERSION_OUTPUT VERSION_TARGET
+  #
+  # Returns 0 if VERSION_OUTPUT >= VERSION_TARGET (with version ordering)
+  # The same prefix on both VERISON_OUTPUT and VERSION_TARGET is fine.
+  echo -e "$2\n$1" | ${sortcmd} -V --check=quiet
+}

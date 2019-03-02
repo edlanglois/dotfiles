@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -eu
+source "${BASH_SOURCE%/*}/env_utils"
 
-if command -v i3blocks >/dev/null 2>&1; then
-	echo "I3BLOCKS="
+if find_installed I3BLOCKS i3blocks; then
 	possible_i3blocks_dirs=( \
 		"$HOME/libexec/i3blocks" \
 		"$HOME/.local/libexec/i3blocks" \

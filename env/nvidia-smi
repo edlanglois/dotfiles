@@ -1,6 +1,8 @@
 #!/bin/bash
 set -eu
-if command -v nvidia-smi >/dev/null 2>&1; then
+source "${BASH_SOURCE%/*}/env_utils"
+
+if find_installed NVIDIA_SMI nvidia-smi; then
 	echo NVIDIA_SMI=
 	echo NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
 else

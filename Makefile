@@ -199,7 +199,7 @@ user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
 	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
 		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
-env/%.m4: env/%
+env/%.m4: env/% env/env_utils
 	$< | \
 		$(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | \
 		sed -e "s/^\s*#/m4_dnl/" | \

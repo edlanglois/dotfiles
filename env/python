@@ -1,24 +1,11 @@
 #!/usr/bin/env bash
 set -eu
+source "${BASH_SOURCE%/*}/env_utils"
 
-if command -v gsort >/dev/null 2>&1; then
-	sortcmd=gsort
-else
-	sortcmd=sort
-fi
+find_installed PYTHON2 python2
+find_installed PYTHON3 python3
+find_installed PYTHON python
 
-if PYTHON2="$(command -v python2 2>/dev/null)"; then
-	echo "PYTHON2=$PYTHON2"
-fi;
-
-if PYTHON3="$(command -v python3 2>/dev/null)"; then
-	echo "PYTHON3=$PYTHON3"
-fi;
-
-if PYTHON="$(command -v python 2>/dev/null)"; then
-	echo "PYTHON=$PYTHON"
-fi;
-
-if echo -e Python 3"\n"$(python --version 2>&1) | ${sortcmd} -V --check=quiet; then
+if version_ge "$(python --version 2>&1)" "Python 3"; then
 	echo USING_PYTHON3=
 fi
