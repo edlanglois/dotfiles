@@ -191,6 +191,9 @@ let g:python_linelength=88
 
 let g:ultisnips_python_style = 'google'
 
+" Location of the Black virtualenv
+let g:black_virtualenv = s:xdg_cache_home . "/vim/black"
+
 let g:ale_fix_on_save = 1
 nnoremap <leader>a :ALEFix<CR>
 let g:ale_lint_on_text_changed = 'never'
