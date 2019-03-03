@@ -23,6 +23,7 @@ M4_DOTFILES=\
 	.config/i3blocks/config\
 	.config/locale.conf\
 	.config/matplotlib/matplotlibrc\
+	.config/pylint/config\
 	.config/task/config\
 	.config/terminator/config\
 	.config/termite/config\
@@ -33,7 +34,6 @@ M4_DOTFILES=\
 	.duplicacy/filters\
 	.isort.cfg\
 	.profile\
-	.pylintrc\
 	.ssh/config\
 	.theanorc\
 	.tmux.conf\

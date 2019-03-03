@@ -29,6 +29,7 @@ user.cfg
 .config/i3blocks/config
 .config/locale.conf
 .config/matplotlib/matplotlibrc
+.config/pylint/config
 .config/task/config
 .config/terminator/config
 .config/termite/config
@@ -40,7 +41,6 @@ user.cfg
 .duplicacy/filters
 .isort.cfg
 .profile
-.pylintrc
 .ssh/config
 .ssh/config.local
 .theanorc
