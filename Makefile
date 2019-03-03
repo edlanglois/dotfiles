@@ -27,6 +27,7 @@ M4_DOTFILES=\
 	.config/task/config\
 	.config/terminator/config\
 	.config/termite/config\
+	.config/theano/config\
 	.config/user-dirs.dirs\
 	.config/vim/vimrc\
 	.config/yapf/style\
@@ -35,7 +36,6 @@ M4_DOTFILES=\
 	.isort.cfg\
 	.profile\
 	.ssh/config\
-	.theanorc\
 	.tmux.conf\
 	.toprc\
 	.xbindkeysrc\

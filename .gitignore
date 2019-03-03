@@ -33,6 +33,7 @@ user.cfg
 .config/task/config
 .config/terminator/config
 .config/termite/config
+.config/theano/config
 .config/user-dirs.dirs
 .config/vim/vimrc
 .config/xss-lock/transfer-sleep-lock-i3lock.sh

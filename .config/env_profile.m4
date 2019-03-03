@@ -113,9 +113,10 @@ LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl
-# PyLint Environment
+# Python Packages Environment
 export PYLINTRC="m4_xdg_config_home/pylint/config"
 export PYLINTHOME="m4_xdg_cache_home/pylint"
+export THEANORC="m4_xdg_config_home/theano/config"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl
