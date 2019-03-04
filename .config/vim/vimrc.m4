@@ -220,7 +220,7 @@ set nojoinspaces     " Insert 1, not 2, spaces after period when joining text.
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
-set expandtab
+set noexpandtab      " Default to tabs, not spaces
 set noshiftround
 set textwidth=80     " Auto wrap at 80 char line width
 set formatoptions-=t " Auto-wrap text using textwidth
