@@ -28,9 +28,14 @@ if empty($XDG_CACHE_HOME)
 else
   let s:xdg_cache_home = $XDG_CACHE_HOME
 endif
-let &directory = s:xdg_cache_home . "/vim/swap"
-let &backupdir = s:xdg_cache_home . "/vim/backup"
-let &undodir = s:xdg_cache_home . "/vim/undo"
+" Double slash // causes vim to record file names using the absolute path.
+let &directory = s:xdg_cache_home . "/vim/swap//"
+let &backupdir = s:xdg_cache_home . "/vim/backup//"
+let &undodir = s:xdg_cache_home . "/vim/undo//"
+call mkdir(&directory, 'p')
+call mkdir(&backupdir, 'p')
+call mkdir(&undodir, 'p')
+
 let &viminfo .= ",'1000,n" . s:xdg_cache_home . "/vim/viminfo"
 
 let s:vim_config_dir = s:xdg_config_home . "/vim"
