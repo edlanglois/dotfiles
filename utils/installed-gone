@@ -2,6 +2,7 @@
 # List installed files that have been removed from the dotfiles repo
 
 # Files that have been removed from the repo at some point
+{
 for name in $(git log --diff-filter=D --summary | grep 'delete' | cut -d' ' -f5)
 do
 	# Files can be re-added and still show in the list. Make sure they are not
@@ -14,3 +15,4 @@ do
 		fi
 	fi
 done
+} | sort | uniq
