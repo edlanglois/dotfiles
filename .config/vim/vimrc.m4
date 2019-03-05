@@ -11,6 +11,8 @@ m4_include(env_config.m4)m4_dnl
 " F11 - Toggle paste
 set shell=/bin/bash " Vim doesn't like fish
 set nocompatible
+scriptencoding utf-8
+set encoding=utf-8
 
 " Environment
 if empty($XDG_CONFIG_HOME)
@@ -43,9 +45,6 @@ let &runtimepath = s:vim_config_dir . "," . &runtimepath .
   \ "," . s:vim_config_dir . "/after"
 
 " Run :PluginInstall to install or update plugins managed by Vundle
-scriptencoding utf-8
-set encoding=utf-8
-
 " Vundle
 filetype off
 
