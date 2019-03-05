@@ -1,5 +1,5 @@
 snippet newdocument "New latex article template." b
-\documentclass{article}
+\documentclass[dvipsnames]{article}
 
 \title{${1:Title}}
 \author{${2:`getent passwd $(whoami) | cut -d: -f5 | cut -d, -f1`}}
@@ -55,6 +55,17 @@ snippet stdheader "Standard latex header contents." b
 \usepackage{natbib}     % \citep and \citet citation commands. option: [round]
 \usepackage{subcaption} % Subfigures and subcaptions.
 \usepackage{tcolorbox}  % Pretty boxes
+\usepackage{tikz}       % Draw graphics
+
+% Tikz libraries
+\usetikzlibrary{arrows.meta} % Arrow heads
+\usetikzlibrary{calc}        % Coordinate calculations
+\usetikzlibrary{chains}      % Sequence of nodes in a chain
+\usetikzlibrary{decorations} % Modify lines / edges
+\usetikzlibrary{matrix}      % Matrices in tikz
+\usetikzlibrary{positioning} % e.g. \node[above right = 1cm and 2cm of a]
+\usetikzlibrary{scopes}      % Use {} instead of \begin{scope} \end{scope}
+\usetikzlibrary{shapes}      % Shapes other than rectangle & circle
 
 % Additional operators commands.
 \DeclareMathOperator*{\E}{\mathbb{E}}
