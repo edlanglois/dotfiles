@@ -212,17 +212,20 @@ let g:hilinks_map = 0  " Don't create \hlt mapping for hilinks
 set modeline
 set backspace=indent,eol,start
 
+set nojoinspaces     " Insert 1, not 2, spaces after period when joining text.
+
+" Tabs and indentation
 set autoindent
 set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
 set indentkeys=0{,0},0),0#,!^F,o,O,e " Never reindent nonempty lines when typing.
 
-set nojoinspaces     " Insert 1, not 2, spaces after period when joining text.
-
 set tabstop=2
 set shiftwidth=2
-set softtabstop=2
-set noexpandtab      " Default to tabs, not spaces
-set noshiftround
+set softtabstop=-1   " Virtual tab size when expanding to space. -1 = shiftwidth
+set noshiftround     " Do not round indent to a multiple of shiftwidth
+set noexpandtab      " Tabs do not expand to spaces.
+set copyindent       " Default to same indentation structure as previous line
+
 set textwidth=80     " Auto wrap at 80 char line width
 set formatoptions-=t " Auto-wrap text using textwidth
 set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
