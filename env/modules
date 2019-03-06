@@ -2,32 +2,22 @@
 set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
-if MODULECMD="$(command -v modulecmd 2>/dev/null)"; then
-  echo "MODULECMD=$MODULECMD"
-else
-  exit 0
-fi
+find_program MODULECMD modulecmd || exit 0
 
-MODULE_VERSION="$("$MODULECMD" bash -V 2>&1 | grep -ow '[.0-9]\+' | head -n1)"
+MODULE_VERSION="$(modulecmd bash -V 2>&1 | grep -ow '[.0-9]\+' | head -n1)"
 if version_ge "$MODULE_VERSION" "4.0.0"; then
   echo MODULE_GE_4=
 fi;
 
 # Find the module command initialization directory.
 # Needed if autoinit is unavailable.
-INIT_DIRS=( "$HOME/.local/share/modules/init" "/usr/share/modules/init" )
-for INIT_DIR in "${INIT_DIRS[@]}"; do
-  if [ -d "$INIT_DIR" ]; then
-    echo "MODULE_INIT_DIR=$INIT_DIR"
-    break
-  fi
-done
+find_directory MODULE_INIT_DIR \
+	"$HOME/.local/share/modules/init" \
+	"/usr/share/modules/init" \
+	|| true
 
 # Find the default collection to import immediately
-COLLECTIONS=( "$HOME/.config/modules/default" "$HOME/.module/default" )
-for COLLECTION in "${COLLECTIONS[@]}"; do
-  if [ -f "$COLLECTION" ]; then
-    echo "MODULE_DEFAULT_COLLECTION=$COLLECTION"
-    break
-  fi
-done
+find_file MODULE_DEFAULT_COLLECTION \
+	"$HOME/.config/modules/default" \
+	"$HOME/.module/default" \
+	|| true

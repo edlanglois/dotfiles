@@ -2,19 +2,12 @@
 set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
-if find_installed I3BLOCKS i3blocks; then
-	possible_i3blocks_dirs=( \
+if find_program I3BLOCKS i3blocks; then
+	find_directory I3BLOCKS_DIR \
 		"$HOME/libexec/i3blocks" \
 		"$HOME/.local/libexec/i3blocks" \
 		"/usr/lib/i3blocks" \
 		"/usr/share/i3blocks" \
 		"/usr/local/libexec/i3blocks" \
-		)
-
-	for i3blocks_dir in "${possible_i3blocks_dirs[@]}"; do
-		if [ -d "${i3blocks_dir}" ]; then
-			echo "I3BLOCKS_DIR=${i3blocks_dir}"
-			exit 0
-		fi
-	done
+		|| true
 fi

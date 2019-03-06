@@ -5,7 +5,7 @@ source "${BASH_SOURCE%/*}/env_utils"
 # Prefer xscreensaver if present
 if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
 	echo "START_SCREENSAVER=$XSCREENSAVER -nosplash"
-  if command -v xdg-screensaver >/dev/null 2>&1; then
+	if command -v xdg-screensaver >/dev/null 2>&1; then
 		echo "LOCK_CMD=xdg-screensaver lock"
 	else
 		echo "LOCK_CMD=xscreensaver-command -l"
@@ -14,7 +14,7 @@ if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
 fi
 
 # Otherwise use i3lock & xss-lock
-find_installed XSS_LOCK || true
+find_program XSS_LOCK || true
 
 if program_exists i3lock-extra; then
 	CMD="i3lock-extra -s -p"

@@ -3,19 +3,19 @@
 set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
-find_installed DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run || true
-find_installed FEH feh || true
-find_installed GSIMPLECAL gsimplecal || true
-find_installed IP_CMD ip || true
-find_installed KEYCHAIN keychain || true
-find_installed PLAYERCTL playerctl || true
-find_installed PULSEAUDIO pactl || true
-find_installed SETXKBMAP setxkbmap || true
-find_installed SHELL fish || true
-find_installed TASK task || true
-find_installed TERMINAL terminator termite gnome-terminal xterm || true
-find_installed XBACKLIGHT xbacklight || true
-find_installed XBINDKEYS xbindkeys || true
-find_installed XDOTOOL xdotool || true
-find_installed XINPUT xinput || true
-find_installed XMODMAP xmodmap || true
+find_program DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run || true
+find_program FEH feh || true
+find_program GSIMPLECAL gsimplecal || true
+find_program IP_CMD ip || true
+find_program KEYCHAIN keychain || true
+find_program PLAYERCTL playerctl || true
+find_program PULSEAUDIO pactl || true
+find_program SETXKBMAP setxkbmap || true
+find_program SHELL fish || true
+find_program TASK task || true
+find_program TERMINAL terminator termite gnome-terminal xterm || true
+find_program XBACKLIGHT xbacklight || true
+find_program XBINDKEYS xbindkeys || true
+find_program XDOTOOL xdotool || true
+find_program XINPUT xinput || true
+find_program XMODMAP xmodmap || true
