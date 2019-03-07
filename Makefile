@@ -88,6 +88,7 @@ DOTFILES=\
 	.gkrellm2/user-config-memory\
 	.local/bin/backtrace\
 	.local/bin/combinediff-careful\
+	.local/bin/dblp-makebib\
 	.local/bin/dfix\
 	.local/bin/duplicacy-backup\
 	.local/bin/get-gitignore\

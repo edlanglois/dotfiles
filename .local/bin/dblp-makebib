@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Create a DBLP-sourced bibliography for keys found in the input.
+set -eu
+
+DBLP_KEY_REGEX="DBLP:\K[-/[:alnum:]]+"
+URL_PREFIX="https://dblp.uni-trier.de/rec/bib0/"
+URL_SUFFIX=".bib"
+
+grep -Po "$DBLP_KEY_REGEX" | sort | uniq | while read -r dblp_id; do
+	curl "${URL_PREFIX}${dblp_id}${URL_SUFFIX}"
+done
