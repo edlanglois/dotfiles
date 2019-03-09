@@ -222,7 +222,6 @@ user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
 env/%.m4: env/% env/env_utils
 	$< | \
 		$(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | \
-		sed -e "s/^\s*#/m4_dnl/" | \
 		(echo "m4_dnl $<" && cat) > $@
 
 env_config.m4: $(ENV_CONFIG_M4_FILES)
