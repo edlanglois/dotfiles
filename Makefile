@@ -125,7 +125,6 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	netuser\
 	nvidia-smi\
 	osx\
-	paths\
 	perl\
 	programs\
 	python\

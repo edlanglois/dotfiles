@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-echo HOME=$HOME
-echo USER_INCLUDE=$HOME/.local/include
-echo USER_LIB=$HOME/.local/lib
