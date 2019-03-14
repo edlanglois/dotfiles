@@ -22,6 +22,7 @@ m4_include(env_config.m4)m4_dnl
 	bd = branch -d
 	bm = branch --merged
 	cb = checkout -b
+	cm = commit -m
 	d = diff
 	dc = diff --cached
 	ds = diff --stat
