@@ -25,6 +25,7 @@ m4_include(env_config.m4)m4_dnl
 	d = diff
 	dc = diff --cached
 	ds = diff --stat
+	dcs = diff --cached --stat
 	s = status
 	ss = status --short
 	showtrackedignored = ls-files -i --exclude-standard
