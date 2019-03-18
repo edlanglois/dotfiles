@@ -301,7 +301,7 @@ set tags=./tags;~/Programming
 set list
 set listchars=tab:⇥\ ,
 " And show them as dark grey
-hi SpecialKey ctermfg=8 guifg=grey50
+hi SpecialKey ctermfg=234 guifg=grey20
 
 " Toggle paste
 set pastetoggle=<F11>
