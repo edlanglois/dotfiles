@@ -23,7 +23,7 @@ if program_exists i3lock-extra; then
 	fi
 	CMD+=" --"
 else
-	CMD="i3lock -c 500000"
+	CMD="i3lock -c 000000"
 fi
 if i3lock -h 2>&1 | grep '\[-e\]' &>/dev/null; then
 	CMD+=" -e"
