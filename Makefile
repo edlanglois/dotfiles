@@ -61,7 +61,6 @@ DOTFILES=\
 	.config/i3blocks/scripts/gkrellm-toggle\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
-	.config/nvim\
 	.config/pudb/pudb.cfg\
 	.config/vim/after/ftplugin/rnoweb.vim\
 	.config/vim/after/ftplugin/tex.vim\
@@ -77,7 +76,6 @@ DOTFILES=\
 	.config/vim/ftplugin/tex.vim\
 	.config/vim/ftplugin/vim.vim\
 	.config/vim/indent/python.vim\
-	.config/vim/init.vim\
 	.config/vim/UltiSnips/python.snippets\
 	.config/vim/UltiSnips/tex.snippets\
 	.config/vim/UltiSnips/vimwiki.snippets\
