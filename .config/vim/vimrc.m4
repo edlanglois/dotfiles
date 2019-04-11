@@ -349,6 +349,7 @@ augroup spelling
 	autocmd FileType text,markdown,vim,vimwiki setlocal spell
 augroup END
 set spelllang=en_ca,en
+let &spellfile = s:xdg_data_home . "/vim/spell/en.utf-8.add"
 
 " Open spelling suggestions with <leader>s
 :nnoremap <leader>s ea<C-X><C-S>
