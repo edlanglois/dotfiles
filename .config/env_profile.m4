@@ -107,9 +107,11 @@ export PERL_MB_OPT="--install_base \"m4_env_config_PERL_ROOT\""
 export PERL_MM_OPT="INSTALL_BASE=m4_env_config_PERL_ROOT"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_MUJOCO_LIB>>]]??,m4_dnl
+m4_ifdef(??[[<<m4_env_config_MUJOCO_PATH>>]]??,m4_dnl
 # Mujoco Library Path
-LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_LIB")"
+LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_PATH/bin")"
+export MUJOCO_PY_MUJOCO_PATH="m4_env_config_MUJOCO_PATH"
+export MUJOCO_PY_MJKEY_PATH="m4_env_config_MJKEY_PATH"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl

@@ -1,14 +1,6 @@
 #!/usr/bin/env bash
 set -eu
+source "${BASH_SOURCE%/*}/env_utils"
 
-possible_mujoco_roots=( "$HOME/.mujoco/mjpro150" )
-
-for mujoco_root in "${possible_mujoco_roots[@]}"; do
-	if [ -d "${mujoco_root}" ]; then
-		if [ -d "${mujoco_root}/bin" ]; then
-			# Not a typo, mujoco lib dir is also the bin dir
-			echo "MUJOCO_LIB=${mujoco_root}/bin"
-		fi
-		exit 0
-	fi
-done
+find_directory MUJOCO_PATH "$HOME/.local/share/mujoco/mujoco200_linux" || true
+find_file MJKEY_PATH "$HOME/.local/share/mujoco/mjkey.txt" || true
