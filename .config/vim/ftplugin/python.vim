@@ -19,4 +19,4 @@ augroup textwidth_onset
   autocmd OptionSet textwidth :call UpdateTextwidthVars()
 augroup END
 
-nnoremap <buffer> <silent> <localleader>b Oimport pdb; pdb.set_trace()  # XXX<esc>
+nnoremap <buffer> <silent> <localleader>b Obreakpoint()  # XXX<esc>
