@@ -2,8 +2,8 @@
 set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
-find_program PYTHON2 python2
-find_program PYTHON3 python3
+find_program PYTHON2 python2 || true
+find_program PYTHON3 python3 || true
 find_program PYTHON python
 
 if version_ge "$(python --version 2>&1)" "Python 3"; then
