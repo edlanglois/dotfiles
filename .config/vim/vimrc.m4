@@ -154,8 +154,8 @@ au BufRead,BufNewFile *.mac setfiletype maxima
 au BufRead,BufNewFile *.make setfiletype make
 au BufRead,BufNewFile *.prototxt setfiletype yaml
 
-syntax on " Syntax Highlighting
 filetype plugin indent on
+syntax on " Syntax Highlighting
 
 " Enable most highlighting options for vim-python/python-syntax plugin
 let g:python_highlight_all = 1
