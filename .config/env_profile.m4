@@ -119,9 +119,6 @@ m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl
 export PYLINTRC="m4_xdg_config_home/pylint/config"
 export PYLINTHOME="m4_xdg_cache_home/pylint"
 export THEANORC="m4_xdg_config_home/theano/config"
-
-# Python Breakpoint Command
-export PYTHONBREAKPOINT="pudb.set_trace"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl
