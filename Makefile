@@ -67,6 +67,7 @@ DOTFILES=\
 	.config/vim/after/indent/tex.vim\
 	.config/vim/after/syntax/rnoweb.vim\
 	.config/vim/after/syntax/tex.vim\
+	.config/vim/filetype.vim\
 	.config/vim/ftplugin/c.vim\
 	.config/vim/ftplugin/cpp.vim\
 	.config/vim/ftplugin/lua.vim\
@@ -76,6 +77,7 @@ DOTFILES=\
 	.config/vim/ftplugin/tex.vim\
 	.config/vim/ftplugin/vim.vim\
 	.config/vim/indent/python.vim\
+	.config/vim/syntax/m4.vim\
 	.config/vim/UltiSnips/python.snippets\
 	.config/vim/UltiSnips/tex.snippets\
 	.config/vim/UltiSnips/vimwiki.snippets\
