@@ -227,7 +227,10 @@ set noexpandtab      " Tabs do not expand to spaces.
 set copyindent       " Default to same indentation structure as previous line
 
 set textwidth=80     " Auto wrap at 80 char line width
-set formatoptions-=t " Auto-wrap text using textwidth
+" Note: I occasionally swap the t setting. I'll start recording what filetype
+" I have in mind when doing so.
+"  * vimwiki: +t
+set formatoptions+=t " Auto-wrap text using textwidth
 set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
                      " current comment leader automatically.
 set formatoptions+=r " Automatically insert the current comment leader after
