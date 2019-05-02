@@ -75,6 +75,7 @@ DOTFILES=\
 	.config/vim/ftplugin/python.vim\
 	.config/vim/ftplugin/rnoweb.vim\
 	.config/vim/ftplugin/tex.vim\
+	.config/vim/ftplugin/text.vim\
 	.config/vim/ftplugin/vim.vim\
 	.config/vim/ftplugin/vimwiki.vim\
 	.config/vim/indent/python.vim\

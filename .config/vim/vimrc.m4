@@ -346,11 +346,6 @@ nnoremap L $
 let &t_Cs=""
 let &t_Ce=""
 
-augroup spelling
-	autocmd!
-	" Enable spell check on text files
-	autocmd FileType text,markdown,vim,vimwiki setlocal spell
-augroup END
 set spelllang=en_ca,en
 let &spellfile = s:xdg_data_home . "/vim/spell/en.utf-8.add"
 
