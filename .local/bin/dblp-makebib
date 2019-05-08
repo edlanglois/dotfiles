@@ -1,11 +1,33 @@
 #!/usr/bin/env bash
 # Create a DBLP-sourced bibliography for keys found in the input.
+# 
+# Usage:
+#   dblp-makebib [BIBFILE.bib] < [SOURCE.tex]
+#
+# If BIBFILE is specified then any missing bibtex entries are appended to it.
+# Otherwise, the bibliography is printed to STDOUT
 set -eu
 
 DBLP_KEY_REGEX="DBLP:\K[-/[:alnum:]]+"
 URL_PREFIX="https://dblp.uni-trier.de/rec/bib0/"
 URL_SUFFIX=".bib"
 
-grep -Po "$DBLP_KEY_REGEX" | sort | uniq | while read -r dblp_id; do
-	curl "${URL_PREFIX}${dblp_id}${URL_SUFFIX}"
-done
+REQUIRED_KEYS=$(grep -Po "$DBLP_KEY_REGEX" | sort | uniq)
+
+if [ "$#" -eq 1 ]; then
+	BIBFILE="$1"
+	AVAILABLE_KEYS=$(grep -Po "$DBLP_KEY_REGEX" "$BIBFILE" | sort | uniq)
+	MISSING_KEYS=$(comm -23 <(echo "$REQUIRED_KEYS") <(echo "$AVAILABLE_KEYS"))
+	OUTPUT="$BIBFILE"
+else
+	MISSING_KEYS="$REQUIRED_KEYS"
+	OUTPUT="/dev/stdout"
+fi
+echo "$MISSING_KEYS"
+
+if [ -z "$MISSING_KEYS" ]; then
+	exit 0
+fi
+
+readarray -t URLS < <(while read -r dblp_id; do echo "${URL_PREFIX}${dblp_id}${URL_SUFFIX}"; done <<< "$MISSING_KEYS")
+curl "${URLS[@]}" >> "$OUTPUT"
