@@ -5,5 +5,6 @@ let b:ale_linters_ignore = ['lacheck']
 let b:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
 
 nnoremap <leader>b :execute
-	\ 'silent w !dblp-makebib 2>/dev/null > '
-	\ . shellescape(expand('%:p:h') . '/dblp.bib')<CR>
+	\ 'silent w !dblp-makebib '
+	\ . shellescape(expand('%:p:h') . '/dblp.bib')
+	\ . ' 2>/dev/null'<CR>
