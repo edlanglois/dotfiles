@@ -34,9 +34,16 @@ endif
 let &directory = s:xdg_cache_home . "/vim/swap//"
 let &backupdir = s:xdg_cache_home . "/vim/backup//"
 let &undodir = s:xdg_cache_home . "/vim/undo//"
-call mkdir(&directory, 'p')
-call mkdir(&backupdir, 'p')
-call mkdir(&undodir, 'p')
+if v:version < 801
+	" mkdir(..., 'p') fails if the directory already exists for older vim
+	silent! call mkdir(&directory, 'p')
+	silent! call mkdir(&backupdir, 'p')
+	silent! call mkdir(&undodir, 'p')
+else
+	call mkdir(&directory, 'p')
+	call mkdir(&backupdir, 'p')
+	call mkdir(&undodir, 'p')
+endif
 
 let &viminfo .= ",'1000,n" . s:xdg_cache_home . "/vim/viminfo"
 
