@@ -21,6 +21,7 @@ M4_DOTFILES=\
 	.config/hg/hgrc\
 	.config/i3/config\
 	.config/i3blocks/config\
+	.config/isort.cfg\
 	.config/locale.conf\
 	.config/matplotlib/matplotlibrc\
 	.config/pylint/config\
@@ -33,7 +34,6 @@ M4_DOTFILES=\
 	.config/yapf/style\
 	.config/yay/config.json\
 	.duplicacy/filters\
-	.isort.cfg\
 	.profile\
 	.ssh/config\
 	.tmux.conf\
