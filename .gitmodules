@@ -4,4 +4,5 @@
 	branch = master
 [submodule ".config/fish/plugins/foreign-env"]
 	path = .config/fish/plugins/foreign-env
-	url = https://github.com/oh-my-fish/plugin-foreign-env.git
+	url = https://github.com/edlanglois/plugin-foreign-env.git
+	branch = env-stderr
