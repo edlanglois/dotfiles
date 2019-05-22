@@ -212,6 +212,10 @@ m4_ifdef(??[[<<m4_env_config_I3BLOCKS>>]]??,m4_dnl
 }
 
 m4_ifdef(??[[<<m4_env_config_START_SCREENSAVER>>]]??,m4_dnl
-	exec m4_env_config_START_SCREENSAVER)
+exec m4_env_config_START_SCREENSAVER)
+
+m4_ifdef(??[[<<m4_env_config_DEX>>]]??,m4_dnl
+# Auto-start desktop entries in {/etc/xdg,~/.config}/autostart
+exec m4_env_config_DEX -ae i3)
 
 m4_sinclude(.config/i3/config.local)m4_dnl
