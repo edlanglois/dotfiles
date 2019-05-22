@@ -79,7 +79,6 @@ Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
 Plugin 'edkolev/tmuxline.vim',                " MIT
 Plugin 'edlanglois/fish-syntax'               " None
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
-Plugin 'edlanglois/prolog.vim'                " None
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
 Plugin 'edlanglois/vim-HiLinkTrace'           " None
 Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
@@ -102,7 +101,6 @@ Plugin 'majutsushi/tagbar'                    " Vim
 Plugin 'mileszs/ack.vim'                      " Vim
 Plugin 'moll/vim-bbye'                        " GNU AGPL v3
 Plugin 'morhetz/gruvbox'                      " MIT
-Plugin 'peterhoeg/vim-qml'                    " None
 Plugin 'plytophogy/vim-virtualenv'            " Vim
 Plugin 'rdnetto/YCM-Generator'                " GPL 3.0
 Plugin 'scrooloose/nerdtree'                  " WTFPL
