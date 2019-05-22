@@ -14,7 +14,7 @@ if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
 fi
 
 # Otherwise use i3lock & xss-lock
-find_program XSS_LOCK || true
+find_program XSS_LOCK xss-lock || true
 
 if program_exists i3lock-extra; then
 	CMD="i3lock-extra -s -p"
