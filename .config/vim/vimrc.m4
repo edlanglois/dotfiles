@@ -117,10 +117,10 @@ Plugin 'w0rp/ale'                             " BSD 2-Clause
 Plugin 'Xuyuanp/nerdtree-git-plugin'          " WTFPL
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'               " GPL 3.0
 )m4_dnl
 " Must go after nerdtree
-Plugin 'edlanglois/nerdtree-chmod'
+Plugin 'edlanglois/nerdtree-chmod'            " None
 
 " End Vundle
 call vundle#end()
