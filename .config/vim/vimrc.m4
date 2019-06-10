@@ -357,14 +357,14 @@ set spelllang=en_ca,en
 let &spellfile = s:xdg_data_home . "/vim/spell/en.utf-8.add"
 
 " Open spelling suggestions with <leader>s
-:nnoremap <leader>s ea<C-X><C-S>
+nnoremap <leader>s ea<C-X><C-S>
 
 " Clear current search highlight
-:nnoremap <leader>h :nohlsearch<CR>
+nnoremap <leader>h :nohlsearch<CR>
 
 " Go to current location in the location / error list
-:nnoremap <leader>l :ll<CR>
-:nnoremap <leader>c :cc<CR>
+nnoremap <leader>l :ll<CR>
+nnoremap <leader>c :cc<CR>
 
 
 augroup preview
