@@ -120,7 +120,6 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	github_id\
 	go\
 	i3blocks\
-	locale\
 	lock\
 	modules\
 	mujoco\

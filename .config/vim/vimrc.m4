@@ -353,7 +353,7 @@ nnoremap L $
 let &t_Cs=""
 let &t_Ce=""
 
-set spelllang=en_ca,en
+let &spelllang = tolower("m4_user_config_LANG")
 let &spellfile = s:xdg_data_home . "/vim/spell/en.utf-8.add"
 
 " Open spelling suggestions with <leader>s
