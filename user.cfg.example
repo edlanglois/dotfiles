@@ -4,7 +4,8 @@ EMAIL=email@example.com
 # LANG: Locale language
 LANG=en_CA
 # LANGUAGE: Colon-separated list of understood languages for messages.
-LANGUAGE=en_CA:en_US:fr
+# Note: Often English is default and part of the "C" locale rather than "en"
+LANGUAGE=en_CA:C:fr
 
 LIGHTWEIGHT=false
 
