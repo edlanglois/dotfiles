@@ -1,4 +1,5 @@
 m4_include(user_config.m4)
+m4_include(env_config.m4)
 # Set environment variables
 
 pathprepend() {
