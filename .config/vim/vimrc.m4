@@ -94,7 +94,7 @@ Plugin 'hynek/vim-python-pep8-indent'         " CC0 1.0 Universal
 Plugin 'JamshedVesuna/vim-markdown-preview'   " None
 Plugin 'Julian/vim-textobj-variable-segment'  " MIT
 Plugin 'kana/vim-textobj-user'                " MIT
-Plugin 'Konfekt/FastFold'                     " None
+Plugin 'Konfekt/FastFold'                     " WTFPL (French)
 Plugin 'lervag/vimtex'                        " MIT
 Plugin 'lyuts/vim-rtags'                      " BSD 2-Clause
 Plugin 'majutsushi/tagbar'                    " Vim
