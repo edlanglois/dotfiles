@@ -447,9 +447,6 @@ onoremap al( :<c-u>normal! F)va(<cr>
 onoremap an{ :<c-u>normal! f{va{<cr>
 onoremap al{ :<c-u>normal! F}va}<cr>
 
-" Vimtex paren matching is too slow.
-let g:vimtex_matchparen_enabled=0
-
 " Enable buffer display on airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1

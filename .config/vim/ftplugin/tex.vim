@@ -1,4 +1,6 @@
 setlocal spell
+" Vimtex paren matching is too slow.
+let g:vimtex_matchparen_enabled = 0
 let b:matchparen_cursor_hold = 1
 " Exclude lacheck; has false positives that cannot be disabled
 let b:ale_linters_ignore = ['lacheck']
