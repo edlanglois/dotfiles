@@ -1,5 +1,3 @@
-syntax sync minlines=50
-
 " Conceal slows down large documents
 setlocal conceallevel=0
 " Set the conceal highlight to a dark grey.
