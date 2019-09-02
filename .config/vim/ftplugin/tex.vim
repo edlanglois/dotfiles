@@ -30,3 +30,12 @@ inoremap <buffer> ;<Bar> \right<Bar>
 inoremap <buffer> ;m \middle<Bar>
 inoremap <buffer> ;<Bslash><BSlash> \left\<Bar>
 inoremap <buffer> ;<Bslash><Bar> \right\<Bar>
+
+" Setup the PDF viewer to use with vimtex
+if executable('okular')
+	let g:vimtex_view_general_viewer = 'okular'
+	let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+	let g:vimtex_view_general_options_latexmk = '--unique'
+elseif executable('evince')
+	let g:vimtex_view_general_viewer = 'evince'
+endif
