@@ -62,8 +62,6 @@ DOTFILES=\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/pudb/pudb.cfg\
-	.config/vim/after/ftplugin/rnoweb.vim\
-	.config/vim/after/ftplugin/tex.vim\
 	.config/vim/after/indent/tex.vim\
 	.config/vim/after/syntax/rnoweb.vim\
 	.config/vim/after/syntax/tex.vim\
