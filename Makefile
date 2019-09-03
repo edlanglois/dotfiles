@@ -63,8 +63,6 @@ DOTFILES=\
 	.config/i3blocks/scripts/weather\
 	.config/pudb/pudb.cfg\
 	.config/vim/after/indent/tex.vim\
-	.config/vim/after/syntax/rnoweb.vim\
-	.config/vim/after/syntax/tex.vim\
 	.config/vim/filetype.vim\
 	.config/vim/ftplugin/c.vim\
 	.config/vim/ftplugin/cpp.vim\
