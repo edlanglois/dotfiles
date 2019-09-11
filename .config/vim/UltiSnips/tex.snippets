@@ -128,3 +128,27 @@ snippet balq "Align equation environment without numbering." b
 	${0:${VISUAL}}
 \end{align*}
 endsnippet
+
+snippet standalone "Standalone document class definition" b
+\documentclass[dvipsnames, tikz]{standalone}
+\begin{document}
+${0:${VISUAL}}
+\end{document}
+endsnippet
+
+# For use in \documentclass{standalone}
+snippet seq "Standalone equation picture" b
+\begin{tikzpicture}[scale=1, transform shape]
+\node {$%
+	${0:${VISUAL}}
+$};
+\end{tikzpicture}
+endsnippet
+
+snippet sal "Standalone aligned equation picture" b
+\begin{tikzpicture}[scale=1, transform shape]
+\node {$\begin{aligned}%
+	${0:${VISUAL}}
+\end{aligned}$};
+\end{tikzpicture}
+endsnippet
