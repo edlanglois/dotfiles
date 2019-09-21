@@ -50,6 +50,17 @@ SYSTEMD_FILES=\
 	.config/systemd/user/low-battery.service\
 	.config/systemd/user/low-battery.timer\
 
+I3BLOCKS_SRC_DIR=.config/i3blocks/i3blocks-contrib
+I3BLOCKS_DEST_DIR=.config/i3blocks/scripts
+CONTRIB_I3BLOCKS_SCRIPTS=\
+	cpu_usage/cpu_usage\
+	mediaplayer/mediaplayer\
+	memory/memory\
+	volume/volume\
+	temperature/temperature\
+	wifi/wifi\
+	battery/battery\
+
 DOTFILES=\
 	$(M4_DOTFILES)\
 	$(SYSTEMD_FILES)\
@@ -140,6 +151,7 @@ DOTFILES_DIR:=$(shell pwd)
 INSTALL_DIR:=$(HOME)
 INSTALLED_DOTFILES:=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
 INSTALLED_SYSTEMD_FILES:=$(addprefix $(INSTALL_DIR)/,$(SYSTEMD_FILES))
+INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS:=$(addprefix $(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)/,$(notdir $(CONTRIB_I3BLOCKS_SCRIPTS)))
 INSTALLED_DOTDIRS:=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
 # Sort to remove duplicates
 INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
@@ -248,7 +260,10 @@ endif
 .make/:
 	mkdir -p $@
 
-install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
+install-dotfiles: \
+	$(INSTALLED_DOTFILES)\
+	$(INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS)\
+	$(INSTALLED_DOTDIRS)\
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : % | $(dir $1)
@@ -257,6 +272,14 @@ endef
 
 $(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \
 	$(eval $(call INSTALL_DOTFILE_TEMPLATE, $(INSTALLED_DOTFILE))))
+
+define INSTALL_I3BLOCKS_SCRIPT_TEMPLATE
+$(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)/$(notdir $1) : $(I3BLOCKS_SRC_DIR)/$1 | $(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)
+	@cp -Rdv "$$<" "$$@"
+endef
+
+$(foreach I3BLOCK_SCRIPT, $(CONTRIB_I3BLOCKS_SCRIPTS), \
+	$(eval $(call INSTALL_I3BLOCKS_SCRIPT_TEMPLATE,$(I3BLOCK_SCRIPT))))
 
 define INSTALL_DOTDIR_TEMPLATE
 $1 : $(INSTALL_DIR)/% : | % $(dir $1)

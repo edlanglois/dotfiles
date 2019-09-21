@@ -6,3 +6,6 @@
 	path = .config/fish/plugins/foreign-env
 	url = https://github.com/edlanglois/plugin-foreign-env.git
 	branch = env-stderr
+[submodule ".config/i3blocks/i3blocks-contrib"]
+	path = .config/i3blocks/i3blocks-contrib
+	url = git@github.com:vivien/i3blocks-contrib.git
