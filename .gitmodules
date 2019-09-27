@@ -8,4 +8,4 @@
 	branch = env-stderr
 [submodule ".config/i3blocks/i3blocks-contrib"]
 	path = .config/i3blocks/i3blocks-contrib
-	url = git@github.com:vivien/i3blocks-contrib.git
+	url = https://github.com/vivien/i3blocks-contrib.git
