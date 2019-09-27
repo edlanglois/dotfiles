@@ -152,3 +152,7 @@ snippet sal "Standalone aligned equation picture" b
 \end{aligned}$};
 \end{tikzpicture}
 endsnippet
+
+snippet acro "Acronym" b
+\newacronym{${3:${1/(\w)\w*\s*/\l$1/g}}}{${2:${1/(\w)\w*\s*/\u$1/g}}}{${1}}
+endsnippet
