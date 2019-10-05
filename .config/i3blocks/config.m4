@@ -174,7 +174,13 @@ separator_block_width=4
 
 [wifi]
 instance=m4_env_config_WIRELESS_INTERFACE
-interval=10)
+interval=10
+separator_block_width=4
+
+[essid]
+INTERFACE=m4_env_config_WIRELESS_INTERFACE
+interval=60
+)
 m4_ifdef(??[[<<m4_env_config_BATTERY_0>>]]??,m4_dnl
 
 # Battery indicator

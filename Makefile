@@ -53,13 +53,14 @@ SYSTEMD_FILES=\
 I3BLOCKS_SRC_DIR=.config/i3blocks/i3blocks-contrib
 I3BLOCKS_DEST_DIR=.config/i3blocks/scripts
 CONTRIB_I3BLOCKS_SCRIPTS=\
+	battery/battery\
 	cpu_usage/cpu_usage\
+	essid/essid\
 	mediaplayer/mediaplayer\
 	memory/memory\
-	volume/volume\
 	temperature/temperature\
+	volume/volume\
 	wifi/wifi\
-	battery/battery\
 
 DOTFILES=\
 	$(M4_DOTFILES)\
