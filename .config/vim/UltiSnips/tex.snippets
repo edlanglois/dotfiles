@@ -44,18 +44,28 @@ snippet stdheader "Standard latex header contents." b
 \usepackage{amsthm}     % AMS theorem and proof environments
 \usepackage{bm}         % The \bm command for bold math
 \usepackage{booktabs}   % Nice table rules: \{top,mid,bottom}rule
-\usepackage{commath}    % Additional math commands, esp. for differentials.
+\usepackage{commath}    % Additional math commands, esp. for differentials
 \usepackage{courier}    % Courier monospace font for listings
-\usepackage[T1]{fontenc}% Output font encoding.
-\usepackage{hyperref}   % Linked references + autoref + hyperlinks.
+\usepackage[T1]{fontenc}% Output font encoding
+\usepackage{hyperref}   % Linked references + autoref + hyperlinks
 \usepackage[utf8]{inputenc}  % Source files are UTF8
-\usepackage{listings}   % Code formatting and highlighting.
-\usepackage{mathtools}  % Many additional math commands.
-\usepackage{microtype}  % Minor kerning/font adjustments to improve look.
+\usepackage{listings}   % Code formatting and highlighting
+\usepackage{mathtools}  % Many additional math commands
+\usepackage{microtype}  % Minor kerning/font adjustments to improve look
 \usepackage{natbib}     % \citep and \citet citation commands. option: [round]
-\usepackage{subcaption} % Subfigures and subcaptions.
+\usepackage{subcaption} % Subfigures and subcaptions
 \usepackage{tcolorbox}  % Pretty boxes
+\usepackage{todonotes}  % Todo notes with \todo{...}
 \usepackage{tikz}       % Draw graphics
+\usepackage{xcolor}     % Document and text colours
+
+% Coloured links instead of ugly red boxes
+\hypersetup{
+	colorlinks,
+	linkcolor={red!50!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black},
+}
 
 % Tikz libraries
 \usetikzlibrary{arrows.meta} % Arrow heads
@@ -88,6 +98,13 @@ snippet bib "Bibliography." b
 \bibliography{${1:\jobname}}
 endsnippet
 
+snippet def "A definition environment." b
+\begin{definition}[${1:Term}]%
+\label{def:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:-:\L$1$2$3\E)/ga}}}
+	${0:${VISUAL}}
+\end{definition}
+endsnippet
+
 snippet beq "Equation environment." b
 \begin{equation}
 	${0:${VISUAL}}
@@ -110,4 +127,32 @@ snippet balq "Align equation environment without numbering." b
 \begin{align*}
 	${0:${VISUAL}}
 \end{align*}
+endsnippet
+
+snippet standalone "Standalone document class definition" b
+\documentclass[dvipsnames, tikz]{standalone}
+\begin{document}
+${0:${VISUAL}}
+\end{document}
+endsnippet
+
+# For use in \documentclass{standalone}
+snippet seq "Standalone equation picture" b
+\begin{tikzpicture}[scale=1, transform shape]
+\node {$%
+	${0:${VISUAL}}
+$};
+\end{tikzpicture}
+endsnippet
+
+snippet sal "Standalone aligned equation picture" b
+\begin{tikzpicture}[scale=1, transform shape]
+\node {$\begin{aligned}%
+	${0:${VISUAL}}
+\end{aligned}$};
+\end{tikzpicture}
+endsnippet
+
+snippet acro "Acronym" b
+\newacronym{${3:${1/(\w)\w*\s*/\l$1/g}}}{${2:${1/(\w)\w*\s*/\u$1/g}}}{${1}}
 endsnippet

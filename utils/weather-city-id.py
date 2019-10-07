@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Get the OpenWeatherMap API ID of a city."""
 
 import argparse

@@ -14,18 +14,23 @@ if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
 fi
 
 # Otherwise use i3lock & xss-lock
-find_program XSS_LOCK || true
+find_program XSS_LOCK xss-lock || true
 
-if program_exists i3lock-extra; then
+USING_I3LOCK=0
+if XSECURELOCK="$(command -v xsecurelock 2>/dev/null)"; then
+	CMD="$XSECURELOCK"
+elif program_exists i3lock-extra; then
 	CMD="i3lock-extra -s -p"
 	if i3lock-extra --help | grep -e '--paint' &>/dev/null; then
 		CMD+=" --paint"
 	fi
 	CMD+=" --"
+	USING_I3LOCK=1
 else
 	CMD="i3lock -c 000000"
+	USING_I3LOCK=1
 fi
-if i3lock -h 2>&1 | grep '\[-e\]' &>/dev/null; then
+if [ "$USING_I3LOCK" -eq 1 ] && i3lock -h 2>&1 | grep '\[-e\]' &>/dev/null; then
 	CMD+=" -e"
 fi
 echo "LOCK_CMD=$CMD"

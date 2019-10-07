@@ -1,4 +1,3 @@
-m4_include(env_config.m4)m4_dnl
-m4_ifdef(??[[<<m4_env_config_LANG>>]]??,m4_dnl
-LANG=m4_env_config_LANG
-LANGUAGE=m4_env_config_LANGUAGE)
+m4_include(user_config.m4)m4_dnl
+LANG=m4_user_config_LANG.utf8
+LANGUAGE=m4_user_config_LANGUAGE

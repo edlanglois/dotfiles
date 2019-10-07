@@ -3,6 +3,7 @@
 set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
+find_program DEX dex || true
 find_program DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run || true
 find_program FEH feh || true
 find_program GSIMPLECAL gsimplecal || true

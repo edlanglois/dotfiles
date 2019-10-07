@@ -26,16 +26,15 @@ m4_include(env_config.m4)m4_dnl
 #
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
-m4_ifdef(??[[<<m4_env_config_I3BLOCKS_DIR>>]]??,m4_dnl
-command=m4_env_config_I3BLOCKS_DIR/$BLOCK_NAME
-)
+m4_define(m4_I3BLOCKS_DIR,??[[<<~/.config/i3blocks/scripts>>]]??)
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME
 align=left
 color=#ffffff
 separator=false
 separator_block_width=15
 
 [mediaplayer-label]
-command=[ -n "$(m4_env_config_I3BLOCKS_DIR/mediaplayer)" ] && echo '♫' || echo ''
+command=[ -n "$(m4_I3BLOCKS_DIR/mediaplayer)" ] && echo '♫' || echo ''
 color=#00ffff
 separator_block_width=4
 interval=5
@@ -66,13 +65,13 @@ signal=1
 
 m4_ifdef(??[[<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>]]??,m4_dnl
 [weather-label]
-command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%i'
+command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%i'
 interval=600
 color=#00ffff
 separator_block_width=4
 
 [weather]
-command=$HOME/.config/i3blocks/scripts/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%t %s (%c)' --sfmt '%t'
+command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%t %s (%c)' --sfmt '%t'
 interval=600)
 
 # CPU usage
@@ -86,14 +85,13 @@ separator_block_width=4
 
 [cpu_usage -w 80 -c 95]
 m4_ifdef(??[[<<m4_env_config_I3BLOCKS_CPU_POPUP>>]]??,m4_dnl
-command=m4_env_config_I3BLOCKS_DIR/$BLOCK_NAME && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_CPU_POPUP; fi ))
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_CPU_POPUP; fi ))
 interval=10
 min_width=99.99%
 align=right
 
 m4_define(GPU_USAGE, ??[[<<m4_ifelse($1,-1,,??[[<<GPU_USAGE(m4_eval($1-1))
-[gpu-usage]
-command=$HOME/.config/i3blocks/scripts/gpu-usage $1 80 95
+[gpu-usage $1 80 95]
 interval=10
 min_width=100%
 align=right
@@ -116,7 +114,7 @@ separator_block_width=4
 
 [memory]
 m4_ifdef(??[[<<m4_env_config_I3BLOCKS_MEM_POPUP>>]]??,m4_dnl
-command=m4_env_config_I3BLOCKS_DIR/$BLOCK_NAME && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_MEM_POPUP; fi ))
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_MEM_POPUP; fi ))
 interval=30
 
 # [memory-label]
@@ -176,26 +174,31 @@ separator_block_width=4
 
 [wifi]
 instance=m4_env_config_WIRELESS_INTERFACE
-interval=10)
+interval=10
+separator_block_width=4
+
+[essid]
+INTERFACE=m4_env_config_WIRELESS_INTERFACE
+interval=60
+)
 m4_ifdef(??[[<<m4_env_config_BATTERY_0>>]]??,m4_dnl
 
 # Battery indicator
 #
 # The battery instance defaults to 0.
 [battery-label]
-command=bash $HOME/.config/i3blocks/scripts/battery-label
 interval=30
 color=#00ffff
 separator_block_width=4
 
 [battery]
-command=m4_env_config_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
-instance=0
+command=m4_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
+BAT_NUMBER=0
 interval=30)
 m4_ifdef(??[[<<m4_env_config_BATTERY_1>>]]??,m4_dnl
 [battery]
-command=m4_env_config_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
-instance=1
+command=m4_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
+BAT_NUMBER=1
 interval=30)
 
 # Date
@@ -204,8 +207,7 @@ full_text=📅
 color=#00ffff
 separator_block_width=4
 
-[date]
-command=$HOME/.config/i3blocks/scripts/date-calendar m4_ifdef(??[[<<m4_env_config_GSIMPLECAL>>]]??,gsimplecal)
+[date-calendar m4_ifdef(??[[<<m4_env_config_GSIMPLECAL>>]]??,gsimplecal)]
 interval=60
 
 [time-label]

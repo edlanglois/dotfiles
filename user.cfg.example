@@ -1,5 +1,12 @@
 NAME=Firstname Lastname
 EMAIL=email@example.com
+
+# LANG: Locale language
+LANG=en_CA
+# LANGUAGE: Colon-separated list of understood languages for messages.
+# Note: Often English is default and part of the "C" locale rather than "en"
+LANGUAGE=en_CA:C:fr
+
 LIGHTWEIGHT=false
 
 # Whether to use powerline symbols.

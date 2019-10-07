@@ -1,3 +1,4 @@
+m4_include(user_config.m4)
 m4_include(env_config.m4)
 # Set environment variables
 
@@ -60,10 +61,9 @@ m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
 # Set default browser
 export BROWSER=m4_env_config_BROWSER)
 
-m4_ifdef(??[[<<m4_env_config_LANG>>]]??,m4_dnl
 # Set locale; also set in .config/locale.conf but that isn't always read.
-LANG=m4_env_config_LANG
-LANGUAGE=m4_env_config_LANGUAGE)
+LANG=m4_user_config_LANG.utf8
+LANGUAGE=m4_user_config_LANGUAGE
 
 # Add user local directories to environment paths
 PATH="$(pathprepend_if_isdir "$PATH" "$HOME/bin")"

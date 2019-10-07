@@ -60,67 +60,67 @@ let &runtimepath .= "," . s:bundledir . "/Vundle.vim"
 call vundle#begin(s:bundledir)
 
 " Let Vundle manage Vundle. Required
-Plugin 'VundleVim/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'  " MIT
 
 " I have forked some plugins to add my own changes.
 " I also fork rarely maintained or unpopular plugins in order to protect myself
 " if they become compromised. You can usually find the original from my fork
 " on GitHub if you'd rather not trust my copy.
 
-Plugin 'airblade/vim-gitgutter'
-Plugin 'alfredodeza/coveragepy.vim'
-Plugin 'ambv/black'
-Plugin 'chrisbra/Recover.vim'
-Plugin 'chriskempson/base16-vim'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'edkolev/tmuxline.vim',
-Plugin 'edlanglois/fish-syntax'
-Plugin 'edlanglois/latex-unicoder.vim'
-Plugin 'edlanglois/prolog.vim'
-Plugin 'edlanglois/vim-gdl-syntax'
-Plugin 'edlanglois/vim-HiLinkTrace'
-Plugin 'edlanglois/vim-qrc'
-Plugin 'edlanglois/vim-textobj-parameter'
-Plugin 'edlanglois/vim-tmux-focus-events'
-Plugin 'edlanglois/vimwiki'
-Plugin 'ervandew/supertab'
-Plugin 'google/vim-codefmt'
-Plugin 'google/vim-glaive'
-Plugin 'google/vim-maktaba'
-Plugin 'honza/vim-snippets'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'JamshedVesuna/vim-markdown-preview'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'Julian/vim-textobj-variable-segment'
-Plugin 'kana/vim-textobj-user'
-Plugin 'Konfekt/FastFold'
-Plugin 'lervag/vimtex'
-Plugin 'lyuts/vim-rtags'
-Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
-Plugin 'moll/vim-bbye'
-Plugin 'morhetz/gruvbox'
-Plugin 'peterhoeg/vim-qml'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'scrooloose/nerdtree'
-Plugin 'SirVer/ultisnips'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'vim-python/python-syntax'
-Plugin 'w0rp/ale'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"                                               License
+"                                               -------
+Plugin 'airblade/vim-gitgutter'               " MIT
+Plugin 'alfredodeza/coveragepy.vim'           " Apache 2.0
+Plugin 'ambv/black'                           " MIT
+Plugin 'chrisbra/Recover.vim'                 " Vim
+Plugin 'chriskempson/base16-vim'              " MIT
+Plugin 'christoomey/vim-tmux-navigator'       " MIT
+Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
+Plugin 'edkolev/tmuxline.vim',                " MIT
+Plugin 'edlanglois/fish-syntax'               " None
+Plugin 'edlanglois/latex-unicoder.vim'        " MIT
+Plugin 'edlanglois/vim-gdl-syntax'            " MIT
+Plugin 'edlanglois/vim-HiLinkTrace'           " None
+Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
+Plugin 'edlanglois/vim-textobj-parameter'     " MIT
+Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
+Plugin 'edlanglois/vimwiki'                   " MIT
+Plugin 'ervandew/supertab'                    " BSD 3-Clause
+Plugin 'google/vim-codefmt'                   " Apache 2.0
+Plugin 'google/vim-glaive'                    " Apache 2.0
+Plugin 'google/vim-maktaba'                   " Apache 2.0
+Plugin 'honza/vim-snippets'                   " MIT
+Plugin 'hynek/vim-python-pep8-indent'         " CC0 1.0 Universal
+Plugin 'JamshedVesuna/vim-markdown-preview'   " None
+Plugin 'Julian/vim-textobj-variable-segment'  " MIT
+Plugin 'kana/vim-textobj-user'                " MIT
+Plugin 'Konfekt/FastFold'                     " WTFPL (French)
+Plugin 'lervag/vimtex'                        " MIT
+Plugin 'lyuts/vim-rtags'                      " BSD 2-Clause
+Plugin 'majutsushi/tagbar'                    " Vim
+Plugin 'mileszs/ack.vim'                      " Vim
+Plugin 'moll/vim-bbye'                        " GNU AGPL v3
+Plugin 'morhetz/gruvbox'                      " MIT
+Plugin 'plytophogy/vim-virtualenv'            " Vim
+Plugin 'rdnetto/YCM-Generator'                " GPL 3.0
+Plugin 'scrooloose/nerdtree'                  " WTFPL
+Plugin 'SirVer/ultisnips'                     " GPL 3.0
+Plugin 'tpope/vim-commentary'                 " Vim
+Plugin 'tpope/vim-fugitive'                   " Vim
+Plugin 'tpope/vim-repeat'                     " Vim
+Plugin 'tpope/vim-surround'                   " Vim
+Plugin 'tpope/vim-unimpaired'                 " Vim
+Plugin 'vim-airline/vim-airline'              " MIT
+Plugin 'vim-airline/vim-airline-themes'       " MIT
+Plugin 'vim-python/python-syntax'             " MIT
+Plugin 'w0rp/ale'                             " BSD 2-Clause
+Plugin 'Xuyuanp/nerdtree-git-plugin'          " WTFPL
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'               " GPL 3.0
 )m4_dnl
 " Must go after nerdtree
-Plugin 'edlanglois/nerdtree-chmod'
+Plugin 'edlanglois/nerdtree-chmod'            " None
 
 " End Vundle
 call vundle#end()
@@ -353,18 +353,18 @@ nnoremap L $
 let &t_Cs=""
 let &t_Ce=""
 
-set spelllang=en_ca,en
+let &spelllang = tolower("m4_user_config_LANG")
 let &spellfile = s:xdg_data_home . "/vim/spell/en.utf-8.add"
 
 " Open spelling suggestions with <leader>s
-:nnoremap <leader>s ea<C-X><C-S>
+nnoremap <leader>s ea<C-X><C-S>
 
 " Clear current search highlight
-:nnoremap <leader>h :nohlsearch<CR>
+nnoremap <leader>h :nohlsearch<CR>
 
 " Go to current location in the location / error list
-:nnoremap <leader>l :ll<CR>
-:nnoremap <leader>c :cc<CR>
+nnoremap <leader>l :ll<CR>
+nnoremap <leader>c :cc<CR>
 
 
 augroup preview
@@ -446,9 +446,6 @@ onoremap an( :<c-u>normal! f(va(<cr>
 onoremap al( :<c-u>normal! F)va(<cr>
 onoremap an{ :<c-u>normal! f{va{<cr>
 onoremap al{ :<c-u>normal! F}va}<cr>
-
-" Vimtex paren matching is too slow.
-let g:vimtex_matchparen_enabled=0
 
 " Enable buffer display on airline
 let g:airline#extensions#tabline#enabled = 1

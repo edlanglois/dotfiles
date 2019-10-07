@@ -50,6 +50,18 @@ SYSTEMD_FILES=\
 	.config/systemd/user/low-battery.service\
 	.config/systemd/user/low-battery.timer\
 
+I3BLOCKS_SRC_DIR=.config/i3blocks/i3blocks-contrib
+I3BLOCKS_DEST_DIR=.config/i3blocks/scripts
+CONTRIB_I3BLOCKS_SCRIPTS=\
+	battery/battery\
+	cpu_usage/cpu_usage\
+	essid/essid\
+	mediaplayer/mediaplayer\
+	memory/memory\
+	temperature/temperature\
+	volume/volume\
+	wifi/wifi\
+
 DOTFILES=\
 	$(M4_DOTFILES)\
 	$(SYSTEMD_FILES)\
@@ -62,11 +74,7 @@ DOTFILES=\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/pudb/pudb.cfg\
-	.config/vim/after/ftplugin/rnoweb.vim\
-	.config/vim/after/ftplugin/tex.vim\
 	.config/vim/after/indent/tex.vim\
-	.config/vim/after/syntax/rnoweb.vim\
-	.config/vim/after/syntax/tex.vim\
 	.config/vim/filetype.vim\
 	.config/vim/ftplugin/c.vim\
 	.config/vim/ftplugin/cpp.vim\
@@ -120,7 +128,6 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	github_id\
 	go\
 	i3blocks\
-	locale\
 	lock\
 	modules\
 	mujoco\
@@ -145,6 +152,7 @@ DOTFILES_DIR:=$(shell pwd)
 INSTALL_DIR:=$(HOME)
 INSTALLED_DOTFILES:=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
 INSTALLED_SYSTEMD_FILES:=$(addprefix $(INSTALL_DIR)/,$(SYSTEMD_FILES))
+INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS:=$(addprefix $(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)/,$(notdir $(CONTRIB_I3BLOCKS_SCRIPTS)))
 INSTALLED_DOTDIRS:=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
 # Sort to remove duplicates
 INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
@@ -253,7 +261,10 @@ endif
 .make/:
 	mkdir -p $@
 
-install-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)
+install-dotfiles: \
+	$(INSTALLED_DOTFILES)\
+	$(INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS)\
+	$(INSTALLED_DOTDIRS)\
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : % | $(dir $1)
@@ -262,6 +273,14 @@ endef
 
 $(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \
 	$(eval $(call INSTALL_DOTFILE_TEMPLATE, $(INSTALLED_DOTFILE))))
+
+define INSTALL_I3BLOCKS_SCRIPT_TEMPLATE
+$(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)/$(notdir $1) : $(I3BLOCKS_SRC_DIR)/$1 | $(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)
+	@cp -Rdv "$$<" "$$@"
+endef
+
+$(foreach I3BLOCK_SCRIPT, $(CONTRIB_I3BLOCKS_SCRIPTS), \
+	$(eval $(call INSTALL_I3BLOCKS_SCRIPT_TEMPLATE,$(I3BLOCK_SCRIPT))))
 
 define INSTALL_DOTDIR_TEMPLATE
 $1 : $(INSTALL_DIR)/% : | % $(dir $1)
