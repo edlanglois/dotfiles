@@ -1,4 +1,9 @@
 setlocal spell
+
+set expandtab
+set tabstop=2
+set shiftwidth=2
+
 " Vimtex paren matching is too slow.
 let g:vimtex_matchparen_enabled = 0
 " Exclude lacheck; has false positives that cannot be disabled
