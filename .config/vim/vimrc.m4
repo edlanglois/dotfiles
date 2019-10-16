@@ -76,6 +76,7 @@ Plugin 'chrisbra/Recover.vim'                 " Vim
 Plugin 'chriskempson/base16-vim'              " MIT
 Plugin 'christoomey/vim-tmux-navigator'       " MIT
 Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
+Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
 Plugin 'edlanglois/fish-syntax'               " None
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
@@ -529,6 +530,10 @@ let g:vimwiki_auto_chdir = 1
 if executable('ag')
   let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
+
+" EditorConfig
+" Avoid applying to fugitive buffers
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " Unicoder
 let g:unicoder_cancel_normal = 1
