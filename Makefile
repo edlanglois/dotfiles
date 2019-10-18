@@ -92,6 +92,7 @@ DOTFILES=\
 	.config/vim/UltiSnips/tex.snippets\
 	.config/vim/UltiSnips/vimwiki.snippets\
 	.config/vim/vimrc.d/vimwiki.vim\
+	.config/vim/ycm_extra_conf.py\
 	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
 	.gkrellm2/user-config-cpu\
