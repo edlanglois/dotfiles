@@ -13,6 +13,15 @@ LIGHTWEIGHT=false
 # Requires a powerline font - a fallback powerline font is in .fonts
 POWERLINE_SYMBOLS=true
 
+# Configure Allowed Licenses
+# All code distributed in this repository is licensed according to the root
+# LICENSE file. However, additional code may be downloaded and installed. For
+# example, Vim plugin code. These settings control which of the more
+# controversial license (or lack thereof) are allowed.
+ALLOW_LICENSE_AGPL=true
+ALLOW_LICENSE_NONE=false
+ALLOW_LICENSE_WTFPL=true
+
 # Weather provided by OpenWeatherMap
 # Uncomment and set these variables to get a weather report on the i3blocks
 # status line. All of them must be uncommented for the report to show.

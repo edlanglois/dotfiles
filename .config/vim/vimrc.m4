@@ -78,10 +78,8 @@ Plugin 'christoomey/vim-tmux-navigator'       " MIT
 Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
 Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
-Plugin 'edlanglois/fish-syntax'               " None
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
-Plugin 'edlanglois/vim-HiLinkTrace'           " None
 Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
 Plugin 'edlanglois/vim-textobj-parameter'     " MIT
 Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
@@ -92,19 +90,15 @@ Plugin 'google/vim-glaive'                    " Apache 2.0
 Plugin 'google/vim-maktaba'                   " Apache 2.0
 Plugin 'honza/vim-snippets'                   " MIT
 Plugin 'hynek/vim-python-pep8-indent'         " CC0 1.0 Universal
-Plugin 'JamshedVesuna/vim-markdown-preview'   " None
 Plugin 'Julian/vim-textobj-variable-segment'  " MIT
 Plugin 'kana/vim-textobj-user'                " MIT
-Plugin 'Konfekt/FastFold'                     " WTFPL (French)
 Plugin 'lervag/vimtex'                        " MIT
 Plugin 'lyuts/vim-rtags'                      " BSD 2-Clause
 Plugin 'majutsushi/tagbar'                    " Vim
 Plugin 'mileszs/ack.vim'                      " Vim
-Plugin 'moll/vim-bbye'                        " GNU AGPL v3
 Plugin 'morhetz/gruvbox'                      " MIT
 Plugin 'plytophogy/vim-virtualenv'            " Vim
 Plugin 'rdnetto/YCM-Generator'                " GPL 3.0
-Plugin 'scrooloose/nerdtree'                  " WTFPL
 Plugin 'SirVer/ultisnips'                     " GPL 3.0
 Plugin 'tpope/vim-commentary'                 " Vim
 Plugin 'tpope/vim-fugitive'                   " Vim
@@ -115,13 +109,25 @@ Plugin 'vim-airline/vim-airline'              " MIT
 Plugin 'vim-airline/vim-airline-themes'       " MIT
 Plugin 'vim-python/python-syntax'             " MIT
 Plugin 'w0rp/ale'                             " BSD 2-Clause
+m4_ifelse(m4_user_config_ALLOW_LICENSE_AGPL,true,
+Plugin 'moll/vim-bbye'                        " GNU AGPL v3
+)m4_dnl
+m4_ifelse(m4_user_config_ALLOW_LICENSE_WTFPL,true,
+Plugin 'Konfekt/FastFold'                     " WTFPL (French)
+Plugin 'scrooloose/nerdtree'                  " WTFPL
 Plugin 'Xuyuanp/nerdtree-git-plugin'          " WTFPL
+)m4_dnl
+m4_ifelse(m4_user_config_ALLOW_LICENSE_NONE,true,
+Plugin 'edlanglois/fish-syntax'               " None
+Plugin 'edlanglois/vim-HiLinkTrace'           " None
+Plugin 'JamshedVesuna/vim-markdown-preview'   " None
+" Must go after nerdtree
+Plugin 'edlanglois/nerdtree-chmod'            " None
+)m4_dnl
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
 Plugin 'Valloric/YouCompleteMe'               " GPL 3.0
 )m4_dnl
-" Must go after nerdtree
-Plugin 'edlanglois/nerdtree-chmod'            " None
 
 " End Vundle
 call vundle#end()
