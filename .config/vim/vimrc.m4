@@ -537,6 +537,3 @@ let g:unicoder_cancel_visual = 1
 let g:unicoder_no_map = 1
 " map <leader>u <Plug>Unicoder
 nnoremap <leader>u :call unicoder#start(1)<CR>
-
-" Source files from .vim/vimrc.d
-exec 'source' s:vim_config_dir . "/vimrc.d/vimwiki.vim"

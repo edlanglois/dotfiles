@@ -1,4 +1,3 @@
-" See help: VimwikiLinkHandler
 let g:vimwiki_list = [{
 	\ 'path': '~/Documents/vimwiki/',
 	\ 'template_path': '~/Documents/vimwiki/templates/',
@@ -9,6 +8,7 @@ let g:vimwiki_list = [{
 	\}]
 let g:vimwiki_auto_chdir = 1
 
+" See help: VimwikiLinkHandler
 function! VimwikiLinkHandler(link)
 	" Use Vim to open external files with the 'vfile:' scheme.  E.g.:
 	"   1) [[vfile:~/Code/PythonProject/abc123.py]]

@@ -87,11 +87,11 @@ DOTFILES=\
 	.config/vim/ftplugin/vim.vim\
 	.config/vim/ftplugin/vimwiki.vim\
 	.config/vim/indent/python.vim\
+	.config/vim/plugin/settings/vimwiki.vim\
 	.config/vim/syntax/m4.vim\
 	.config/vim/UltiSnips/python.snippets\
 	.config/vim/UltiSnips/tex.snippets\
 	.config/vim/UltiSnips/vimwiki.snippets\
-	.config/vim/vimrc.d/vimwiki.vim\
 	.config/vim/ycm_extra_conf.py\
 	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
