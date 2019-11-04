@@ -433,10 +433,6 @@ nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> 
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-" Buffer navigation with gb and gB
-nnoremap gb :bnext<CR>
-nnoremap gB :bprev<CR>
-
 " Resize panes with ,. instead of <>
 nnoremap <C-W>, <C-W><
 nnoremap <C-W>. <C-W>>
