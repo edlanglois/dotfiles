@@ -47,14 +47,11 @@ endif
 
 let &viminfo .= ",'1000,n" . s:xdg_cache_home . "/vim/viminfo"
 
-let s:vim_config_dir = s:xdg_config_home . "/vim"
-let &runtimepath = s:vim_config_dir . "," . &runtimepath .
-  \ "," . s:vim_config_dir . "/after"
-
 " Run :PluginInstall to install or update plugins managed by Vundle
 " Vundle
 filetype off
 
+" Add Vundle to the runtime path
 let s:bundledir = s:xdg_data_home . "/vim/bundle"
 let &runtimepath .= "," . s:bundledir . "/Vundle.vim"
 call vundle#begin(s:bundledir)
@@ -131,6 +128,13 @@ Plugin 'Valloric/YouCompleteMe'               " GPL 3.0
 
 " End Vundle
 call vundle#end()
+
+" Replace default vim config with vim_config_dir in the runtimepath
+set runtimepath-=~/.vim
+set runtimepath-=~/.vim/after
+let s:vim_config_dir = s:xdg_config_home . "/vim"
+let &runtimepath = s:vim_config_dir . "," . &runtimepath .
+  \ "," . s:vim_config_dir . "/after"
 
 " Brief help
 " :PluginList          - list configured plugins
