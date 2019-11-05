@@ -354,6 +354,11 @@ nnoremap <leader><c-u> viwUhe
 " Use <leader>sv to re-source VIMRC
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" Vertical movement in soft-wrapped lines
+" https://stackoverflow.com/a/21000307
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
 " Move to beginning of line with H and end with L
 nnoremap H ^
 nnoremap L $
