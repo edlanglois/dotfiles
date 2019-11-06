@@ -51,9 +51,6 @@ nnoremap <leader>h :nohlsearch<CR>
 nnoremap <leader>l :ll<CR>
 nnoremap <leader>c :cc<CR>
 
-" map <leader>u <Plug>Unicoder
-nnoremap <leader>u :call unicoder#start(1)<CR>
-
 " Toggle NERDTree
 nnoremap <leader>f :NERDTreeToggle<CR>
 
