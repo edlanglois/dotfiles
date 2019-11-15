@@ -36,6 +36,8 @@ user.cfg
 .config/termite/config
 .config/theano/config
 .config/user-dirs.dirs
+.config/vim/plugin/settings/airline.vim
+.config/vim/plugin/settings/tmuxline.vim
 .config/vim/vimrc
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
 .config/yapf/style

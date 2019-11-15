@@ -1,5 +1,4 @@
 m4_include(user_config.m4)m4_dnl
-m4_include(env_config.m4)m4_dnl
 " Function Keys
 " -------------
 " F3  - Toggle Tagbar
@@ -16,24 +15,24 @@ set encoding=utf-8
 
 " Environment
 if empty($XDG_CONFIG_HOME)
-  let s:xdg_config_home = $HOME . "/.config"
+  let g:xdg_config_home = $HOME . "/.config"
 else
-  let s:xdg_config_home = $XDG_CONFIG_HOME
+  let g:xdg_config_home = $XDG_CONFIG_HOME
 endif
 if empty($XDG_DATA_HOME)
-  let s:xdg_data_home = $HOME . "/.local/share"
+  let g:xdg_data_home = $HOME . "/.local/share"
 else
-  let s:xdg_data_home = $XDG_DATA_HOME
+  let g:xdg_data_home = $XDG_DATA_HOME
 endif
 if empty($XDG_CACHE_HOME)
-  let s:xdg_cache_home = $HOME . "/.cache"
+  let g:xdg_cache_home = $HOME . "/.cache"
 else
-  let s:xdg_cache_home = $XDG_CACHE_HOME
+  let g:xdg_cache_home = $XDG_CACHE_HOME
 endif
 " Double slash // causes vim to record file names using the absolute path.
-let &directory = s:xdg_cache_home . "/vim/swap//"
-let &backupdir = s:xdg_cache_home . "/vim/backup//"
-let &undodir = s:xdg_cache_home . "/vim/undo//"
+let &directory = g:xdg_cache_home . "/vim/swap//"
+let &backupdir = g:xdg_cache_home . "/vim/backup//"
+let &undodir = g:xdg_cache_home . "/vim/undo//"
 if v:version < 801
 	" mkdir(..., 'p') fails if the directory already exists for older vim
 	silent! call mkdir(&directory, 'p')
@@ -45,17 +44,14 @@ else
 	call mkdir(&undodir, 'p')
 endif
 
-let &viminfo .= ",'1000,n" . s:xdg_cache_home . "/vim/viminfo"
-
-let s:vim_config_dir = s:xdg_config_home . "/vim"
-let &runtimepath = s:vim_config_dir . "," . &runtimepath .
-  \ "," . s:vim_config_dir . "/after"
+let &viminfo .= ",'1000,n" . g:xdg_cache_home . "/vim/viminfo"
 
 " Run :PluginInstall to install or update plugins managed by Vundle
 " Vundle
 filetype off
 
-let s:bundledir = s:xdg_data_home . "/vim/bundle"
+" Add Vundle to the runtime path
+let s:bundledir = g:xdg_data_home . "/vim/bundle"
 let &runtimepath .= "," . s:bundledir . "/Vundle.vim"
 call vundle#begin(s:bundledir)
 
@@ -132,6 +128,13 @@ Plugin 'Valloric/YouCompleteMe'               " GPL 3.0
 " End Vundle
 call vundle#end()
 
+" Replace default vim config with vim_config_dir in the runtimepath
+set runtimepath-=~/.vim
+set runtimepath-=~/.vim/after
+let g:vim_config_dir = g:xdg_config_home . "/vim"
+let &runtimepath = g:vim_config_dir . "," . &runtimepath .
+  \ "," . g:vim_config_dir . "/after"
+
 " Brief help
 " :PluginList          - list configured plugins
 " :PluginInstall(!)    - install (update) plugins
@@ -143,85 +146,8 @@ call vundle#end()
 
 call glaive#Install()
 
-"" Custom Commands
-" CommandCabbr enables arbitrary command abbreviations (including lower case)
-function! CommandCabbr(abbreviation, expansion)
-	execute 'cabbr ' . a:abbreviation . ' <c-r>=getcmdpos() == 1 && getcmdtype() == ":" ? "' . a:expansion . '" : "' . a:abbreviation . '"<CR>'
-endfunction
-command! -nargs=+ CommandCabbr call CommandCabbr(<f-args>)
-
-" Reset the location list to default size (close it then re-open it)
-command! Lresize lclose|lopen
-CommandCabbr lresize Lresize
-CommandCabbr lrs Lresize
-
-" Tex import sorting (ignores everything before package name)
-command! -range Tsort <line1>,<line2>sort i /[^{]*{/
-
-" Recursive grep
-" Usage:
-"    :Gr regex --extra-args-to-grep
-command! -nargs=+ Gr :grep! <args> -I -R * | :copen
-
-" Filetype associations
-au BufRead,BufNewFile *.mac setfiletype maxima
-au BufRead,BufNewFile *.make setfiletype make
-au BufRead,BufNewFile *.prototxt setfiletype yaml
-
 filetype plugin indent on
 syntax on " Syntax Highlighting
-
-" Enable most highlighting options for vim-python/python-syntax plugin
-let g:python_highlight_all = 1
-let g:python_highlight_space_errors = 0
-
-let g:ycm_global_ycm_extra_conf = s:vim_config_dir . "/ycm_extra_conf.py"
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_filetype_blacklist = {
-      \ 'tagbar' : 1,
-      \ 'qf' : 1,
-      \ 'notes' : 1,
-      \ 'markdown' : 1,
-      \ 'unite' : 1,
-      \ 'text' : 1,
-      \ 'vimwiki' : 1,
-      \ 'pandoc' : 1,
-      \ 'infolog' : 1,
-      \ 'mail' : 1,
-      \ 'tex' : 1,
-      \ 'rnoweb' : 1
-      \}
-
-" YCM shortcuts
-nnoremap gt :YcmCompleter GoTo<CR>
-nnoremap <leader>d :YcmCompleter GetDoc<CR>
-
-" make YCM compatible with UltiSnips
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p', '<Up>']
-
-let g:UltiSnipsSnippetsDir = s:vim_config_dir . "/UltiSnips"
-
-" Supertab maps tab so use ctrl-j instead, same as forward in snippet.
-let g:UltiSnipsExpandTrigger = '<c-j>'
-
-let g:ultisnips_python_style = 'google'
-
-" Default python line length. Overrides textwidth
-let g:python_linelength=88
-
-" Location of the Black virtualenv
-let g:black_virtualenv = s:xdg_cache_home . "/vim/black"
-
-let g:ale_fix_on_save = 1
-nnoremap <leader>a :ALEFix<CR>
-let g:ale_lint_on_text_changed = 'never'
-" NOTE: ALE linters and fixers are defined in .vim/ftplugin/<filetype>.vim
-
-let g:clighter_cursor_hl_default = 0 " Cursor highlighting is somewhat slow.
-
-let g:hilinks_map = 0  " Don't create \hlt mapping for hilinks
 
 set modeline
 set backspace=indent,eol,start
@@ -294,8 +220,6 @@ set scrolloff=10
 set laststatus=2 " Always show status line
 
 set foldlevel=99
-" FastFold
-let g:tex_fold_enabled = 1
 
 if has('termguicolors')
 	" See :help xterm-true-color
@@ -304,6 +228,7 @@ if has('termguicolors')
 	set termguicolors " Use 24-bit colours
 endif
 set background=dark
+
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 hi Normal ctermbg=black guibg=black ctermfg=white guifg=white
@@ -320,40 +245,6 @@ set listchars=tab:⇥\ ,
 " And show them as dark grey
 hi SpecialKey ctermfg=234 guifg=grey20
 
-" Toggle paste
-set pastetoggle=<F11>
-
-" Easy window navigation
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-
-" <C-l> was redraw, make <leader>r the new redraw
-nnoremap <leader>r :redraw!<cr>
-
-" Execute the current file
-nnoremap <leader>e :!"%:p"<cr>
-
-" Mappings (from Learn Vimscript the Hard Way)
-" Use kj as <esc> and `^ to prevent the cursor from moving
-inoremap kj <Esc>`^
-" Also save
-" inoremap lkj <Esc>`^:w<CR>
-" Also save and quit
-" inoremap ;lkj <Esc>:wq<CR>
-
-" Use <leader><c-u> to convert a word to upper case mode.
-inoremap <leader><c-u> <esc>viwUhea
-nnoremap <leader><c-u> viwUhe
-
-" Use <leader>sv to re-source VIMRC
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" Move to beginning of line with H and end with L
-nnoremap H ^
-nnoremap L $
-
 " HACK: Fix undercurl
 " t_Cs (undercurl) is being set on terminals that do not support it, so change
 " to empty string causing vim to fall back to underline.
@@ -361,18 +252,7 @@ let &t_Cs=""
 let &t_Ce=""
 
 let &spelllang = tolower("m4_user_config_LANG")
-let &spellfile = s:xdg_data_home . "/vim/spell/en.utf-8.add"
-
-" Open spelling suggestions with <leader>s
-nnoremap <leader>s ea<C-X><C-S>
-
-" Clear current search highlight
-nnoremap <leader>h :nohlsearch<CR>
-
-" Go to current location in the location / error list
-nnoremap <leader>l :ll<CR>
-nnoremap <leader>c :cc<CR>
-
+let &spellfile = g:xdg_data_home . "/vim/spell/en.utf-8.add"
 
 augroup preview
 	autocmd!
@@ -398,156 +278,3 @@ let g:tex_flavor = "latex" " Load .tex files as latex
 let g:less = {}
 " Disable less compatibility mode
 let g:less.enabled = 0
-
-" CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-" Don't switch buffers when opening with <cr> (Default is 'Et')
-let g:ctrlp_switch_buffer = 't'
-" Use git or mercurial to generate list of files if possible
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others && git submodule --quiet foreach --recursive ''for file in $(git ls-files --cached --exclude-standard --others); do echo "$path/$file"; done'''],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
-
-" Toggle NERDTree
-nnoremap <leader>f :NERDTreeToggle<CR>
-
-" Toggle Tag Bar
-nnoremap <F3> :TagbarToggle<CR>
-
-" Show list of buffers and select one by number
-nnoremap <F4> :buffers<CR>:buffer<Space>
-
-" Refresh YCM diagnostics on F5
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
-
-" Generate CTags
-nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
-
-" Syntax group under cursor"
-nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" Buffer navigation with gb and gB
-nnoremap gb :bnext<CR>
-nnoremap gB :bprev<CR>
-
-" Resize panes with ,. instead of <>
-nnoremap <C-W>, <C-W><
-nnoremap <C-W>. <C-W>>
-
-" Saves the current file using sudo
-cnoremap w!! w ! sudo tee > /dev/null %
-
-" Next/Last (,{ operator mode mappings.
-onoremap in( :<c-u>normal! f(vi(<cr>
-onoremap il( :<c-u>normal! F)vi(<cr>
-onoremap in{ :<c-u>normal! f{vi{<cr>
-onoremap il{ :<c-u>normal! F}vi}<cr>
-onoremap an( :<c-u>normal! f(va(<cr>
-onoremap al( :<c-u>normal! F)va(<cr>
-onoremap an{ :<c-u>normal! f{va{<cr>
-onoremap al{ :<c-u>normal! F}va}<cr>
-
-" Enable buffer display on airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
-
-" Enable ALE integration
-let g:airline#extensions#ale#enabled = 1
-
-m4_ifdef(??[[<<m4_env_config_NETUSER>>]]??,m4_dnl
-" Disable version control integration (slow when filesystem is slow)
-let g:airline#extensions#branch#enabled = 0
-let g:airline#extensions#hunks#enabled = 0
-let g:airline#extensions#fugitiveline#enabled = 0
-)m4_dnl
-
-" Check trailing whitespace with airline (but not mixed tabs/spaces)
-let g:airline#extensions#whitespace#checks = ['trailing']
-
-" Set the airline theme
-let g:airline_theme = 'wombat'
-
-m4_ifelse(m4_user_config_POWERLINE_SYMBOLS,true,
-" Use non-standard symbols for a better-looking airline.
-" Requires installing the powerline fonts:
-" https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
-let g:airline_powerline_fonts = 1
-let g:tmuxline_powerline_separators = 1,
-" Use standard symbols. Don't have to install special font.
-let g:airline_powerline_fonts = 0
-let g:tmuxline_powerline_separators = 0
-)
-
-" Tmuxline based on the 'powerline' preset but with 12 hour time.
-let g:tmuxline_preset = {
-	\'a'    : '#S',
-	\'b'    : '#F',
-	\'win'  : ['#I', '#W'],
-	\'cwin' : ['#I', '#W'],
-	\'y'    : ['%Y-%m-%d', '%I:%M %p'],
-	\'z'    : '#h',
-	\'options' : {'status-justify' : 'left'},
-\}
-
-let NERDTreeIgnore = [
-	\'\.pyc$',
-	\'\.egg-info',
-	\'__pycache__',
-	\]
-
-" Don't update the NERDTree git flags (nerdtree-git-plugin) on write.
-" The update interferes with python-mode's lint-on-write.
-let NERDTreeUpdateOnWrite=0
-
-" Vim Markdown Preview
-let vim_markdown_preview_hotkey='<leader>lv'
-let vim_markdown_preview_use_xdg_open=1
-
-" Vimwiki
-let g:vimwiki_list = [{
-	\ 'path': '~/Documents/vimwiki/',
-	\ 'template_path': '~/Documents/vimwiki/templates/',
-	\ 'template_default': 'default',
-	\ 'template_ext': '.html',
-	\ 'auto_export': 1,
-	\ 'diary_caption_level': 1,
-	\}]
-let g:vimwiki_auto_chdir = 1
-
-" Ack / Ag
-if executable('ag')
-  let g:ackprg = 'ag --nogroup --nocolor --column'
-endif
-
-" EditorConfig
-" Avoid applying to fugitive buffers
-let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
-
-" Unicoder
-let g:unicoder_cancel_normal = 1
-let g:unicoder_cancel_insert = 1
-let g:unicoder_cancel_visual = 1
-let g:unicoder_no_map = 1
-" map <leader>u <Plug>Unicoder
-nnoremap <leader>u :call unicoder#start(1)<CR>
-
-" Source files from .vim/vimrc.d
-exec 'source' s:vim_config_dir . "/vimrc.d/vimwiki.vim"

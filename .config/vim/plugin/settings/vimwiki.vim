@@ -1,3 +1,13 @@
+let g:vimwiki_list = [{
+	\ 'path': '~/Documents/vimwiki/',
+	\ 'template_path': '~/Documents/vimwiki/templates/',
+	\ 'template_default': 'default',
+	\ 'template_ext': '.html',
+	\ 'auto_export': 1,
+	\ 'diary_caption_level': 1,
+	\}]
+let g:vimwiki_auto_chdir = 1
+
 " See help: VimwikiLinkHandler
 function! VimwikiLinkHandler(link)
 	" Use Vim to open external files with the 'vfile:' scheme.  E.g.:

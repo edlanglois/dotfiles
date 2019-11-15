@@ -1,3 +1,0 @@
-Directory for vim configuration scripts.
-
-Files in this directory are not loaded automatically. Add a source to .vimrc

@@ -30,6 +30,8 @@ M4_DOTFILES=\
 	.config/termite/config\
 	.config/theano/config\
 	.config/user-dirs.dirs\
+	.config/vim/plugin/settings/airline.vim\
+	.config/vim/plugin/settings/tmuxline.vim\
 	.config/vim/vimrc\
 	.config/yapf/style\
 	.config/yay/config.json\
@@ -87,11 +89,27 @@ DOTFILES=\
 	.config/vim/ftplugin/vim.vim\
 	.config/vim/ftplugin/vimwiki.vim\
 	.config/vim/indent/python.vim\
+	.config/vim/plugin/commands.vim\
+	.config/vim/plugin/filetypes.vim\
+	.config/vim/plugin/mappings.vim\
+	.config/vim/plugin/settings/ack.vim\
+	.config/vim/plugin/settings/ale.vim\
+	.config/vim/plugin/settings/black.vim\
+	.config/vim/plugin/settings/ctrlp.vim\
+	.config/vim/plugin/settings/editorconfig.vim\
+	.config/vim/plugin/settings/fastfold.vim\
+	.config/vim/plugin/settings/hilinktrace.vim\
+	.config/vim/plugin/settings/nerdtree.vim\
+	.config/vim/plugin/settings/ultisnips.vim\
+	.config/vim/plugin/settings/unicoder.vim\
+	.config/vim/plugin/settings/vim-markdown-preview.vim\
+	.config/vim/plugin/settings/vim-python.vim\
+	.config/vim/plugin/settings/vimwiki.vim\
+	.config/vim/plugin/settings/ycm.vim\
 	.config/vim/syntax/m4.vim\
 	.config/vim/UltiSnips/python.snippets\
 	.config/vim/UltiSnips/tex.snippets\
 	.config/vim/UltiSnips/vimwiki.snippets\
-	.config/vim/vimrc.d/vimwiki.vim\
 	.config/vim/ycm_extra_conf.py\
 	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
 	.fonts/PowerlineSymbols.otf\
@@ -207,7 +225,7 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 		m4 --prefix-builtins > $@
 	chmod u+x $@
 
-.tmuxline.conf: .config/vim/vimrc
+.tmuxline.conf: .config/vim/vimrc .config/vim/plugin/settings/airline.vim .config/vim/plugin/settings/tmuxline.vim
 	rm -f $@
 	# Start a new temporary tmux session and in that tmux session run vim
 	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
