@@ -94,6 +94,7 @@ Plugin 'majutsushi/tagbar'                    " Vim
 Plugin 'mileszs/ack.vim'                      " Vim
 Plugin 'morhetz/gruvbox'                      " MIT
 Plugin 'plytophogy/vim-virtualenv'            " Vim
+Plugin 'psliwka/vim-smoothie'                 " MIT
 Plugin 'rdnetto/YCM-Generator'                " GPL 3.0
 Plugin 'SirVer/ultisnips'                     " GPL 3.0
 Plugin 'tpope/vim-commentary'                 " Vim
