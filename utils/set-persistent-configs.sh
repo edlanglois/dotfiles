@@ -20,7 +20,7 @@ fi
 
 # Program Defaults
 DEFAULT_BROWSER=$(./env/browser | grep 'BROWSER=' | sed 's/.*=//')
-if [ -n "$DEFAULT_BROWSER" ]; then
+if [ -n "$DEFAULT_BROWSER" -a -z "$BROWSER" ]; then
 	xdg-settings set default-web-browser ${DEFAULT_BROWSER}.desktop
 fi
 
