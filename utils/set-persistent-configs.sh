@@ -18,6 +18,11 @@ if command -v gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 	gsettings set org.gnome.desktop.background show-desktop-icons false || true
 fi
 
+# TIG only uses the XDG history file if its directory exists
+if command -v tig 2>/dev/null; then
+	mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/tig"
+fi
+
 # Program Defaults
 DEFAULT_BROWSER=$(./env/browser | grep 'BROWSER=' | sed 's/.*=//')
 if [ -n "$DEFAULT_BROWSER" -a -z "$BROWSER" ]; then
