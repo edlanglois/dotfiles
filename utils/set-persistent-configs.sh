@@ -9,7 +9,7 @@ if ! infocmp xterm-termite 1>/dev/null 2>&1; then
 fi
 
 # GNOME configuration
-if hash gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
+if command -v gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 	# Set Capslock to the control key on GNOME
 	gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:nocaps']" || true
 
