@@ -22,6 +22,7 @@ M4_DOTFILES=\
 	.config/i3/config\
 	.config/i3blocks/config\
 	.config/isort.cfg\
+	.config/latexmk/latexmkrc\
 	.config/locale.conf\
 	.config/matplotlib/matplotlibrc\
 	.config/pylint/config\

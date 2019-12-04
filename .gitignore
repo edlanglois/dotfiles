@@ -28,6 +28,7 @@ user.cfg
 .config/i3/config.local
 .config/i3blocks/config
 .config/isort.cfg
+.config/latexmk/latexmkrc
 .config/locale.conf
 .config/matplotlib/matplotlibrc
 .config/pylint/config
