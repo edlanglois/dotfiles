@@ -1,5 +1,7 @@
 $pdf_mode = 1;
 $pdflatex = "pdflatex -interaction=nonstopmode %O %S";
+$biber = "biber --validate-datamodel --dieondatamodel %O %S";
+
 # Avoid wrapping log output lines
 # See https://tex.stackexchange.com/a/384153 by John Collins
 $ENV{max_print_line} = $log_wrap = 1000;
