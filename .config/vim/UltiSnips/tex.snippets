@@ -1,18 +1,24 @@
 snippet newdocument "New latex article template." b
-\documentclass[dvipsnames]{article}
+\documentclass[letterpaper, dvipsnames]{article}
+\usepackage[backend=biber, style=alphabetic]{biblatex}
 
 \title{${1:Title}}
 \author{${2:`getent passwd $(whoami) | cut -d: -f5 | cut -d, -f1`}}
 \date{\today}
 
+\addbibresource{\jobname.bib}
+
 \begin{document}
 \maketitle
 
+${0}
+
+\printbibliography{}
 \end{document}
 endsnippet
 
 snippet newbeamer "New latex beamer template." b
-\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames, dvipsnames]{beamer}
 \usetheme{Madrid}
 
 \title{${1:Title}}
