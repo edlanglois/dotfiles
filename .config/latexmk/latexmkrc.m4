@@ -1,6 +1,10 @@
 $pdf_mode = 1;
 $pdflatex = "pdflatex -interaction=nonstopmode %O %S";
 $biber = "biber --validate-datamodel --dieondatamodel %O %S";
+# Force deletion of .bbl even if no .bib exists
+$bibtex_use = 2;
+# Created by biber; not cleaned by default (don't know why)
+$clean_ext .= ' %R.run.xml';
 
 # Avoid wrapping log output lines
 # See https://tex.stackexchange.com/a/384153 by John Collins
