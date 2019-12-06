@@ -111,6 +111,20 @@ snippet def "A definition environment." b
 \end{definition}
 endsnippet
 
+snippet lbegin "A labelled environment." b
+\begin{${1:something}}%
+\label{${2:label}}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet theorem "A theorem environment." b
+\begin{${1:theorem}}%
+\label{thm:${2:theorem_label}}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
 snippet beq "Equation environment." b
 \begin{equation}
 	${0:${VISUAL}}
