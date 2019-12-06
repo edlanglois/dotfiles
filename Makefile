@@ -84,6 +84,7 @@ DOTFILES=\
 	.config/vim/ftplugin/lua.vim\
 	.config/vim/ftplugin/markdown.vim\
 	.config/vim/ftplugin/python.vim\
+	.config/vim/ftplugin/qf.vim\
 	.config/vim/ftplugin/rnoweb.vim\
 	.config/vim/ftplugin/tex.vim\
 	.config/vim/ftplugin/text.vim\
