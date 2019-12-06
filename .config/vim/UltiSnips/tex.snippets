@@ -106,7 +106,7 @@ endsnippet
 
 snippet def "A definition environment." b
 \begin{definition}[${1:Term}]%
-\label{def:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:-:\L$1$2$3\E)/ga}}}
+\label{def:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 	${0:${VISUAL}}
 \end{definition}
 endsnippet
