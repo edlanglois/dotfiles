@@ -205,6 +205,10 @@ YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
 	set-persistent-configs clean show show-config vim \
 	vim-update-plugins vim-ycm systemd-reload \
 
+# Incomplete files can be created when pipes / scripts fail
+# so delete the target when the rule fails.
+.DELETE_ON_ERROR:
+
 build: $(DOTFILES)
 
 # Build Dotfiles
