@@ -18,6 +18,7 @@ M4_DOTFILES=\
 	.config/gem/config.yaml\
 	.config/git/config\
 	.config/git/ignore\
+	.config/gsimplecal/config\
 	.config/hg/hgrc\
 	.config/i3/config\
 	.config/i3blocks/config\
