@@ -14,14 +14,19 @@ $ENV{max_print_line} = $log_wrap = 1000;
 # See https://tex.stackexchange.com/a/44316 by user mhp
 add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
 add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
-
 sub run_makeglossaries {
+  my @gls_args = ();
   if ( $silent ) {
-    system "makeglossaries -q '$_[0]'";
+    push @gls_args, "-q";
   }
-  else {
-    system "makeglossaries '$_[0]'";
-  };
+  # makeglossaries fails when running outside the target directory
+  # move to the target directory before running
+  my ($basename, $path) = fileparse( $_[0] );
+  pushd $path;
+  my $gls_command = join " ", "makeglossaries", @gls_args, "'$basename'";
+  my $return = system "$gls_command";
+  popd;
+  return $return;
 }
 
 push @generated_exts, 'glo', 'gls', 'glg';
