@@ -218,7 +218,7 @@ build: $(DOTFILES)
 # - Custom build for .tmuxline.conf
 define M4_CONFIG_GEN_TEMPLATE
 $1 : % : %.m4 $(wildcard $1.local) user_config.m4 env_config.m4
-	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
+	echo "m4_changecom()m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
 		cat - $$< | \
 		m4 --prefix-builtins > $$@
 endef
@@ -227,7 +227,7 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	$(eval $(call M4_CONFIG_GEN_TEMPLATE, $(M4_CONFIG_GEN_FILE))))
 
 .config/xss-lock/transfer-sleep-lock-i3lock.sh : % : %.m4 $(wildcard %.local) user_config.m4 env_config.m4
-	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
+	echo "m4_changecom()m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
 		cat - $< | \
 		m4 --prefix-builtins > $@
 	chmod u+x $@
