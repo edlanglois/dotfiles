@@ -8,8 +8,9 @@ m4_ifdef(??[[<<m4_env_config_NETUSER>>]]??,m4_ifdef(??[[<<m4_env_config_SHELL>>]
     use_custom_command = True
 ))m4_dnl
     font = monospace m4_env_config_TERM_FONT_SIZE
-    foreground_color = "#ffffff"
-    palette = "#000000:#cd0000:#00cd00:#cdcd00:#0000ee:#cd00cd:#00cdcd:#e5e5e5:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    foreground_color = "#m4_env_config_COLOUR_FOREGROUND"
+    background_color = "#m4_env_config_COLOUR_BACKGROUND"
+    palette = "#m4_env_config_COLOUR_0:#m4_env_config_COLOUR_1:#m4_env_config_COLOUR_2:#m4_env_config_COLOUR_3:#m4_env_config_COLOUR_4:#m4_env_config_COLOUR_5:#m4_env_config_COLOUR_6:#m4_env_config_COLOUR_7:#m4_env_config_COLOUR_8:#m4_env_config_COLOUR_9:#m4_env_config_COLOUR_10:#m4_env_config_COLOUR_11:#m4_env_config_COLOUR_12:#m4_env_config_COLOUR_13:#m4_env_config_COLOUR_14:#m4_env_config_COLOUR_15"
     scrollback_lines = 10000
     scrollbar_position = hidden
     show_titlebar = False

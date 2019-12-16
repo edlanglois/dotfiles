@@ -144,6 +144,7 @@ DOTDIRS=\
 ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
 	browser\
+	colours\
 	cuda\
 	fontsize\
 	git-push-default-simple\
@@ -254,6 +255,8 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
 	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
 		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
+
+env/colours.m4: env/colours.toml
 
 env/%.m4: env/% env/env_utils
 	$< | \
