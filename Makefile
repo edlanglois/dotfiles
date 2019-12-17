@@ -18,10 +18,12 @@ M4_DOTFILES=\
 	.config/gem/config.yaml\
 	.config/git/config\
 	.config/git/ignore\
+	.config/gsimplecal/config\
 	.config/hg/hgrc\
 	.config/i3/config\
 	.config/i3blocks/config\
 	.config/isort.cfg\
+	.config/latexmk/latexmkrc\
 	.config/locale.conf\
 	.config/matplotlib/matplotlibrc\
 	.config/pylint/config\
@@ -83,6 +85,7 @@ DOTFILES=\
 	.config/vim/ftplugin/lua.vim\
 	.config/vim/ftplugin/markdown.vim\
 	.config/vim/ftplugin/python.vim\
+	.config/vim/ftplugin/qf.vim\
 	.config/vim/ftplugin/rnoweb.vim\
 	.config/vim/ftplugin/tex.vim\
 	.config/vim/ftplugin/text.vim\
@@ -141,6 +144,7 @@ DOTDIRS=\
 ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
 	browser\
+	colours\
 	cuda\
 	fontsize\
 	git-push-default-simple\
@@ -202,6 +206,10 @@ YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
 	set-persistent-configs clean show show-config vim \
 	vim-update-plugins vim-ycm systemd-reload \
 
+# Incomplete files can be created when pipes / scripts fail
+# so delete the target when the rule fails.
+.DELETE_ON_ERROR:
+
 build: $(DOTFILES)
 
 # Build Dotfiles
@@ -211,7 +219,7 @@ build: $(DOTFILES)
 # - Custom build for .tmuxline.conf
 define M4_CONFIG_GEN_TEMPLATE
 $1 : % : %.m4 $(wildcard $1.local) user_config.m4 env_config.m4
-	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
+	echo "m4_changecom()m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
 		cat - $$< | \
 		m4 --prefix-builtins > $$@
 endef
@@ -220,7 +228,7 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 	$(eval $(call M4_CONFIG_GEN_TEMPLATE, $(M4_CONFIG_GEN_FILE))))
 
 .config/xss-lock/transfer-sleep-lock-i3lock.sh : % : %.m4 $(wildcard %.local) user_config.m4 env_config.m4
-	echo "m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
+	echo "m4_changecom()m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
 		cat - $< | \
 		m4 --prefix-builtins > $@
 	chmod u+x $@
@@ -247,6 +255,8 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
 	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
 		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
+
+env/colours.m4: env/colours.toml
 
 env/%.m4: env/% env/env_utils
 	$< | \

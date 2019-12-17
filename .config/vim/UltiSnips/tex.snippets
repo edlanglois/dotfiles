@@ -1,18 +1,24 @@
 snippet newdocument "New latex article template." b
-\documentclass[dvipsnames]{article}
+\documentclass[letterpaper, dvipsnames]{article}
+\usepackage[backend=biber, style=alphabetic]{biblatex}
 
 \title{${1:Title}}
 \author{${2:`getent passwd $(whoami) | cut -d: -f5 | cut -d, -f1`}}
 \date{\today}
 
+\addbibresource{\jobname.bib}
+
 \begin{document}
 \maketitle
 
+${0}
+
+\printbibliography{}
 \end{document}
 endsnippet
 
 snippet newbeamer "New latex beamer template." b
-\documentclass[usenames,dvipsnames]{beamer}
+\documentclass[usenames, dvipsnames]{beamer}
 \usetheme{Madrid}
 
 \title{${1:Title}}
@@ -100,9 +106,23 @@ endsnippet
 
 snippet def "A definition environment." b
 \begin{definition}[${1:Term}]%
-\label{def:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:-:\L$1$2$3\E)/ga}}}
+\label{def:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
 	${0:${VISUAL}}
 \end{definition}
+endsnippet
+
+snippet lbegin "A labelled environment." b
+\begin{${1:something}}%
+\label{${2:label}}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet theorem "A theorem environment." b
+\begin{${1:theorem}}%
+\label{thm:${2:theorem_label}}
+	${0:${VISUAL}}
+\end{$1}
 endsnippet
 
 snippet beq "Equation environment." b
