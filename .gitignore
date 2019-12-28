@@ -18,6 +18,7 @@ user.cfg
 .config/fish/functions/pbcopy.fish
 .config/fish/functions/pbpaste.fish
 .config/fish/functions/R.fish
+.config/fish/functions/tmux.fish
 .config/fish/functions/torch-activate.fish
 .config/flake8
 .config/gem/config.yaml
@@ -38,6 +39,7 @@ user.cfg
 .config/terminator/config
 .config/termite/config
 .config/theano/config
+.config/tmux/tmux.conf
 .config/tmux/tmuxline.conf
 .config/user-dirs.dirs
 .config/vim/plugin/settings/airline.vim
@@ -52,7 +54,6 @@ user.cfg
 .ssh/config
 .ssh/config.local
 .theanorc
-.tmux.conf
 .vimrc
 .xbindkeysrc
 .xinitrc

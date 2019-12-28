@@ -13,6 +13,7 @@ M4_DOTFILES=\
 	.config/fish/functions/pbcopy.fish\
 	.config/fish/functions/pbpaste.fish\
 	.config/fish/functions/R.fish\
+	.config/fish/functions/tmux.fish\
 	.config/fish/functions/torch-activate.fish\
 	.config/flake8\
 	.config/gem/config.yaml\
@@ -32,6 +33,7 @@ M4_DOTFILES=\
 	.config/terminator/config\
 	.config/termite/config\
 	.config/theano/config\
+	.config/tmux/tmux.conf\
 	.config/user-dirs.dirs\
 	.config/vim/plugin/settings/airline.vim\
 	.config/vim/plugin/settings/tmuxline.vim\
@@ -42,7 +44,6 @@ M4_DOTFILES=\
 	.duplicacy/filters\
 	.profile\
 	.ssh/config\
-	.tmux.conf\
 	.xbindkeysrc\
 	.xinitrc\
 	.Xmodmap\
