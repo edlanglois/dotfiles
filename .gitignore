@@ -38,6 +38,7 @@ user.cfg
 .config/terminator/config
 .config/termite/config
 .config/theano/config
+.config/tmux/tmuxline.conf
 .config/user-dirs.dirs
 .config/vim/plugin/settings/airline.vim
 .config/vim/plugin/settings/tmuxline.vim
@@ -52,7 +53,6 @@ user.cfg
 .ssh/config.local
 .theanorc
 .tmux.conf
-.tmuxline.conf
 .vimrc
 .xbindkeysrc
 .xinitrc

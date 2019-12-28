@@ -55,6 +55,8 @@ SYSTEMD_FILES=\
 	.config/systemd/user/low-battery.service\
 	.config/systemd/user/low-battery.timer\
 
+TMUXLINE_CONFIG=.config/tmux/tmuxline.conf
+
 I3BLOCKS_SRC_DIR=.config/i3blocks/i3blocks-contrib
 I3BLOCKS_DEST_DIR=.config/i3blocks/scripts
 CONTRIB_I3BLOCKS_SCRIPTS=\
@@ -70,6 +72,7 @@ CONTRIB_I3BLOCKS_SCRIPTS=\
 DOTFILES=\
 	$(M4_DOTFILES)\
 	$(SYSTEMD_FILES)\
+	$(TMUXLINE_CONFIG)\
 	.config/fontconfig/conf.d/10-powerline-symbols.conf\
 	.config/fontconfig/fonts.conf\
 	.config/i3blocks/scripts/battery-label\
@@ -135,7 +138,6 @@ DOTFILES=\
 	.local/bin/print24bitcolours\
 	.local/bin/print256colours\
 	.local/bin/tmuxm\
-	.tmuxline.conf\
 	.virtualenvs/global_requirements.txt\
 
 DOTDIRS=\
@@ -224,7 +226,7 @@ build: $(DOTFILES)
 # --------------
 # - Build each dotfile from the corresponding .m4 file, user_config.m4, and
 #   env_config.m4.
-# - Custom build for .tmuxline.conf
+# - Custom build for tmuxline.conf
 define M4_CONFIG_GEN_TEMPLATE
 $1 : % : %.m4 $(wildcard $1.local) user_config.m4 env_config.m4
 	echo "m4_changecom()m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
@@ -241,19 +243,22 @@ $(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
 		m4 --prefix-builtins > $@
 	chmod u+x $@
 
-.tmuxline.conf: .config/vim/vimrc .config/vim/plugin/settings/airline.vim .config/vim/plugin/settings/tmuxline.vim
-	rm -f $@
+$(TMUXLINE_CONFIG): .config/vim/vimrc .config/vim/plugin/settings/airline.vim .config/vim/plugin/settings/tmuxline.vim | $(dir $(TMUXLINE_CONFIG))
+	rm -f "$@"
 	# Start a new temporary tmux session and in that tmux session run vim
 	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
-	# .tmuxline.conf
+	# tmuxline.conf
 	tmux new-session -d -s 'tmuxline-${RANDOM_ID}' 'vim -u ".config/vim/vimrc" -Es -c "TmuxlineSnapshot $@" -c "q"'
 	while tmux list-sessions 2>/dev/null | grep 'tmuxline-${RANDOM_ID}' >/dev/null ; do \
 		sleep 0.05; \
 	done
-	@if [ ! -f $@ ]; then \
+	@if [ ! -f "$@" ]; then \
 		echo "$(WARNING_PREFIX) Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake."; \
-		touch $@; \
+		touch "$@"; \
 	fi
+
+$(dir $(TMUXLINE_CONFIG)):
+	mkdir -p "$@"
 
 # Configuration Files
 # -------------------
@@ -348,7 +353,7 @@ $(foreach INSTALLED_SYSTEM_FILE, $(INSTALLED_SYSTEM_FILES), \
 # - Delete all the build products.
 clean:
 	rm -f user_config.m4 env_config.m4
-	rm -f $(M4_DOTFILES) .tmuxline.conf
+	rm -f $(M4_DOTFILES) $(TMUXLINE_CONFIG)
 	rm -f .config/xss-lock/transfer-sleep-lock-i3lock.sh
 	rm -f $(ENV_CONFIG_M4_FILES)
 	rm -f .make/*
