@@ -142,6 +142,12 @@ DOTDIRS=\
 	.config/fish/plugins\
 	.local/share/vim/bundle/Vundle.vim\
 
+# Directories that need to exist even if empty.
+# The programs in question only use them if the directory exists.
+REQUIRED_DIRS=\
+	.local/share/tig\
+	.local/share/wget\
+
 ENV_CONFIG_FILES=$(addprefix env/,\
 	battery\
 	browser\
@@ -178,8 +184,9 @@ INSTALLED_DOTFILES:=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
 INSTALLED_SYSTEMD_FILES:=$(addprefix $(INSTALL_DIR)/,$(SYSTEMD_FILES))
 INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS:=$(addprefix $(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)/,$(notdir $(CONTRIB_I3BLOCKS_SCRIPTS)))
 INSTALLED_DOTDIRS:=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
+INSTALLED_REQUIRED_DIRS:=$(addprefix $(INSTALL_DIR)/,$(REQUIRED_DIRS))
 # Sort to remove duplicates
-INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)))
+INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)) $(INSTALLED_REQUIRED_DIRS))
 
 M4_CONFIG_GEN_FILES:=$(M4_DOTFILES)
 ENV_CONFIG_M4_FILES:=$(addsuffix .m4,$(ENV_CONFIG_FILES))
@@ -295,6 +302,7 @@ install-dotfiles: \
 	$(INSTALLED_DOTFILES)\
 	$(INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS)\
 	$(INSTALLED_DOTDIRS)\
+	$(INSTALLED_REQUIRED_DIRS)\
 
 define INSTALL_DOTFILE_TEMPLATE
 $1 : $(INSTALL_DIR)/% : % | $(dir $1)
