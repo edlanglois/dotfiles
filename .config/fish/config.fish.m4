@@ -50,5 +50,6 @@ end
 
 m4_ifdef(??[[<<m4_env_config_VIRTUALFISH_INIT>>]]??,
 # Enable virtualfish auto-activation.
+set -x VIRTUALFISH_HOME "$HOME/.local/share/python-virtualenvs"
 m4_env_config_VIRTUALFISH_INIT
 )m4_dnl
