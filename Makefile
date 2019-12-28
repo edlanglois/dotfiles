@@ -26,6 +26,7 @@ M4_DOTFILES=\
 	.config/latexmk/latexmkrc\
 	.config/locale.conf\
 	.config/matplotlib/matplotlibrc\
+	.config/procps/toprc\
 	.config/pylint/config\
 	.config/task/config\
 	.config/terminator/config\
@@ -41,7 +42,6 @@ M4_DOTFILES=\
 	.profile\
 	.ssh/config\
 	.tmux.conf\
-	.toprc\
 	.xbindkeysrc\
 	.xinitrc\
 	.Xmodmap\
