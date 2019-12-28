@@ -124,7 +124,8 @@ export MUJOCO_PY_MJKEY_PATH="m4_env_config_MJKEY_PATH"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl
-# Python Packages Environment
+# Python Environment
+export PYTHONSTARTUP="m4_xdg_config_home/python/startup.py"
 export PYLINTRC="m4_xdg_config_home/pylint/config"
 export PYLINTHOME="m4_xdg_cache_home/pylint"
 export THEANORC="m4_xdg_config_home/theano/config"

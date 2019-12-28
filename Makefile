@@ -83,6 +83,7 @@ DOTFILES=\
 	.config/i3blocks/scripts/gpu-usage\
 	.config/i3blocks/scripts/weather\
 	.config/pudb/pudb.cfg\
+	.config/python/startup.py\
 	.config/vim/after/indent/tex.vim\
 	.config/vim/filetype.vim\
 	.config/vim/ftplugin/c.vim\
