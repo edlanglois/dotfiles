@@ -22,6 +22,10 @@ fi
 if command -v tig 2>/dev/null; then
 	mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/tig"
 fi
+# Same with wget
+if command -v wget 2>/dev/null; then
+	mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/wget"
+fi
 
 # Program Defaults
 DEFAULT_BROWSER=$(./env/browser | grep 'BROWSER=' | sed 's/.*=//')

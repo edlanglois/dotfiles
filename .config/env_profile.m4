@@ -80,6 +80,9 @@ MANPATH="$(pathprepend_if_isdir "$MANPATH" "$HOME/.local/share/man")"
 # OpenSSL Seed File (Defaults to $HOME/.rnd)
 export RANDFILE="m4_xdg_cache_home/openssl/rnd"
 
+# wget
+export WGETRC="m4_xdg_config_home/wgetrc"
+
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
 # CUDA Path
 export CUDA_HOME="m4_env_config_CUDA_ROOT"

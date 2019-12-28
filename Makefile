@@ -36,6 +36,7 @@ M4_DOTFILES=\
 	.config/vim/plugin/settings/airline.vim\
 	.config/vim/plugin/settings/tmuxline.vim\
 	.config/vim/vimrc\
+	.config/wgetrc\
 	.config/yapf/style\
 	.config/yay/config.json\
 	.duplicacy/filters\

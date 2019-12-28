@@ -42,6 +42,7 @@ user.cfg
 .config/vim/plugin/settings/airline.vim
 .config/vim/plugin/settings/tmuxline.vim
 .config/vim/vimrc
+.config/wgetrc
 .config/xss-lock/transfer-sleep-lock-i3lock.sh
 .config/yapf/style
 .config/yay/config.json
