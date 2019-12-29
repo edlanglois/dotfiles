@@ -140,7 +140,6 @@ DOTFILES=\
 	.local/bin/print24bitcolours\
 	.local/bin/print256colours\
 	.local/bin/tmuxm\
-	.virtualenvs/global_requirements.txt\
 
 DOTDIRS=\
 	.config/fish/plugins\
