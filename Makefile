@@ -40,7 +40,6 @@ $(call check_defined, SYSTEM_PREFIX)
 
 I3BLOCKS_SCRIPT_DIR := $(CONFIG_DIR)/i3blocks/scripts
 
-
 # Incomplete files can be created when pipes / scripts fail
 # so delete the target when the rule fails.
 .DELETE_ON_ERROR:
@@ -177,7 +176,6 @@ CONFIG_VIM_DOTFILES:=$(CONFIG_RAW_VIM_DOTFILES) $(CONFIG_M4_VIM_DOTFILES)
 CONFIG_EXECUTABLE_M4_DOTFILES:=\
 	xss-lock/transfer-sleep-lock-i3lock.sh
 
-CONFIG_TMUXLINE:=tmux/tmuxline.conf
 
 CONFIG_I3BLOCKS_CONTRIB_SCRIPTS:=\
 	battery/battery\
@@ -317,6 +315,7 @@ vim                : Run all `vim-*` commands.
 vim-vundle         : Install the Vundle vim plugin.
 vim-plugins        : Install and update vim plugins.
 vim-ycm            : Compile YouCompleteMe for vim.
+vim-tmuxline       : Create the tmuxline configuration.
 
 systemd-reload     : Reload user systemd units if any changed.
 persistent-configs : Set persistent settings that are not file-based.
@@ -389,28 +388,6 @@ $(foreach DOTFILE,$(RAW_DOTFILES),\
 
 $(foreach DOTDIR,$(RAW_DOTDIRS),\
 	$(eval $(call RAW_DIR_BUILD_TEMPLATE,$(DOTDIR))))
-
-############
-# Tmuxline #
-############
-
-BUILT_VIMRC:=$(BUILD_DIR)/config/vim/vimrc
-
-RANDOM_ID:=$(shell echo $$RANDOM)
-$(BUILD_DIR)/config/$(CONFIG_TMUXLINE): $(BUILT_VIMRC) \
-	| $(dir $(BUILD_DIR)/config/$(TMUXLINE_CONFIG)).
-	rm -f "$@"
-	# Start a new temporary tmux session and in that tmux session run vim
-	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
-	# tmuxline.conf
-	tmux new-session -d -s 'tmuxline-$(RANDOM_ID)' 'vim -u "$(BUILT_VIMRC)" -Es -c "TmuxlineSnapshot $@" -c "q"'
-	while tmux list-sessions 2>/dev/null | grep 'tmuxline-$(RANDOM_ID)' >/dev/null ; do \
-		sleep 0.05; \
-	done
-	@if [ ! -f "$@" ]; then \
-		echo "$(WARNING_PREFIX) Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake."; \
-		touch "$@"; \
-	fi
 
 ####################
 # I3Blocks Contrib #
@@ -530,12 +507,12 @@ $(eval $(call INSTALL_TEMPLATE,home,$(HOME_DIR),\
 $(eval $(call INSTALL_TEMPLATE,system,$(SYSTEM_PREFIX),\
 	$(SYSTEM_RAW_DOTFILES),$(SYSTEM_BUILT_DOTFILES)))
 
-###############
-# Vim Plugins #
-###############
-.PHONY: vim vim-vundle vim-plugins vim-ycm
+#######
+# Vim #
+#######
+.PHONY: vim vim-vundle vim-plugins vim-ycm vim-tmuxline
 
-vim: vim-vundle vim-plugins vim-ycm
+vim: vim-vundle vim-plugins vim-ycm vim-tmuxline
 
 VUNDLE_DIR:=$(DATA_DIR)/$(DATA_VUNDLE_DIR)
 vim-vundle: | $(VUNDLE_DIR)
@@ -558,6 +535,26 @@ $(YCM_CORE): $(YCM_GIT_CHECKOUT)
 	cd $(YCM_DIR) && \
 		$(PYTHON) ./install.py --clang-completer \
 		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)
+
+
+TMUXLINE_CONFIG:=tmux/tmuxline.conf
+RANDOM_ID:=$(shell echo $$RANDOM)
+
+vim-tmuxline: $(CONFIG_DIR)/$(TMUXLINE_CONFIG)
+
+$(CONFIG_DIR)/$(TMUXLINE_CONFIG): \
+	| $(dir $(CONFIG_DIR)/$(TMUXLINE_CONFIG)).
+	# Start a new temporary tmux session and in that tmux session run vim
+	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
+	# tmuxline.conf
+	tmux new-session -d -s 'tmuxline-$(RANDOM_ID)' 'vim -E -c "TmuxlineSnapshot! $@" -c "q"'
+	while tmux list-sessions 2>/dev/null | grep 'tmuxline-$(RANDOM_ID)' >/dev/null ; do \
+		sleep 0.05; \
+	done
+	@if [ ! -f "$@" ]; then \
+		echo "$(WARNING_PREFIX) Unable to generate tmuxline snapshot. Install tmuxline vim plugin and remake."; \
+		false; \
+	fi
 
 ######################
 # Persistent Configs #
