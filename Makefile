@@ -315,6 +315,7 @@ clean              : Remove build products.
 help               : Print this help message
 
 show               : Run all `show-*` commands.
+show-dirs          : Print the install directories.
 show-config        : Print the user and environment configuration.
 
 vim                : Run all `vim-*` commands.
@@ -456,9 +457,17 @@ $(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_BUILD_FILES) | $(BUILD_DIR)/.
 ####################
 # Show Information #
 ####################
-.PHONY: show show-config
+.PHONY: show show-dirs show-config
 
-show: show-config
+show: show-dirs show-config
+
+show-dirs:
+	@echo "HOME_DIR:      $(HOME_DIR)"
+	@echo "BIN_DIR:       $(BIN_DIR)"
+	@echo "CONFIG_DIR:    $(CONFIG_DIR)"
+	@echo "DATA_DIR:      $(DATA_DIR)"
+	@echo "CACHE_DIR:     $(CACHE_DIR)"
+	@echo "SYSTEM_PREFIX: $(SYSTEM_PREFIX)"
 
 PYGMENTIZE:=$(shell command -v pygmentize)
 ifdef PYGMENTIZE
