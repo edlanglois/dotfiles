@@ -1,7 +1,3 @@
-[submodule ".vim/bundle/Vundle.vim"]
-	path = src/data/vim/bundle/Vundle.vim
-	url = https://github.com/gmarik/Vundle.vim.git
-	branch = master
 [submodule ".config/fish/plugins/foreign-env"]
 	path = src/config/fish/plugins/foreign-env
 	url = https://github.com/edlanglois/plugin-foreign-env.git

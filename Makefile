@@ -199,20 +199,14 @@ CONFIG_DOTFILES:=$(CONFIG_RAW_DOTFILES) $(CONFIG_BUILT_DOTFILES)
 
 # Data
 # ----
-VUNDLE_DOTFILES:=$(shell cd "$(SRC_DIR)/data" && find "vim/bundle/Vundle.vim" -type f)
-$(call check_defined,VUNDLE_DOTFILES,Vundle missing; check out submodule)
-
-DATA_RAW_DOTFILES:=$(VUNDLE_DOTFILES)
-
-DATA_M4_DOTFILES:=
-DATA_BUILT_DOTFILES:=$(DATA_M4_DOTFILES)
-
 # These directories need to exist for the programs in question to use them
 DATA_MAKE_DIRS:=$(addsuffix /.,\
 	tig\
 	wget\
 )
-DATA_DOTFILES:=$(DATA_RAW_DOTFILES) $(DATA_BUILT_DOTFILES) $(DATA_MAKE_DIRS)
+# Vundle has a custom install rule
+DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
+DATA_DOTFILES:=$(DATA_MAKE_DIRS) $(DATA_VUNDLE_DIR)
 
 # Home
 # ----
@@ -319,8 +313,9 @@ show-dirs          : Print the install directories.
 show-config        : Print the user and environment configuration.
 
 vim                : Run all `vim-*` commands.
-                     Uses sytem vim so install first.
-vim-update-plugins : Update vim plugins.
+                     Uses the installed configurations so install first.
+vim-vundle         : Install the Vundle vim plugin.
+vim-plugins        : Install and update vim plugins.
 vim-ycm            : Compile YouCompleteMe for vim.
 
 systemd-reload     : Reload user systemd units if any changed.
@@ -538,11 +533,17 @@ $(eval $(call INSTALL_TEMPLATE,system,$(SYSTEM_PREFIX),\
 ###############
 # Vim Plugins #
 ###############
-.PHONY: vim vim-update-plugins vim-ycm
+.PHONY: vim vim-vundle vim-plugins vim-ycm
 
-vim: vim-update-plugins vim-ycm
+vim: vim-vundle vim-plugins vim-ycm
 
-vim-update-plugins:
+VUNDLE_DIR:=$(DATA_DIR)/$(DATA_VUNDLE_DIR)
+vim-vundle: | $(VUNDLE_DIR)
+
+$(VUNDLE_DIR):
+	cd $(dir $@) && git clone https://github.com/VundleVim/Vundle.vim.git
+
+vim-plugins: vim-vundle
 	vim +PluginInstall +PluginUpdate +qall
 
 YCM_DIR:=$(DATA_DIR)/vim/bundle/YouCompleteMe
