@@ -214,7 +214,7 @@ DATA_MAKE_DIRS:=$(addsuffix /.,\
 )
 DATA_DOTFILES:=$(DATA_RAW_DOTFILES) $(DATA_BUILT_DOTFILES) $(DATA_MAKE_DIRS)
 
-# Home 
+# Home
 # ----
 HOME_RAW_DOTFILES:=\
 	.fonts/PowerlineSymbols.otf\
@@ -448,8 +448,9 @@ $(eval $(call RAW_BUILD_TEMPLATE,env/colours.toml))
 $(foreach ENVFILE,$(ENV_CONFIG_FILES),\
 	$(eval $(call ENV_CONFIG_TEMPLATE,$(ENVFILE))))
 
-$(BUILD_DIR)/user_config.m4: user_config.m4 | $(BUILD_DIR)/.
-	@cp -v "$(DOTFILES_DIR)/$<" "$@"
+$(BUILD_DIR)/user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh | $(BUILD_DIR)/.
+	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
+		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
 $(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_BUILD_FILES) | $(BUILD_DIR)/.
 	cat $^ > "$@"
