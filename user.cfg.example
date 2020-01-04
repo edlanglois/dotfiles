@@ -20,7 +20,7 @@ LOCAL_PREFIX=~/.local
 SYSTEM_PREFIX=/
 
 # Whether to use powerline symbols.
-# Requires a powerline font - a fallback powerline font is in .fonts
+# Requires a powerline font - a fallback powerline font is in data/fonts/
 POWERLINE_SYMBOLS=true
 
 # Configure Allowed Licenses

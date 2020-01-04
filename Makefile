@@ -207,18 +207,22 @@ CONFIG_DOTFILES:=$(CONFIG_RAW_DOTFILES) $(CONFIG_BUILT_DOTFILES)
 # Data
 # ----
 # These directories need to exist for the programs in question to use them
+DATA_FONTS:=\
+	fonts/PowerlineSymbols.otf
+
+DATA_RAW_DOTFILES:=$(DATA_FONTS)
+
 DATA_MAKE_DIRS:=$(addsuffix /.,\
 	tig\
 	wget\
 )
 # Vundle has a custom install rule
 DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
-DATA_DOTFILES:=$(DATA_MAKE_DIRS) $(DATA_VUNDLE_DIR)
+DATA_DOTFILES:=$(DATA_RAW_DOTFILES) $(DATA_MAKE_DIRS) $(DATA_VUNDLE_DIR)
 
 # Home
 # ----
 HOME_RAW_DOTFILES:=\
-	.fonts/PowerlineSymbols.otf\
 	.gkrellm2/user-config-cpu\
 	.gkrellm2/user-config-memory\
 
@@ -291,11 +295,14 @@ INSTALLED_SYSTEM_DOTFILES:=\
 INSTALLED_SYSTEMD_FILES:=\
 	$(addprefix $(CONFIG_DIR)/,$(CONFIG_M4_SYSTEMD_DOTFILES))
 
+INSTALLED_FONTS:=\
+	$(addprefix $(DATA_DIR)/,$(DATA_FONTS))
+
 .PHONY: build install install-user-dotfiles install-system clean help
 
 build: $(BUILT_DOTFILES)
 
-install: install-user-dotfiles systemd-reload
+install: install-user-dotfiles systemd-reload font-cache
 
 install-user-dotfiles: $(INSTALLED_DOTFILES)
 
@@ -327,6 +334,7 @@ vim-ycm            : Compile YouCompleteMe for vim.
 vim-tmuxline       : Create the tmuxline configuration.
 
 systemd-reload     : Reload user systemd units if any changed.
+font-cache         : Create the font cache.
 persistent-configs : Set persistent settings that are not file-based.
 endef
 
@@ -587,15 +595,14 @@ persistent-configs: $(BUILD_DIR)/make/persistent-configs
 
 $(BUILD_DIR)/make/persistent-configs: \
 		$(UTILS_DIR)/set-persistent-configs.sh \
-		$(HOME_DIR)/.fonts/PowerlineSymbols.otf \
 		$(INSTALLED_SYSTEMD_FILES) \
 		| $(BUILD_DIR)/make/
 	$(UTILS_DIR)/set-persistent-configs.sh
-	touch $@
+	touch "$@"
 
 
 $(BUILD_DIR)/make/:
-	mkdir -p $@
+	mkdir -p "$@"
 
 ##################
 # Systemd Reload #
@@ -613,4 +620,14 @@ $(BUILD_DIR)/make/systemd-reload: \
 else
 $(BUILD_DIR)/make/systemd-reload: /make/
 endif
-	touch $@
+	touch "$@"
+
+##############
+# Font Cache #
+##############
+.PHONY: font-cache
+
+font-cache: $(BUILD_DIR)/make/font-cache
+
+$(BUILD_DIR)/make/font-cache: $(INSTALLED_FONTS) | $(BUILD_DIR)/make/
+	fc-cache -v $(DATA_DIR)/fonts/

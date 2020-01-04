@@ -36,8 +36,3 @@ if hash systemctl 2>/dev/null; then
     systemctl --user enable --now duplicacy-backup.timer
   fi
 fi
-
-# Generate the font configuration - Fonts must have been installed first.
-if hash fc-cache 2>/dev/null; then
-	fc-cache -vf ~/.fonts
-fi
