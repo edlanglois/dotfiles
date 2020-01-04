@@ -484,14 +484,13 @@ endif
 	@echo '# User Config' | cat - user.cfg | $(COLORIZE_CONFIG)
 	@echo
 	@echo '# Environment Config' | cat - $(BUILD_DIR)/env_config.m4 | \
-		sed -e "s/^m4_dnl/#/" | \
-		sed -e "s/$(ESCAPED_QUOTE_START)//g" | \
-		sed -e "s/$(ESCAPED_QUOTE_END)//g" | \
-		sed -e "s/^m4_define(m4_env_config_//" | \
-		sed -e "s/)m4_dnl$$//" | \
-		sed -e "s/,/=/" | \
+		sed -e "s/^m4_dnl/#/" \
+			-e "s/$(ESCAPED_QUOTE_START)//g" \
+			-e "s/$(ESCAPED_QUOTE_END)//g" \
+			-e "s/^m4_define(m4_env_config_//" \
+			-e "s/)m4_dnl$$//" \
+			-e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
-# TODO: Use a single sed above
 
 #############
 ## Install ##
