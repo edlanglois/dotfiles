@@ -1,11 +1,11 @@
 [submodule ".vim/bundle/Vundle.vim"]
-	path = .local/share/vim/bundle/Vundle.vim
+	path = src/data/vim/bundle/Vundle.vim
 	url = https://github.com/gmarik/Vundle.vim.git
 	branch = master
 [submodule ".config/fish/plugins/foreign-env"]
-	path = .config/fish/plugins/foreign-env
+	path = src/config/fish/plugins/foreign-env
 	url = https://github.com/edlanglois/plugin-foreign-env.git
 	branch = env-stderr
 [submodule ".config/i3blocks/i3blocks-contrib"]
-	path = .config/i3blocks/i3blocks-contrib
+	path = src/config/i3blocks/i3blocks-contrib
 	url = https://github.com/vivien/i3blocks-contrib.git

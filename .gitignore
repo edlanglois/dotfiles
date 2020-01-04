@@ -2,9 +2,11 @@
 *.swo
 *.pyc
 
+build/*
+user.cfg
+
 .make/*
 
-user.cfg
 
 .bash_aliases
 .bash_profile

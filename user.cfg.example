@@ -9,6 +9,16 @@ LANGUAGE=en_CA:en_US:C:fr
 
 LIGHTWEIGHT=false
 
+# Install locations and XDG directories
+# Shell variables like $HOME are not expanded
+HOME=~
+XDG_CONFIG_HOME=~/.config
+XDG_CACHE_HOME=~/.cache
+XDG_DATA_HOME=~/.local/share
+BIN_DIR=~/.local/bin
+# Only used for installing system files with `make install-system`
+SYSTEM_PREFIX=/
+
 # Whether to use powerline symbols.
 # Requires a powerline font - a fallback powerline font is in .fonts
 POWERLINE_SYMBOLS=true

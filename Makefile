@@ -1,157 +1,54 @@
 SHELL=/bin/bash -o pipefail
+BUILD_DIR=build
+SRC_DIR=src
+UTILS_DIR=utils
+DOTFILES_DIR:=$(shell pwd)
 
-M4_DOTFILES=\
-	.bash_aliases\
-	.bash_profile\
-	.bashrc\
-	.config/conky/default-popup.lua\
-	.config/env_profile\
-	.config/fish/config.fish\
-	.config/fish/functions/fish_prompt.fish\
-	.config/fish/functions/hostname-icon.fish\
-	.config/fish/functions/ip.fish\
-	.config/fish/functions/pbcopy.fish\
-	.config/fish/functions/pbpaste.fish\
-	.config/fish/functions/R.fish\
-	.config/fish/functions/tmux.fish\
-	.config/fish/functions/torch-activate.fish\
-	.config/flake8\
-	.config/gem/config.yaml\
-	.config/git/config\
-	.config/git/ignore\
-	.config/gsimplecal/config\
-	.config/hg/hgrc\
-	.config/i3/config\
-	.config/i3blocks/config\
-	.config/isort.cfg\
-	.config/latexmk/latexmkrc\
-	.config/locale.conf\
-	.config/matplotlib/matplotlibrc\
-	.config/procps/toprc\
-	.config/pylint/config\
-	.config/task/config\
-	.config/terminator/config\
-	.config/termite/config\
-	.config/theano/config\
-	.config/tmux/tmux.conf\
-	.config/user-dirs.dirs\
-	.config/vim/plugin/settings/airline.vim\
-	.config/vim/plugin/settings/tmuxline.vim\
-	.config/vim/vimrc\
-	.config/wgetrc\
-	.config/yapf/style\
-	.config/yay/config.json\
-	.duplicacy/filters\
-	.profile\
-	.ssh/config\
-	.xbindkeysrc\
-	.xinitrc\
-	.Xmodmap\
-	.xprofile\
-	.Xresources\
+# Check that given variables are set and all have non-empty values,
+# die with an error otherwise.
+#
+# Params:
+#   1. Variable name(s) to test.
+#   2. (optional) Error message to print.
+#
+# Source:
+# https://stackoverflow.com/a/10858332 by Eldar Abusalimov
+check_defined = \
+    $(strip $(foreach 1,$1, \
+        $(call __check_defined,$1,$(strip $(value 2)))))
+__check_defined = \
+    $(if $(value $1),, \
+      $(error Undefined $1$(if $2, ($2))))
 
-SYSTEMD_FILES=\
-	.config/systemd/user/duplicacy-backup.service\
-	.config/systemd/user/duplicacy-backup.timer\
-	.config/systemd/user/low-battery.service\
-	.config/systemd/user/low-battery.timer\
+HOME_DIR := $(shell sed -n -e 's/^HOME=\(.*\)/\1/p' user.cfg)
+$(call check_defined, HOME_DIR)
 
-TMUXLINE_CONFIG=.config/tmux/tmuxline.conf
+BIN_DIR := $(shell sed -n -e 's/^BIN_DIR=\(.*\)/\1/p' user.cfg)
+$(call check_defined, BIN_DIR)
 
-I3BLOCKS_SRC_DIR=.config/i3blocks/i3blocks-contrib
-I3BLOCKS_DEST_DIR=.config/i3blocks/scripts
-CONTRIB_I3BLOCKS_SCRIPTS=\
-	battery/battery\
-	cpu_usage/cpu_usage\
-	essid/essid\
-	mediaplayer/mediaplayer\
-	memory/memory\
-	temperature/temperature\
-	volume/volume\
-	wifi/wifi\
+CONFIG_DIR := $(shell sed -n -e 's/^XDG_CONFIG_HOME=\(.*\)/\1/p' user.cfg)
+$(call check_defined, CONFIG_DIR)
 
-DOTFILES=\
-	$(M4_DOTFILES)\
-	$(SYSTEMD_FILES)\
-	$(TMUXLINE_CONFIG)\
-	.config/fontconfig/conf.d/10-powerline-symbols.conf\
-	.config/fontconfig/fonts.conf\
-	.config/i3blocks/scripts/battery-label\
-	.config/i3blocks/scripts/conky-toggle\
-	.config/i3blocks/scripts/date-calendar\
-	.config/i3blocks/scripts/gkrellm-toggle\
-	.config/i3blocks/scripts/gpu-usage\
-	.config/i3blocks/scripts/weather\
-	.config/pudb/pudb.cfg\
-	.config/python/startup.py\
-	.config/vim/after/indent/tex.vim\
-	.config/vim/filetype.vim\
-	.config/vim/ftplugin/c.vim\
-	.config/vim/ftplugin/cpp.vim\
-	.config/vim/ftplugin/lua.vim\
-	.config/vim/ftplugin/markdown.vim\
-	.config/vim/ftplugin/python.vim\
-	.config/vim/ftplugin/qf.vim\
-	.config/vim/ftplugin/rnoweb.vim\
-	.config/vim/ftplugin/tex.vim\
-	.config/vim/ftplugin/text.vim\
-	.config/vim/ftplugin/vim.vim\
-	.config/vim/ftplugin/vimwiki.vim\
-	.config/vim/indent/python.vim\
-	.config/vim/plugin/commands.vim\
-	.config/vim/plugin/filetypes.vim\
-	.config/vim/plugin/mappings.vim\
-	.config/vim/plugin/settings/ack.vim\
-	.config/vim/plugin/settings/ale.vim\
-	.config/vim/plugin/settings/black.vim\
-	.config/vim/plugin/settings/ctrlp.vim\
-	.config/vim/plugin/settings/editorconfig.vim\
-	.config/vim/plugin/settings/fastfold.vim\
-	.config/vim/plugin/settings/hilinktrace.vim\
-	.config/vim/plugin/settings/nerdtree.vim\
-	.config/vim/plugin/settings/ultisnips.vim\
-	.config/vim/plugin/settings/unicoder.vim\
-	.config/vim/plugin/settings/vim-markdown-preview.vim\
-	.config/vim/plugin/settings/vim-python.vim\
-	.config/vim/plugin/settings/vimwiki.vim\
-	.config/vim/plugin/settings/ycm.vim\
-	.config/vim/syntax/m4.vim\
-	.config/vim/UltiSnips/python.snippets\
-	.config/vim/UltiSnips/tex.snippets\
-	.config/vim/UltiSnips/vimwiki.snippets\
-	.config/vim/ycm_extra_conf.py\
-	.config/xss-lock/transfer-sleep-lock-i3lock.sh\
-	.fonts/PowerlineSymbols.otf\
-	.gkrellm2/user-config-cpu\
-	.gkrellm2/user-config-memory\
-	.local/bin/backtrace\
-	.local/bin/combinediff-careful\
-	.local/bin/dblp-makebib\
-	.local/bin/dfix\
-	.local/bin/duplicacy-backup\
-	.local/bin/get-gitignore\
-	.local/bin/git-w\
-	.local/bin/gr\
-	.local/bin/low-battery-action\
-	.local/bin/mdlynx\
-	.local/bin/pip-deps\
-	.local/bin/pip-update-all\
-	.local/bin/plot\
-	.local/bin/print24bitcolours\
-	.local/bin/print256colours\
-	.local/bin/tmuxm\
+DATA_DIR := $(shell sed -n -e 's/^XDG_DATA_HOME=\(.*\)/\1/p' user.cfg)
+$(call check_defined, DATA_DIR)
 
-DOTDIRS=\
-	.config/fish/plugins\
-	.local/share/vim/bundle/Vundle.vim\
+CACHE_DIR := $(shell sed -n -e 's/^XDG_CACHE_HOME=\(.*\)/\1/p' user.cfg)
+$(call check_defined, CACHE_DIR)
 
-# Directories that need to exist even if empty.
-# The programs in question only use them if the directory exists.
-REQUIRED_DIRS=\
-	.local/share/tig\
-	.local/share/wget\
+SYSTEM_PREFIX := $(shell sed -n -e 's/^SYSTEM_PREFIX=\(.*\)/\1/p' user.cfg)
+$(call check_defined, SYSTEM_PREFIX)
 
-ENV_CONFIG_FILES=$(addprefix env/,\
+I3BLOCKS_SCRIPT_DIR := $(CONFIG_DIR)/i3blocks/scripts
+
+
+# Incomplete files can be created when pipes / scripts fail
+# so delete the target when the rule fails.
+.DELETE_ON_ERROR:
+
+WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
+
+# Environment configuration files
+ENV_CONFIG_FILES:=\
 	battery\
 	browser\
 	colours\
@@ -177,25 +74,266 @@ ENV_CONFIG_FILES=$(addprefix env/,\
 	torch\
 	virtualfish\
 	wifi\
+
+ENV_CONFIG_BUILD_FILES=$(addsuffix .m4,\
+	$(addprefix $(BUILD_DIR)/env/,$(ENV_CONFIG_FILES)))
+
+# Bin
+# ---
+BIN_RAW_DOTFILES:=\
+	backtrace\
+	combinediff-careful\
+	dblp-makebib\
+	dfix\
+	duplicacy-backup\
+	get-gitignore\
+	git-w\
+	gr\
+	low-battery-action\
+	mdlynx\
+	pip-deps\
+	pip-update-all\
+	plot\
+	print24bitcolours\
+	print256colours\
+	tmuxm\
+
+BIN_M4_DOTFILES:=
+BIN_BUILT_DOTFILES:=$(BIN_M4_DOTFILES)
+BIN_DOTFILES:=$(BIN_RAW_DOTFILES) $(BIN_BUILT_DOTFILES)
+
+# Config
+# ------
+CONFIG_FISH_FOREIGN_ENV_DOTFILES:=$(addprefix fish/plugins/foreign-env/,\
+	functions/fenv.apply.fish\
+	functions/fenv.fish\
+	functions/fenv.main.fish\
+	functions/fenv.parse.after.fish\
+	functions/fenv.parse.before.fish\
+	functions/fenv.parse.diff.fish\
+	functions/fenv.parse.divider.fish\
+	LICENSE\
+	README.md\
 )
 
-UTILS_DIR=utils
+CONFIG_SYSTEMD_DOTFILES:=\
+	systemd/user/duplicacy-backup.service\
+	systemd/user/duplicacy-backup.timer\
+	systemd/user/low-battery.service\
+	systemd/user/low-battery.timer\
 
-DOTFILES_DIR:=$(shell pwd)
-INSTALL_DIR:=$(HOME)
-INSTALLED_DOTFILES:=$(addprefix $(INSTALL_DIR)/,$(DOTFILES))
-INSTALLED_SYSTEMD_FILES:=$(addprefix $(INSTALL_DIR)/,$(SYSTEMD_FILES))
-INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS:=$(addprefix $(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)/,$(notdir $(CONTRIB_I3BLOCKS_SCRIPTS)))
-INSTALLED_DOTDIRS:=$(addprefix $(INSTALL_DIR)/,$(DOTDIRS))
-INSTALLED_REQUIRED_DIRS:=$(addprefix $(INSTALL_DIR)/,$(REQUIRED_DIRS))
-# Sort to remove duplicates
-INSTALLATION_DIRS:=$(sort $(dir $(INSTALLED_DOTFILES) $(INSTALLED_DOTDIRS)) $(INSTALLED_REQUIRED_DIRS))
+CONFIG_RAW_VIM_DOTFILES:=\
+	$(shell cd "$(SRC_DIR)/config" && find vim -type f -not -name '*.m4')
 
-M4_CONFIG_GEN_FILES:=$(M4_DOTFILES)
-ENV_CONFIG_M4_FILES:=$(addsuffix .m4,$(ENV_CONFIG_FILES))
+CONFIG_RAW_DOTFILES:=\
+	$(CONFIG_FISH_FOREIGN_ENV_DOTFILES)\
+	$(CONFIG_SYSTEMD_DOTFILES)\
+	$(CONFIG_RAW_VIM_DOTFILES)\
 
-INSTALLED_SYSTEM_FILES:=$(shell find system/ -type f -printf "/%P\n")
-INSTALLATION_DIRS+=$(sort $(dir $(INSTALLED_SYSTEM_FILES)))
+CONFIG_M4_VIM_DOTFILES:=\
+	vim/plugin/settings/airline.vim\
+	vim/plugin/settings/tmuxline.vim\
+	vim/vimrc\
+
+CONFIG_M4_DOTFILES:=\
+	conky/default-popup.lua\
+	env_profile\
+	fish/config.fish\
+	fish/functions/fish_prompt.fish\
+	fish/functions/hostname-icon.fish\
+	fish/functions/ip.fish\
+	fish/functions/pbcopy.fish\
+	fish/functions/pbpaste.fish\
+	fish/functions/R.fish\
+	fish/functions/tmux.fish\
+	fish/functions/torch-activate.fish\
+	flake8\
+	gem/config.yaml\
+	git/config\
+	git/ignore\
+	gsimplecal/config\
+	hg/hgrc\
+	i3/config\
+	i3blocks/config\
+	isort.cfg\
+	latexmk/latexmkrc\
+	locale.conf\
+	matplotlib/matplotlibrc\
+	procps/toprc\
+	pylint/config\
+	task/config\
+	terminator/config\
+	termite/config\
+	theano/config\
+	tmux/tmux.conf\
+	user-dirs.dirs\
+	wgetrc\
+	yapf/style\
+	yay/config.json\
+	$(CONFIG_M4_VIM_DOTFILES)\
+
+CONFIG_VIM_DOTFILES:=$(CONFIG_RAW_VIM_DOTFILES) $(CONFIG_M4_VIM_DOTFILES)
+
+CONFIG_EXECUTABLE_M4_DOTFILES:=\
+	xss-lock/transfer-sleep-lock-i3lock.sh
+
+CONFIG_TMUXLINE:=tmux/tmuxline.conf
+
+CONFIG_I3BLOCKS_CONTRIB_SCRIPTS:=\
+	battery/battery\
+	cpu_usage/cpu_usage\
+	essid/essid\
+	mediaplayer/mediaplayer\
+	memory/memory\
+	temperature/temperature\
+	volume/volume\
+	wifi/wifi\
+
+CONFIG_BUILT_DOTFILES:=\
+	$(CONFIG_M4_DOTFILES)\
+	$(CONFIG_EXECUTABLE_M4_DOTFILES)\
+	$(CONFIG_TMUXLINE)\
+	$(addprefix i3blocks/scripts/,$(notdir $(CONFIG_I3BLOCKS_CONTRIB_SCRIPTS)))\
+
+CONFIG_DOTFILES:=$(CONFIG_RAW_DOTFILES) $(CONFIG_BUILT_DOTFILES)
+
+# Data
+# ----
+VUNDLE_DOTFILES:=$(shell cd "$(SRC_DIR)/data" && find "vim/bundle/Vundle.vim" -type f)
+$(call check_defined,VUNDLE_DOTFILES,Vundle missing; check out submodule)
+
+DATA_RAW_DOTFILES:=$(VUNDLE_DOTFILES)
+
+DATA_M4_DOTFILES:=
+DATA_BUILT_DOTFILES:=$(DATA_M4_DOTFILES)
+
+# These directories need to exist for the programs in question to use them
+DATA_MAKE_DIRS:=$(addsuffix /.,\
+	tig\
+	wget\
+)
+DATA_DOTFILES:=$(DATA_RAW_DOTFILES) $(DATA_BUILT_DOTFILES) $(DATA_MAKE_DIRS)
+
+# Home 
+# ----
+HOME_RAW_DOTFILES:=\
+	.fonts/PowerlineSymbols.otf\
+	.gkrellm2/user-config-cpu\
+	.gkrellm2/user-config-memory\
+
+HOME_M4_DOTFILES:=\
+	.duplicacy/filters\
+	.ssh/config\
+	.bash_aliases\
+	.bash_profile\
+	.bashrc\
+	.imwheelrc\
+	.profile\
+	.xbindkeysrc\
+	.xinitrc\
+	.Xmodmap\
+	.xprofile\
+	.Xresources\
+
+HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES)
+HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_BUILT_DOTFILES)
+
+# System
+# ------
+SYSTEM_RAW_DOTFILES:=\
+	etc/udev/rules.d/90-backlight.rules\
+	etc/X11/xorg.conf.d/10-monitor.conf\
+	etc/X11/xorg.conf.d/90-keyboard.conf\
+
+SYSTEM_M4_DOTFILES:=
+SYSTEM_BUILT_DOTFILES:=$(SYSTEM_M4_DOTFILES)
+SYSTEM_DOTFILES:=$(SYSTEM_RAW_DOTFILES) $(SYSTEM_BUILT_DOTFILES)
+
+M4_DOTFILES:=\
+	$(addprefix bin/,$(BIN_M4_DOTFILES))\
+	$(addprefix config/,$(CONFIG_M4_DOTFILES))\
+	$(addprefix data/,$(DATA_M4_DOTFILES))\
+	$(addprefix home/,$(HOME_M4_DOTFILES))\
+	$(addprefix system/,$(SYSTEM_M4_DOTFILES))\
+
+EXECUTABLE_M4_DOTFILES:=\
+	$(addprefix bin/,$(BIN_EXECUTABLE_M4_DOTFILES))\
+	$(addprefix config/,$(CONFIG_EXECUTABLE_M4_DOTFILES))\
+	$(addprefix data/,$(DATA_EXECUTABLE_M4_DOTFILES))\
+	$(addprefix home/,$(HOME_EXECUTABLE_M4_DOTFILES))\
+	$(addprefix system/,$(SYSTEM_EXECUTABLE_M4_DOTFILES))\
+
+RAW_DOTFILES:=\
+	$(addprefix bin/,$(BIN_RAW_DOTFILES))\
+	$(addprefix config/,$(CONFIG_RAW_DOTFILES))\
+	$(addprefix data/,$(DATA_RAW_DOTFILES))\
+	$(addprefix home/,$(HOME_RAW_DOTFILES))\
+	$(addprefix system/,$(SYSTEM_RAW_DOTFILES))\
+
+BUILT_DOTFILES:=$(addprefix build/,\
+	$(addprefix bin/,$(BIN_BUILT_DOTFILES))\
+	$(addprefix config/,$(CONFIG_BUILT_DOTFILES))\
+	$(addprefix data/,$(DATA_BUILT_DOTFILES))\
+	$(addprefix home/,$(HOME_BUILT_DOTFILES))\
+	$(addprefix system/,$(SYSTEM_BUILT_DOTFILES))\
+)
+
+INSTALLED_DOTFILES:=\
+	$(addprefix $(BIN_DIR)/,$(BIN_DOTFILES))\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_DOTFILES))\
+	$(addprefix $(DATA_DIR)/,$(DATA_DOTFILES))\
+	$(addprefix $(HOME_DIR)/,$(HOME_DOTFILES))\
+
+INSTALLED_SYSTEM_DOTFILES:=\
+	$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_DOTFILES))\
+
+INSTALLED_SYSTEMD_FILESFILES:=\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_SYSTEMD_DOTFILES))
+
+.PHONY: build install install-user-dotfiles install-system clean help
+
+build: $(BUILT_DOTFILES)
+
+install: install-user-dotfiles systemd-reload
+
+install-user-dotfiles: $(INSTALLED_DOTFILES)
+
+install-system: $(INSTALLED_SYSTEM_DOTFILES)
+
+clean:
+	rm -rf $(BUILD_DIR)
+
+define HELP_MESSAGE
+Makefile Commands
+=================
+build [default]    : Build the dotfiles into $(BUILD_DIR)/
+install            : Install user dotfiles.
+                     Destinations are specified in user.cfg.
+install-system     : Install system dotfiles.
+                     Likely requires root permissions.
+clean              : Remove build products.
+help               : Print this help message
+
+show               : Run all `show-*` commands.
+show-config        : Print the user and environment configuration.
+
+vim                : Run all `vim-*` commands.
+                     Uses sytem vim so install first.
+vim-update-plugins : Update vim plugins.
+vim-ycm            : Compile YouCompleteMe for vim.
+
+systemd-reload     : Reload user systemd units if any changed.
+persistent-configs : Set persistent settings that are not file-based.
+endef
+
+help:
+	@: $(info $(HELP_MESSAGE))
+
+
+
+#############################
+##  Build Regular Configs  ##
+#############################
 
 USER_CONFIG_PREFIX:=m4_user_config_
 ENV_CONFIG_PREFIX:=m4_env_config_
@@ -203,54 +341,74 @@ ENV_CONFIG_PREFIX:=m4_env_config_
 QUOTE_START:=??[[<<
 QUOTE_END:=>>]]??
 
-WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
+define MKDIR_TEMPLATE
+.PRECIOUS: $1/. $1/%/.
 
-PYGMENTIZE:=$(shell command -v pygmentize)
+$1/.:
+	mkdir -p "$$@"
 
-RANDOM_ID:=$(shell echo $$RANDOM)
+$1/%/.:
+	mkdir -p "$$@"
 
-YCM_DIR:=$(INSTALL_DIR)/.local/share/vim/bundle/YouCompleteMe
-YCM_CORE:=$(YCM_DIR)/third_party/ycmd/ycm_core.so
-YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
-
-.PHONY: build install install-dotfiles install-system install-all  \
-	set-persistent-configs clean show show-config vim \
-	vim-update-plugins vim-ycm systemd-reload \
-
-# Incomplete files can be created when pipes / scripts fail
-# so delete the target when the rule fails.
-.DELETE_ON_ERROR:
-
-build: $(DOTFILES)
-
-# Build Dotfiles
-# --------------
-# - Build each dotfile from the corresponding .m4 file, user_config.m4, and
-#   env_config.m4.
-# - Custom build for tmuxline.conf
-define M4_CONFIG_GEN_TEMPLATE
-$1 : % : %.m4 $(wildcard $1.local) user_config.m4 env_config.m4
-	echo "m4_changecom()m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
-		cat - $$< | \
-		m4 --prefix-builtins > $$@
 endef
 
-$(foreach M4_CONFIG_GEN_FILE, $(M4_CONFIG_GEN_FILES), \
-	$(eval $(call M4_CONFIG_GEN_TEMPLATE, $(M4_CONFIG_GEN_FILE))))
+$(eval $(call MKDIR_TEMPLATE,$(BUILD_DIR)))
 
-.config/xss-lock/transfer-sleep-lock-i3lock.sh : % : %.m4 $(wildcard %.local) user_config.m4 env_config.m4
-	echo "m4_changecom()m4_changequote(${QUOTE_START},${QUOTE_END})m4_dnl" | \
-		cat - $< | \
-		m4 --prefix-builtins > $@
-	chmod u+x $@
+# Templates are required for evaluating the directory and wildcard prequisites.
+# .SECONDEXPANSION could be used instead but it is less portable.
+define M4_BUILD_TEMPLATE
+$(BUILD_DIR)/$1: \
+		$(SRC_DIR)/$1.m4 \
+		$(wildcard $(SRC_DIR)/$1.local) \
+		$(BUILD_DIR)/user_config.m4 \
+		$(BUILD_DIR)/env_config.m4 | $(dir $(BUILD_DIR)/$1).
+	echo "m4_changecom()m4_changequote($(QUOTE_START),$(QUOTE_END))m4_dnl" | \
+		cat - "$$<" | \
+		m4 --prefix-builtins > "$$@" -I "$(BUILD_DIR)"
+endef
 
-$(TMUXLINE_CONFIG): .config/vim/vimrc .config/vim/plugin/settings/airline.vim .config/vim/plugin/settings/tmuxline.vim | $(dir $(TMUXLINE_CONFIG))
+define EXECUTABLE_M4_BUILD_TEMPLATE
+$(call M4_BUILD_TEMPLATE,$1)
+	chmod u+x "$$@"
+endef
+
+define RAW_BUILD_TEMPLATE
+$(BUILD_DIR)/$1: $(SRC_DIR)/$1 | $(dir $(BUILD_DIR)/$1).
+	cp -v "$$<" "$$@"
+endef
+
+define RAW_DIR_BUILD_TEMPLATE
+$(BUILD_DIR)/$1: $(SRC_DIR)/$1 | $(dir $(BUILD_DIR)/$1).
+	cp -rv "$$<" "$$@"
+endef
+
+$(foreach DOTFILE,$(M4_DOTFILES),\
+	$(eval $(call M4_BUILD_TEMPLATE,$(DOTFILE))))
+
+$(foreach DOTFILE,$(EXECUTABLE_M4_DOTFILES),\
+	$(eval $(call EXECUTABLE_M4_BUILD_TEMPLATE,$(DOTFILE))))
+
+$(foreach DOTFILE,$(RAW_DOTFILES),\
+	$(eval $(call RAW_BUILD_TEMPLATE,$(DOTFILE))))
+
+$(foreach DOTDIR,$(RAW_DOTDIRS),\
+	$(eval $(call RAW_DIR_BUILD_TEMPLATE,$(DOTDIR))))
+
+############
+# Tmuxline #
+############
+
+BUILT_VIMRC:=$(BUILD_DIR)/config/vim/vimrc
+
+RANDOM_ID:=$(shell echo $$RANDOM)
+$(BUILD_DIR)/config/$(CONFIG_TMUXLINE): $(BUILT_VIMRC) \
+	| $(dir $(BUILD_DIR)/config/$(TMUXLINE_CONFIG)).
 	rm -f "$@"
 	# Start a new temporary tmux session and in that tmux session run vim
 	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
 	# tmuxline.conf
-	tmux new-session -d -s 'tmuxline-${RANDOM_ID}' 'vim -u ".config/vim/vimrc" -Es -c "TmuxlineSnapshot $@" -c "q"'
-	while tmux list-sessions 2>/dev/null | grep 'tmuxline-${RANDOM_ID}' >/dev/null ; do \
+	tmux new-session -d -s 'tmuxline-$(RANDOM_ID)' 'vim -u "$(BUILT_VIMRC)" -Es -c "TmuxlineSnapshot $@" -c "q"'
+	while tmux list-sessions 2>/dev/null | grep 'tmuxline-$(RANDOM_ID)' >/dev/null ; do \
 		sleep 0.05; \
 	done
 	@if [ ! -f "$@" ]; then \
@@ -258,107 +416,51 @@ $(TMUXLINE_CONFIG): .config/vim/vimrc .config/vim/plugin/settings/airline.vim .c
 		touch "$@"; \
 	fi
 
-$(dir $(TMUXLINE_CONFIG)):
-	mkdir -p "$@"
+####################
+# I3Blocks Contrib #
+####################
 
-# Configuration Files
-# -------------------
-# - Build user_config.m4 from user.cfg
-# - Build env/*.m4 from ENV_CONFIG_FILES
-# - Build env_config.m4 from env/*.m4
-user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh
-	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
-		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
-
-env/colours.m4: env/colours.toml
-
-env/%.m4: env/% env/env_utils
-	$< | \
-		$(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" | \
-		(echo "m4_dnl $<" && cat) > $@
-
-env_config.m4: $(ENV_CONFIG_M4_FILES)
-	cat $^ > $@
-
-# Install Dotfiles & Dotdirs
-# --------------------------
-# - Copy dotfiles into INSTALL_DIR
-# - Symbolic link dotdirs into INSTALL_DIR
-install: install-dotfiles systemd-reload
-
-set-persistent-configs: $(INSTALL_DIR)/.fonts/PowerlineSymbols.otf
-	$(UTILS_DIR)/set-persistent-configs.sh
-
-
-systemd-reload: .make/systemd-reload
-
-SYSTEMCTL := $(shell command -v systemctl 2>/dev/null)
-ifdef SYSTEMCTL
-.make/systemd-reload: $(INSTALLED_SYSTEMD_FILES) | .make/
-	systemctl --user daemon-reload
-else
-.make/systemd-reload: .make/
-endif
-	touch $@
-
-.make/:
-	mkdir -p $@
-
-install-dotfiles: \
-	$(INSTALLED_DOTFILES)\
-	$(INSTALLED_CONTRIB_I3BLOCKS_SCRIPTS)\
-	$(INSTALLED_DOTDIRS)\
-	$(INSTALLED_REQUIRED_DIRS)\
-
-define INSTALL_DOTFILE_TEMPLATE
-$1 : $(INSTALL_DIR)/% : % | $(dir $1)
-	@cp -Rdv "$$<" "$$@"
+define BUILD_I3BLOCKS_CONTRIB_TEMPLATE
+$(BUILD_DIR)/config/i3blocks/scripts/$(notdir $1) : $(SRC_DIR)/config/i3blocks/i3blocks-contrib/$1 | $(BUILD_DIR)/config/i3blocks/scripts/.
+	cp -v "$$<" "$$@"
 endef
 
-$(foreach INSTALLED_DOTFILE, $(INSTALLED_DOTFILES), \
-	$(eval $(call INSTALL_DOTFILE_TEMPLATE, $(INSTALLED_DOTFILE))))
+$(foreach CONTRIB_SCRIPT,$(CONFIG_I3BLOCKS_CONTRIB_SCRIPTS),\
+	$(eval $(call BUILD_I3BLOCKS_CONTRIB_TEMPLATE,$(CONTRIB_SCRIPT))))
 
-define INSTALL_I3BLOCKS_SCRIPT_TEMPLATE
-$(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)/$(notdir $1) : $(I3BLOCKS_SRC_DIR)/$1 | $(INSTALL_DIR)/$(I3BLOCKS_DEST_DIR)
-	@cp -Rdv "$$<" "$$@"
+#########################
+# M4 Build Config Files #
+#########################
+
+define ENV_CONFIG_TEMPLATE
+$(BUILD_DIR)/env/$1.m4: $(SRC_DIR)/env/$1 $(SRC_DIR)/env/env_utils \
+		| $(dir $(BUILD_DIR)/env/$1).
+	"$$<" | \
+		$(UTILS_DIR)/config_replace.sh "$(ENV_CONFIG_PREFIX)" "$(QUOTE_START)" "$(QUOTE_END)" | \
+		(echo "m4_dnl $$<" && cat) > $$@
 endef
 
-$(foreach I3BLOCK_SCRIPT, $(CONTRIB_I3BLOCKS_SCRIPTS), \
-	$(eval $(call INSTALL_I3BLOCKS_SCRIPT_TEMPLATE,$(I3BLOCK_SCRIPT))))
+$(BUILD_DIR)/env/colours.m4: $(BUILD_DIR)/env/colours.toml
 
-define INSTALL_DOTDIR_TEMPLATE
-$1 : $(INSTALL_DIR)/% : | % $(dir $1)
-	ln -s "$(DOTFILES_DIR)/$$(firstword $$|)" "$$@"
-endef
+$(eval $(call RAW_BUILD_TEMPLATE,env/colours.toml))
 
-$(foreach INSTALLED_DOTDIR, $(INSTALLED_DOTDIRS), \
-	$(eval $(call INSTALL_DOTDIR_TEMPLATE, $(INSTALLED_DOTDIR))))
+$(foreach ENVFILE,$(ENV_CONFIG_FILES),\
+	$(eval $(call ENV_CONFIG_TEMPLATE,$(ENVFILE))))
 
-$(INSTALLATION_DIRS):
-	mkdir -p $@
+$(BUILD_DIR)/user_config.m4: user_config.m4 | $(BUILD_DIR)/.
+	@cp -v "$(DOTFILES_DIR)/$<" "$@"
 
-# Install system files
-install-all: install install-system
-install-system: $(INSTALLED_SYSTEM_FILES)
+$(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_BUILD_FILES) | $(BUILD_DIR)/.
+	cat $^ > "$@"
 
-define INSTALL_SYSTEM_FILE_TEMPLATE
-$1 : /% : system/% | $(dir $1)
-	cp --interactive "$$<" "$$@"
-endef
+####################
+# Show Information #
+####################
+.PHONY: show show-config
 
-$(foreach INSTALLED_SYSTEM_FILE, $(INSTALLED_SYSTEM_FILES), \
-	$(eval $(call INSTALL_SYSTEM_FILE_TEMPLATE, $(INSTALLED_SYSTEM_FILE))))
+show: show-config
 
-# Clean
-# -----
-# - Delete all the build products.
-clean:
-	rm -f user_config.m4 env_config.m4
-	rm -f $(M4_DOTFILES) $(TMUXLINE_CONFIG)
-	rm -f .config/xss-lock/transfer-sleep-lock-i3lock.sh
-	rm -f $(ENV_CONFIG_M4_FILES)
-	rm -f .make/*
-
+PYGMENTIZE:=$(shell command -v pygmentize)
 ifdef PYGMENTIZE
 # pygmentize does not apply the right colours for dark background on
 # vim style so use a different style that does work.
@@ -370,16 +472,14 @@ endif
 ESCAPED_QUOTE_START=$(subst [,\[,$(subst ],\],$(QUOTE_START)))
 ESCAPED_QUOTE_END=$(subst [,\[,$(subst ],\],$(QUOTE_END)))
 
-# Show Configuration
-show: show-config
-show-config: user.cfg env_config.m4
+show-config: user.cfg $(BUILD_DIR)/env_config.m4
 ifndef PYGMENTIZE
 	@echo "Install pygmentize (python pygments) to view coloured output."
 	@echo
 endif
 	@echo '# User Config' | cat - user.cfg | $(COLORIZE_CONFIG)
 	@echo
-	@echo '# Environment Config' | cat - env_config.m4 | \
+	@echo '# Environment Config' | cat - $(BUILD_DIR)/env_config.m4 | \
 		sed -e "s/^m4_dnl/#/" | \
 		sed -e "s/$(ESCAPED_QUOTE_START)//g" | \
 		sed -e "s/$(ESCAPED_QUOTE_END)//g" | \
@@ -388,11 +488,56 @@ endif
 		sed -e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
 
-# Update Build vim plugins
+#############
+## Install ##
+#############
+
+# The first blank line is necessary. Foreach separates the evaluations with
+# a space but we don't want the rule definition to start with a space.
+define INSTALL_FILE_TEMPLATE
+
+$3/$4: $1/$2/$4 | $(dir $3/$4).
+	@cp -v "$$<" "$$@"
+endef
+
+define INSTALL_FILES_TEMPLATE
+$(foreach DOTFILE,$4,$(call INSTALL_FILE_TEMPLATE,$1,$2,$3,$(DOTFILE)))
+endef
+
+define INSTALL_TEMPLATE
+$(call MKDIR_TEMPLATE,$2)
+$(call INSTALL_FILES_TEMPLATE,$(SRC_DIR),$1,$2,$3)
+$(call INSTALL_FILES_TEMPLATE,$(BUILD_DIR),$1,$2,$4)
+endef
+
+$(eval $(call INSTALL_TEMPLATE,bin,$(BIN_DIR),\
+	$(BIN_RAW_DOTFILES),$(BIN_BUILT_DOTFILES)))
+
+$(eval $(call INSTALL_TEMPLATE,config,$(CONFIG_DIR),\
+	$(CONFIG_RAW_DOTFILES),$(CONFIG_BUILT_DOTFILES)))
+
+$(eval $(call INSTALL_TEMPLATE,data,$(DATA_DIR),\
+	$(DATA_RAW_DOTFILES),$(DATA_BUILT_DOTFILES)))
+
+$(eval $(call INSTALL_TEMPLATE,home,$(HOME_DIR),\
+	$(HOME_RAW_DOTFILES),$(HOME_BUILT_DOTFILES)))
+
+$(eval $(call INSTALL_TEMPLATE,system,$(SYSTEM_PREFIX),\
+	$(SYSTEM_RAW_DOTFILES),$(SYSTEM_BUILT_DOTFILES)))
+
+###############
+# Vim Plugins #
+###############
+.PHONY: vim vim-update-plugins vim-ycm
+
 vim: vim-update-plugins vim-ycm
 
 vim-update-plugins:
 	vim +PluginInstall +PluginUpdate +qall
+
+YCM_DIR:=$(DATA_DIR)/vim/bundle/YouCompleteMe
+YCM_CORE:=$(YCM_DIR)/third_party/ycmd/ycm_core.so
+YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
 
 PYTHON := $(shell which python3 || echo python)
 
@@ -402,3 +547,40 @@ $(YCM_CORE): $(YCM_GIT_CHECKOUT)
 	cd $(YCM_DIR) && \
 		$(PYTHON) ./install.py --clang-completer \
 		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)
+
+######################
+# Persistent Configs #
+######################
+.PHONY: persistent-configs
+
+persistent-configs: $(BUILD_DIR)/make/persistent-configs
+
+$(BUILD_DIR)/make/persistent-configs: \
+		$(UTILS_DIR)/set-persistent-configs.sh \
+		$(HOME_DIR)/.fonts/PowerlineSymbols.otf \
+		$(INSTALLED_SYSTEMD_FILES) \
+		| $(BUILD_DIR)/make/
+	$(UTILS_DIR)/set-persistent-configs.sh
+	touch $@
+
+
+$(BUILD_DIR)/make/:
+	mkdir -p $@
+
+##################
+# Systemd Reload #
+##################
+.PHONY: systemd-reload
+
+systemd-reload: $(BUILD_DIR)/make/systemd-reload
+
+SYSTEMCTL := $(shell command -v systemctl 2>/dev/null)
+ifdef SYSTEMCTL
+$(BUILD_DIR)/make/systemd-reload: \
+		$(INSTALLED_SYSTEMD_FILES) \
+		| $(BUILD_DIR)/make/
+	systemctl --user daemon-reload
+else
+$(BUILD_DIR)/make/systemd-reload: /make/
+endif
+	touch $@
