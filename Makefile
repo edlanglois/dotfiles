@@ -56,7 +56,6 @@ ENV_CONFIG_FILES:=\
 	git-push-default-simple\
 	github_id\
 	go\
-	i3blocks\
 	lock\
 	modules\
 	mujoco\

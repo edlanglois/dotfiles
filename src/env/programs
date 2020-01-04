@@ -7,6 +7,7 @@ find_program DEX dex || true
 find_program DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run || true
 find_program FEH feh || true
 find_program GSIMPLECAL gsimplecal || true
+find_program I3BLOCKS i3blocks || true
 find_program IP_CMD ip || true
 find_program KEYCHAIN keychain || true
 find_program PLAYERCTL playerctl || true
