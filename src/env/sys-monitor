@@ -10,7 +10,7 @@ if program_exists netdata; then
 	exit
 fi
 
-I3BLOCKS_SCRIPTS="${XDG_CONFIG_HOME:-$HOME/.config}/i3blocks/scripts"
+I3BLOCKS_SCRIPTS="${CONFIG_DIR}/i3blocks/scripts"
 if program_exists conky; then
 	CONKY_POPUP="$I3BLOCKS_SCRIPTS/conky-toggle"
 	echo I3BLOCKS_CPU_POPUP="$CONKY_POPUP"

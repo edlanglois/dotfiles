@@ -1,3 +1,4 @@
+m4_include(user_config.m4)m4_dnl
 # Taskwarrior program configuration file.
 # For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
 # 'man task-sync' or 'man taskrc'
@@ -10,7 +11,7 @@
 # Use the command 'task show' to see all defaults and overrides
 
 # Files
-data.location=~/.local/share/task
+data.location=m4_user_config_XDG_DATA_HOME/task
 
 # Color theme (uncomment one to use)
 #include /usr/share/doc/task/rc/light-16.theme

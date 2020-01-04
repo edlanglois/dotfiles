@@ -12,12 +12,12 @@ fi;
 # Find the module command initialization directory.
 # Needed if autoinit is unavailable.
 find_directory MODULE_INIT_DIR \
-	"$HOME/.local/share/modules/init" \
+	"${DATA_DIR}/modules/init" \
 	"/usr/share/modules/init" \
 	|| true
 
 # Find the default collection to import immediately
 find_file MODULE_DEFAULT_COLLECTION \
-	"$HOME/.config/modules/default" \
+	"${CONFIG_DIR}/modules/default" \
 	"$HOME/.module/default" \
 	|| true

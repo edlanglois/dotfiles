@@ -26,7 +26,7 @@ m4_include(env_config.m4)m4_dnl
 #
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
-m4_define(m4_I3BLOCKS_DIR,??[[<<~/.config/i3blocks/scripts>>]]??)
+m4_define(m4_I3BLOCKS_DIR,??[[<<m4_user_config_XDG_CONFIG_HOME/i3blocks/scripts>>]]??)
 command=m4_I3BLOCKS_DIR/$BLOCK_NAME
 align=left
 color=#ffffff

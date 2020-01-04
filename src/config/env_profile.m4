@@ -48,12 +48,6 @@ pathappend_if_isdir() {
   fi
 }
 
-m4_dnl XDG config directories.
-m4_dnl No support for changing these currently (except cache)
-m4_define(m4_xdg_config_home,??[[<<$HOME/.config>>]]??)m4_dnl
-m4_define(m4_xdg_cache_home,??[[<<$HOME/.cache>>]]??)m4_dnl
-m4_define(m4_xdg_data_home,??[[<<$HOME/.local/share>>]]??)m4_dnl
-
 # Set editor to vim
 export EDITOR=vim
 
@@ -61,27 +55,29 @@ m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
 # Set default browser
 export BROWSER=m4_env_config_BROWSER)
 
-# Set locale; also set in .config/locale.conf but that isn't always read.
+# Set locale; also set in config/locale.conf but that isn't always read.
 LANG=m4_user_config_LANG.utf8
 LANGUAGE=m4_user_config_LANGUAGE
 
+export XDG_CONFIG_HOME=m4_user_config_XDG_CONFIG_HOME
+export XDG_DATA_HOME=m4_user_config_XDG_DATA_HOME
+export XDG_CACHE_HOME=m4_user_config_XDG_CACHE_HOME
+# Not exported; Not quoted to allow ~ expansion
+LOCAL_PREFIX_=m4_user_config_LOCAL_PREFIX
+
 # Add user local directories to environment paths
-PATH="$(pathprepend_if_isdir "$PATH" "$HOME/bin")"
-PATH="$(pathprepend_if_isdir "$PATH" "$HOME/.local/bin")"
+PATH="$(pathprepend_if_isdir "$PATH" "$LOCAL_PREFIX_/bin")"
 
-LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$HOME/lib")"
-LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$HOME/.local/lib")"
+LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$LOCAL_PREFIX_/lib")"
 
-MANPATH="$(pathprepend_if_isdir "$(manpath -g)" "$HOME/man")"
-MANPATH="$(pathprepend_if_isdir "$MANPATH" "$HOME/share/man")"
-MANPATH="$(pathprepend_if_isdir "$MANPATH" "$HOME/.local/man")"
-MANPATH="$(pathprepend_if_isdir "$MANPATH" "$HOME/.local/share/man")"
+MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/man")"
+MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 
 # OpenSSL Seed File (Defaults to $HOME/.rnd)
-export RANDFILE="m4_xdg_cache_home/openssl/rnd"
+export RANDFILE=m4_user_config_XDG_CACHE_HOME/openssl/rnd
 
 # wget
-export WGETRC="m4_xdg_config_home/wgetrc"
+export WGETRC=m4_user_config_XDG_CONFIG_HOME/wgetrc
 
 # tmux
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
@@ -125,17 +121,17 @@ export MUJOCO_PY_MJKEY_PATH="m4_env_config_MJKEY_PATH"
 
 m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl
 # Python Environment
-export PYTHONSTARTUP="m4_xdg_config_home/python/startup.py"
-export PYLINTRC="m4_xdg_config_home/pylint/config"
-export PYLINTHOME="m4_xdg_cache_home/pylint"
-export THEANORC="m4_xdg_config_home/theano/config"
+export PYTHONSTARTUP=m4_user_config_XDG_CONFIG_HOME/python/startup.py
+export PYLINTRC=m4_user_config_XDG_CONFIG_HOME/pylint/config
+export PYLINTHOME=m4_user_config_XDG_CACHE_HOME/pylint
+export THEANORC=m4_user_config_XDG_CONFIG_HOME/theano/config
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl
 # Ruby Gem Configuration Directories
-export GEMRC="m4_xdg_config_home/gem/config.yaml"
-export GEM_HOME="m4_xdg_data_home/gem"
-export GEM_SPEC_CACHE="m4_xdg_cache_home/gem"
+export GEMRC=m4_user_config_XDG_CONFIG_HOME/gem/config.yaml
+export GEM_HOME=m4_user_config_XDG_DATA_HOME/gem
+export GEM_SPEC_CACHE=m4_user_config_XDG_CACHE_HOME/gem
 )m4_dnl
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,m4_dnl
 # Ruby Gem Paths
@@ -146,11 +142,11 @@ done <<< "m4_env_config_GEM_BIN_PATH:"
 
 m4_ifdef(??[[<<m4_env_config_TASK>>]]??,m4_dnl
 # Task configuration file
-export TASKRC="m4_xdg_config_home/task/config"
+export TASKRC=m4_user_config_XDG_CONFIG_HOME/task/config
 )m4_dnl
 
 # Vim Environment
-export VIMINIT=":source m4_xdg_config_home/vim/vimrc"
+export VIMINIT=":source m4_user_config_XDG_CONFIG_HOME/vim/vimrc"
 
 export PATH
 export LD_LIBRARY_PATH

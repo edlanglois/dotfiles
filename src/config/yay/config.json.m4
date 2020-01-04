@@ -1,7 +1,8 @@
+m4_include(env_config.m4)m4_dnl
 {
 	"aururl": "https://aur.archlinux.org",
-	"buildDir": "$HOME/.cache/yay",
-	"absdir": "$HOME/.cache/yay/abs",
+	"buildDir": "m4_env_config_XDG_CACHE_HOME/yay",
+	"absdir": "m4_env_config_XDG_CACHE_HOME/yay/abs",
 	"editor": "",
 	"editorflags": "",
 	"makepkgbin": "makepkg",

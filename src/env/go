@@ -2,4 +2,4 @@
 set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
-find_directory GOROOT "$HOME/.local/go" || true
+find_directory GOROOT "${DATA_DIR}/go" || true

@@ -1,8 +1,0 @@
-[Unit]
-Description=Run a duplicacy backup.
-
-[Service]
-ExecStart=/bin/bash "%h/.local/bin/duplicacy-backup" "%h"
-Type=simple
-RestartSec=10min
-Restart=on-failure

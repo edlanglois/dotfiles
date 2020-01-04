@@ -1,4 +1,5 @@
 m4_include(env_config.m4)m4_dnl
+m4_include(user_config.m4)m4_dnl
 # Based on
 # i3 config file (v4)
 #
@@ -195,7 +196,7 @@ m4_ifdef(??[[<<m4_env_config_START_SCREENSAVER>>]]??,m4_dnl
 exec m4_env_config_START_SCREENSAVER)
 
 m4_ifdef(??[[<<m4_env_config_DEX>>]]??,m4_dnl
-??[[<<# Auto-start desktop entries in {/etc/xdg,~/.config}/autostart>>]]??
-exec m4_env_config_DEX -ae i3)
+??[[<<# Auto-start desktop entries>>]]??
+exec m4_env_config_DEX -ae i3 -s /etc/xdg/autostart:m4_user_config_XDG_CONFIG_HOME/autostart)
 
-m4_sinclude(.config/i3/config.local)m4_dnl
+m4_sinclude(m4_user_config_XDG_CONFIG_HOME/i3/config.local)m4_dnl

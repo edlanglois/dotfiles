@@ -1,6 +1,0 @@
-[Unit]
-Description=Notify or suspend on low battery
-
-[Service]
-ExecStart=/bin/bash %h/.local/bin/low-battery-action
-Type=oneshot

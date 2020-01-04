@@ -23,8 +23,9 @@ __check_defined = \
 HOME_DIR := $(shell sed -n -e 's/^HOME=\(.*\)/\1/p' user.cfg)
 $(call check_defined, HOME_DIR)
 
-BIN_DIR := $(shell sed -n -e 's/^BIN_DIR=\(.*\)/\1/p' user.cfg)
-$(call check_defined, BIN_DIR)
+LOCAL_PREFIX := $(shell sed -n -e 's/^LOCAL_PREFIX=\(.*\)/\1/p' user.cfg)
+$(call check_defined, LOCAL_PREFIX)
+BIN_DIR := $(LOCAL_PREFIX)/bin
 
 CONFIG_DIR := $(shell sed -n -e 's/^XDG_CONFIG_HOME=\(.*\)/\1/p' user.cfg)
 $(call check_defined, CONFIG_DIR)
@@ -37,6 +38,14 @@ $(call check_defined, CACHE_DIR)
 
 SYSTEM_PREFIX := $(shell sed -n -e 's/^SYSTEM_PREFIX=\(.*\)/\1/p' user.cfg)
 $(call check_defined, SYSTEM_PREFIX)
+
+# Meant to be used by env/ scripts ONLY
+export HOME_DIR
+export LOCAL_PREFIX
+export CONFIG_DIR
+export DATA_DIR
+export CACHE_DIR
+export SYSTEM_PREFIX
 
 I3BLOCKS_SCRIPT_DIR := $(CONFIG_DIR)/i3blocks/scripts
 
@@ -114,24 +123,24 @@ CONFIG_FISH_FOREIGN_ENV_DOTFILES:=$(addprefix fish/plugins/foreign-env/,\
 	README.md\
 )
 
-CONFIG_SYSTEMD_DOTFILES:=\
-	systemd/user/duplicacy-backup.service\
-	systemd/user/duplicacy-backup.timer\
-	systemd/user/low-battery.service\
-	systemd/user/low-battery.timer\
-
 CONFIG_RAW_VIM_DOTFILES:=\
 	$(shell cd "$(SRC_DIR)/config" && find vim -type f -not -name '*.m4')
 
 CONFIG_RAW_DOTFILES:=\
 	$(CONFIG_FISH_FOREIGN_ENV_DOTFILES)\
-	$(CONFIG_SYSTEMD_DOTFILES)\
 	$(CONFIG_RAW_VIM_DOTFILES)\
+
+CONFIG_M4_SYSTEMD_DOTFILES:=\
+	systemd/user/duplicacy-backup.service\
+	systemd/user/duplicacy-backup.timer\
+	systemd/user/low-battery.service\
+	systemd/user/low-battery.timer\
 
 CONFIG_M4_VIM_DOTFILES:=\
 	vim/plugin/settings/airline.vim\
 	vim/plugin/settings/tmuxline.vim\
 	vim/vimrc\
+	vim/ycm_extra_conf.py\
 
 CONFIG_M4_DOTFILES:=\
 	conky/default-popup.lua\
@@ -168,6 +177,7 @@ CONFIG_M4_DOTFILES:=\
 	wgetrc\
 	yapf/style\
 	yay/config.json\
+	$(CONFIG_M4_SYSTEMD_DOTFILES)\
 	$(CONFIG_M4_VIM_DOTFILES)\
 
 CONFIG_VIM_DOTFILES:=$(CONFIG_RAW_VIM_DOTFILES) $(CONFIG_M4_VIM_DOTFILES)
@@ -278,8 +288,8 @@ INSTALLED_DOTFILES:=\
 INSTALLED_SYSTEM_DOTFILES:=\
 	$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_DOTFILES))\
 
-INSTALLED_SYSTEMD_FILESFILES:=\
-	$(addprefix $(CONFIG_DIR)/,$(CONFIG_SYSTEMD_DOTFILES))
+INSTALLED_SYSTEMD_FILES:=\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_M4_SYSTEMD_DOTFILES))
 
 .PHONY: build install install-user-dotfiles install-system clean help
 
@@ -404,11 +414,15 @@ $(foreach CONTRIB_SCRIPT,$(CONFIG_I3BLOCKS_CONTRIB_SCRIPTS),\
 # M4 Build Config Files #
 #########################
 
+# Depends on user.cfg because env scripts may use the exported environment
+# variables that are defined by user.cfg
 define ENV_CONFIG_TEMPLATE
-$(BUILD_DIR)/env/$1.m4: $(SRC_DIR)/env/$1 $(SRC_DIR)/env/env_utils \
+$(BUILD_DIR)/env/$1.m4: $(SRC_DIR)/env/$1 $(SRC_DIR)/env/env_utils $(BUILD_DIR)/env/paths.sh \
 		| $(dir $(BUILD_DIR)/env/$1).
-	"$$<" | \
-		$(UTILS_DIR)/config_replace.sh "$(ENV_CONFIG_PREFIX)" "$(QUOTE_START)" "$(QUOTE_END)" | \
+	source "$(BUILD_DIR)/env/paths.sh" && \
+		"$$<" | \
+		$(UTILS_DIR)/config_replace.sh \
+			"$(ENV_CONFIG_PREFIX)" "$(QUOTE_START)" "$(QUOTE_END)" | \
 		(echo "m4_dnl $$<" && cat) > $$@
 endef
 
@@ -423,7 +437,16 @@ $(BUILD_DIR)/user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh | $(BUILD_D
 	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
 		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
-$(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_BUILD_FILES) | $(BUILD_DIR)/.
+$(BUILD_DIR)/env/paths.sh: user.cfg | $(BUILD_DIR)/env/.
+	grep -e '^ *[A-Z_]*\(HOME\|PREFIX\) *=' user.cfg | sed -e "s/^/export /" > "$@"
+
+$(BUILD_DIR)/env/absolute_paths.m4: user.cfg $(UTILS_DIR)/config_replace.sh | $(BUILD_DIR)/env/.
+	# Will fail if $HOME contains | characters
+	sed user.cfg -n -e "s|=~|=$(HOME)|" -e "/\(HOME\|PREFIX\)=/p" |\
+		$(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" |\
+		(echo "m4_dnl $<" && cat) > "$@"
+
+$(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_BUILD_FILES) $(BUILD_DIR)/env/absolute_paths.m4 | $(BUILD_DIR)/.
 	cat $^ > "$@"
 
 ####################
@@ -468,6 +491,7 @@ endif
 		sed -e "s/)m4_dnl$$//" | \
 		sed -e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
+# TODO: Use a single sed above
 
 #############
 ## Install ##

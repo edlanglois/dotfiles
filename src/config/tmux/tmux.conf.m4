@@ -1,4 +1,5 @@
 m4_include(env_config.m4)m4_dnl
+m4_include(user_config.m4)m4_dnl
 m4_ifdef(??[[<<m4_env_config_SHELL>>]]??,
 set -g default-shell m4_env_config_SHELL
 )m4_dnl
@@ -92,4 +93,4 @@ set -g status-keys vi
 set -g status-interval 5
 
 # Use tmuxline status bar if available
-if-shell "test -f ~/.config/tmux/tmuxline.conf" "source ~/.config/tmux/tmuxline.conf"
+if-shell "test -f m4_user_config_XDG_CONFIG_HOME/tmux/tmuxline.conf" "source m4_user_config_XDG_CONFIG_HOME/tmux/tmuxline.conf"

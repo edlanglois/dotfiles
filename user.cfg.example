@@ -12,10 +12,10 @@ LIGHTWEIGHT=false
 # Install locations and XDG directories
 # Shell variables like $HOME are not expanded
 HOME=~
-XDG_CONFIG_HOME=~/.config
+XDG_CONFIG_HOME=~/..config
 XDG_CACHE_HOME=~/.cache
 XDG_DATA_HOME=~/.local/share
-BIN_DIR=~/.local/bin
+LOCAL_PREFIX=~/.local
 # Only used for installing system files with `make install-system`
 SYSTEM_PREFIX=/
 

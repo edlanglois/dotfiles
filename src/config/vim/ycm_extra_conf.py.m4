@@ -1,3 +1,4 @@
+m4_include(user_config.m4)m4_dnl
 # This file is NOT licensed under the GPLv3, which is the license for the rest
 # of YouCompleteMe.
 #
@@ -30,6 +31,7 @@
 
 import os
 import os.path
+
 import ycm_core
 
 # These are the compilation flags that will be used in case there's no
@@ -60,9 +62,7 @@ flags = [
     '-isystem',
     '/usr/include',
     '-isystem',
-    os.path.expanduser('~/.local/include'),
-    '-isystem',
-    os.path.expanduser('~/include'),
+    os.path.expanduser('m4_user_config_LOCAL_PREFIX/include'),
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the

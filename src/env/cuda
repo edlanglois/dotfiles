@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-possible_cuda_roots=( "/opt/cuda" "/usr/local/cuda" "$HOME/.local/cuda" )
+possible_cuda_roots=( "/opt/cuda" "/usr/local/cuda" "${LOCAL_PREFIX}/cuda" )
 
 for cuda_root in "${possible_cuda_roots[@]}"; do
 	if [ -d "${cuda_root}" ]; then
