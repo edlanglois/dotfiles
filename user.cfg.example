@@ -12,7 +12,7 @@ LIGHTWEIGHT=false
 # Install locations and XDG directories
 # Shell variables like $HOME are not expanded
 HOME=~
-XDG_CONFIG_HOME=~/..config
+XDG_CONFIG_HOME=~/.config
 XDG_CACHE_HOME=~/.cache
 XDG_DATA_HOME=~/.local/share
 LOCAL_PREFIX=~/.local
