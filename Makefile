@@ -547,7 +547,7 @@ vim: vim-vundle vim-plugins vim-ycm vim-tmuxline
 VUNDLE_DIR:=$(DATA_DIR)/$(DATA_VUNDLE_DIR)
 vim-vundle: | $(VUNDLE_DIR)
 
-$(VUNDLE_DIR):
+$(VUNDLE_DIR): | $(dir $(VUNDLE_DIR)).
 	cd $(dir $@) && git clone https://github.com/VundleVim/Vundle.vim.git
 
 vim-plugins: vim-vundle
