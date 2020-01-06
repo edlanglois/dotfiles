@@ -631,3 +631,4 @@ font-cache: $(BUILD_DIR)/make/font-cache
 
 $(BUILD_DIR)/make/font-cache: $(INSTALLED_FONTS) | $(BUILD_DIR)/make/
 	fc-cache -v $(DATA_DIR)/fonts/
+	touch "$@"
