@@ -5,6 +5,9 @@ endif
 
 augroup filetypedetect
 	" au! commands to set the filetype go here
+	au! BufNewFile,BufRead .latexmkrc		setf perl
+
+	" M4 Files
 	au! BufNewFile,BufRead *.hgrc.m4		call s:FTm4("cfg")
 	au! BufNewFile,BufRead *locale.conf.m4		call s:FTm4("cfg")
 	au! BufNewFile,BufRead *.config.m4		call s:FTm4("conf")
