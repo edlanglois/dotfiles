@@ -100,6 +100,13 @@ snippet stdheader "Standard latex header contents." b
 \bibliographystyle{abbrvnat}
 endsnippet
 
+snippet sec "Section" b
+\section{${1:`!p snip.rv = snip.basename.translate({ord(x): ' ' for x in "_-"}).title()`}}%
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+$0
+endsnippet
+
 snippet bib "Bibliography." b
 \bibliography{${1:\jobname}}
 endsnippet
