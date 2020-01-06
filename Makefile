@@ -40,12 +40,14 @@ SYSTEM_PREFIX := $(shell sed -n -e 's/^SYSTEM_PREFIX=\(.*\)/\1/p' user.cfg)
 $(call check_defined, SYSTEM_PREFIX)
 
 # Meant to be used by env/ scripts ONLY
-export HOME_DIR
-export LOCAL_PREFIX
-export CONFIG_DIR
-export DATA_DIR
-export CACHE_DIR
-export SYSTEM_PREFIX
+# Echo to force ~ expansion
+export HOME_DIR := $(shell echo $(HOME_DIR))
+export LOCAL_PREFIX  := $(shell echo $(LOCAL_PREFIX))
+BIN_DIR := $(shell echo $(BIN_DIR))
+export CONFIG_DIR := $(shell echo $(CONFIG_DIR))
+export DATA_DIR := $(shell echo $(DATA_DIR))
+export CACHE_DIR := $(shell echo $(CACHE_DIR))
+export SYSTEM_PREFIX := $(shell echo $(SYSTEM_PREFIX))
 
 I3BLOCKS_SCRIPT_DIR := $(CONFIG_DIR)/i3blocks/scripts
 
