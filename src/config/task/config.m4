@@ -13,6 +13,10 @@ m4_include(user_config.m4)m4_dnl
 # Files
 data.location=m4_user_config_XDG_DATA_HOME/task
 
+# Messages
+# header is removed to avoid the "TASKRC override" messages
+verbose=blank,footnote,label,new-id,new-uuid,affected,edit,special,project,sync,unwait,recur
+
 # Color theme (uncomment one to use)
 #include /usr/share/doc/task/rc/light-16.theme
 #include /usr/share/doc/task/rc/light-256.theme
