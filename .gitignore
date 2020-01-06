@@ -4,6 +4,7 @@
 
 build/*
 user.cfg
+*.local
 
 user_config.m4
 env_config.m4
