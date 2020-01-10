@@ -76,6 +76,7 @@ Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
+Plugin 'edlanglois/vim-hledger-syntax'        " MIT
 Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
 Plugin 'edlanglois/vim-textobj-parameter'     " MIT
 Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
