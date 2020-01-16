@@ -41,6 +41,35 @@ if __name__ == '__main__':
     main()
 endsnippet
 
+snippet setup "Package setup script"
+"""Package setup script."""
+import setuptools
+
+try:
+    with open("README.md", "r") as f:
+        long_description = f.read()
+except FileNotFoundError:
+    long_description = None
+
+setuptools.setup(
+    name="${1:pkg-name}",
+    version="0.1.0",
+    author="${2:Author Name}",
+    author_email="${3:author@example.com}",
+    description="${4:A small example description.}",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    packages=setuptools.find_packages(),
+    install_requires=[],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+#        "License :: OSI Approved :: MIT License",
+    ],
+    python_requires=">=3.7",
+)
+endsnippet
+
 snippet timefile "Timestamp string useable as a file name."
 time.strftime('%Y.%m.%d-%H.%M.%S')
 endsnippet
