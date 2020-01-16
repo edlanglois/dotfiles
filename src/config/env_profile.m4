@@ -65,6 +65,16 @@ export XDG_CACHE_HOME=m4_user_config_XDG_CACHE_HOME
 # Not exported; Not quoted to allow ~ expansion
 LOCAL_PREFIX_=m4_user_config_LOCAL_PREFIX
 
+# XDG_RUNTIME_DIR is supposed to be set automatically but sometimes it is not.
+# Set it manually if the standard directory exists
+if [ -z "$XDG_RUNTIME_DIR" ]; then
+	BACKUP_RUNTIME_DIR="/run/user/$(id -u)"
+	if [ -d "$BACKUP_RUNTIME_DIR" ]; then
+		echo "XDG_RUNTIME_DIR unset. Setting to '$BACKUP_RUNTIME_DIR'"
+		export XDG_RUNTIME_DIR="$BACKUP_RUNTIME_DIR"
+	fi
+fi
+
 # Add user local directories to environment paths
 PATH="$(pathprepend_if_isdir "$PATH" "$LOCAL_PREFIX_/bin")"
 
