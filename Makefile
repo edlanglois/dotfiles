@@ -131,6 +131,15 @@ CONFIG_RAW_VIM_DOTFILES:=\
 CONFIG_RAW_DOTFILES:=\
 	$(CONFIG_FISH_FOREIGN_ENV_DOTFILES)\
 	$(CONFIG_RAW_VIM_DOTFILES)\
+	fontconfig/fonts.conf\
+	i3blocks/scripts/battery-label\
+	i3blocks/scripts/conky-toggle\
+	i3blocks/scripts/date-calendar\
+	i3blocks/scripts/gkrellm-toggle\
+	i3blocks/scripts/gpu-usage\
+	i3blocks/scripts/weather\
+	pudb/pudb.cfg\
+	python/startup.py\
 
 CONFIG_M4_SYSTEMD_DOTFILES:=\
 	systemd/user/duplicacy-backup.service\
