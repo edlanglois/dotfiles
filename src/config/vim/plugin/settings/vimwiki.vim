@@ -1,6 +1,6 @@
 let g:vimwiki_list = [{
-	\ 'path': '~/Documents/vimwiki/',
-	\ 'template_path': '~/Documents/vimwiki/templates/',
+	\ 'path': g:xdg_data_home . '/vimwiki/main/',
+	\ 'template_path': g:xdg_data_home . '/vimwiki/main/templates/',
 	\ 'template_default': 'default',
 	\ 'template_ext': '.html',
 	\ 'auto_export': 1,
