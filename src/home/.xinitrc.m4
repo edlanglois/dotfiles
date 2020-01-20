@@ -1,7 +1,8 @@
+m4_include(user_config.m4)m4_dnl
 #!/bin/sh
 
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
+userresources=m4_user_config_XDG_CONFIG_HOME/xinit/Xresources
+usermodmap=m4_user_config_XDG_CONFIG_HOME/xinit/Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 

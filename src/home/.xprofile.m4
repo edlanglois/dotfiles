@@ -1,3 +1,4 @@
+m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 #!/bin/sh
 
@@ -6,7 +7,7 @@ setxkbmap -option "ctrl:nocaps"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_XMODMAP>>]]??,m4_dnl
-xmodmap ~/.Xmodmap
+xmodmap m4_user_config_XDG_CONFIG_HOME/xinit/Xmodmap
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_XBINDKEYS>>]]??,m4_dnl

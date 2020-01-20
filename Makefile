@@ -186,6 +186,8 @@ CONFIG_M4_DOTFILES:=\
 	tmux/tmux.conf\
 	user-dirs.dirs\
 	wgetrc\
+	xinit/Xmodmap\
+	xinit/Xresources\
 	yapf/style\
 	yay/config.json\
 	$(CONFIG_M4_SYSTEMD_DOTFILES)\
@@ -247,9 +249,7 @@ HOME_M4_DOTFILES:=\
 	.profile\
 	.xbindkeysrc\
 	.xinitrc\
-	.Xmodmap\
 	.xprofile\
-	.Xresources\
 
 HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES)
 HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_BUILT_DOTFILES)
