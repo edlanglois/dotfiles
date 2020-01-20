@@ -2,7 +2,7 @@
 set -eu
 
 desktop_path="/usr/share/applications"
-browsers=( "chromium" "google-chrome" )
+browsers=( "firefox" "chromium" "google-chrome" )
 
 for browser in "${browsers[@]}"; do
 	if [ -f "${desktop_path}/${browser}.desktop" ]; then
