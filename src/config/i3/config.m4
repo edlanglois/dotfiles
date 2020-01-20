@@ -9,7 +9,7 @@ set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Noto Sans 13px
+font pango:Noto Sans 7
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
