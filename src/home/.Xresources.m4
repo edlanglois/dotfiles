@@ -4,6 +4,7 @@ UXTerm.termName: xterm-256color
 *.vt100.locale: true
 
 Xft.rgba: rgb
+Xft.dpi: m4_env_config_XFT_DPI
 
 *renderFont: true
 *faceName: DejaVu Sans Mono

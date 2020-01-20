@@ -1,8 +1,9 @@
 #!/bin/bash
 set -eu
+# Fixed value
+# TODO: Move to user.cfg
+echo TERM_FONT_SIZE=8
 DPI=$(xdpyinfo | grep resolution -m 1 | sed 's/.*:\s*\([0-9]\+\)x.*/\1/')
-if (( "$DPI" < 90 )); then
-	echo TERM_FONT_SIZE=10
-else
-	echo TERM_FONT_SIZE=11
-fi
+# DPI as the nearest multiple of 96
+DPI_COMMON=$(( ("$DPI" + 48) / 96 * 96))
+echo "XFT_DPI=$DPI_COMMON"
