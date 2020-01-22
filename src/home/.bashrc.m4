@@ -6,8 +6,9 @@ m4_include(env_config.m4)m4_dnl
 
 # If not running interactively, set environment variables (since .profile might
 # not be called) and don't do anything else.
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}"
 if [ -z "$PS1" ]; then
-	source "${XDG_CONFIG_HOME:-$HOME/.config}/env_profile"
+	source "$CONFIG_DIR/env_profile"
 	return
 fi
 
@@ -100,8 +101,8 @@ fi
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-	source ~/.bash_aliases
+if [ -f "$CONFIG_DIR/bash/aliases" ]; then
+	source "$CONFIG_DIR/bash/aliases"
 fi
 
 # enable programmable completion features (you don't need to enable

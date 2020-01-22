@@ -154,6 +154,7 @@ CONFIG_M4_VIM_DOTFILES:=\
 	vim/ycm_extra_conf.py\
 
 CONFIG_M4_DOTFILES:=\
+	bash/aliases\
 	conky/default-popup.lua\
 	env_profile\
 	fish/config.fish\
@@ -242,7 +243,6 @@ HOME_RAW_DOTFILES:=\
 HOME_M4_DOTFILES:=\
 	.duplicacy/filters\
 	.ssh/config\
-	.bash_aliases\
 	.bash_profile\
 	.bashrc\
 	.imwheelrc\
