@@ -7,8 +7,8 @@ m4_include(env_config.m4)m4_dnl
 # If not running interactively, set environment variables (since .profile might
 # not be called) and don't do anything else.
 if [ -z "$PS1" ]; then
-    source "${XDG_CONFIG_HOME:-$HOME/.config}/env_profile"
-    return
+	source "${XDG_CONFIG_HOME:-$HOME/.config}/env_profile"
+	return
 fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
@@ -33,12 +33,12 @@ shopt -s checkwinsize
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) colour_prompt=yes;;
+	xterm-color) colour_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -47,14 +47,14 @@ esac
 force_colour_prompt=yes
 
 if [ -n "$force_colour_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	colour_prompt=yes
-    else
-	colour_prompt=
-    fi
+	if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+		# We have color support; assume it's compliant with Ecma-48
+		# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+		# a case would tend to support setf rather than setaf.)
+		colour_prompt=yes
+	else
+		colour_prompt=
+	fi
 fi
 
 function set_hostname_icon() {
@@ -66,28 +66,28 @@ function set_hostname_icon() {
 set_hostname_icon
 
 if [ "$colour_prompt" = yes ]; then
-    # Print username in cyan if last command succeeded and red if it failed.
-    m4_ifdef(??[[<<m4_env_config_ROOT>>]]??,
-    export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;30\;43m\]; else echo \[\e[0\;31\;43m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] ",
-    export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
+	# Print username in cyan if last command succeeded and red if it failed.
+	m4_ifdef(??[[<<m4_env_config_ROOT>>]]??,
+	export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;30\;43m\]; else echo \[\e[0\;31\;43m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] ",
+	export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
 )m4_dnl
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u:\w> '
+	PS1='${debian_chroot:+($debian_chroot)}\u:\w> '
 fi
 unset force_colour_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
+	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+	;;
 *)
-    ;;
+	;;
 esac
 
 # enable color support of ls and also add handy aliases
 if [ "$colour_prompt" = yes -a -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
 if [ "$TERM" != "dumb" ] && command -v fortune >/dev/null; then
@@ -101,14 +101,14 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-    source ~/.bash_aliases
+	source ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
+	. /etc/bash_completion
 fi
 
 export INPUTRC=$HOME/.inputrc
@@ -118,14 +118,14 @@ export CLICOLOR=1
 
 # Coloured Man Pages
 man() {
-    env LESS_TERMCAP_mb=$'\E[01;31m' \
-    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-    LESS_TERMCAP_me=$'\E[0m' \
-    LESS_TERMCAP_se=$'\E[0m' \
-    LESS_TERMCAP_so=$'\E[38;5;246m' \
-    LESS_TERMCAP_ue=$'\E[0m' \
-    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-    man "$@"
+	env LESS_TERMCAP_mb=$'\E[01;31m' \
+	LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+	LESS_TERMCAP_me=$'\E[0m' \
+	LESS_TERMCAP_se=$'\E[0m' \
+	LESS_TERMCAP_so=$'\E[38;5;246m' \
+	LESS_TERMCAP_ue=$'\E[0m' \
+	LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+	man "$@"
 }
 
 m4_ifdef(??[[<<m4_env_config_MODULE_GE_4>>]]??,m4_dnl
@@ -137,18 +137,18 @@ module restore "m4_env_config_MODULE_DEFAULT_COLLECTION" >/dev/null
 ),m4_ifdef(??[[<<m4_env_config_MODULE_INIT_DIR>>]]??,m4_dnl
 # Enable the "module" command
 if [ -f "m4_env_config_MODULE_INIT_DIR/bash" ]; then
-  source "m4_env_config_MODULE_INIT_DIR/bash"
+	source "m4_env_config_MODULE_INIT_DIR/bash"
 fi
 ))m4_dnl
 
 function torch-activate() {
 m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
 ??[[<<m4_dnl
-    # Source torch-activate. Sets environment variables for running torch (th).
-    source "m4_env_config_TORCH_ACTIVATE">>]]??,
+	# Source torch-activate. Sets environment variables for running torch (th).
+	source "m4_env_config_TORCH_ACTIVATE">>]]??,
 ??[[<<m4_dnl
-    echo "Could not find torch-activate script."
-    return 1>>]]??)
+	echo "Could not find torch-activate script."
+	return 1>>]]??)
 }
 
 # If $HOME is a symlink then `cd` so that we are pointing to the logical value
