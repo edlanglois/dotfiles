@@ -28,7 +28,7 @@ m4_ifdef(??[[<<m4_env_config_FEH>>]]??,m4_dnl
 # Set desktop background from $XDG_CONFIG_HOME/wallpaper
 WALLPAPER_DIR=m4_user_config_XDG_CONFIG_HOME/wallpaper
 if [ -d "$WALLPAPER_DIR" -a -n "$(ls -A "$WALLPAPER_DIR")" ]; then
-	m4_env_config_FEH --bg-scale --randomize "$WALLPAPER_DIR"
+	m4_env_config_FEH --no-fehbg --bg-scale --randomize "$WALLPAPER_DIR"
 fi
 )m4_dnl
 
