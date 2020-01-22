@@ -1,5 +1,0 @@
-#!/bin/bash
-set -eu
-# Fixed value
-# TODO: Move to user.cfg
-echo TERM_FONT_SIZE=9

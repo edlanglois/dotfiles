@@ -1,3 +1,4 @@
+m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 XTerm.termName: xterm-256color
 UXTerm.termName: xterm-256color
@@ -9,7 +10,7 @@ Xft.dpi: m4_env_config_XFT_DPI)
 
 *renderFont: true
 *faceName: DejaVu Sans Mono
-*faceSize: m4_env_config_TERM_FONT_SIZE
+*faceSize: m4_user_config_TERMINAL_FONT_SIZE
 
 URxvt*scrollBar: false
 

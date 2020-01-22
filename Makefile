@@ -64,7 +64,6 @@ ENV_CONFIG_FILES:=\
 	colours\
 	cuda\
 	dpi\
-	fontsize\
 	git-push-default-simple\
 	github_id\
 	go\

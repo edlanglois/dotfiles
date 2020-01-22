@@ -19,6 +19,8 @@ LOCAL_PREFIX=~/.local
 # Only used for installing system files with `make install-system`
 SYSTEM_PREFIX=/
 
+TERMINAL_FONT_SIZE=9
+
 # Whether to use powerline symbols.
 # Requires a powerline font - a fallback powerline font is in data/fonts/
 POWERLINE_SYMBOLS=true
