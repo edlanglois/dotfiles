@@ -11,7 +11,7 @@ xmodmap m4_user_config_XDG_CONFIG_HOME/xinit/Xmodmap
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_XBINDKEYS>>]]??,m4_dnl
-xbindkeys
+xbindkeys -f "m4_user_config_XDG_CONFIG_HOME/xbindkeys/config"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_XINPUT>>]]??,m4_dnl

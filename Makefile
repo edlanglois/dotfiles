@@ -187,6 +187,7 @@ CONFIG_M4_DOTFILES:=\
 	tmux/tmux.conf\
 	user-dirs.dirs\
 	wgetrc\
+	xbindkeys/config\
 	xinit/Xmodmap\
 	xinit/Xresources\
 	yapf/style\
@@ -247,7 +248,6 @@ HOME_M4_DOTFILES:=\
 	.bashrc\
 	.imwheelrc\
 	.profile\
-	.xbindkeysrc\
 	.xinitrc\
 	.xprofile\
 
