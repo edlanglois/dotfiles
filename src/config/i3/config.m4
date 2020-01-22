@@ -40,6 +40,9 @@ bindsym $mod+Escape mode "passthrough"
 # Switch to window when activated
 focus_on_window_activation focus
 
+# Hide window borders when the only window
+hide_edge_borders smart
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
