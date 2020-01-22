@@ -14,9 +14,9 @@ if [ -n "$EDP_WIDTH_MM" ]; then
 	echo "DISPLAY_NAME=$DISPLAY_NAME"
 	echo "DISPLAY_DIMS=$EDP_WIDTH_MM $EDP_HEIGHT_MM"
 	DPI=$(( (EDP_WIDTH_PX * 254) / (10 * EDP_WIDTH_MM) ))
-	# True DPI makes the UI too big. Scale by 4/5
+	# True DPI makes the UI too big. Scale by 3/4
 	# Also scale to the nearest 24 (= 96/4)
-	XFT_DPI=$(( (DPI * 4) / (5 * 24) * 24 ))
+	XFT_DPI=$(( (DPI * 3) / (4 * 24) * 24 ))
 	echo "XFT_DPI=$XFT_DPI"
 fi
 
