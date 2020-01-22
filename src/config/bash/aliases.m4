@@ -9,8 +9,6 @@ alias ll='ls -l'
 alias lla='ls -la'
 alias lld='ls -ld'
 
-alias vi="vim"
-
 if [ "$colour_prompt" = yes ]; then
     if [ "$(uname)" != "Darwin" ]; then
         alias ls='ls --color=auto'
