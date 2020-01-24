@@ -86,6 +86,11 @@ MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 # xinit configuration
 export XINITRC=m4_user_config_XDG_CONFIG_HOME/xinit/xinitrc
 export XSERVERRC=m4_user_config_XDG_CONFIG_HOME/xinit/xserverrc
+# lightdm supposedly does not work when this is changed
+# so to be on the safe side only make the change if lightdm is not installed.
+if ! command -v lightdm 2>/dev/null 1>&2 && [ ! -z "$XDG_RUNTIME_DIR" ]; then
+	export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
+fi
 
 # OpenSSL Seed File (Defaults to $HOME/.rnd)
 export RANDFILE=m4_user_config_XDG_CACHE_HOME/openssl/rnd
