@@ -259,7 +259,6 @@ HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_BUILT_DOTFILES)
 # ------
 SYSTEM_RAW_DOTFILES:=\
 	etc/udev/rules.d/90-backlight.rules\
-	etc/X11/xorg.conf.d/10-monitor.conf\
 	etc/X11/xorg.conf.d/30-touchpad.conf\
 	etc/X11/xorg.conf.d/90-keyboard.conf\
 
