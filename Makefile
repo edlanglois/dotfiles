@@ -240,18 +240,25 @@ DATA_DOTFILES:=$(DATA_RAW_DOTFILES) $(DATA_MAKE_DIRS) $(DATA_VUNDLE_DIR)
 
 # Home
 # ----
-HOME_RAW_DOTFILES:=\
-	.gkrellm2/user-config-cpu\
-	.gkrellm2/user-config-memory\
+# To avoid putting files here, only include if the relevant program exists.
+HOME_RAW_DOTFILES:=
+ifneq ($(strip $(shell command -v gkrellm)),)
+HOME_RAW_DOTFILES += .gkrellm2/user-config-cpu .gkrellm2/user-config-memory
+endif
 
 HOME_M4_DOTFILES:=\
-	.duplicacy/filters\
 	.ssh/config\
 	.bash_profile\
 	.bashrc\
-	.imwheelrc\
 	.profile\
 	.xprofile\
+
+ifneq ($(strip $(shell command -v imwheel)),)
+HOME_M4_DOTFILES += .imwheelrc
+endif
+ifneq ($(strip $(shell command -v duplicacy)),)
+HOME_M4_DOTFILES += .duplicacy/filters
+endif
 
 HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES)
 HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_BUILT_DOTFILES)
