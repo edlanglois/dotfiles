@@ -188,8 +188,10 @@ CONFIG_M4_DOTFILES:=\
 	user-dirs.dirs\
 	wgetrc\
 	xbindkeys/config\
+	xinit/xinitrc\
 	xinit/Xmodmap\
 	xinit/Xresources\
+	xinit/xserverrc\
 	yapf/style\
 	yay/config.json\
 	$(CONFIG_M4_SYSTEMD_DOTFILES)\
@@ -248,7 +250,6 @@ HOME_M4_DOTFILES:=\
 	.bashrc\
 	.imwheelrc\
 	.profile\
-	.xinitrc\
 	.xprofile\
 
 HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES)

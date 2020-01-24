@@ -83,6 +83,10 @@ LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$LOCAL_PREFIX_/lib")
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/man")"
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 
+# xinit configuration
+export XINITRC=m4_user_config_XDG_CONFIG_HOME/xinit/xinitrc
+export XSERVERRC=m4_user_config_XDG_CONFIG_HOME/xinit/xserverrc
+
 # OpenSSL Seed File (Defaults to $HOME/.rnd)
 export RANDFILE=m4_user_config_XDG_CACHE_HOME/openssl/rnd
 
