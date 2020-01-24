@@ -149,7 +149,7 @@ full_text=🌡
 color=#00ffff
 separator_block_width=4
 
-[temperature -w 50 -c 65]
+[temperature]
 interval=10
 
 # # Network interface monitoring
