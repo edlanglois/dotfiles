@@ -81,6 +81,7 @@ ENV_CONFIG_FILES:=\
 	sys-monitor\
 	tmux\
 	torch\
+	user\
 	virtualfish\
 	wifi\
 
@@ -263,6 +264,7 @@ SYSTEM_RAW_DOTFILES:=\
 	etc/X11/xorg.conf.d/90-keyboard.conf\
 
 SYSTEM_M4_DOTFILES:=\
+	etc/systemd/system/getty@tty1.service.d/override.conf\
 	etc/X11/xorg.conf.d/80-monitor.conf\
 
 SYSTEM_BUILT_DOTFILES:=$(SYSTEM_M4_DOTFILES)
