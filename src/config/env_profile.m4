@@ -89,7 +89,7 @@ export XSERVERRC=m4_user_config_XDG_CONFIG_HOME/xinit/xserverrc
 # lightdm supposedly does not work when this is changed
 # so to be on the safe side only make the change if lightdm is not installed.
 # gdm also doesn't work if this is changed.
-if ! command -v lightdm 2>/dev/null && ! command -v gdm && [ -n "$XDG_RUNTIME_DIR" ]; then
+if ! command -v lightdm >/dev/null && ! command -v gdm >/dev/null && [ -n "$XDG_RUNTIME_DIR" ]; then
 	export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 fi
 
