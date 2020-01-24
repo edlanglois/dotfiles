@@ -25,6 +25,7 @@ if XSECURELOCK="$(command -v xsecurelock 2>/dev/null)"; then
 	fi
 fi
 MANUAL_LOCK_CMD="$LOCK_CMD"
+ENABLE_LOCKER_CMD=""
 
 if XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
 	XSS_ARGS=()
@@ -36,5 +37,9 @@ if XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
 	MANUAL_LOCK_CMD="xset dpms force suspend"
 fi
 
-echo "MANUAL_LOCK_CMD=$MANUAL_LOCK_CMD"
-echo "ENABLE_LOCKER_CMD=$ENABLE_LOCKER_CMD"
+if [ -n "$MANUAL_LOCK_CMD" ]; then
+	echo "MANUAL_LOCK_CMD=$MANUAL_LOCK_CMD"
+fi
+if [ -n "$ENABLE_LOCKER_CMD" ]; then
+	echo "ENABLE_LOCKER_CMD=$ENABLE_LOCKER_CMD"
+fi
