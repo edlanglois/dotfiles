@@ -6,14 +6,13 @@ set -eu
 # https://bugs.freedesktop.org/show_bug.cgi?id=23705
 # https://gitlab.freedesktop.org/xorg/xserver/issues/253
 # https://pastebin.com/vtzyBK6e
-DISPLAY_NAME="eDP-1"
-read -r EDP_WIDTH_PX EDP_HEIGHT_PX EDP_WIDTH_MM EDP_HEIGHT_MM <<< \
-	"$(xrandr | grep "$DISPLAY_NAME" -B1 | sed -ne 'N;s/.*current \([[:digit:]]\+\) x \([[:digit:]]\+\).* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/\1 \2 \3 \4/p')"
+read -r DISPLAY_NAME DISPLAY_WIDTH_PX DISPLAY_HEIGHT_PX DISPLAY_WIDTH_MM DISPLAY_HEIGHT_MM <<< \
+	"$(xrandr | sed -ne 'N;/^ *Screen 0:.*current \([[:digit:]]\+\) x \([[:digit:]]\+\).*\n\([^ ]\+\) .* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/{s//\3 \1 \2 \4 \5/p;q}')"
 
-if [ -n "$EDP_WIDTH_MM" ]; then
+if [ -n "$DISPLAY_NAME" ]; then
 	echo "DISPLAY_NAME=$DISPLAY_NAME"
-	echo "DISPLAY_DIMS=$EDP_WIDTH_MM $EDP_HEIGHT_MM"
-	DPI=$(( (EDP_WIDTH_PX * 254) / (10 * EDP_WIDTH_MM) ))
+	echo "DISPLAY_DIMS=$DISPLAY_WIDTH_MM $DISPLAY_HEIGHT_MM"
+	DPI=$(( (DISPLAY_WIDTH_PX * 254) / (10 * DISPLAY_WIDTH_MM) ))
 	# True DPI makes the UI too big. Scale by 3/4
 	# Also scale to the nearest 24 (= 96/4)
 	XFT_DPI=$(( (DPI * 3) / (4 * 24) * 24 ))
