@@ -22,6 +22,6 @@ if [ -d "$WALLPAPER_DIR" -a -n "$(ls -A "$WALLPAPER_DIR")" ]; then
 fi
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_XSS_LOCK>>]]??,m4_dnl
-xss-lock -l -- m4_user_config_XDG_CONFIG_HOME/xss-lock/transfer-sleep-lock-i3lock.sh &
+m4_ifdef(??[[<<m4_env_config_ENABLE_LOCKER_CMD>>]]??,m4_dnl
+m4_env_config_ENABLE_LOCKER_CMD &
 )m4_dnl

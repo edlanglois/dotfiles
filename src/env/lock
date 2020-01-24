@@ -4,33 +4,37 @@ source "${BASH_SOURCE%/*}/env_utils"
 
 # Prefer xscreensaver if present
 if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
-	echo "START_SCREENSAVER=$XSCREENSAVER -nosplash"
 	if command -v xdg-screensaver >/dev/null 2>&1; then
-		echo "LOCK_CMD=xdg-screensaver lock"
+		MANUAL_LOCK_CMD="xdg-screensaver lock"
 	else
-		echo "LOCK_CMD=xscreensaver-command -l"
+		MANUAL_LOCK_CMD="xscreensaver-command -l"
 	fi
+	ENABLE_LOCKER_CMD="$XSCREENSAVER -nosplash"
+	echo "MANUAL_LOCK_CMD=$MANUAL_LOCK_CMD"
+	echo "ENABLE_LOCKER_CMD=$ENABLE_LOCKER_CMD"
 	exit 0
 fi
 
-# Otherwise use i3lock & xss-lock
-find_program XSS_LOCK xss-lock || true
-
-USING_I3LOCK=0
+# Otherwise use xsecurelock
 if XSECURELOCK="$(command -v xsecurelock 2>/dev/null)"; then
-	CMD="$XSECURELOCK"
-elif program_exists i3lock-extra; then
-	CMD="i3lock-extra -s -p"
-	if i3lock-extra --help | grep -e '--paint' &>/dev/null; then
-		CMD+=" --paint"
+	LOCK_CMD="$XSECURELOCK"
+	if [ -f "/usr/lib/xsecurelock/dimmer" ]; then
+		DIMMER="/usr/lib/xsecurelock/dimmer"
+	else
+		DIMMER=""
 	fi
-	CMD+=" --"
-	USING_I3LOCK=1
-else
-	CMD="i3lock -c 000000"
-	USING_I3LOCK=1
 fi
-if [ "$USING_I3LOCK" -eq 1 ] && i3lock -h 2>&1 | grep '\[-e\]' &>/dev/null; then
-	CMD+=" -e"
+MANUAL_LOCK_CMD="$LOCK_CMD"
+
+if XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
+	XSS_ARGS=()
+	if [ -n "$DIMMER" ]; then
+		XSS_ARGS+=('-n' "$DIMMER")
+	fi
+	ENABLE_LOCKER_CMD="xset s 300 5;$XSS_LOCK ${XSS_ARGS[@]} -- $LOCK_CMD"
+	# XSS LOCK watches for screen suspend and triggers a lock
+	MANUAL_LOCK_CMD="xset dpms force suspend"
 fi
-echo "LOCK_CMD=$CMD"
+
+echo "MANUAL_LOCK_CMD=$MANUAL_LOCK_CMD"
+echo "ENABLE_LOCKER_CMD=$ENABLE_LOCKER_CMD"

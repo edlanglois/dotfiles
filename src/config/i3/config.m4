@@ -159,7 +159,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Lock screen
-bindsym $mod+Mod4+l exec "m4_env_config_LOCK_CMD"
+bindsym $mod+Mod4+l exec "m4_env_config_MANUAL_LOCK_CMD"
 
 m4_ifdef(??[[<<m4_env_config_PLAYERCTL>>]]??,m4_dnl
 # Media player controls
@@ -194,9 +194,6 @@ m4_ifdef(??[[<<m4_env_config_I3BLOCKS>>]]??,m4_dnl
 	status_command i3status)
 	position bottom
 }
-
-m4_ifdef(??[[<<m4_env_config_START_SCREENSAVER>>]]??,m4_dnl
-exec m4_env_config_START_SCREENSAVER)
 
 m4_ifdef(??[[<<m4_env_config_DEX>>]]??,m4_dnl
 ??[[<<# Auto-start desktop entries>>]]??
