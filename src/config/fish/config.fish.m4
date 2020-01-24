@@ -55,3 +55,10 @@ m4_ifdef(??[[<<m4_env_config_VIRTUALFISH_INIT>>]]??,
 set -x VIRTUALFISH_HOME m4_user_config_XDG_DATA_HOME/python-virtualenvs
 m4_env_config_VIRTUALFISH_INIT
 )m4_dnl
+
+# Start X at login
+if status is-login
+    if test -z "$DISPLAY" -a $XDG_VTNR = 1
+        exec startx m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc -- m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc -keeptty
+    end
+end
