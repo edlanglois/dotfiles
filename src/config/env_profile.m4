@@ -105,6 +105,9 @@ export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 # gnupg
 export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 
+# less: disable history
+export LESSHISTFILE=-
+
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
 # CUDA Path
 export CUDA_HOME="m4_env_config_CUDA_ROOT"
