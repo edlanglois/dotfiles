@@ -45,7 +45,7 @@ if status --is-interactive
 	begin
 		# Keychain uses the SHELL variable to determine output format
 		set -lx SHELL "$__fish_bin_dir/fish"
-		keychain --eval --agents ssh --quick --quiet | source
+		keychain --eval --agents ssh --quick --quiet --dir m4_user_config_XDG_DATA_HOME/keychain | source
 	end
 end
 )m4_dnl
