@@ -108,6 +108,9 @@ export GNUPGHOME="$XDG_DATA_HOME"/gnupg
 # less: disable history
 export LESSHISTFILE=-
 
+# bash history
+export HISTFILE=m4_user_config_XDG_DATA_HOME/bash/history
+
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
 # CUDA Path
 export CUDA_HOME="m4_env_config_CUDA_ROOT"

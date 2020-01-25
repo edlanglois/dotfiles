@@ -25,6 +25,11 @@ shopt -s histappend
 HISTSIZE=1000
 HISTFILESIZE=10000
 
+# ensure history directory exists
+if [ -n "$HISTFILE" ]; then
+	mkdir -p $(dirname $HISTFILE)
+fi
+
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
