@@ -141,6 +141,7 @@ CONFIG_RAW_DOTFILES:=\
 	i3blocks/scripts/weather\
 	pudb/pudb.cfg\
 	python/startup.py\
+	zathura/zathurarc\
 
 CONFIG_M4_SYSTEMD_DOTFILES:=\
 	systemd/user/duplicacy-backup.service\
