@@ -37,7 +37,9 @@ inoremap <buffer> ;<Bslash><BSlash> \left\<Bar>
 inoremap <buffer> ;<Bslash><Bar> \right\<Bar>
 
 " Setup the PDF viewer to use with vimtex
-if executable('okular')
+if executable('zathura')
+	let g:vimtex_view_method = 'zathura'
+elseif executable('okular')
 	let g:vimtex_view_general_viewer = 'okular'
 	let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
 	let g:vimtex_view_general_options_latexmk = '--unique'
