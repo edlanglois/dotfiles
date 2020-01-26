@@ -58,7 +58,7 @@ m4_env_config_VIRTUALFISH_INIT
 
 # Start X at login
 if status is-login
-    if test -z "$DISPLAY" -a $XDG_VTNR = 1
+    if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
         exec startx m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc -- m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc -keeptty
     end
 end
