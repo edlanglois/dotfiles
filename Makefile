@@ -173,6 +173,7 @@ CONFIG_M4_DOTFILES:=\
 	git/config\
 	git/ignore\
 	gsimplecal/config\
+	gtk-3.0/settings.ini\
 	hg/hgrc\
 	i3/config\
 	i3blocks/config\
