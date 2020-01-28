@@ -256,6 +256,9 @@ endif
 ifneq ($(strip $(shell command -v duplicacy)),)
 HOME_M4_DOTFILES += .duplicacy/filters
 endif
+ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
+HOME_M4_DOTFILES += .Xresources
+endif
 
 HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES)
 HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_BUILT_DOTFILES)
