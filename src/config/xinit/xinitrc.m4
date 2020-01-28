@@ -26,7 +26,7 @@ if [ -f "$usermodmap" ]; then
 fi
 
 if [ -f $userprofile ]; then
-	source $userprofile
+	. $userprofile
 fi
 
 # start some nice programs
