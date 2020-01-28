@@ -177,6 +177,8 @@ export TASKRC=m4_user_config_XDG_CONFIG_HOME/task/config
 # Vim Environment
 export VIMINIT=":source m4_user_config_XDG_CONFIG_HOME/vim/vimrc"
 
+export GTK_THEME=Adwaita:dark
+
 export PATH
 export LD_LIBRARY_PATH
 export MANPATH
