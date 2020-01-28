@@ -7,7 +7,7 @@ set -eu
 # https://gitlab.freedesktop.org/xorg/xserver/issues/253
 # https://pastebin.com/vtzyBK6e
 read -r DISPLAY_NAME DISPLAY_WIDTH_PX DISPLAY_HEIGHT_PX DISPLAY_WIDTH_MM DISPLAY_HEIGHT_MM <<< \
-	"$(xrandr | sed -ne 'N;/^ *Screen 0:.*current \([[:digit:]]\+\) x \([[:digit:]]\+\).*\n\([^ ]\+\) .* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/{s//\3 \1 \2 \4 \5/p;q}')"
+	"$(xrandr | sed -ne '/^\([^ ]\+\) connected primary \([[:digit:]]\+\)x\([[:digit:]]\+\).* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/{s//\1 \2 \3 \4 \5/p;q}')"
 
 if [ -n "$DISPLAY_NAME" ]; then
 	echo "DISPLAY_NAME=$DISPLAY_NAME"
