@@ -221,6 +221,8 @@ set scrolloff=10
 
 set laststatus=2 " Always show status line
 
+set wildmenu  " Show a menu when autocompleting vim commands
+
 set foldlevel=99
 
 if has('termguicolors')
