@@ -148,6 +148,7 @@ CONFIG_M4_SYSTEMD_DOTFILES:=\
 	systemd/user/duplicacy-backup.timer\
 	systemd/user/low-battery.service\
 	systemd/user/low-battery.timer\
+	systemd/user/ssh-agent.service\
 
 CONFIG_M4_VIM_DOTFILES:=\
 	vim/plugin/settings/airline.vim\
@@ -158,6 +159,7 @@ CONFIG_M4_VIM_DOTFILES:=\
 CONFIG_M4_DOTFILES:=\
 	bash/aliases\
 	conky/default-popup.lua\
+	duplicacy/filters\
 	env_profile\
 	fish/config.fish\
 	fish/functions/fish_prompt.fish\
@@ -245,17 +247,15 @@ HOME_RAW_DOTFILES += .gkrellm2/user-config-cpu .gkrellm2/user-config-memory
 endif
 
 HOME_M4_DOTFILES:=\
-	.ssh/config\
 	.bash_profile\
 	.bashrc\
+	.pam_environment\
 	.profile\
+	.ssh/config\
 	.xprofile\
 
 ifneq ($(strip $(shell command -v imwheel)),)
 HOME_M4_DOTFILES += .imwheelrc
-endif
-ifneq ($(strip $(shell command -v duplicacy)),)
-HOME_M4_DOTFILES += .duplicacy/filters
 endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
 HOME_M4_DOTFILES += .Xresources

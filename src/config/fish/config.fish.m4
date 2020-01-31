@@ -39,17 +39,6 @@ if test -f "m4_env_config_MODULE_INIT_DIR/fish"
 end
 ))m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
-# Start keychain - ensures ssh-agent is running.
-if status --is-interactive
-	begin
-		# Keychain uses the SHELL variable to determine output format
-		set -lx SHELL "$__fish_bin_dir/fish"
-		keychain --eval --agents ssh --quick --quiet --dir m4_user_config_XDG_DATA_HOME/keychain | source
-	end
-end
-)m4_dnl
-
 m4_ifdef(??[[<<m4_env_config_VIRTUALFISH_INIT>>]]??,
 # Enable virtualfish auto-activation.
 set -x VIRTUALFISH_HOME m4_user_config_XDG_DATA_HOME/python-virtualenvs
