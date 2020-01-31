@@ -148,6 +148,7 @@ CONFIG_M4_SYSTEMD_DOTFILES:=\
 	systemd/user/duplicacy-backup.timer\
 	systemd/user/low-battery.service\
 	systemd/user/low-battery.timer\
+	systemd/user/ssh-agent.service\
 
 CONFIG_M4_VIM_DOTFILES:=\
 	vim/plugin/settings/airline.vim\
@@ -246,10 +247,11 @@ HOME_RAW_DOTFILES += .gkrellm2/user-config-cpu .gkrellm2/user-config-memory
 endif
 
 HOME_M4_DOTFILES:=\
-	.ssh/config\
 	.bash_profile\
 	.bashrc\
+	.pam_environment\
 	.profile\
+	.ssh/config\
 	.xprofile\
 
 ifneq ($(strip $(shell command -v imwheel)),)
