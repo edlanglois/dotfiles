@@ -158,6 +158,7 @@ CONFIG_M4_VIM_DOTFILES:=\
 CONFIG_M4_DOTFILES:=\
 	bash/aliases\
 	conky/default-popup.lua\
+	duplicacy/filters\
 	env_profile\
 	fish/config.fish\
 	fish/functions/fish_prompt.fish\
@@ -253,9 +254,6 @@ HOME_M4_DOTFILES:=\
 
 ifneq ($(strip $(shell command -v imwheel)),)
 HOME_M4_DOTFILES += .imwheelrc
-endif
-ifneq ($(strip $(shell command -v duplicacy)),)
-HOME_M4_DOTFILES += .duplicacy/filters
 endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
 HOME_M4_DOTFILES += .Xresources
