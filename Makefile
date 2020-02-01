@@ -412,11 +412,6 @@ $(BUILD_DIR)/$1: $(SRC_DIR)/$1 | $(dir $(BUILD_DIR)/$1).
 	cp -v "$$<" "$$@"
 endef
 
-define RAW_DIR_BUILD_TEMPLATE
-$(BUILD_DIR)/$1: $(SRC_DIR)/$1 | $(dir $(BUILD_DIR)/$1).
-	cp -rv "$$<" "$$@"
-endef
-
 $(foreach DOTFILE,$(M4_DOTFILES),\
 	$(eval $(call M4_BUILD_TEMPLATE,$(DOTFILE))))
 
@@ -425,9 +420,6 @@ $(foreach DOTFILE,$(EXECUTABLE_M4_DOTFILES),\
 
 $(foreach DOTFILE,$(RAW_DOTFILES),\
 	$(eval $(call RAW_BUILD_TEMPLATE,$(DOTFILE))))
-
-$(foreach DOTDIR,$(RAW_DOTDIRS),\
-	$(eval $(call RAW_DIR_BUILD_TEMPLATE,$(DOTDIR))))
 
 ####################
 # I3Blocks Contrib #
