@@ -133,6 +133,8 @@ CONFIG_RAW_DOTFILES:=\
 	$(CONFIG_FISH_FOREIGN_ENV_DOTFILES)\
 	$(CONFIG_RAW_VIM_DOTFILES)\
 	fontconfig/fonts.conf\
+	gkrellm/user-config-cpu\
+	gkrellm/user-config-memory\
 	i3blocks/scripts/battery-label\
 	i3blocks/scripts/conky-toggle\
 	i3blocks/scripts/date-calendar\
@@ -158,6 +160,8 @@ CONFIG_M4_VIM_DOTFILES:=\
 
 CONFIG_M4_DOTFILES:=\
 	bash/aliases\
+	bash/bashrc\
+	bash/profile\
 	conky/default-popup.lua\
 	duplicacy/filters\
 	env_profile\
@@ -179,12 +183,15 @@ CONFIG_M4_DOTFILES:=\
 	hg/hgrc\
 	i3/config\
 	i3blocks/config\
+	imwheel/config\
 	isort.cfg\
 	latexmk/latexmkrc\
 	locale.conf\
 	matplotlib/matplotlibrc\
 	procps/toprc\
+	profile\
 	pylint/config\
+	security/pam_env.conf\
 	task/config\
 	terminator/config\
 	termite/config\
@@ -197,6 +204,7 @@ CONFIG_M4_DOTFILES:=\
 	xinit/Xmodmap\
 	xinit/Xresources\
 	xinit/xserverrc\
+	xprofile\
 	yapf/style\
 	yay/config.json\
 	$(CONFIG_M4_SYSTEMD_DOTFILES)\
@@ -242,27 +250,30 @@ DATA_DOTFILES:=$(DATA_RAW_DOTFILES) $(DATA_MAKE_DIRS) $(DATA_VUNDLE_DIR)
 # ----
 # To avoid putting files here, only include if the relevant program exists.
 HOME_RAW_DOTFILES:=
-ifneq ($(strip $(shell command -v gkrellm)),)
-HOME_RAW_DOTFILES += .gkrellm2/user-config-cpu .gkrellm2/user-config-memory
-endif
 
 HOME_M4_DOTFILES:=\
+	.ssh/config\
+
+HOME_M4_LINKS:=\
 	.bash_profile\
 	.bashrc\
 	.pam_environment\
 	.profile\
-	.ssh/config\
 	.xprofile\
 
+ifneq ($(strip $(shell command -v gkrellm)),)
+HOME_M4_LINKS += .gkrellm2
+endif
 ifneq ($(strip $(shell command -v imwheel)),)
-HOME_M4_DOTFILES += .imwheelrc
+HOME_M4_LINKS += .imwheelrc
 endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
-HOME_M4_DOTFILES += .Xresources
+HOME_M4_LINKS += .Xresources
 endif
 
 HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES)
 HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_BUILT_DOTFILES)
+HOME_LINKS:=$(HOME_M4_LINKS)
 
 # System
 # ------
@@ -283,6 +294,7 @@ M4_DOTFILES:=\
 	$(addprefix config/,$(CONFIG_M4_DOTFILES))\
 	$(addprefix data/,$(DATA_M4_DOTFILES))\
 	$(addprefix home/,$(HOME_M4_DOTFILES))\
+	$(addprefix home/,$(addsuffix .link,$(HOME_M4_LINKS)))\
 	$(addprefix system/,$(SYSTEM_M4_DOTFILES))\
 
 EXECUTABLE_M4_DOTFILES:=\
@@ -306,11 +318,18 @@ BUILT_DOTFILES:=$(addprefix build/,\
 	$(addprefix system/,$(SYSTEM_BUILT_DOTFILES))\
 )
 
+BUILT_LINKS:=$(addprefix build/,\
+	$(addprefix home/,$(HOME_LINKS))\
+)
+
 INSTALLED_DOTFILES:=\
 	$(addprefix $(BIN_DIR)/,$(BIN_DOTFILES))\
 	$(addprefix $(CONFIG_DIR)/,$(CONFIG_DOTFILES))\
 	$(addprefix $(DATA_DIR)/,$(DATA_DOTFILES))\
 	$(addprefix $(HOME_DIR)/,$(HOME_DOTFILES))\
+
+INSTALLED_LINKS:=\
+	$(addprefix $(HOME_DIR)/,$(HOME_LINKS))\
 
 INSTALLED_SYSTEM_DOTFILES:=\
 	$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_DOTFILES))\
@@ -323,11 +342,11 @@ INSTALLED_FONTS:=\
 
 .PHONY: build install install-user-dotfiles install-system clean help
 
-build: $(BUILT_DOTFILES)
+build: $(BUILT_DOTFILES) | $(BUILT_LINKS)
 
 install: install-user-dotfiles systemd-reload font-cache
 
-install-user-dotfiles: $(INSTALLED_DOTFILES)
+install-user-dotfiles: $(INSTALLED_DOTFILES) | $(INSTALLED_LINKS)
 
 install-system: $(INSTALLED_SYSTEM_DOTFILES)
 
@@ -420,6 +439,9 @@ $(foreach DOTFILE,$(EXECUTABLE_M4_DOTFILES),\
 
 $(foreach DOTFILE,$(RAW_DOTFILES),\
 	$(eval $(call RAW_BUILD_TEMPLATE,$(DOTFILE))))
+
+$(BUILD_DIR)/%: $(BUILD_DIR)/%.link
+	ln -s -f "$(shell grep -m 1 "[^[:space:]]" "$<")" "$@"
 
 ####################
 # I3Blocks Contrib #
@@ -524,7 +546,7 @@ endif
 define INSTALL_FILE_TEMPLATE
 
 $3/$4: $1/$2/$4 | $(dir $3/$4).
-	@cp -v "$$<" "$$@"
+	@cp -vP "$$<" "$$@"
 endef
 
 define INSTALL_FILES_TEMPLATE
@@ -547,7 +569,7 @@ $(eval $(call INSTALL_TEMPLATE,data,$(DATA_DIR),\
 	$(DATA_RAW_DOTFILES),$(DATA_BUILT_DOTFILES)))
 
 $(eval $(call INSTALL_TEMPLATE,home,$(HOME_DIR),\
-	$(HOME_RAW_DOTFILES),$(HOME_BUILT_DOTFILES)))
+	$(HOME_RAW_DOTFILES),$(HOME_BUILT_DOTFILES) $(HOME_LINKS)))
 
 $(eval $(call INSTALL_TEMPLATE,system,$(SYSTEM_PREFIX),\
 	$(SYSTEM_RAW_DOTFILES),$(SYSTEM_BUILT_DOTFILES)))
