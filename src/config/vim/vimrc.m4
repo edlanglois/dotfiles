@@ -67,7 +67,6 @@ Plugin 'VundleVim/Vundle.vim'  " MIT
 "                                               -------
 Plugin 'airblade/vim-gitgutter'               " MIT
 Plugin 'alfredodeza/coveragepy.vim'           " Apache 2.0
-Plugin 'ambv/black'                           " MIT
 Plugin 'chrisbra/Recover.vim'                 " Vim
 Plugin 'chriskempson/base16-vim'              " MIT
 Plugin 'christoomey/vim-tmux-navigator'       " MIT
