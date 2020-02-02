@@ -1,3 +1,4 @@
+MAKEFLAGS += -L
 SHELL=/bin/bash -o pipefail
 BUILD_DIR=build
 SRC_DIR=src
@@ -271,8 +272,8 @@ ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
 HOME_M4_LINKS += .Xresources
 endif
 
-HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES)
-HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_BUILT_DOTFILES)
+HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES) $(addsuffix .link,$(HOME_M4_LINKS))
+HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_M4_DOTFILES)
 HOME_LINKS:=$(HOME_M4_LINKS)
 
 # System
@@ -318,17 +319,11 @@ BUILT_DOTFILES:=$(addprefix build/,\
 	$(addprefix system/,$(SYSTEM_BUILT_DOTFILES))\
 )
 
-BUILT_LINKS:=$(addprefix build/,\
-	$(addprefix home/,$(HOME_LINKS))\
-)
-
 INSTALLED_DOTFILES:=\
 	$(addprefix $(BIN_DIR)/,$(BIN_DOTFILES))\
 	$(addprefix $(CONFIG_DIR)/,$(CONFIG_DOTFILES))\
 	$(addprefix $(DATA_DIR)/,$(DATA_DOTFILES))\
 	$(addprefix $(HOME_DIR)/,$(HOME_DOTFILES))\
-
-INSTALLED_LINKS:=\
 	$(addprefix $(HOME_DIR)/,$(HOME_LINKS))\
 
 INSTALLED_SYSTEM_DOTFILES:=\
@@ -342,11 +337,11 @@ INSTALLED_FONTS:=\
 
 .PHONY: build install install-user-dotfiles install-system clean help
 
-build: $(BUILT_DOTFILES) | $(BUILT_LINKS)
+build: $(BUILT_DOTFILES)
 
 install: install-user-dotfiles systemd-reload font-cache
 
-install-user-dotfiles: $(INSTALLED_DOTFILES) | $(INSTALLED_LINKS)
+install-user-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_LINKS)
 
 install-system: $(INSTALLED_SYSTEM_DOTFILES)
 
@@ -382,7 +377,6 @@ endef
 
 help:
 	@: $(info $(HELP_MESSAGE))
-
 
 
 #############################
@@ -439,9 +433,6 @@ $(foreach DOTFILE,$(EXECUTABLE_M4_DOTFILES),\
 
 $(foreach DOTFILE,$(RAW_DOTFILES),\
 	$(eval $(call RAW_BUILD_TEMPLATE,$(DOTFILE))))
-
-$(BUILD_DIR)/%: $(BUILD_DIR)/%.link
-	ln -s -f "$(shell grep -m 1 "[^[:space:]]" "$<")" "$@"
 
 ####################
 # I3Blocks Contrib #
@@ -541,22 +532,38 @@ endif
 ## Install ##
 #############
 
+# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATH
 # The first blank line is necessary. Foreach separates the evaluations with
 # a space but we don't want the rule definition to start with a space.
 define INSTALL_FILE_TEMPLATE
 
 $3/$4: $1/$2/$4 | $(dir $3/$4).
-	@cp -vP "$$<" "$$@"
+	@cp -v "$$<" "$$@"
 endef
 
+# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATHS
 define INSTALL_FILES_TEMPLATE
 $(foreach DOTFILE,$4,$(call INSTALL_FILE_TEMPLATE,$1,$2,$3,$(DOTFILE)))
 endef
 
+# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATH
+define INSTALL_LINK_TEMPLATE
+
+$3/$4: $1/$2/$4.link | $(dir $3/$4).
+	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$<")" "$$@"
+endef
+
+# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATHS
+define INSTALL_LINKS_TEMPLATE
+$(foreach DOTFILE,$4,$(call INSTALL_LINK_TEMPLATE,$1,$2,$3,$(DOTFILE)))
+endef
+
+# Args: SOURCE_SUBDIR INSTALL_DIR RAW_DOTFILES BUILT_DOTFILES LINKS
 define INSTALL_TEMPLATE
 $(call MKDIR_TEMPLATE,$2)
 $(call INSTALL_FILES_TEMPLATE,$(SRC_DIR),$1,$2,$3)
 $(call INSTALL_FILES_TEMPLATE,$(BUILD_DIR),$1,$2,$4)
+$(call INSTALL_LINKS_TEMPLATE,$(BUILD_DIR),$1,$2,$5)
 endef
 
 $(eval $(call INSTALL_TEMPLATE,bin,$(BIN_DIR),\
@@ -569,7 +576,7 @@ $(eval $(call INSTALL_TEMPLATE,data,$(DATA_DIR),\
 	$(DATA_RAW_DOTFILES),$(DATA_BUILT_DOTFILES)))
 
 $(eval $(call INSTALL_TEMPLATE,home,$(HOME_DIR),\
-	$(HOME_RAW_DOTFILES),$(HOME_BUILT_DOTFILES) $(HOME_LINKS)))
+	$(HOME_RAW_DOTFILES),$(HOME_BUILT_DOTFILES),$(HOME_LINKS)))
 
 $(eval $(call INSTALL_TEMPLATE,system,$(SYSTEM_PREFIX),\
 	$(SYSTEM_RAW_DOTFILES),$(SYSTEM_BUILT_DOTFILES)))
