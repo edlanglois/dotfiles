@@ -298,12 +298,6 @@ M4_DOTFILES:=\
 	$(addprefix home/,$(addsuffix .link,$(HOME_M4_LINKS)))\
 	$(addprefix system/,$(SYSTEM_M4_DOTFILES))\
 
-EXECUTABLE_M4_DOTFILES:=\
-	$(addprefix bin/,$(BIN_EXECUTABLE_M4_DOTFILES))\
-	$(addprefix data/,$(DATA_EXECUTABLE_M4_DOTFILES))\
-	$(addprefix home/,$(HOME_EXECUTABLE_M4_DOTFILES))\
-	$(addprefix system/,$(SYSTEM_EXECUTABLE_M4_DOTFILES))\
-
 RAW_DOTFILES:=\
 	$(addprefix bin/,$(BIN_RAW_DOTFILES))\
 	$(addprefix config/,$(CONFIG_RAW_DOTFILES))\
