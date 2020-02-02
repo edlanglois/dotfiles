@@ -7,15 +7,23 @@ set -eu
 # https://gitlab.freedesktop.org/xorg/xserver/issues/253
 # https://pastebin.com/vtzyBK6e
 read -r DISPLAY_NAME DISPLAY_WIDTH_PX DISPLAY_HEIGHT_PX DISPLAY_WIDTH_MM DISPLAY_HEIGHT_MM <<< \
-	"$(xrandr | sed -ne 'N;/^ *Screen 0:.*current \([[:digit:]]\+\) x \([[:digit:]]\+\).*\n\([^ ]\+\) .* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/{s//\3 \1 \2 \4 \5/p;q}')"
+	"$(xrandr | sed -ne '/^\([^ ]\+\) connected primary \([[:digit:]]\+\)x\([[:digit:]]\+\).* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/{s//\1 \2 \3 \4 \5/p;q}')"
 
 if [ -n "$DISPLAY_NAME" ]; then
 	echo "DISPLAY_NAME=$DISPLAY_NAME"
 	echo "DISPLAY_DIMS=$DISPLAY_WIDTH_MM $DISPLAY_HEIGHT_MM"
 	DPI=$(( (DISPLAY_WIDTH_PX * 254) / (10 * DISPLAY_WIDTH_MM) ))
-	# True DPI makes the UI too big. Scale by 3/4
-	# Also scale to the nearest 24 (= 96/4)
-	XFT_DPI=$(( (DPI * 3) / (4 * 24) * 24 ))
+	XFT_DPI=$DPI
+	if (( DISPLAY_WIDTH_MM < 400 )); then
+		# Smaller screen, assume the viewer is closer.
+		XFT_DPI=$(( XFT_DPI * 4 / 5 ))
+	fi
+	# Round to the nearest 96/4 = 24
+	XFT_DPI=$(( (XFT_DPI + 12) / 24 * 24 ))
+	# Set 96 as the minimum
+	if (( XFT_DPI < 96 )); then
+		XFT_DPI=96
+	fi
 	echo "XFT_DPI=$XFT_DPI"
 fi
 
