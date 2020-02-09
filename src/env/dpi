@@ -12,18 +12,31 @@ read -r DISPLAY_NAME DISPLAY_WIDTH_PX DISPLAY_HEIGHT_PX DISPLAY_WIDTH_MM DISPLAY
 if [ -n "$DISPLAY_NAME" ]; then
 	echo "DISPLAY_NAME=$DISPLAY_NAME"
 	echo "DISPLAY_DIMS=$DISPLAY_WIDTH_MM $DISPLAY_HEIGHT_MM"
+	# True DPI
 	DPI=$(( (DISPLAY_WIDTH_PX * 254) / (10 * DISPLAY_WIDTH_MM) ))
-	XFT_DPI=$DPI
+
+	# DPI ajusted for viewer
+	ADJUSTED_DPI=$DPI
 	if (( DISPLAY_WIDTH_MM < 400 )); then
 		# Smaller screen, assume the viewer is closer.
-		XFT_DPI=$(( XFT_DPI * 4 / 5 ))
+		ADJUSTED_DPI=$(( ADJUSTED_DPI * 4 / 5 ))
 	fi
+
+	# XFT_DPI: Used to scale fonts and other UI elements
 	# Round to the nearest 96/4 = 24
+	XFT_DPI=$ADJUSTED_DPI
 	XFT_DPI=$(( (XFT_DPI + 12) / 24 * 24 ))
 	# Set 96 as the minimum
 	if (( XFT_DPI < 96 )); then
 		XFT_DPI=96
 	fi
 	echo "XFT_DPI=$XFT_DPI"
-fi
 
+	# GDK_SCALE: Another way to set UI scaling
+	# Setting at the same time as XFT_DPI can cause double scaling in many
+	# applications so this should only be set as an environment variable
+	# in isolation for applications that don't use XFT_DPI.
+	# Must be an integer
+	GDK_SCALE=$(( ADJUSTED_DPI / 96 ))
+	echo "GDK_SCALE=$GDK_SCALE"
+fi
