@@ -237,12 +237,12 @@ CONFIG_DOTFILES:=$(CONFIG_RAW_DOTFILES) $(CONFIG_BUILD_DOTFILES)
 
 # Data
 # ----
-# These directories need to exist for the programs in question to use them
 DATA_FONTS:=\
 	fonts/PowerlineSymbols.otf
 
 DATA_RAW_DOTFILES:=$(DATA_FONTS)
 
+# These directories need to exist for the programs in question to use them
 DATA_MAKE_DIRS:=$(addsuffix /.,\
 	tig\
 	wget\
