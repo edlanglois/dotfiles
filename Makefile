@@ -242,6 +242,17 @@ DATA_FONTS:=\
 
 DATA_RAW_DOTFILES:=$(DATA_FONTS)
 
+# Custom install rule
+SOURCE_STEAM_DESKTOP:=/usr/share/applications/steam.desktop
+DATA_STEAM_DESKTOP:=applications/steam.desktop
+
+DATA_BUILD_DOTFILES:=
+DATA_BUILT_DOTFILES:=
+ifneq ("$(wildcard $(SOURCE_STEAM_DESKTOP))","")
+DATA_BUILT_DOTFILES+=$(DATA_STEAM_DESKTOP)
+DATA_BUILD_DOTFILES+=$(DATA_STEAM_DESKTOP)
+endif
+
 # These directories need to exist for the programs in question to use them
 DATA_MAKE_DIRS:=$(addsuffix /.,\
 	tig\
@@ -249,7 +260,11 @@ DATA_MAKE_DIRS:=$(addsuffix /.,\
 )
 # Vundle has a custom install rule
 DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
-DATA_DOTFILES:=$(DATA_RAW_DOTFILES) $(DATA_MAKE_DIRS) $(DATA_VUNDLE_DIR)
+DATA_DOTFILES:=\
+	$(DATA_RAW_DOTFILES)\
+	$(DATA_MAKE_DIRS)\
+	$(DATA_VUNDLE_DIR)\
+	$(DATA_BUILD_DOTFILES)\
 
 # Home
 # ----
@@ -297,7 +312,7 @@ M4_DOTFILES:=\
 	$(addprefix bin/,$(BIN_M4_DOTFILES))\
 	$(addprefix config/,$(CONFIG_M4_DOTFILES))\
 	$(addprefix config/,$(addsuffix .link,$(CONFIG_M4_LINKS)))\
-	$(addprefix data/,$(DATA_M4_DOTFILES))\
+	$(addprefix data/,$(DATA_M4_DOTFILES) $(DATA_STEAM_DESKTOP).sed)\
 	$(addprefix home/,$(HOME_M4_DOTFILES))\
 	$(addprefix home/,$(addsuffix .link,$(HOME_M4_LINKS)))\
 	$(addprefix system/,$(SYSTEM_M4_DOTFILES))\
@@ -444,6 +459,15 @@ endef
 
 $(foreach CONTRIB_SCRIPT,$(CONFIG_I3BLOCKS_CONTRIB_SCRIPTS),\
 	$(eval $(call BUILD_I3BLOCKS_CONTRIB_TEMPLATE,$(CONTRIB_SCRIPT))))
+
+#########
+# Steam #
+#########
+
+$(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP):\
+		$(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP).sed\
+		$(SOURCE_STEAM_DESKTOP)
+	sed -f "$<" "$(SOURCE_STEAM_DESKTOP)" > "$@"
 
 #########################
 # M4 Build Config Files #
