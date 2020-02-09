@@ -3,7 +3,6 @@ SHELL=/bin/bash -o pipefail
 BUILD_DIR=build
 SRC_DIR=src
 UTILS_DIR=utils
-DOTFILES_DIR:=$(shell pwd)
 
 # Check that given variables are set and all have non-empty values,
 # die with an error otherwise.
