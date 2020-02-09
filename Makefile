@@ -141,6 +141,7 @@ CONFIG_RAW_DOTFILES:=\
 	i3blocks/scripts/date-calendar\
 	i3blocks/scripts/gkrellm-toggle\
 	i3blocks/scripts/gpu-usage\
+	i3blocks/scripts/ssid\
 	i3blocks/scripts/weather\
 	pudb/pudb.cfg\
 	python/startup.py\
@@ -214,7 +215,6 @@ CONFIG_M4_DOTFILES:=\
 CONFIG_I3BLOCKS_CONTRIB_SCRIPTS:=\
 	battery/battery\
 	cpu_usage/cpu_usage\
-	essid/essid\
 	mediaplayer/mediaplayer\
 	memory/memory\
 	temperature/temperature\

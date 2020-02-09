@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Usage: ssid [INTERFACE]
+# Interface is set to BLOCK_INSTANCE by default
+set -eu
+
+INTERFACE=${1:-$BLOCK_INSTANCE}
+
+SSID=$(iw dev "$INTERFACE" link | sed -n '/^.*SSID: \(.*\)$/{s//\1/;p;q}')
+
+echo "$SSID"
+echo "$SSID"
