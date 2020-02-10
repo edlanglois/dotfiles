@@ -245,12 +245,14 @@ DATA_BUILD:=\
 DATA_FONTS:=\
 	fonts/PowerlineSymbols.otf\
 
+DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
+
 DATA_INSTALL:=\
 	$(DATA_FONTS)\
 	$(DATA_BI)\
+	$(DATA_VUNDLE_DIR)\
 	tig/.\
 	wget/.\
-	vim/bundle/Vundle.vim\
 
 # Home
 # ----
@@ -419,40 +421,6 @@ endef
 help:
 	@: $(info $(HELP_MESSAGE))
 
-########################
-##  Make Directories  ##
-########################
-define MKDIR_DEPENDENCY_TEMPLATE
-$1: | $(dir $1).
-endef
-
-# Targets that might be the first in their directory
-ORIGINAL_TARGETS:=\
-	$(FIRST_BUILD_TARGETS)\
-	$(INSTALL_TARGETS)\
-	$(INSTALL_SYSTEM_TARGETS)\
-	$(BUILD_DIR)/.\
-	$(BUILD_DIR)/make/.\
-# Exclude directories
-ORIGINAL_FILE_TARGETS:=$(filter-out %/.,$(ORIGINAL_TARGETS))
-
-$(foreach TARGET,$(ORIGINAL_FILE_TARGETS),\
-	$(eval $(call MKDIR_DEPENDENCY_TEMPLATE,$(TARGET))))
-
-# Use a template so that this rule is preferred over the generic install copy
-# rule.
-.PRECIOUS: %/.
-
-define MKDIR_TEMPLATE
-
-$1.:
-	mkdir -p "$$@"
-endef
-$(foreach TARGET_DIR,\
-	$(sort $(BUILD_DIR)/ $(BUILD_DIR)/make/ $(dir $(ORIGINAL_TARGETS))),\
-	$(eval $(call MKDIR_TEMPLATE,$(TARGET_DIR))))
-
-
 ################
 ##  Build M4  ##
 ################
@@ -609,10 +577,10 @@ $(eval $(call INSTALL_TEMPLATE,$(SYSTEM_PREFIX),system))
 
 vim: vim-vundle vim-plugins vim-ycm vim-tmuxline
 
-VUNDLE_DIR:=$(DATA_DIR)/$(DATA_VUNDLE_DIR)
-vim-vundle: | $(VUNDLE_DIR)
+VUNDLE_TARGET:=$(DATA_DIR)/$(DATA_VUNDLE_DIR)
+vim-vundle: | $(VUNDLE_TARGET)
 
-$(VUNDLE_DIR): | $(dir $(VUNDLE_DIR)).
+$(VUNDLE_TARGET): | $(dir $(VUNDLE_TARGET)).
 	cd $(dir $@) && git clone https://github.com/VundleVim/Vundle.vim.git
 
 vim-plugins: vim-vundle
@@ -633,12 +601,13 @@ $(YCM_CORE): $(YCM_GIT_CHECKOUT)
 
 
 TMUXLINE_CONFIG:=tmux/tmuxline.conf
+TMUXLINE_TARGET:=$(CONFIG_DIR)/$(TMUXLINE_CONFIG)
 RANDOM_ID:=$(shell echo $$RANDOM)
 
-vim-tmuxline: $(CONFIG_DIR)/$(TMUXLINE_CONFIG)
+vim-tmuxline: $(TMUXLINE_TARGET)
 
-$(CONFIG_DIR)/$(TMUXLINE_CONFIG): \
-	| $(dir $(CONFIG_DIR)/$(TMUXLINE_CONFIG)).
+$(TMUXLINE_TARGET): \
+	| $(dir $(TMUXLINE_TARGET)).
 	# Start a new temporary tmux session and in that tmux session run vim
 	# and in vim call TmuxlineSnapshot to save the tmuxline configuration to
 	# tmuxline.conf
@@ -693,3 +662,38 @@ font-cache: $(BUILD_DIR)/make/font-cache
 $(BUILD_DIR)/make/font-cache: $(INSTALLED_FONTS) | $(BUILD_DIR)/make/.
 	fc-cache -v $(DATA_DIR)/fonts/
 	touch "$@"
+
+
+########################
+##  Make Directories  ##
+########################
+define MKDIR_DEPENDENCY_TEMPLATE
+$1: | $(dir $1).
+endef
+
+# Targets that might be the first in their directory
+ORIGINAL_TARGETS:=\
+	$(FIRST_BUILD_TARGETS)\
+	$(INSTALL_TARGETS)\
+	$(INSTALL_SYSTEM_TARGETS)\
+	$(TMUXLINE_TARGET)\
+	$(BUILD_DIR)/.\
+	$(BUILD_DIR)/make/.\
+# Exclude directories
+ORIGINAL_FILE_TARGETS:=$(filter-out %/.,$(ORIGINAL_TARGETS))
+
+$(foreach TARGET,$(ORIGINAL_FILE_TARGETS),\
+	$(eval $(call MKDIR_DEPENDENCY_TEMPLATE,$(TARGET))))
+
+# Use a template so that this rule is preferred over the generic install copy
+# rule.
+.PRECIOUS: %/.
+
+define MKDIR_TEMPLATE
+
+$1.:
+	mkdir -p "$$@"
+endef
+$(foreach TARGET_DIR,\
+	$(sort $(BUILD_DIR)/ $(BUILD_DIR)/make/ $(dir $(ORIGINAL_TARGETS))),\
+	$(eval $(call MKDIR_TEMPLATE,$(TARGET_DIR))))
