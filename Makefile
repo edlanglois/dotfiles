@@ -178,7 +178,8 @@ CONFIG_FBI:=\
 	yay/config.json\
 
 CONFIG_LINKS:=\
-	duplicacy/cache
+	chromium\
+	duplicacy/cache\
 
 CONFIG_FB:=\
 	$(addsuffix .link,$(CONFIG_LINKS))\
@@ -561,6 +562,7 @@ $1/%: $(BUILD_DIR)/$2/%
 	@cp -v "$$<" "$$@"
 
 $1/%: $(BUILD_DIR)/$2/%.link
+	! [ -d "$$@" ] && \
 	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$<")" "$$@"
 endef
 
