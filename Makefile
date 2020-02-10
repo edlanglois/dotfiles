@@ -231,6 +231,7 @@ CONFIG_INSTALL:=\
 # Data
 # ----
 DATA_LINKS:=\
+	libreoffice/4/cache\
 	Slack/Cache\
 
 DATA_FB:=\
@@ -586,6 +587,8 @@ $(eval $(call INSTALL_TEMPLATE,$(SYSTEM_PREFIX),system))
 #################################
 ##  Install Link Dependencies  ##
 #################################
+
+$(DATA_DIR)/libreoffice/4/cache: $(CONFIG_DIR)/libreoffice
 
 $(DATA_DIR)/Slack/Cache: $(CONFIG_DIR)/Slack
 
