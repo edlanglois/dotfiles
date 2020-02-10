@@ -57,40 +57,32 @@ I3BLOCKS_SCRIPT_DIR := $(CONFIG_DIR)/i3blocks/scripts
 
 WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 
-# Environment configuration files
-ENV_CONFIG_FILES:=\
-	battery\
-	browser\
-	colours\
-	cuda\
-	dpi\
-	git-push-default-simple\
-	github_id\
-	go\
-	lock\
-	modules\
-	mujoco\
-	netuser\
-	nvidia-smi\
-	osx\
-	perl\
-	programs\
-	python\
-	root\
-	ruby\
-	sys-monitor\
-	tmux\
-	torch\
-	user\
-	virtualfish\
-	wifi\
+# The following variables need to be defined
+# for each TYPE = bin | config | data | home | system
+#
+# <TYPE>_FIRST_BUILD
+# 	- Names % where BUILD_DIR/<TYPE>/% does not depend on any other files in the
+# 		same directory.
+# <TYPE>_BUILD
+# 	- Names % where BUILD_DIR/<TYPE>/% is required for install
+# <TYPE>_INSTALL
+# 	- Names % where <TYPE>_INSTALL_PREFIX/% is an install target
+#
+# These variables are used to define the make targets (build and install)
+# and to create templated rules that depend on the target directory existing.
+#
+# Useful intermediate variables:
+# <TYPE>_FBI (or a subset of FBI)
+# 	- Intersections of <TYPE>_FIRST_BUILD, <TYPE>_BUILD, <TYPE>_INSTALL
 
-ENV_CONFIG_BUILD_FILES=$(addsuffix .m4,\
-	$(addprefix $(BUILD_DIR)/env/,$(ENV_CONFIG_FILES)))
+# Files can be installed directly from SRC_DIR or from BUILD_DIR
+# Files in BUILD_DIR can depend on other build files.
 
 # Bin
 # ---
-BIN_RAW_DOTFILES:=\
+BIN_FIRST_BUILD:=
+BIN_BUILD:=
+BIN_INSTALL:=\
 	backtrace\
 	combinediff-careful\
 	dblp-makebib\
@@ -108,58 +100,34 @@ BIN_RAW_DOTFILES:=\
 	print256colours\
 	tmuxm\
 
-BIN_M4_DOTFILES:=
-BIN_BUILT_DOTFILES:=$(BIN_M4_DOTFILES)
-BIN_DOTFILES:=$(BIN_RAW_DOTFILES) $(BIN_BUILT_DOTFILES)
-
 # Config
 # ------
-CONFIG_FISH_FOREIGN_ENV_DOTFILES:=$(addprefix fish/plugins/foreign-env/,\
-	functions/fenv.apply.fish\
-	functions/fenv.fish\
-	functions/fenv.main.fish\
-	functions/fenv.parse.after.fish\
-	functions/fenv.parse.before.fish\
-	functions/fenv.parse.diff.fish\
-	functions/fenv.parse.divider.fish\
-	LICENSE\
-	README.md\
-)
-
-CONFIG_RAW_VIM_DOTFILES:=\
-	$(shell cd "$(SRC_DIR)/config" && find vim -type f -not -name '*.m4')
-
-CONFIG_RAW_DOTFILES:=\
-	$(CONFIG_FISH_FOREIGN_ENV_DOTFILES)\
-	$(CONFIG_RAW_VIM_DOTFILES)\
-	fontconfig/fonts.conf\
-	gkrellm/user-config-cpu\
-	gkrellm/user-config-memory\
-	i3blocks/scripts/battery-label\
-	i3blocks/scripts/conky-toggle\
-	i3blocks/scripts/date-calendar\
-	i3blocks/scripts/gkrellm-toggle\
-	i3blocks/scripts/gpu-usage\
-	i3blocks/scripts/ssid\
-	i3blocks/scripts/weather\
-	pudb/pudb.cfg\
-	python/startup.py\
-	zathura/zathurarc\
-
-CONFIG_M4_SYSTEMD_DOTFILES:=\
+CONFIG_FBI_SYSTEMD:=\
 	systemd/user/duplicacy-backup.service\
 	systemd/user/duplicacy-backup.timer\
 	systemd/user/low-battery.service\
 	systemd/user/low-battery.timer\
 	systemd/user/ssh-agent.service\
 
-CONFIG_M4_VIM_DOTFILES:=\
+CONFIG_FBI_VIM:=\
 	vim/plugin/settings/airline.vim\
 	vim/plugin/settings/tmuxline.vim\
 	vim/vimrc\
 	vim/ycm_extra_conf.py\
 
-CONFIG_M4_DOTFILES:=\
+CONFIG_I3BLOCKS_CONTRIB:=\
+	battery/battery\
+	cpu_usage/cpu_usage\
+	mediaplayer/mediaplayer\
+	memory/memory\
+	temperature/temperature\
+	volume/volume\
+	wifi/wifi\
+
+CONFIG_FBI:=\
+	$(CONFIG_FBI_SYSTEMD)\
+	$(CONFIG_FBI_VIM)\
+	$(addprefix i3blocks/scripts/,$(notdir $(CONFIG_I3BLOCKS_CONTRIB)))\
 	bash/aliases\
 	bash/bashrc\
 	bash/profile\
@@ -208,72 +176,89 @@ CONFIG_M4_DOTFILES:=\
 	xprofile\
 	yapf/style\
 	yay/config.json\
-	$(CONFIG_M4_SYSTEMD_DOTFILES)\
-	$(CONFIG_M4_VIM_DOTFILES)\
 
-CONFIG_I3BLOCKS_CONTRIB_SCRIPTS:=\
-	battery/battery\
-	cpu_usage/cpu_usage\
-	mediaplayer/mediaplayer\
-	memory/memory\
-	temperature/temperature\
-	volume/volume\
-	wifi/wifi\
-
-CONFIG_M4_LINKS:=\
+CONFIG_LINKS:=\
 	duplicacy/cache
 
-CONFIG_BUILD_DOTFILES:=\
-	$(CONFIG_M4_DOTFILES)\
-	$(CONFIG_TMUXLINE)\
-	$(addprefix i3blocks/scripts/,$(notdir $(CONFIG_I3BLOCKS_CONTRIB_SCRIPTS)))\
+CONFIG_FB:=\
+	$(addsuffix .link,$(CONFIG_LINKS))\
 
-CONFIG_BUILT_DOTFILES:=\
-	$(CONFIG_BUILD_DOTFILES)\
-	$(addsuffix .link,$(CONFIG_M4_LINKS))\
+CONFIG_FIRST_BUILD:=\
+	$(CONFIG_FBI)\
+	$(CONFIG_FB)\
 
-CONFIG_DOTFILES:=$(CONFIG_RAW_DOTFILES) $(CONFIG_BUILD_DOTFILES)
+CONFIG_BUILD:=\
+	$(CONFIG_FBI)\
+	$(CONFIG_FB)\
+
+CONFIG_INSTALL_FISH_FOREIGN_ENV:=$(addprefix fish/plugins/foreign-env/,\
+	functions/fenv.apply.fish\
+	functions/fenv.fish\
+	functions/fenv.main.fish\
+	functions/fenv.parse.after.fish\
+	functions/fenv.parse.before.fish\
+	functions/fenv.parse.diff.fish\
+	functions/fenv.parse.divider.fish\
+	LICENSE\
+	README.md\
+)
+
+CONFIG_INSTALL_VIM_DIRECT:=\
+	$(shell cd "$(SRC_DIR)/config" && find vim -type f -not -name '*.m4')
+
+CONFIG_INSTALL:=\
+	$(CONFIG_INSTALL_FISH_FOREIGN_ENV)\
+	$(CONFIG_INSTALL_VIM_DIRECT)\
+	$(CONFIG_FBI)\
+	$(CONFIG_LINKS)\
+	fontconfig/fonts.conf\
+	gkrellm/user-config-cpu\
+	gkrellm/user-config-memory\
+	i3blocks/scripts/battery-label\
+	i3blocks/scripts/conky-toggle\
+	i3blocks/scripts/date-calendar\
+	i3blocks/scripts/gkrellm-toggle\
+	i3blocks/scripts/gpu-usage\
+	i3blocks/scripts/ssid\
+	i3blocks/scripts/weather\
+	pudb/pudb.cfg\
+	python/startup.py\
+	zathura/zathurarc\
 
 # Data
 # ----
-DATA_FONTS:=\
-	fonts/PowerlineSymbols.otf
-
-DATA_RAW_DOTFILES:=$(DATA_FONTS)
-
-# Custom install rule
+# Custom install for Steam Desktop
 SOURCE_STEAM_DESKTOP:=/usr/share/applications/steam.desktop
 DATA_STEAM_DESKTOP:=applications/steam.desktop
 
-DATA_BUILD_DOTFILES:=
-DATA_BUILT_DOTFILES:=
+DATA_FIRST_BUILD:=\
+	$(DATA_STEAM_DESKTOP).sed
+
+DATA_BI:=
 ifneq ("$(wildcard $(SOURCE_STEAM_DESKTOP))","")
-DATA_BUILT_DOTFILES+=$(DATA_STEAM_DESKTOP)
-DATA_BUILD_DOTFILES+=$(DATA_STEAM_DESKTOP)
+DATA_BI+=$(DATA_STEAM_DESKTOP)
 endif
 
-# These directories need to exist for the programs in question to use them
-DATA_MAKE_DIRS:=$(addsuffix /.,\
-	tig\
-	wget\
-)
-# Vundle has a custom install rule
-DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
-DATA_DOTFILES:=\
-	$(DATA_RAW_DOTFILES)\
-	$(DATA_MAKE_DIRS)\
-	$(DATA_VUNDLE_DIR)\
-	$(DATA_BUILD_DOTFILES)\
+DATA_BUILD:=\
+	$(DATA_BI)\
+
+DATA_FONTS:=\
+	fonts/PowerlineSymbols.otf\
+
+DATA_INSTALL:=\
+	$(DATA_FONTS)\
+	$(DATA_BI)\
+	tig/.\
+	wget/.\
+	vim/bundle/Vundle.vim\
 
 # Home
 # ----
-# To avoid putting files here, only include if the relevant program exists.
-HOME_RAW_DOTFILES:=
-
-HOME_M4_DOTFILES:=\
+HOME_FBI:=\
 	.ssh/config\
 
-HOME_M4_LINKS:=\
+# To avoid putting files here, only include if the relevant program exists.
+HOME_LINKS:=\
 	.bash_profile\
 	.bashrc\
 	.pam_environment\
@@ -281,82 +266,125 @@ HOME_M4_LINKS:=\
 	.xprofile\
 
 ifneq ($(strip $(shell command -v gkrellm)),)
-HOME_M4_LINKS += .gkrellm2
+HOME_LINKS += .gkrellm2
 endif
 ifneq ($(strip $(shell command -v imwheel)),)
-HOME_M4_LINKS += .imwheelrc
+HOME_LINKS += .imwheelrc
 endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
-HOME_M4_LINKS += .Xresources
+HOME_LINKS += .Xresources
 endif
 
-HOME_BUILT_DOTFILES:=$(HOME_M4_DOTFILES) $(addsuffix .link,$(HOME_M4_LINKS))
-HOME_DOTFILES:=$(HOME_RAW_DOTFILES) $(HOME_M4_DOTFILES)
+HOME_FB:=\
+	$(addsuffix .link,$(HOME_LINKS))\
+
+HOME_FIRST_BUILD:=\
+	$(HOME_FBI)\
+	$(HOME_FB)\
+
+HOME_BUILD:=\
+	$(HOME_FBI)\
+	$(HOME_FB)\
+
+HOME_INSTALL:=\
+	$(HOME_INSTALL)\
+	$(HOME_LINKS)\
 
 # System
 # ------
-SYSTEM_RAW_DOTFILES:=\
+
+SYSTEM_FBI:=\
+	etc/systemd/system/getty@tty1.service.d/override.conf\
+	etc/X11/xorg.conf.d/80-monitor.conf\
+
+SYSTEM_FIRST_BUILD:=\
+	$(SYSTEM_FBI)\
+
+SYSTEM_BUILD:=\
+	$(SYSTEM_FBI)\
+
+SYSTEM_INSTALL:=\
+	$(SYSTEM_FBI)\
 	etc/udev/rules.d/90-backlight.rules\
 	etc/X11/xorg.conf.d/30-touchpad.conf\
 	etc/X11/xorg.conf.d/90-keyboard.conf\
 
-SYSTEM_M4_DOTFILES:=\
-	etc/systemd/system/getty@tty1.service.d/override.conf\
-	etc/X11/xorg.conf.d/80-monitor.conf\
+# Environment
+# -----------
+ENV_FIRST_BUILD:=\
+	battery\
+	browser\
+	colours\
+	cuda\
+	dpi\
+	git-push-default-simple\
+	github_id\
+	go\
+	lock\
+	modules\
+	mujoco\
+	netuser\
+	nvidia-smi\
+	osx\
+	perl\
+	programs\
+	python\
+	root\
+	ruby\
+	sys-monitor\
+	tmux\
+	torch\
+	user\
+	virtualfish\
+	wifi\
 
-SYSTEM_BUILT_DOTFILES:=$(SYSTEM_M4_DOTFILES)
-SYSTEM_DOTFILES:=$(SYSTEM_RAW_DOTFILES) $(SYSTEM_BUILT_DOTFILES)
+ENV_CONFIG_TARGETS=$(addsuffix .m4,\
+	$(addprefix $(BUILD_DIR)/env/,$(ENV_CONFIG_FILES)))
 
-M4_DOTFILES:=\
-	$(addprefix bin/,$(BIN_M4_DOTFILES))\
-	$(addprefix config/,$(CONFIG_M4_DOTFILES))\
-	$(addprefix config/,$(addsuffix .link,$(CONFIG_M4_LINKS)))\
-	$(addprefix data/,$(DATA_M4_DOTFILES) $(DATA_STEAM_DESKTOP).sed)\
-	$(addprefix home/,$(HOME_M4_DOTFILES))\
-	$(addprefix home/,$(addsuffix .link,$(HOME_M4_LINKS)))\
-	$(addprefix system/,$(SYSTEM_M4_DOTFILES))\
 
-RAW_DOTFILES:=\
-	$(addprefix bin/,$(BIN_RAW_DOTFILES))\
-	$(addprefix config/,$(CONFIG_RAW_DOTFILES))\
-	$(addprefix data/,$(DATA_RAW_DOTFILES))\
-	$(addprefix home/,$(HOME_RAW_DOTFILES))\
-	$(addprefix system/,$(SYSTEM_RAW_DOTFILES))\
-
-BUILT_DOTFILES:=$(addprefix build/,\
-	$(addprefix bin/,$(BIN_BUILT_DOTFILES))\
-	$(addprefix config/,$(CONFIG_BUILT_DOTFILES))\
-	$(addprefix data/,$(DATA_BUILT_DOTFILES))\
-	$(addprefix home/,$(HOME_BUILT_DOTFILES))\
-	$(addprefix system/,$(SYSTEM_BUILT_DOTFILES))\
+# Combined
+# --------
+FIRST_BUILD_TARGETS:=$(addprefix $(BUILD_DIR)/,\
+	$(addprefix bin/,$(BIN_FIRST_BUILD))\
+	$(addprefix config/,$(CONFIG_FIRST_BUILD))\
+	$(addprefix data/,$(DATA_FIRST_BUILD))\
+	$(addprefix env/,$(ENV_FIRST_BUILD))\
+	$(addprefix home/,$(HOME_FIRST_BUILD))\
+	$(addprefix system/,$(SYSTEM_FIRST_BUILD))\
 )
 
-INSTALLED_DOTFILES:=\
-	$(addprefix $(BIN_DIR)/,$(BIN_DOTFILES))\
-	$(addprefix $(CONFIG_DIR)/,$(CONFIG_DOTFILES))\
-	$(addprefix $(CONFIG_DIR)/,$(CONFIG_M4_LINKS))\
-	$(addprefix $(DATA_DIR)/,$(DATA_DOTFILES))\
-	$(addprefix $(HOME_DIR)/,$(HOME_DOTFILES))\
-	$(addprefix $(HOME_DIR)/,$(HOME_M4_LINKS))\
+BUILD_TARGETS:=$(addprefix $(BUILD_DIR)/,\
+	$(addprefix bin/,$(BIN_BUILD))\
+	$(addprefix config/,$(CONFIG_BUILD))\
+	$(addprefix data/,$(DATA_BUILD))\
+	$(addprefix home/,$(HOME_BUILD))\
+	$(addprefix system/,$(SYSTEM_BUILD))\
+)
 
-INSTALLED_SYSTEM_DOTFILES:=\
-	$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_DOTFILES))\
+INSTALL_TARGETS:=\
+	$(addprefix $(BIN_DIR)/,$(BIN_INSTALL))\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_INSTALL))\
+	$(addprefix $(DATA_DIR)/,$(DATA_INSTALL))\
+	$(addprefix $(HOME_DIR)/,$(HOME_INSTALL))\
 
-INSTALLED_SYSTEMD_FILES:=\
-	$(addprefix $(CONFIG_DIR)/,$(CONFIG_M4_SYSTEMD_DOTFILES))
+INSTALL_SYSTEM_TARGETS:=$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_INSTALL))
 
-INSTALLED_FONTS:=\
-	$(addprefix $(DATA_DIR)/,$(DATA_FONTS))
+INSTALLED_SYSTEMD_CONFIGS:=$(addprefix $(CONFIG_DIR)/,$(CONFIG_FBI_SYSTEMD))
+INSTALLED_FONTS:=$(addprefix $(DATA_DIR)/,$(DATA_FONTS))
 
-.PHONY: build install install-user-dotfiles install-system clean help
+############
+# Commands #
+############
 
-build: $(BUILT_DOTFILES)
+.PHONY: build install install-user install-system clean help
 
-install: install-user-dotfiles systemd-reload font-cache
+build: $(BUILD_TARGETS)
 
-install-user-dotfiles: $(INSTALLED_DOTFILES) $(INSTALLED_LINKS)
+install: install-user systemd-reload font-cache
 
-install-system: $(INSTALLED_SYSTEM_DOTFILES)
+install-user: $(INSTALL_TARGETS)
+
+install-system: $(INSTALL_SYSTEM_TARGETS)
 
 clean:
 	rm -rf $(BUILD_DIR)
@@ -391,10 +419,43 @@ endef
 help:
 	@: $(info $(HELP_MESSAGE))
 
+########################
+##  Make Directories  ##
+########################
+define MKDIR_DEPENDENCY_TEMPLATE
+$1: | $(dir $1).
+endef
 
-#############################
-##  Build Regular Configs  ##
-#############################
+# Targets that might be the first in their directory
+ORIGINAL_TARGETS:=\
+	$(FIRST_BUILD_TARGETS)\
+	$(INSTALL_TARGETS)\
+	$(INSTALL_SYSTEM_TARGETS)\
+	$(BUILD_DIR)/.\
+	$(BUILD_DIR)/make/.\
+# Exclude directories
+ORIGINAL_FILE_TARGETS:=$(filter-out %/.,$(ORIGINAL_TARGETS))
+
+$(foreach TARGET,$(ORIGINAL_FILE_TARGETS),\
+	$(eval $(call MKDIR_DEPENDENCY_TEMPLATE,$(TARGET))))
+
+# Use a template so that this rule is preferred over the generic install copy
+# rule.
+.PRECIOUS: %/.
+
+define MKDIR_TEMPLATE
+
+$1.:
+	mkdir -p "$$@"
+endef
+$(foreach TARGET_DIR,\
+	$(sort $(BUILD_DIR)/ $(BUILD_DIR)/make/ $(dir $(ORIGINAL_TARGETS))),\
+	$(eval $(call MKDIR_TEMPLATE,$(TARGET_DIR))))
+
+
+################
+##  Build M4  ##
+################
 
 USER_CONFIG_PREFIX:=m4_user_config_
 ENV_CONFIG_PREFIX:=m4_env_config_
@@ -402,66 +463,33 @@ ENV_CONFIG_PREFIX:=m4_env_config_
 QUOTE_START:=??[[<<
 QUOTE_END:=>>]]??
 
-define MKDIR_TEMPLATE
-.PRECIOUS: $1/. $1/%/.
+# TODO: Support %.local dependencies
+# Add a list of files that might have .local dependencies and template the
+# dependence
 
-$1/.:
-	mkdir -p "$$@"
-
-$1/%/.:
-	mkdir -p "$$@"
-
-endef
-
-$(eval $(call MKDIR_TEMPLATE,$(BUILD_DIR)))
-
-# Templates are required for evaluating the directory and wildcard prequisites.
-# .SECONDEXPANSION could be used instead but it is less portable.
-define M4_BUILD_TEMPLATE
-$(BUILD_DIR)/$1: \
-		$(SRC_DIR)/$1.m4 \
-		$(wildcard $(SRC_DIR)/$1.local) \
-		$(BUILD_DIR)/user_config.m4 \
-		$(BUILD_DIR)/env_config.m4 | $(dir $(BUILD_DIR)/$1).
+$(BUILD_DIR)/%: $(SRC_DIR)/%.m4 \
+		$(BUILD_DIR)/user_config.m4 $(BUILD_DIR)/env_config.m4
 	echo "m4_changecom()m4_changequote($(QUOTE_START),$(QUOTE_END))m4_dnl" | \
-		cat - "$$<" | \
-		m4 --prefix-builtins > "$$@" -I "$(BUILD_DIR)"
-endef
+		cat - "$<" | \
+		m4 --prefix-builtins > "$@" -I "$(BUILD_DIR)"
 
-define EXECUTABLE_M4_BUILD_TEMPLATE
-$(call M4_BUILD_TEMPLATE,$1)
-	chmod u+x "$$@"
-endef
-
-define RAW_BUILD_TEMPLATE
-$(BUILD_DIR)/$1: $(SRC_DIR)/$1 | $(dir $(BUILD_DIR)/$1).
-	cp -v "$$<" "$$@"
-endef
-
-$(foreach DOTFILE,$(M4_DOTFILES),\
-	$(eval $(call M4_BUILD_TEMPLATE,$(DOTFILE))))
-
-$(foreach DOTFILE,$(EXECUTABLE_M4_DOTFILES),\
-	$(eval $(call EXECUTABLE_M4_BUILD_TEMPLATE,$(DOTFILE))))
-
-$(foreach DOTFILE,$(RAW_DOTFILES),\
-	$(eval $(call RAW_BUILD_TEMPLATE,$(DOTFILE))))
-
-####################
-# I3Blocks Contrib #
-####################
+##############################
+##  Build I3Blocks Contrib  ##
+##############################
 
 define BUILD_I3BLOCKS_CONTRIB_TEMPLATE
-$(BUILD_DIR)/config/i3blocks/scripts/$(notdir $1) : $(SRC_DIR)/config/i3blocks/i3blocks-contrib/$1 | $(BUILD_DIR)/config/i3blocks/scripts/.
+$(BUILD_DIR)/config/i3blocks/scripts/$(notdir $1):\
+		$(SRC_DIR)/config/i3blocks/i3blocks-contrib/$1\
+		| $(BUILD_DIR)/config/i3blocks/scripts/.
 	cp -v "$$<" "$$@"
 endef
 
-$(foreach CONTRIB_SCRIPT,$(CONFIG_I3BLOCKS_CONTRIB_SCRIPTS),\
+$(foreach CONTRIB_SCRIPT,$(CONFIG_I3BLOCKS_CONTRIB),\
 	$(eval $(call BUILD_I3BLOCKS_CONTRIB_TEMPLATE,$(CONTRIB_SCRIPT))))
 
-#########
-# Steam #
-#########
+###################
+##  Build Steam  ##
+###################
 
 $(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP):\
 		$(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP).sed\
@@ -469,47 +497,49 @@ $(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP):\
 	sed -f "$<" "$(SOURCE_STEAM_DESKTOP)" > "$@"
 
 #########################
-# M4 Build Config Files #
+##  Build Environment  ##
 #########################
 
-# Depends on user.cfg because env scripts may use the exported environment
-# variables that are defined by user.cfg
-define ENV_CONFIG_TEMPLATE
-$(BUILD_DIR)/env/$1.m4: $(SRC_DIR)/env/$1 $(SRC_DIR)/env/env_utils $(BUILD_DIR)/env/paths.sh \
-		| $(dir $(BUILD_DIR)/env/$1).
+$(BUILD_DIR)/env/%.m4: $(BUILD_DIR)/env/% \
+		$(SRC_DIR)/env/env_utils\
+		$(BUILD_DIR)/env/paths.sh\
+		$(CONFIG_DIR)/config_replace.sh
 	source "$(BUILD_DIR)/env/paths.sh" && \
-		"$$<" | \
+		"$<" | \
 		$(UTILS_DIR)/config_replace.sh \
 			"$(ENV_CONFIG_PREFIX)" "$(QUOTE_START)" "$(QUOTE_END)" | \
-		(echo "m4_dnl $$<" && cat) > $$@
-endef
-
-$(BUILD_DIR)/env/colours.m4: $(BUILD_DIR)/env/colours.toml
-
-$(eval $(call RAW_BUILD_TEMPLATE,env/colours.toml))
-
-$(foreach ENVFILE,$(ENV_CONFIG_FILES),\
-	$(eval $(call ENV_CONFIG_TEMPLATE,$(ENVFILE))))
-
-$(BUILD_DIR)/user_config.m4: user.cfg $(UTILS_DIR)/config_replace.sh | $(BUILD_DIR)/.
-	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
-		$(UTILS_DIR)/config_replace.sh "${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
-
-$(BUILD_DIR)/env/paths.sh: user.cfg | $(BUILD_DIR)/env/.
-	grep -e '^ *[A-Z_]*\(HOME\|PREFIX\) *=' user.cfg | sed -e "s/^/export /" > "$@"
-
-$(BUILD_DIR)/env/absolute_paths.m4: user.cfg $(UTILS_DIR)/config_replace.sh | $(BUILD_DIR)/env/.
-	# Will fail if $HOME contains | characters
-	sed user.cfg -n -e "s|=~|=$(HOME)|" -e "/\(HOME\|PREFIX\)=/p" |\
-		$(UTILS_DIR)/config_replace.sh "${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" |\
 		(echo "m4_dnl $<" && cat) > "$@"
 
-$(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_BUILD_FILES) $(BUILD_DIR)/env/absolute_paths.m4 | $(BUILD_DIR)/.
+$(BUILD_DIR)/env/colours.m4: $(SRC_DIR)/env/colours.toml
+
+$(BUILD_DIR)/user_config.m4: user.cfg\
+		$(UTILS_DIR)/config_replace.sh\
+		| $(BUILD_DIR)/.
+	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
+		$(UTILS_DIR)/config_replace.sh \
+			"${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
+
+$(BUILD_DIR)/env/paths.sh: user.cfg | $(BUILD_DIR)/env/.
+	grep -e '^ *[A-Z_]*\(HOME\|PREFIX\) *=' user.cfg | \
+		sed -e "s/^/export /" > "$@"
+
+$(BUILD_DIR)/env/absolute_paths.m4: user.cfg\
+		$(UTILS_DIR)/config_replace.sh\
+		| $(BUILD_DIR)/env/.
+	# Will fail if $HOME contains | characters
+	sed user.cfg -n -e "s|=~|=$(HOME)|" -e "/\(HOME\|PREFIX\)=/p" |\
+		$(UTILS_DIR)/config_replace.sh \
+			"${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" |\
+		(echo "m4_dnl $<" && cat) > "$@"
+
+$(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_TARGETS) \
+		$(BUILD_DIR)/env/absolute_paths.m4 |\
+		$(BUILD_DIR)/.
 	cat $^ > "$@"
 
-####################
-# Show Information #
-####################
+########################
+##  Show Information  ##
+########################
 .PHONY: show show-dirs show-config
 
 show: show-dirs show-config
@@ -550,62 +580,31 @@ endif
 			-e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
 
-#############
-## Install ##
-#############
+###############
+##  Install  ##
+###############
 
-# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATH
-# The first blank line is necessary. Foreach separates the evaluations with
-# a space but we don't want the rule definition to start with a space.
-define INSTALL_FILE_TEMPLATE
-
-$3/$4: $1/$2/$4 | $(dir $3/$4).
+# Args: INSTALL_DIR SOURCE_TYPE
+define INSTALL_TEMPLATE
+$1/%: $(SOURCE_DIR)/$2/%
 	@cp -v "$$<" "$$@"
-endef
 
-# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATHS
-define INSTALL_FILES_TEMPLATE
-$(foreach DOTFILE,$4,$(call INSTALL_FILE_TEMPLATE,$1,$2,$3,$(DOTFILE)))
-endef
+$1/%: $(BUILD_DIR)/$2/%
+	@cp -v "$$<" "$$@"
 
-# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATH
-define INSTALL_LINK_TEMPLATE
-
-$3/$4: $1/$2/$4.link | $(dir $3/$4).
+$1/%: $(BUILD_DIR)/$2/%.link
 	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$<")" "$$@"
 endef
 
-# Args: SOURCE_PREFIX SOURCE_SUBDIR INSTALL_DIR RELATIVE_PATHS
-define INSTALL_LINKS_TEMPLATE
-$(foreach DOTFILE,$4,$(call INSTALL_LINK_TEMPLATE,$1,$2,$3,$(DOTFILE)))
-endef
+$(eval $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
+$(eval $(call INSTALL_TEMPLATE,$(CONFIG_DIR),config))
+$(eval $(call INSTALL_TEMPLATE,$(DATA_DIR),data))
+$(eval $(call INSTALL_TEMPLATE,$(HOME_DIR),home))
+$(eval $(call INSTALL_TEMPLATE,$(SYSTEM_PREFIX),system))
 
-# Args: SOURCE_SUBDIR INSTALL_DIR RAW_DOTFILES BUILT_DOTFILES LINKS
-define INSTALL_TEMPLATE
-$(call MKDIR_TEMPLATE,$2)
-$(call INSTALL_FILES_TEMPLATE,$(SRC_DIR),$1,$2,$3)
-$(call INSTALL_FILES_TEMPLATE,$(BUILD_DIR),$1,$2,$4)
-$(call INSTALL_LINKS_TEMPLATE,$(BUILD_DIR),$1,$2,$5)
-endef
-
-$(eval $(call INSTALL_TEMPLATE,bin,$(BIN_DIR),\
-	$(BIN_RAW_DOTFILES),$(BIN_BUILT_DOTFILES)))
-
-$(eval $(call INSTALL_TEMPLATE,config,$(CONFIG_DIR),\
-	$(CONFIG_RAW_DOTFILES),$(CONFIG_BUILT_DOTFILES),$(CONFIG_M4_LINKS)))
-
-$(eval $(call INSTALL_TEMPLATE,data,$(DATA_DIR),\
-	$(DATA_RAW_DOTFILES),$(DATA_BUILT_DOTFILES)))
-
-$(eval $(call INSTALL_TEMPLATE,home,$(HOME_DIR),\
-	$(HOME_RAW_DOTFILES),$(HOME_BUILT_DOTFILES),$(HOME_M4_LINKS)))
-
-$(eval $(call INSTALL_TEMPLATE,system,$(SYSTEM_PREFIX),\
-	$(SYSTEM_RAW_DOTFILES),$(SYSTEM_BUILT_DOTFILES)))
-
-#######
-# Vim #
-#######
+###########
+##  Vim  ##
+###########
 .PHONY: vim vim-vundle vim-plugins vim-ycm vim-tmuxline
 
 vim: vim-vundle vim-plugins vim-ycm vim-tmuxline
@@ -652,9 +651,9 @@ $(CONFIG_DIR)/$(TMUXLINE_CONFIG): \
 		false; \
 	fi
 
-######################
-# Persistent Configs #
-######################
+#########################
+##  Persisent Configs  ##
+#########################
 .PHONY: persistent-configs
 
 persistent-configs: $(BUILD_DIR)/make/persistent-configs
@@ -666,13 +665,9 @@ $(BUILD_DIR)/make/persistent-configs: \
 	$(UTILS_DIR)/set-persistent-configs.sh
 	touch "$@"
 
-
-$(BUILD_DIR)/make/:
-	mkdir -p "$@"
-
-##################
-# Systemd Reload #
-##################
+######################
+##  Systemd Reload  ##
+######################
 .PHONY: systemd-reload
 
 systemd-reload: $(BUILD_DIR)/make/systemd-reload
@@ -680,21 +675,21 @@ systemd-reload: $(BUILD_DIR)/make/systemd-reload
 SYSTEMCTL := $(shell command -v systemctl 2>/dev/null)
 ifdef SYSTEMCTL
 $(BUILD_DIR)/make/systemd-reload: \
-		$(INSTALLED_SYSTEMD_FILES) \
-		| $(BUILD_DIR)/make/
+		$(INSTALLED_SYSTEMD_CONFIGS) \
+		| $(BUILD_DIR)/make/.
 	systemctl --user daemon-reload
 else
-$(BUILD_DIR)/make/systemd-reload: /make/
+$(BUILD_DIR)/make/systemd-reload: | $(BUILD_DIR)/make/.
 endif
 	touch "$@"
 
-##############
-# Font Cache #
-##############
+##################
+##  Font Cache  ##
+##################
 .PHONY: font-cache
 
 font-cache: $(BUILD_DIR)/make/font-cache
 
-$(BUILD_DIR)/make/font-cache: $(INSTALLED_FONTS) | $(BUILD_DIR)/make/
+$(BUILD_DIR)/make/font-cache: $(INSTALLED_FONTS) | $(BUILD_DIR)/make/.
 	fc-cache -v $(DATA_DIR)/fonts/
 	touch "$@"
