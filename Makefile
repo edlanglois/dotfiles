@@ -180,6 +180,7 @@ CONFIG_FBI:=\
 CONFIG_LINKS:=\
 	chromium\
 	duplicacy/cache\
+	Slack\
 
 CONFIG_FB:=\
 	$(addsuffix .link,$(CONFIG_LINKS))\
@@ -228,12 +229,19 @@ CONFIG_INSTALL:=\
 
 # Data
 # ----
+DATA_LINKS:=\
+	Slack/Cache\
+
+DATA_FB:=\
+	$(addsuffix .link,$(DATA_LINKS))\
+
 # Custom install for Steam Desktop
 SOURCE_STEAM_DESKTOP:=/usr/share/applications/steam.desktop
 DATA_STEAM_DESKTOP:=applications/steam.desktop
 
 DATA_FIRST_BUILD:=\
-	$(DATA_STEAM_DESKTOP).sed
+	$(DATA_FB)\
+	$(DATA_STEAM_DESKTOP).sed\
 
 DATA_BI:=
 ifneq ("$(wildcard $(SOURCE_STEAM_DESKTOP))","")
@@ -241,6 +249,7 @@ DATA_BI+=$(DATA_STEAM_DESKTOP)
 endif
 
 DATA_BUILD:=\
+	$(DATA_FB)\
 	$(DATA_BI)\
 
 DATA_FONTS:=\
@@ -249,6 +258,7 @@ DATA_FONTS:=\
 DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
 
 DATA_INSTALL:=\
+	$(DATA_LINKS)\
 	$(DATA_FONTS)\
 	$(DATA_BI)\
 	$(DATA_VUNDLE_DIR)\
@@ -571,6 +581,12 @@ $(eval $(call INSTALL_TEMPLATE,$(CONFIG_DIR),config))
 $(eval $(call INSTALL_TEMPLATE,$(DATA_DIR),data))
 $(eval $(call INSTALL_TEMPLATE,$(HOME_DIR),home))
 $(eval $(call INSTALL_TEMPLATE,$(SYSTEM_PREFIX),system))
+
+#################################
+##  Install Link Dependencies  ##
+#################################
+
+$(DATA_DIR)/Slack/Cache: $(CONFIG_DIR)/Slack
 
 ###########
 ##  Vim  ##
