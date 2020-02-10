@@ -180,6 +180,7 @@ CONFIG_FBI:=\
 CONFIG_LINKS:=\
 	chromium\
 	duplicacy/cache\
+	libreoffice\
 	Slack\
 
 CONFIG_FB:=\
