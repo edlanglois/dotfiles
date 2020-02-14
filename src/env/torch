@@ -1,7 +1,8 @@
 #!/bin/bash
 set -eu
-# Search in $HOME/{,programs,src}/torch
-TORCH_ACTIVATE=$(ls $HOME/{,programs,src/}torch/install/bin/torch-activate 2>/dev/null | head -n 1)
-if [ -n "$TORCH_ACTIVATE" ]; then
-	echo TORCH_ACTIVATE=$TORCH_ACTIVATE
-fi
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+find_file TORCH_ACTIVATE\
+	"$HOME/torch/install/bin/torch-activate" \
+	"$HOME/src/torch/install/bin/torch-activate"

@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eu
+# shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
 TMUX_VERSION="$(tmux -V)"

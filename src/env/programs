@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Simple checks for installed programms
 set -eu
+# shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
 find_program DEX dex || true

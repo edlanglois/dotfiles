@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -eu -o pipefail
 SCRIPT_DIR="$(dirname "$0")"
-cat "$SCRIPT_DIR/colours.toml" | \
-	grep -v -e '^[[:space:]]*#' -e '^[[:space:]]*\['  | \
+grep -v -e '^[[:space:]]*#' -e '^[[:space:]]*\[' "$SCRIPT_DIR/colours.toml"  | \
 	sed -n \
 		-e 's/^[[:space:]]*color//I' \
 		-e 's/^[[:space:]]*\([[:alnum:]_]\+\)[[:space:]]*=[[:space:]]*"#\([0-9a-fA-F]\+\)"/COLOUR_\U\1=\L\2/p'

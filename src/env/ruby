@@ -1,10 +1,11 @@
 #!/bin/bash
 set -eu
+# shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
 if find_program RUBY_GEM gem; then
   GEM_BIN_PATH="$(gem environment gempath | sed 's#\(:\|$\)#/bin\1#g')"
 	if [ -n "$GEM_BIN_PATH" ]; then
-		echo GEM_BIN_PATH=$GEM_BIN_PATH
+		echo GEM_BIN_PATH="$GEM_BIN_PATH"
 	fi
 fi

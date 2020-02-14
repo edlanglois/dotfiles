@@ -1,9 +1,10 @@
 #!/bin/bash
 set -eu
+# shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
 if find_program NVIDIA_SMI nvidia-smi; then
-	echo NUM_GPUS=$(nvidia-smi --list-gpus | wc -l)
+	echo NUM_GPUS="$(nvidia-smi --list-gpus | wc -l)"
 else
   echo NUM_GPUS=0
 fi

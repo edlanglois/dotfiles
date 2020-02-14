@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eu
+# shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
 find_directory PERL_ROOT "${LOCAL_PREFIX}/perl5" || true
