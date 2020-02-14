@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Simple checks for desirable programs
+# Unlike `programs`, these are not used for configuration.
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+echo "# Shell script analysis tool; used automatically by ALE"
+find_program SHELLCHECK shellcheck || true

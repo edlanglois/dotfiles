@@ -424,6 +424,8 @@ help               : Print this help message
 show               : Run all `show-*` commands.
 show-dirs          : Print the install directories.
 show-config        : Print the user and environment configuration.
+show-wants         : Print a list of desirable programs that are not
+                     checked by the environment configuration (show-config).
 
 vim                : Run all `vim-*` commands.
                      Uses the installed configurations so install first.
@@ -528,9 +530,9 @@ $(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_TARGETS) \
 ########################
 ##  Show Information  ##
 ########################
-.PHONY: show show-dirs show-config
+.PHONY: show show-dirs show-config show-wants
 
-show: show-dirs show-config
+show: show-dirs show-config show-wants
 
 show-dirs:
 	@echo "HOME_DIR:      $(HOME_DIR)"
@@ -567,6 +569,9 @@ endif
 			-e "s/)m4_dnl$$//" \
 			-e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
+
+show-wants: $(SRC_DIR)/env/wants $(SRC_DIR)/env/env_utils
+	@"$<" | ( echo "# wants" && cat ) | $(COLORIZE_CONFIG)
 
 ###############
 ##  Install  ##
