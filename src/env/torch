@@ -4,5 +4,6 @@ set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
 find_file TORCH_ACTIVATE\
-	"$HOME/torch/install/bin/torch-activate" \
-	"$HOME/src/torch/install/bin/torch-activate"
+	"$HOME/torch/install/bin/torch-activate"\
+	"$HOME/src/torch/install/bin/torch-activate"\
+|| true
