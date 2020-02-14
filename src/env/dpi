@@ -17,7 +17,7 @@ if [ -n "$DISPLAY_NAME" ]; then
 
 	# DPI ajusted for viewer
 	ADJUSTED_DPI=$DPI
-	if (( DISPLAY_WIDTH_MM < 400 )); then
+	if (( DISPLAY_WIDTH_MM < 300 )); then
 		# Smaller screen, assume the viewer is closer.
 		ADJUSTED_DPI=$(( ADJUSTED_DPI * 3 / 4 ))
 	fi
