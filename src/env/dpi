@@ -14,6 +14,8 @@ if [ -n "$DISPLAY_NAME" ]; then
 	echo "DISPLAY_DIMS=$DISPLAY_WIDTH_MM $DISPLAY_HEIGHT_MM"
 	# True DPI
 	DPI=$(( (DISPLAY_WIDTH_PX * 254) / (10 * DISPLAY_WIDTH_MM) ))
+	# Unused (as of the time of this comment) but nice to have in show-config
+	echo "DPI=$DPI"
 
 	# DPI ajusted for viewer
 	ADJUSTED_DPI=$DPI
