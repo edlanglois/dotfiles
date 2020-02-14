@@ -354,8 +354,7 @@ ENV_FIRST_BUILD:=\
 	wifi\
 
 ENV_CONFIG_TARGETS=$(addsuffix .m4,\
-	$(addprefix $(BUILD_DIR)/env/,$(ENV_CONFIG_FILES)))
-
+	$(addprefix $(BUILD_DIR)/env/,$(ENV_FIRST_BUILD)))
 
 # Combined
 # --------
@@ -481,10 +480,10 @@ $(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP):\
 ##  Build Environment  ##
 #########################
 
-$(BUILD_DIR)/env/%.m4: $(BUILD_DIR)/env/% \
+$(BUILD_DIR)/env/%.m4: $(SRC_DIR)/env/% \
 		$(SRC_DIR)/env/env_utils\
 		$(BUILD_DIR)/env/paths.sh\
-		$(CONFIG_DIR)/config_replace.sh
+		$(UTILS_DIR)/config_replace.sh
 	source "$(BUILD_DIR)/env/paths.sh" && \
 		"$<" | \
 		$(UTILS_DIR)/config_replace.sh \
