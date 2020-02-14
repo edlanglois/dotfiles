@@ -67,6 +67,8 @@ WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 # 	- Names % where BUILD_DIR/<TYPE>/% is required for install
 # <TYPE>_INSTALL
 # 	- Names % where <TYPE>_INSTALL_PREFIX/% is an install target
+# <TYPE>_LINKS
+# 	- Names % where <TYPE>_INSTALL_PREFIX/% is a symbolic link
 #
 # These variables are used to define the make targets (build and install)
 # and to create templated rules that depend on the target directory existing.
@@ -82,6 +84,7 @@ WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 # ---
 BIN_FIRST_BUILD:=
 BIN_BUILD:=
+BIN_LINKS:=
 BIN_INSTALL:=\
 	backtrace\
 	combinediff-careful\
@@ -214,7 +217,6 @@ CONFIG_INSTALL:=\
 	$(CONFIG_INSTALL_FISH_FOREIGN_ENV)\
 	$(CONFIG_INSTALL_VIM_DIRECT)\
 	$(CONFIG_FBI)\
-	$(CONFIG_LINKS)\
 	fontconfig/fonts.conf\
 	gkrellm/user-config-cpu\
 	gkrellm/user-config-memory\
@@ -261,7 +263,6 @@ DATA_FONTS:=\
 DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
 
 DATA_INSTALL:=\
-	$(DATA_LINKS)\
 	$(DATA_FONTS)\
 	$(DATA_BI)\
 	$(DATA_VUNDLE_DIR)\
@@ -304,7 +305,6 @@ HOME_BUILD:=\
 
 HOME_INSTALL:=\
 	$(HOME_INSTALL)\
-	$(HOME_LINKS)\
 
 # System
 # ------
@@ -382,6 +382,12 @@ INSTALL_TARGETS:=\
 	$(addprefix $(DATA_DIR)/,$(DATA_INSTALL))\
 	$(addprefix $(HOME_DIR)/,$(HOME_INSTALL))\
 
+INSTALL_LINK_TARGETS:=\
+	$(addprefix $(BIN_DIR)/,$(BIN_LINKS))\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_LINKS))\
+	$(addprefix $(DATA_DIR)/,$(DATA_LINKS))\
+	$(addprefix $(HOME_DIR)/,$(HOME_LINKS))\
+
 INSTALL_SYSTEM_TARGETS:=$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_INSTALL))
 
 INSTALLED_SYSTEMD_CONFIGS:=$(addprefix $(CONFIG_DIR)/,$(CONFIG_FBI_SYSTEMD))
@@ -397,7 +403,7 @@ build: $(BUILD_TARGETS)
 
 install: install-user systemd-reload font-cache
 
-install-user: $(INSTALL_TARGETS)
+install-user: $(INSTALL_TARGETS) | $(INSTALL_LINK_TARGETS)
 
 install-system: $(INSTALL_SYSTEM_TARGETS)
 
@@ -574,9 +580,9 @@ $1/%: $(SOURCE_DIR)/$2/%
 $1/%: $(BUILD_DIR)/$2/%
 	@cp -v "$$<" "$$@"
 
-$1/%: $(BUILD_DIR)/$2/%.link
+$1/%: | $(BUILD_DIR)/$2/%.link
 	! [ -d "$$@" ] && \
-	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$<")" "$$@"
+	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$|")" "$$@"
 endef
 
 $(eval $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
