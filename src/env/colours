@@ -5,4 +5,4 @@ cat "$SCRIPT_DIR/colours.toml" | \
 	grep -v -e '^[[:space:]]*#' -e '^[[:space:]]*\['  | \
 	sed -n \
 		-e 's/^[[:space:]]*color//I' \
-		-e 's/^[[:space:]]*\([[:alnum:]_]\+\)[[:space:]]*=[[:space:]]*#\([0-9a-fA-F]\+\)/COLOUR_\U\1=\L\2/p'
+		-e 's/^[[:space:]]*\([[:alnum:]_]\+\)[[:space:]]*=[[:space:]]*"#\([0-9a-fA-F]\+\)"/COLOUR_\U\1=\L\2/p'
