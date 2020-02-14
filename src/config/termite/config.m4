@@ -1,4 +1,5 @@
 m4_include(user_config.m4)m4_dnl
+m4_include(env_config.m4)m4_dnl
 [options]
 allow_bold = true
 clickable_url = true

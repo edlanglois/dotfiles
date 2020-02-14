@@ -452,7 +452,8 @@ $(BUILD_DIR)/%: $(SRC_DIR)/%.m4 \
 		$(BUILD_DIR)/user_config.m4 $(BUILD_DIR)/env_config.m4
 	echo "m4_changecom()m4_changequote($(QUOTE_START),$(QUOTE_END))m4_dnl" | \
 		cat - "$<" | \
-		m4 --prefix-builtins > "$@" -I "$(BUILD_DIR)"
+		m4 --prefix-builtins -I "$(BUILD_DIR)" > "$@"
+	! grep m4_ "$@" || (echo "Undefined m4 variables" && rm "$@" && false)
 
 ##############################
 ##  Build I3Blocks Contrib  ##
