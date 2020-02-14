@@ -1,2 +1,2 @@
 m4_include(env_config.m4)m4_dnl
-m4_env_config_XDG_Cache_HOME/Slack/Cache
+m4_env_config_XDG_CACHE_HOME/Slack/Cache
