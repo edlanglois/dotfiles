@@ -19,7 +19,7 @@ if [ -n "$DISPLAY_NAME" ]; then
 	ADJUSTED_DPI=$DPI
 	if (( DISPLAY_WIDTH_MM < 400 )); then
 		# Smaller screen, assume the viewer is closer.
-		ADJUSTED_DPI=$(( ADJUSTED_DPI * 4 / 5 ))
+		ADJUSTED_DPI=$(( ADJUSTED_DPI * 3 / 4 ))
 	fi
 
 	# XFT_DPI: Used to scale fonts and other UI elements
