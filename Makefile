@@ -592,7 +592,6 @@ $1/%: | $(BUILD_DIR)/$2/%.link
 endef
 
 $(eval $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
-$(info $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
 $(eval $(call INSTALL_TEMPLATE,$(CONFIG_DIR),config))
 $(eval $(call INSTALL_TEMPLATE,$(DATA_DIR),data))
 $(eval $(call INSTALL_TEMPLATE,$(HOME_DIR),home))
