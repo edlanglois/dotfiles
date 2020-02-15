@@ -1,7 +1,7 @@
 MAKEFLAGS += -L
 SHELL=/bin/bash -o pipefail
 BUILD_DIR=build
-SRC_DIR=src
+SOURCE_DIR=src
 UTILS_DIR=utils
 
 # Check that given variables are set and all have non-empty values,
@@ -77,7 +77,7 @@ WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 # <TYPE>_FBI (or a subset of FBI)
 # 	- Intersections of <TYPE>_FIRST_BUILD, <TYPE>_BUILD, <TYPE>_INSTALL
 
-# Files can be installed directly from SRC_DIR or from BUILD_DIR
+# Files can be installed directly from SOURCE_DIR or from BUILD_DIR
 # Files in BUILD_DIR can depend on other build files.
 
 # Bin
@@ -211,7 +211,7 @@ CONFIG_INSTALL_FISH_FOREIGN_ENV:=$(addprefix fish/plugins/foreign-env/,\
 )
 
 CONFIG_INSTALL_VIM_DIRECT:=\
-	$(shell cd "$(SRC_DIR)/config" && find vim -type f -not -name '*.m4')
+	$(shell cd "$(SOURCE_DIR)/config" && find vim -type f -not -name '*.m4')
 
 CONFIG_INSTALL:=\
 	$(CONFIG_INSTALL_FISH_FOREIGN_ENV)\
@@ -456,7 +456,7 @@ QUOTE_END:=>>]]??
 # Add a list of files that might have .local dependencies and template the
 # dependence
 
-$(BUILD_DIR)/%: $(SRC_DIR)/%.m4 \
+$(BUILD_DIR)/%: $(SOURCE_DIR)/%.m4 \
 		$(BUILD_DIR)/user_config.m4 $(BUILD_DIR)/env_config.m4
 	echo "m4_changecom()m4_changequote($(QUOTE_START),$(QUOTE_END))m4_dnl" | \
 		cat - "$<" | \
@@ -469,7 +469,7 @@ $(BUILD_DIR)/%: $(SRC_DIR)/%.m4 \
 
 define BUILD_I3BLOCKS_CONTRIB_TEMPLATE
 $(BUILD_DIR)/config/i3blocks/scripts/$(notdir $1):\
-		$(SRC_DIR)/config/i3blocks/i3blocks-contrib/$1\
+		$(SOURCE_DIR)/config/i3blocks/i3blocks-contrib/$1\
 		| $(BUILD_DIR)/config/i3blocks/scripts/.
 	cp -v "$$<" "$$@"
 endef
@@ -490,8 +490,8 @@ $(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP):\
 ##  Build Environment  ##
 #########################
 
-$(BUILD_DIR)/env/%.m4: $(SRC_DIR)/env/% \
-		$(SRC_DIR)/env/env_utils\
+$(BUILD_DIR)/env/%.m4: $(SOURCE_DIR)/env/% \
+		$(SOURCE_DIR)/env/env_utils\
 		$(BUILD_DIR)/env/paths.sh\
 		$(UTILS_DIR)/config_replace.sh
 	source "$(BUILD_DIR)/env/paths.sh" && \
@@ -500,7 +500,7 @@ $(BUILD_DIR)/env/%.m4: $(SRC_DIR)/env/% \
 			"$(ENV_CONFIG_PREFIX)" "$(QUOTE_START)" "$(QUOTE_END)" | \
 		(echo "m4_dnl $<" && cat) > "$@"
 
-$(BUILD_DIR)/env/colours.m4: $(SRC_DIR)/env/colours.toml
+$(BUILD_DIR)/env/colours.m4: $(SOURCE_DIR)/env/colours.toml
 
 $(BUILD_DIR)/user_config.m4: user.cfg\
 		$(UTILS_DIR)/config_replace.sh\
@@ -570,7 +570,7 @@ endif
 			-e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
 
-show-wants: $(SRC_DIR)/env/wants $(SRC_DIR)/env/env_utils
+show-wants: $(SOURCE_DIR)/env/wants $(SOURCE_DIR)/env/env_utils
 	@"$<" | ( echo "# wants" && cat ) | $(COLORIZE_CONFIG)
 
 ###############
@@ -591,6 +591,7 @@ $1/%: | $(BUILD_DIR)/$2/%.link
 endef
 
 $(eval $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
+$(info $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
 $(eval $(call INSTALL_TEMPLATE,$(CONFIG_DIR),config))
 $(eval $(call INSTALL_TEMPLATE,$(DATA_DIR),data))
 $(eval $(call INSTALL_TEMPLATE,$(HOME_DIR),home))
