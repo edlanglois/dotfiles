@@ -111,6 +111,11 @@ export LESSHISTFILE=-
 # bash history
 export HISTFILE=m4_user_config_XDG_DATA_HOME/bash/history
 
+m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
+# Homebrew Path
+PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
 # CUDA Path
 export CUDA_HOME="m4_env_config_CUDA_ROOT"
@@ -127,9 +132,11 @@ export GOROOT="m4_env_config_GOROOT"
 PATH="$(pathappend_if_isdir "$PATH" "$GOROOT/bin")"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
-# Homebrew Path
-PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
+m4_ifdef(??[[<<m4_env_config_MUJOCO_PATH>>]]??,m4_dnl
+# Mujoco Library Path
+LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_PATH/bin")"
+export MUJOCO_PY_MUJOCO_PATH="m4_env_config_MUJOCO_PATH"
+export MUJOCO_PY_MJKEY_PATH="m4_env_config_MJKEY_PATH"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_PERL_ROOT>>]]??,m4_dnl
@@ -141,19 +148,17 @@ export PERL_MB_OPT="--install_base \"m4_env_config_PERL_ROOT\""
 export PERL_MM_OPT="INSTALL_BASE=m4_env_config_PERL_ROOT"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_MUJOCO_PATH>>]]??,m4_dnl
-# Mujoco Library Path
-LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_PATH/bin")"
-export MUJOCO_PY_MUJOCO_PATH="m4_env_config_MUJOCO_PATH"
-export MUJOCO_PY_MJKEY_PATH="m4_env_config_MJKEY_PATH"
-)m4_dnl
-
 m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl
 # Python Environment
 export PYTHONSTARTUP=m4_user_config_XDG_CONFIG_HOME/python/startup.py
 export PYLINTRC=m4_user_config_XDG_CONFIG_HOME/pylint/config
 export PYLINTHOME=m4_user_config_XDG_CACHE_HOME/pylint
 export THEANORC=m4_user_config_XDG_CONFIG_HOME/theano/config
+)m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_RLWRAP>>]]??,m4_dnl
+# RLWrap history file directory
+export RLWRAP_HOME=m4_user_config_XDG_DATA_HOME/rlwrap
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl

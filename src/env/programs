@@ -12,6 +12,7 @@ find_program I3BLOCKS i3blocks || true
 find_program IP_CMD ip || true
 find_program PLAYERCTL playerctl || true
 find_program PULSEAUDIO pactl || true
+find_program RLWRAP rlwrap || true
 find_program SETXKBMAP setxkbmap || true
 find_program SHELL fish || true
 find_program TASK task || true
