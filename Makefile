@@ -102,6 +102,7 @@ BIN_INSTALL:=\
 	print24bitcolours\
 	print256colours\
 	tmuxm\
+	xopen\
 
 # Config
 # ------

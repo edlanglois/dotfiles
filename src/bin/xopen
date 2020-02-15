@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -eu
+# Open a file or URL in a standalone process using xdg-open
+nohup xdg-open "$@" >/dev/null 2>&1 &
