@@ -588,7 +588,7 @@ $1/%: $(BUILD_DIR)/$2/%
 
 $1/%: | $(BUILD_DIR)/$2/%.link
 	! [ -d "$$@" ] && \
-	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$|")" "$$@"
+	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.link,$$@)")" "$$@"
 endef
 
 $(eval $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
