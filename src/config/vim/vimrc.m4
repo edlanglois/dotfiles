@@ -89,7 +89,6 @@ Plugin 'hynek/vim-python-pep8-indent'         " CC0 1.0 Universal
 Plugin 'Julian/vim-textobj-variable-segment'  " MIT
 Plugin 'kana/vim-textobj-user'                " MIT
 Plugin 'lervag/vimtex'                        " MIT
-Plugin 'lyuts/vim-rtags'                      " BSD 2-Clause
 Plugin 'majutsushi/tagbar'                    " Vim
 Plugin 'mileszs/ack.vim'                      " Vim
 Plugin 'morhetz/gruvbox'                      " MIT
