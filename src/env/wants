@@ -7,3 +7,10 @@ source "${BASH_SOURCE%/*}/env_utils"
 
 echo "# Shell script analysis tool; used automatically by ALE"
 find_program SHELLCHECK shellcheck || true
+
+LOGIN_DEFS_FILE="/etc/login.defs"
+if [ -f "$LOGIN_DEFS_FILE" ]; then
+	FAIL_DELAY="$(sed -n '/^[[:space:]]*FAIL_DELAY[[:space:]]*\([[:digit:]]*\)[[:space:]]*$/{s//\1/;p;q}' "$LOGIN_DEFS_FILE")"
+	echo "# Login password fail delay; set to 1 in $LOGIN_DEFS_FILE"
+	echo "FAIL_DELAY=$FAIL_DELAY"
+fi
