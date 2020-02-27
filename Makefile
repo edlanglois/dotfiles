@@ -161,6 +161,7 @@ CONFIG_FBI:=\
 	latexmk/latexmkrc\
 	locale.conf\
 	matplotlib/matplotlibrc\
+	npm/config\
 	procps/toprc\
 	profile\
 	pylint/config\

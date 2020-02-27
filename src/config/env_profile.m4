@@ -111,6 +111,10 @@ export LESSHISTFILE=-
 # bash history
 export HISTFILE=m4_user_config_XDG_DATA_HOME/bash/history
 
+# NPM
+m4_dnl I've had ~/.npm created even when npm isn't installed so no program check
+export NPM_CONFIG_USERCONFIG=m4_user_config_XDG_CONFIG_HOME/npm/config
+
 m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
 # Homebrew Path
 PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
