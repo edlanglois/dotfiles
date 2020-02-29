@@ -626,7 +626,7 @@ YCM_DIR:=$(DATA_DIR)/vim/bundle/YouCompleteMe
 YCM_CORE:=$(YCM_DIR)/third_party/ycmd/ycm_core.so
 YCM_GIT_CHECKOUT:=$(YCM_DIR)/.git/logs/HEAD
 
-PYTHON := $(shell which python3 || echo python)
+PYTHON := $(shell command -v python3 || command -v python)
 
 vim-ycm: $(YCM_CORE)
 
