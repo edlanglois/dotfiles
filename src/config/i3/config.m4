@@ -158,8 +158,10 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+m4_ifdef(??[[<<m4_env_config_MANUAL_LOCK_CMD>>]]??,m4_dnl
 # Lock screen
 bindsym $mod+Mod4+l exec "m4_env_config_MANUAL_LOCK_CMD"
+)m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_PLAYERCTL>>]]??,m4_dnl
 # Media player controls
