@@ -5,6 +5,8 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
+echo "# the_silver_searcher; fast code search"
+find_program THE_SILVER_SEARCHER ag || true
 echo "# Shell script analysis tool; used automatically by ALE"
 find_program SHELLCHECK shellcheck || true
 
