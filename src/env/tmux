@@ -3,6 +3,9 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
+# Stop if tmux is not installed
+command -v tmux >/dev/null 2>&1 || exit 0
+
 TMUX_VERSION="$(tmux -V)"
 if version_ge "$TMUX_VERSION" "tmux 2.0"; then
 	echo TMUX_GE_2_0=
