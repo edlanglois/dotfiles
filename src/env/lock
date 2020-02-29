@@ -3,6 +3,9 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
+MANUAL_LOCK_CMD=""
+ENABLE_LOCKER_CMD=""
+
 # Prefer xscreensaver if present
 if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
 	if command -v xdg-screensaver >/dev/null 2>&1; then
@@ -19,14 +22,13 @@ fi
 # Otherwise use xsecurelock
 if XSECURELOCK="$(command -v xsecurelock 2>/dev/null)"; then
 	LOCK_CMD="$XSECURELOCK"
+	MANUAL_LOCK_CMD="$LOCK_CMD"
 	if [ -f "/usr/lib/xsecurelock/dimmer" ]; then
 		DIMMER="/usr/lib/xsecurelock/dimmer"
 	else
 		DIMMER=""
 	fi
 fi
-MANUAL_LOCK_CMD="$LOCK_CMD"
-ENABLE_LOCKER_CMD=""
 
 if XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
 	XSS_ARGS=()
