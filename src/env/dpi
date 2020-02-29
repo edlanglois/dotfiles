@@ -41,5 +41,8 @@ if [ -n "$DISPLAY_NAME" ]; then
 	# in isolation for applications that don't use XFT_DPI.
 	# Must be an integer
 	GDK_SCALE=$(( ADJUSTED_DPI / 96 ))
+	if (( GDK_SCALE < 1 )); then
+		GDK_SCALE=1
+	fi
 	echo "GDK_SCALE=$GDK_SCALE"
 fi
