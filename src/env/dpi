@@ -29,11 +29,9 @@ if [ -n "$DISPLAY_NAME" ]; then
 	# Round to the nearest 96/4 = 24
 	XFT_DPI=$ADJUSTED_DPI
 	XFT_DPI=$(( (XFT_DPI + 12) / 24 * 24 ))
-	# Set 96 as the minimum
-	if (( XFT_DPI < 96 )); then
-		XFT_DPI=96
+	if (( XFT_DPI > 96 )); then  # Only output if != default
+		echo "XFT_DPI=$XFT_DPI"
 	fi
-	echo "XFT_DPI=$XFT_DPI"
 
 	# GDK_SCALE: Another way to set UI scaling
 	# Setting at the same time as XFT_DPI can cause double scaling in many
@@ -41,8 +39,7 @@ if [ -n "$DISPLAY_NAME" ]; then
 	# in isolation for applications that don't use XFT_DPI.
 	# Must be an integer
 	GDK_SCALE=$(( ADJUSTED_DPI / 96 ))
-	if (( GDK_SCALE < 1 )); then
-		GDK_SCALE=1
+	if (( GDK_SCALE > 1 )); then  # Only output if != default
+		echo "GDK_SCALE=$GDK_SCALE"
 	fi
-	echo "GDK_SCALE=$GDK_SCALE"
 fi
