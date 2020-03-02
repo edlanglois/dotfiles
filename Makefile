@@ -290,6 +290,9 @@ endif
 ifneq ($(strip $(shell command -v imwheel)),)
 HOME_LINKS += .imwheelrc
 endif
+ifneq ($(strip $(shell command -v firefox)),)
+HOME_LINKS += .mozilla
+endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
 HOME_LINKS += .Xresources
 endif
