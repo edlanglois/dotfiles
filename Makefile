@@ -309,6 +309,7 @@ HOME_BUILD:=\
 	$(HOME_FB)\
 
 HOME_INSTALL:=\
+	$(HOME_FBI)\
 	$(HOME_INSTALL)\
 
 # System
