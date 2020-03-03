@@ -9,7 +9,6 @@ m4_include(user_config.m4)m4_dnl
 " F10 - Syntax Group under cursor
 " F11 - Toggle paste
 set shell=/bin/bash " Vim doesn't like fish
-set nocompatible
 scriptencoding utf-8
 set encoding=utf-8
 
