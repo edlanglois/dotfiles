@@ -313,6 +313,7 @@ HOME_INSTALL:=\
 
 SYSTEM_FBI:=\
 	etc/systemd/system/getty@tty1.service.d/override.conf\
+	etc/X11/xorg.conf.d/30-touchpad.conf\
 	etc/X11/xorg.conf.d/80-monitor.conf\
 
 SYSTEM_FIRST_BUILD:=\
@@ -324,7 +325,6 @@ SYSTEM_BUILD:=\
 SYSTEM_INSTALL:=\
 	$(SYSTEM_FBI)\
 	etc/udev/rules.d/90-backlight.rules\
-	etc/X11/xorg.conf.d/30-touchpad.conf\
 	etc/X11/xorg.conf.d/90-keyboard.conf\
 
 # Environment
@@ -352,6 +352,7 @@ ENV_FIRST_BUILD:=\
 	sys-monitor\
 	tmux\
 	torch\
+	touchpad\
 	user\
 	virtualfish\
 	wifi\

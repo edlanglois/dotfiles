@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -eu
+if grep -qi 'touchpad' /proc/bus/input/devices; then
+	echo "TOUCHPAD="
+fi
