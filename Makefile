@@ -139,11 +139,11 @@ CONFIG_FBI:=\
 	duplicacy/filters\
 	env_profile\
 	fish/config.fish\
+	fish/functions/ccopy.fish\
+	fish/functions/cpaste.fish\
 	fish/functions/fish_prompt.fish\
 	fish/functions/hostname-icon.fish\
 	fish/functions/ip.fish\
-	fish/functions/pbcopy.fish\
-	fish/functions/pbpaste.fish\
 	fish/functions/R.fish\
 	fish/functions/tmux.fish\
 	fish/functions/torch-activate.fish\
