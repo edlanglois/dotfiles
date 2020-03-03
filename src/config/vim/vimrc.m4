@@ -13,6 +13,12 @@ set nocompatible
 scriptencoding utf-8
 set encoding=utf-8
 
+" Automatically start a server
+" This is required for vimtex but likely useful in other contexts.
+if empty(v:servername) && exists('*remote_startserver')
+	call remote_startserver('VIM')
+endif
+
 " Environment
 if empty($XDG_CONFIG_HOME)
   let g:xdg_config_home = $HOME . "/.config"
