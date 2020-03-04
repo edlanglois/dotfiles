@@ -280,3 +280,6 @@ let g:less.enabled = 0
 
 " Open help with a vertical split
 cabbrev help vert help
+
+" Disable q: command history. Use :<ctrl-f> instead.
+nnoremap q: <nop>
