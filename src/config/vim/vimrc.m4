@@ -261,12 +261,6 @@ let &t_Ce=""
 let &spelllang = tolower("m4_user_config_LANG")
 let &spellfile = g:xdg_data_home . "/vim/spell/en.utf-8.add"
 
-augroup preview
-	autocmd!
-	" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-	autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-augroup END
-
 set exrc    " Enable per-directory .vimrc files
 set secure  " Disable unsafe commands in local .vimrc files
 
