@@ -122,7 +122,6 @@ CONFIG_FBI_VIM:=\
 CONFIG_I3BLOCKS_CONTRIB:=\
 	battery/battery\
 	cpu_usage/cpu_usage\
-	mediaplayer/mediaplayer\
 	memory/memory\
 	temperature/temperature\
 	volume/volume\
@@ -227,6 +226,7 @@ CONFIG_INSTALL:=\
 	i3blocks/scripts/date-calendar\
 	i3blocks/scripts/gkrellm-toggle\
 	i3blocks/scripts/gpu-usage\
+	i3blocks/scripts/music\
 	i3blocks/scripts/ssid\
 	i3blocks/scripts/weather\
 	pudb/pudb.cfg\

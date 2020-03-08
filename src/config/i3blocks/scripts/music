@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eu
+
+ARTIST="$(playerctl metadata artist)"
+TITLE="$(playerctl metadata title)"
+echo "$TITLE | $ARTIST"
+echo ""

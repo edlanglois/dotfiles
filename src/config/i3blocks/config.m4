@@ -33,18 +33,14 @@ color=#ffffff
 separator=false
 separator_block_width=15
 
-[mediaplayer-label]
-command=[ -n "$(m4_I3BLOCKS_DIR/mediaplayer)" ] && echo '♫' || echo ''
+[music-label]
+command=[ -n "$(m4_I3BLOCKS_DIR/music)" ] && echo '♫' || echo ''
 color=#00ffff
 separator_block_width=4
 interval=5
 
-# Generic media player support
-#
-# This displays "ARTIST - SONG" if a music is playing.
-# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
-[mediaplayer]
-#instance=spotify
+# Song information
+[music]
 interval=5
 signal=10
 
