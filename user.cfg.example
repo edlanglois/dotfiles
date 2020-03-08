@@ -20,7 +20,6 @@ LOCAL_PREFIX=~/.local
 SYSTEM_PREFIX=/
 
 TERMINAL_FONT_SIZE=9
-SCREENSAVER_TIMEOUT=600
 
 # Whether to use powerline symbols.
 # Requires a powerline font - a fallback powerline font is in data/fonts/
