@@ -46,6 +46,10 @@ if XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
 	MANUAL_LOCK_CMD="xset dpms force suspend"
 fi
 
+if PLAYERCTL="$(command -v playerctl 2>/dev/null)"; then
+	MANUAL_LOCK_CMD="$PLAYERCTL pause;$MANUAL_LOCK_CMD"
+fi
+
 if [ -n "$MANUAL_LOCK_CMD" ]; then
 	echo "MANUAL_LOCK_CMD=$MANUAL_LOCK_CMD"
 fi
