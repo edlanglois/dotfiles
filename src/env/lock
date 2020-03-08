@@ -35,9 +35,13 @@ if XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
 	if [ -n "$DIMMER" ]; then
 		XSS_ARGS+=('-n' "$DIMMER")
 	fi
+
+	SCREENSAVER_TIMEOUT=600
+	DIMMER_TIMEOUT=30
+
 	# WARNING: This doesn't quote the arguments in XSS_ARGS
 	# If any contain spaces they will be treated as multiple arguments.
-	ENABLE_LOCKER_CMD="xset s 300 5;$XSS_LOCK ${XSS_ARGS[*]} -l -- $LOCK_CMD"
+	ENABLE_LOCKER_CMD="xset s $SCREENSAVER_TIMEOUT $DIMMER_TIMEOUT;$XSS_LOCK ${XSS_ARGS[*]} -l -- $LOCK_CMD"
 	# XSS LOCK watches for screen suspend and triggers a lock
 	MANUAL_LOCK_CMD="xset dpms force suspend"
 fi
