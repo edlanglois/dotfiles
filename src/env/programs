@@ -22,3 +22,4 @@ find_program XBACKLIGHT xbacklight || true
 find_program XBINDKEYS xbindkeys || true
 find_program XDOTOOL xdotool || true
 find_program XMODMAP xmodmap || true
+find_program XSET xset || true

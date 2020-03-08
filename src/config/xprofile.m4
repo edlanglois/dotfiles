@@ -27,6 +27,10 @@ if [ -d "$WALLPAPER_DIR" -a -n "$(ls -A "$WALLPAPER_DIR")" ]; then
 fi
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_XSET>>]]??,m4_dnl
+m4_env_config_XSET s m4_user_config_SCREENSAVER_TIMEOUT
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_ENABLE_LOCKER_CMD>>]]??,m4_dnl
 m4_env_config_ENABLE_LOCKER_CMD &
 )m4_dnl
