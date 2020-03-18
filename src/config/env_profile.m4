@@ -120,16 +120,6 @@ m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
 PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
-# CUDA Path
-export CUDA_HOME="m4_env_config_CUDA_ROOT"
-LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "$CUDA_HOME/lib64")"
-LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "$CUDA_HOME/extras/CUPTI/lib64")"
-)m4_dnl
-m4_ifdef(??[[<<m4_env_config_CUDA_BIN>>]]??,m4_dnl
-PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_CUDA_BIN")"
-)m4_dnl
-
 m4_ifdef(??[[<<m4_env_config_GOROOT>>]]??,m4_dnl
 # Go Path
 export GOROOT="m4_env_config_GOROOT"
