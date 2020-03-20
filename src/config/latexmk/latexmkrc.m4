@@ -1,6 +1,6 @@
 $pdf_mode = 1;
 $pdflatex = "pdflatex -interaction=nonstopmode %O %S";
-$biber = "biber --validate-datamodel --dieondatamodel %O %S";
+$biber = "biber --validate-datamodel
 # Force deletion of .bbl even if no .bib exists
 $bibtex_use = 2;
 # Created by biber; not cleaned by default (don't know why)
