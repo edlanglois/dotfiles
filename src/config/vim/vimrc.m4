@@ -14,7 +14,10 @@ set encoding=utf-8
 
 " Automatically start a server
 " This is required for vimtex but likely useful in other contexts.
-if empty(v:servername) && exists('*remote_startserver')
+" Client-server requires an X11 connection, use $DISPLAY to see if available.
+" There might be a better way to check if a server connect has been made
+" but I couldn't find out.
+if empty(v:servername) && exists('*remote_startserver') && !empty($DISPLAY)
 	call remote_startserver('VIM')
 endif
 
