@@ -5,6 +5,9 @@ endif
 let b:ale_linters_ignore = ['pylint']
 let b:ale_fixers = ['black', 'isort', 'trim_whitespace']
 
+let g:ale_python_mypy_ignore_invalid_syntax = 1
+let g:ale_python_mypy_options='--ignore-missing-imports --follow-imports="silent"'
+
 function! UpdateTextwidthVars()
   let b:ale_python_black_options=printf('--line-length=%d', &l:textwidth)
   let b:ale_python_flake8_options=printf('--max-line-length=%d', &l:textwidth)
