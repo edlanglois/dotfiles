@@ -19,6 +19,7 @@ let g:ycm_filetype_blacklist = {
 " YCM shortcuts
 nnoremap gt :YcmCompleter GoTo<CR>
 nnoremap <leader>d :YcmCompleter GetDoc<CR>
+nnoremap <leader>t :YcmCompleter GetType<CR>
 
 " make YCM compatible with UltiSnips
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
