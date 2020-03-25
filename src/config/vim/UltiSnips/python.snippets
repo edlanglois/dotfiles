@@ -37,7 +37,9 @@ if __name__ == '__main__':
     except KeyError:
         pass
     else:
-        _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)
+        _np.set_printoptions(  # type: ignore
+            linewidth=shutil.get_terminal_size().columns
+        )
     main()
 endsnippet
 
