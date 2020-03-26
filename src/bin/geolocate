@@ -1,0 +1,121 @@
+#!/usr/bin/env python
+"""Get location from GeoClue2"""
+
+# Copyright © 2020 Eric Langlois <eric@langlois.xyz>
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+# IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+# DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+# TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+# OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+import argparse
+import shutil
+import sys
+import time
+
+import dbus
+
+ACCURACY_LEVELS = ("unset", "country", "city", "neighbourhood", "street", "exact")
+
+
+def parse_args(args=None):
+    """Parse command-line arguments.
+
+    Args:
+        args: A list of argument strings to use instead of sys.argv.
+
+    Returns:
+        An `argparse.Namespace` object containing the parsed arguments.
+    """
+    parser = argparse.ArgumentParser(
+        description=__doc__.splitlines()[0] if __doc__ else None,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "--accuracy",
+        choices=ACCURACY_LEVELS[1:],
+        help="Requested accuracy level. Not guaranteed",
+    )
+    parser.add_argument(
+        "--timeout",
+        default=10,
+        type=float,
+        help="Timeout in seconds when waiting for location.",
+    )
+    return parser.parse_args(args)
+
+
+def main(args=None):
+    """Run script.
+
+    Args:
+        args: A list of argument strings to use instead of sys.argv.
+    """
+    args = parse_args(args)
+    geoclue_name = "org.freedesktop.GeoClue2"
+    manager_interface_name = geoclue_name + ".Manager"
+    client_interface_name = geoclue_name + ".Client"
+    location_interface_name = geoclue_name + ".Location"
+    properties_interface_name = "org.freedesktop.DBus.Properties"
+    introspect_interface_name = "org.freedesktop.DBus.Introspectable"
+
+    bus = dbus.SystemBus()
+
+    manager = bus.get_object(geoclue_name, "/org/freedesktop/GeoClue2/Manager")
+
+    client_path = manager.GetClient(dbus_interface=manager_interface_name)
+    client = bus.get_object(geoclue_name, client_path)
+    client.Set(
+        client_interface_name,
+        "DesktopId",
+        "geolocate",
+        dbus_interface=properties_interface_name,
+    )
+    if args.accuracy:
+        client.Set(
+            client_interface_name,
+            "RequestedAccuracyLevel",
+            dbus.UInt32(ACCURACY_LEVELS.index(args.accuracy)),
+            dbus_interface=properties_interface_name,
+        )
+
+    client.Start(dbus_interface=client_interface_name)
+
+    # Poll for location
+    timeout = args.timeout
+    start_time = time.monotonic()
+    while time.monotonic() - start_time < timeout:
+        location_path = client.Get(
+            client_interface_name, "Location", dbus_interface=properties_interface_name
+        )
+        if location_path != "/":
+            break
+        time.sleep(0.1)
+    else:
+        print("Timeout waiting for location", file=sys.stderr)
+        sys.exit(1)
+
+    location = bus.get_object(geoclue_name, location_path)
+    location_properties = location.GetAll(
+        location_interface_name, dbus_interface=properties_interface_name
+    )
+    print("Latitude:", location_properties["Latitude"])
+    print("Longitude:", location_properties["Longitude"])
+    print("Accuracy (meters):", location_properties["Accuracy"])
+
+
+if __name__ == "__main__":
+    main()

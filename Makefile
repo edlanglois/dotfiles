@@ -91,6 +91,7 @@ BIN_INSTALL:=\
 	dblp-makebib\
 	dfix\
 	duplicacy-backup\
+	geolocate\
 	get-gitignore\
 	git-w\
 	gr\
