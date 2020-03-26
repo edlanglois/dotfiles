@@ -22,13 +22,21 @@
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import argparse
+import enum
 import shutil
 import sys
 import time
 
 import dbus
 
-ACCURACY_LEVELS = ("unset", "country", "city", "neighbourhood", "street", "exact")
+
+class AccuracyLevel(enum.Enum):
+    NONE = 0
+    COUNTRY = 1
+    CITY = 4
+    NEIGHBOURHOOD = 5
+    STREET = 6
+    EXACT = 8
 
 
 def parse_args(args=None):
@@ -46,7 +54,8 @@ def parse_args(args=None):
     )
     parser.add_argument(
         "--accuracy",
-        choices=ACCURACY_LEVELS[1:],
+        choices=[name.lower() for name in AccuracyLevel.__members__ if name != "NONE"],
+        default="exact",
         help="Requested accuracy level. Not guaranteed",
     )
     parser.add_argument(
@@ -88,7 +97,7 @@ def main(args=None):
         client.Set(
             client_interface_name,
             "RequestedAccuracyLevel",
-            dbus.UInt32(ACCURACY_LEVELS.index(args.accuracy)),
+            dbus.UInt32(AccuracyLevel[args.accuracy.upper()].value),
             dbus_interface=properties_interface_name,
         )
 
