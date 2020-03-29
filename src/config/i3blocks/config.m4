@@ -50,7 +50,7 @@ signal=10
 # The second parameter overrides the mixer selection
 # See the script for details.
 [volume-label]
-full_text=🔊
+full_text=🔊︎
 color=#00ffff
 separator_block_width=4
 
@@ -164,7 +164,7 @@ interval=10
 m4_ifdef(??[[<<m4_env_config_WIRELESS_INTERFACE>>]]??,m4_dnl
 
 [wifi-label]
-full_text=📶
+full_text=📶︎
 color=#00ffff
 separator_block_width=4
 
@@ -208,7 +208,7 @@ separator_block_width=4
 interval=60
 
 [time-label]
-full_text=🕒
+full_text=🕒︎
 color=#00ffff
 separator_block_width=4
 
