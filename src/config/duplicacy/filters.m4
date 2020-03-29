@@ -12,3 +12,6 @@ m4_dnl The problem is that these filters need to be relative to $HOME
 -.local/share/*/Cache/
 -.local/share/*/GPUCache/
 -.local/share/*/Code Cache/
+
+# Slack
+-.local/share/*/CacheStorage/
