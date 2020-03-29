@@ -61,13 +61,13 @@ signal=1
 
 m4_ifdef(??[[<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>]]??,m4_dnl
 [weather-label]
-command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%i'
+command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '??[[<<m4_user_config_OPEN_WEATHER_MAP_CITY>>]]??' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%i'
 interval=600
 color=#00ffff
 separator_block_width=4
 
 [weather]
-command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --id 'm4_user_config_OPEN_WEATHER_MAP_CITY_ID' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%t %s (%c)' --sfmt '%t'
+command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '??[[<<m4_user_config_OPEN_WEATHER_MAP_CITY>>]]??' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '%t %s (%c)' --sfmt '%t'
 interval=600)
 
 # CPU usage
