@@ -297,6 +297,9 @@ endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
 HOME_LINKS += .Xresources
 endif
+ifneq ($(strip $(shell command -v zotero)),)
+HOME_LINKS += .zotero
+endif
 
 HOME_FB:=\
 	$(addsuffix .link,$(HOME_LINKS))\

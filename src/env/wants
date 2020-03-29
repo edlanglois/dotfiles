@@ -5,6 +5,8 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
+echo "# Python linting"
+find_program FLAKE8 flake8 || true
 echo "# Reorder python imports; used automatically by ALE"
 find_program ISORT isort || true
 echo "# Fast code search"
