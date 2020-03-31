@@ -189,6 +189,12 @@ bindsym $mod+XF86MonBrightnessUp exec "xbacklight -inc 1"
 bindsym $mod+XF86MonBrightnessDown exec "xbacklight -dec 1"
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_MAIM>>]]??,m4_dnl
+# Screenshots
+bindsym Print exec "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+bindsym Control+Print exec "mkdir -p ~/Pictures/screenshots && maim ~/Pictures/screenshots/$(date -Iseconds | sed 's/:/_/g').png"
+bindsym $mod+g exec "maim -s | xclip -selection clipboard -t image/png")
+
 # Start a status bar.
 bar {
 m4_ifdef(??[[<<m4_env_config_I3BLOCKS>>]]??,m4_dnl
