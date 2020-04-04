@@ -1,5 +1,5 @@
 [Unit]
-Description=Run the duplicacy backup daily.
+Description=Regular duplicacy backups.
 
 [Timer]
 OnCalendar=daily

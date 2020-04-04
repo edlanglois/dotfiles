@@ -90,7 +90,6 @@ BIN_INSTALL:=\
 	combinediff-careful\
 	dblp-makebib\
 	dfix\
-	duplicacy-backup\
 	geolocate\
 	get-gitignore\
 	git-w\
@@ -110,6 +109,8 @@ BIN_INSTALL:=\
 CONFIG_FBI_SYSTEMD:=\
 	systemd/user/duplicacy-backup.service\
 	systemd/user/duplicacy-backup.timer\
+	systemd/user/duplicacy-prune.service\
+	systemd/user/duplicacy-prune.timer\
 	systemd/user/low-battery.service\
 	systemd/user/low-battery.timer\
 	systemd/user/ssh-agent.service\
