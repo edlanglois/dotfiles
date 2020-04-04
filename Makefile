@@ -239,6 +239,7 @@ CONFIG_INSTALL:=\
 DATA_LINKS:=\
 	libreoffice/4/cache\
 	Slack/Cache\
+	Steam/appcache\
 
 DATA_FB:=\
 	$(addsuffix .link,$(DATA_LINKS))\
