@@ -41,11 +41,11 @@ THEANORC           DEFAULT="=m4_env_config_XDG_CONFIG_HOME/theano/config"
 )m4_dnl
 
 # OpenSSL Seed File (Defaults to $HOME/.rnd)
-RANDFILE           DEFAULT=m4_env_config_XDG_CACHE_HOME/openssl/rnd
+RANDFILE           DEFAULT="m4_env_config_XDG_CACHE_HOME/openssl/rnd"
 
 m4_ifdef(??[[<<m4_env_config_RLWRAP>>]]??,m4_dnl
 # RLWrap history file directory
-RLWRAP_HOME        DEFAULT=m4_env_config_XDG_DATA_HOME/rlwrap
+RLWRAP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rlwrap"
 )m4_dnl
 
 # ssh-agent
