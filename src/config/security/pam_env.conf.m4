@@ -3,8 +3,6 @@ m4_include(env_config.m4)m4_dnl
 
 EDITOR             DEFAULT=vim
 VISUAL             DEFAULT=vim
-m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
-BROWSER            DEFAULT=m4_env_config_BROWSER)
 
 # Set locale; also set in config/locale.conf but that isn't always read.
 LANG               DEFAULT=m4_user_config_LANG.utf8

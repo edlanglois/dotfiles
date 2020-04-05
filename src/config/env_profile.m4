@@ -76,6 +76,17 @@ if ! command -v lightdm >/dev/null && ! command -v gdm >/dev/null && [ -n "$XDG_
 	export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 fi
 
+# Browser
+if [ -n "$DISPLAY" ]; then
+m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
+	export BROWSER="m4_env_config_BROWSER",
+	true)
+else
+m4_ifdef(??[[<<m4_env_config_TERMINAL_BROWSER>>]]??,m4_dnl
+	export BROWSER="m4_env_config_TERMINAL_BROWSER",
+	true)
+fi
+
 m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
 # Homebrew Path
 PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
