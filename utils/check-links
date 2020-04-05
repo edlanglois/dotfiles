@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -eu
+shopt -s globstar nullglob
+# Check the status of files that should be symbolic links.
+# It is best to run this from make as `make show-links'
+# Must run `make build` first.
+
+function check_links {
+	SRC_NAME="$1"
+	DEST_DIR="$2"
+	SRC_DIR="${BASH_SOURCE%/*}/../build/$SRC_NAME"
+	if [ ! -d "$SRC_DIR" ]; then
+		return
+	fi
+	find "$SRC_DIR" -name '*.link' -printf "$DEST_DIR/%P\0" | \
+		while IFS= read -r -d '' file; do
+			file "${file%.*}" | grep --color=always -e '^' \
+				-e 'directory\|broken symbolic link'
+		done
+}
+
+check_links home "$HOME"
+check_links config "${CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}}"
+check_links data "${DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}}"
+check_links cache "${CACHE_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}}"

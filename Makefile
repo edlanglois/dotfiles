@@ -434,11 +434,12 @@ install-system     : Install system dotfiles.
 clean              : Remove build products.
 help               : Print this help message
 
-show               : Run all `show-*` commands.
+show               : Run most `show-*` commands.
 show-dirs          : Print the install directories.
 show-config        : Print the user and environment configuration.
 show-wants         : Print a list of desirable programs that are not
                      checked by the environment configuration (show-config).
+show-links         : Print information about files that should be links.
 
 vim                : Run all `vim-*` commands.
                      Uses the installed configurations so install first.
@@ -543,7 +544,7 @@ $(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_TARGETS) \
 ########################
 ##  Show Information  ##
 ########################
-.PHONY: show show-dirs show-config show-wants
+.PHONY: show show-dirs show-config show-wants show-links
 
 show: show-dirs show-config show-wants
 
@@ -585,6 +586,10 @@ endif
 
 show-wants: $(SOURCE_DIR)/env/wants $(SOURCE_DIR)/env/env_utils
 	@"$<" | ( echo "# wants" && cat ) | $(COLORIZE_CONFIG)
+
+show-links: build $(UTILS_DIR)/check-links
+	@$(UTILS_DIR)/check-links
+
 
 ###############
 ##  Install  ##
