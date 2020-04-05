@@ -6,6 +6,7 @@ m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
 browser = m4_env_config_BROWSER
 )m4_dnl
 clickable_url = true
+hyperlinks = true
 mouse_autohide = true
 fullscreen = false
 scrollback_lines = 10000
