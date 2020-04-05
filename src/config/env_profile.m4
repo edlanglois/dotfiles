@@ -48,20 +48,6 @@ pathappend_if_isdir() {
   fi
 }
 
-# Set editor to vim
-export EDITOR=vim
-
-m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
-# Set default browser
-export BROWSER=m4_env_config_BROWSER)
-
-# Set locale; also set in config/locale.conf but that isn't always read.
-LANG=m4_user_config_LANG.utf8
-LANGUAGE=m4_user_config_LANGUAGE
-
-export XDG_CONFIG_HOME=m4_user_config_XDG_CONFIG_HOME
-export XDG_DATA_HOME=m4_user_config_XDG_DATA_HOME
-export XDG_CACHE_HOME=m4_user_config_XDG_CACHE_HOME
 # Not exported; Not quoted to allow ~ expansion
 LOCAL_PREFIX_=m4_user_config_LOCAL_PREFIX
 
@@ -83,37 +69,12 @@ LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$LOCAL_PREFIX_/lib")
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/man")"
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 
-# xinit configuration
-export XINITRC=m4_user_config_XDG_CONFIG_HOME/xinit/xinitrc
-export XSERVERRC=m4_user_config_XDG_CONFIG_HOME/xinit/xserverrc
 # lightdm supposedly does not work when this is changed
 # so to be on the safe side only make the change if lightdm is not installed.
 # gdm also doesn't work if this is changed.
 if ! command -v lightdm >/dev/null && ! command -v gdm >/dev/null && [ -n "$XDG_RUNTIME_DIR" ]; then
 	export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 fi
-
-# OpenSSL Seed File (Defaults to $HOME/.rnd)
-export RANDFILE=m4_user_config_XDG_CACHE_HOME/openssl/rnd
-
-# wget
-export WGETRC=m4_user_config_XDG_CONFIG_HOME/wgetrc
-
-# tmux
-export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
-
-# gnupg
-export GNUPGHOME="$XDG_DATA_HOME"/gnupg
-
-# less: disable history
-export LESSHISTFILE=-
-
-# bash history
-export HISTFILE=m4_user_config_XDG_DATA_HOME/bash/history
-
-# NPM
-m4_dnl I've had ~/.npm created even when npm isn't installed so no program check
-export NPM_CONFIG_USERCONFIG=m4_user_config_XDG_CONFIG_HOME/npm/config
 
 m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
 # Homebrew Path
@@ -142,39 +103,12 @@ export PERL_MB_OPT="--install_base \"m4_env_config_PERL_ROOT\""
 export PERL_MM_OPT="INSTALL_BASE=m4_env_config_PERL_ROOT"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl
-# Python Environment
-export PYTHONSTARTUP=m4_user_config_XDG_CONFIG_HOME/python/startup.py
-export PYLINTRC=m4_user_config_XDG_CONFIG_HOME/pylint/config
-export PYLINTHOME=m4_user_config_XDG_CACHE_HOME/pylint
-export THEANORC=m4_user_config_XDG_CONFIG_HOME/theano/config
-)m4_dnl
-
-m4_ifdef(??[[<<m4_env_config_RLWRAP>>]]??,m4_dnl
-# RLWrap history file directory
-export RLWRAP_HOME=m4_user_config_XDG_DATA_HOME/rlwrap
-)m4_dnl
-
-m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl
-# Ruby Gem Configuration Directories
-export GEMRC=m4_user_config_XDG_CONFIG_HOME/gem/config.yaml
-export GEM_HOME=m4_user_config_XDG_DATA_HOME/gem
-export GEM_SPEC_CACHE=m4_user_config_XDG_CACHE_HOME/gem
-)m4_dnl
 m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,m4_dnl
 # Ruby Gem Paths
 while IFS=: read -d: -r gempath; do
   PATH="$(pathappend_if_isdir "$PATH" "$gempath")"
 done <<< "m4_env_config_GEM_BIN_PATH:"
 )m4_dnl
-
-m4_ifdef(??[[<<m4_env_config_TASK>>]]??,m4_dnl
-# Task configuration file
-export TASKRC=m4_user_config_XDG_CONFIG_HOME/task/config
-)m4_dnl
-
-# Vim Environment
-export VIMINIT=":source m4_user_config_XDG_CONFIG_HOME/vim/vimrc"
 
 export PATH
 export LD_LIBRARY_PATH
