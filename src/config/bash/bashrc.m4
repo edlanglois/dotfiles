@@ -64,10 +64,15 @@ if [ -n "$force_colour_prompt" ]; then
 fi
 
 function set_hostname_icon() {
-	local HOSTNAME_HASH=$(hostname | md5sum)
-	local HASH_BYTE=${HOSTNAME_HASH:0:2}
-	# Character from the Miscellaneous Symbols block
-	HOSTNAME_ICON=$(echo -e "\\u26${HASH_BYTE}")
+	local HOSTNAME_ICON_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/hostname-icon"
+	if [ -f "$HOSTNAME_ICON_FILE" ]; then
+		HOSTNAME_ICON="$(cat "$HOSTNAME_ICON_FILE")"
+	else
+		local HOSTNAME_HASH=$(hostname | md5sum)
+		local HASH_BYTE=${HOSTNAME_HASH:0:2}
+		# Character from the Miscellaneous Symbols block
+		HOSTNAME_ICON=$(echo -e "\\u26${HASH_BYTE}")
+	fi
 }
 set_hostname_icon
 
