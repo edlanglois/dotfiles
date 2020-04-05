@@ -137,6 +137,7 @@ CONFIG_FBI:=\
 	bash/bashrc\
 	bash/profile\
 	conky/default-popup.lua\
+	duplicacy-web/settings.json\
 	duplicacy/filters\
 	env_profile\
 	fish/config.fish\
@@ -185,6 +186,8 @@ CONFIG_FBI:=\
 
 CONFIG_LINKS:=\
 	chromium\
+	duplicacy-web/bin\
+	duplicacy-web/stats\
 	duplicacy/cache\
 	launcher-main\
 	libreoffice\
@@ -287,6 +290,9 @@ HOME_LINKS:=\
 	.profile\
 	.xprofile\
 
+ifneq ($(strip $(shell command -v duplicacy-web)),)
+HOME_LINKS += .duplicacy-web
+endif
 ifneq ($(strip $(shell command -v gkrellm)),)
 HOME_LINKS += .gkrellm2
 endif
