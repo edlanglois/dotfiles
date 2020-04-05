@@ -16,7 +16,6 @@ git submodule update --init --recursive
 ### User Information
 In the `dotfiles` directory, copy `user.cfg.example` to `user.cfg` and fill in
 the variables.
-See `utils/weather-city-id.py` to get your city ID for weather.
 
 ### Build and Install
 ```Shell
