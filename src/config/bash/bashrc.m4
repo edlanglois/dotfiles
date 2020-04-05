@@ -27,7 +27,7 @@ HISTFILESIZE=10000
 
 # ensure history directory exists
 if [ -n "$HISTFILE" ]; then
-	mkdir -p $(dirname $HISTFILE)
+	mkdir -p "$(dirname "$HISTFILE")"
 fi
 
 # check the window size after each command and, if necessary,
@@ -68,8 +68,9 @@ function set_hostname_icon() {
 	if [ -f "$HOSTNAME_ICON_FILE" ]; then
 		HOSTNAME_ICON="$(cat "$HOSTNAME_ICON_FILE")"
 	else
-		local HOSTNAME_HASH=$(hostname | md5sum)
-		local HASH_BYTE=${HOSTNAME_HASH:0:2}
+		local HOSTNAME_HASH HASH_BYTE
+		HOSTNAME_HASH="$(hostname | md5sum)"
+		HASH_BYTE="${HOSTNAME_HASH:0:2}"
 		# Character from the Miscellaneous Symbols block
 		HOSTNAME_ICON=$(echo -e "\\u26${HASH_BYTE}")
 	fi
@@ -97,8 +98,12 @@ xterm*|rxvt*)
 esac
 
 # enable color support of ls and also add handy aliases
-if [ "$colour_prompt" = yes -a -x /usr/bin/dircolors ]; then
-	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+if [ "$colour_prompt" = yes ] && command -v dircolors >/dev/null; then
+	if [ -r ~/.dircolors ]; then
+		eval "$(dircolors -b ~/.dircolors)"
+	else
+		eval "$(dircolors -b)"
+	fi
 fi
 
 if [ "$TERM" != "dumb" ] && command -v fortune >/dev/null; then
