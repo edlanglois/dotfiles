@@ -167,11 +167,11 @@ set autoindent
 set cinoptions=(0,u0,U0 " Options to cindent (turned on automatically in c files)
 set indentkeys=0{,0},0),0#,!^F,o,O,e " Never reindent nonempty lines when typing.
 
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set softtabstop=-1   " Virtual tab size when expanding to space. -1 = shiftwidth
 set noshiftround     " Do not round indent to a multiple of shiftwidth
-set noexpandtab      " Tabs do not expand to spaces.
+set noexpandtab      " Tabs do not expand to spaces
 set copyindent       " Default to same indentation structure as previous line
 
 set textwidth=80     " Auto wrap at 80 char line width
