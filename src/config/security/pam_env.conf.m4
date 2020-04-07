@@ -57,7 +57,7 @@ TASKRC             DEFAULT="m4_env_config_XDG_CONFIG_HOME/task/config"
 )m4_dnl
 
 # tmux
-TMUX_TMPDIR        DEFAULT="$XDG_RUNTIME_DIR"
+TMUX_TMPDIR        DEFAULT="${XDG_RUNTIME_DIR}"
 
 # Vim Environment
 VIMINIT            DEFAULT=":source m4_env_config_XDG_CONFIG_HOME/vim/vimrc"
