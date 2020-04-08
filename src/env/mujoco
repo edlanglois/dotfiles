@@ -3,5 +3,5 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
-find_directory MUJOCO_PATH "/opt/mujoco/mujoco200" "${DATA_DIR}/mujoco/mujoco200_linux" || true
-find_file MJKEY_PATH "/usr/share/licenses/mujoco/mjkey.txt" "${DATA_DIR}/mujoco/mjkey.txt" || true
+find_directory MUJOCO_PATH "${DATA_DIR}/mujoco/mujoco200_linux" || true
+find_file MJKEY_PATH "${DATA_DIR}/mujoco/mjkey.txt" || true
