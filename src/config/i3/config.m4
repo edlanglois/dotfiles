@@ -207,4 +207,8 @@ m4_ifdef(??[[<<m4_env_config_DEX>>]]??,m4_dnl
 ??[[<<# Auto-start desktop entries>>]]??
 exec m4_env_config_DEX -ae i3 -s /etc/xdg/autostart:m4_user_config_XDG_CONFIG_HOME/autostart)
 
+m4_ifdef(??[[<<m4_env_config_PICOM>>]]??,m4_dnl
+??[[<<# Run the picom compositor>>]]??
+exec --no-startup-id m4_env_config_PICOM --daemon)
+
 m4_sinclude(src/config/i3/config.local)m4_dnl
