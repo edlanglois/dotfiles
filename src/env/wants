@@ -20,3 +20,15 @@ if [ -f "$LOGIN_DEFS_FILE" ]; then
 	echo "# Login password fail delay; set to 1 in $LOGIN_DEFS_FILE"
 	echo "FAIL_DELAY=$FAIL_DELAY"
 fi
+
+PICOM_FILE="$HOME/.config/picom.conf"
+if ! [ -f "$PICOM_FILE" ]; then
+	PICOM_FILE="/etc/xdg/picom.conf"
+fi
+if [ -f "$PICOM_FILE" ]; then
+	echo "# Picom; set shadow=false and fading=false"
+	SHADOW="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
+	echo "PICOM_SHADOW=$SHADOW"
+	FADING="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
+	echo "PICOM_FADING=$FADING"
+fi
