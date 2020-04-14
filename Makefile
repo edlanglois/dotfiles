@@ -302,6 +302,9 @@ endif
 ifneq ($(strip $(shell command -v firefox)),)
 HOME_LINKS += .mozilla
 endif
+ifneq ($(strip $(shell command -v thunderbird)),)
+HOME_LINKS += .thunderbird
+endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
 HOME_LINKS += .Xresources
 endif
