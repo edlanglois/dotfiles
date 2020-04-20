@@ -98,3 +98,6 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>- <Plug>AirlineSelectPrevTab
 nmap <leader>+ <Plug>AirlineSelectNextTab
+
+" Sort
+vnoremap <leader>s :sort i<cr>
