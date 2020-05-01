@@ -1,6 +1,5 @@
-# Dot-Files
+# Dotfiles
 Configuration files with user & system configuration based on M4.
-
 
 ## Get the Code
 Clone this directory recursively with
@@ -28,55 +27,102 @@ If you have root access, system-wide configurations are installed with
 sudo make install-system
 ```
 
-### Flake8
-Install flake8 for python linting in VIM (with F7)
-```Shell
-pip install flake8
-```
+### Manual Configuration (Optional)
+Run `make show-wants` to check other configurations that can only be applied
+manually, mostly optional programs to install.
+The output of `make show-config` can also be helpful to notice what could be
+installed but that output makes no distinction between checks that enable
+features and checks that enable configuration for that program.
+
+This repository attempts to install a number of symbolic links.
+Check the status of these with `make show-links`.
+If the target already exists as a regular file or directory then the link is not
+created. You can optionally move the file to the intended link destination
+(see the corresponding `.link` file within `build/` to find the destination).
+Many of the links are for directories and the destination directory is not
+(currently) created.
+This can cause programs to fail when attempting to use the link, so to fix that
+you can create the destination directory manually.
 
 ### Extras
+Decide on a case-by-case basis whether to run these.
+
 Various persistent configurations: `utils/set-persistent-configs.sh`
 Powerline symbols: `utils/install-powerline-symbols.sh`
 Noto fonts: `utils/install-noto-fonts.sh`
 And more in `utils/`
 
-## Pre-Commit
-To set up pre-commit hooks, install the [pre-commit](http://pre-commit.com)
-package (`pip install pre-commit`) and run
+### Help
+Run `make help` to see a list of available Makefile commands.
+
+You can run `make show` to show lots of information including
+the detected user and environment configurations (`make show-configs`),
+install directories (`make show-dirs`),
+and desirable programs / manual configurations (`make show-wants`).
+
+## Structure
+Dotfiles are organized within the `src/` directory based on where they are to
+be installed.
+The install paths are configurable in `user.cfg`.
+The top-level directories are:
+
+| Source Dir | Install To        | Default Install Path | Description      |
+| ---------- | ----------------- | -------------------- | ---------------- |
+| bin        | LOCAL\_PREFIX/bin | $HOME/.local/bin     | Executable files |
+| config     | XDG\_CONFIG\_HOME | $HOME/.config        | Configurations   |
+| data       | XDG\_DATA\_HOME   | $HOME/.local/share   | Program data     |
+| home       | HOME              | $HOME                | Configurations   |
+| system     | SYSTEM\_PREFIX    | /                    | System configs   |
+
+The directory `src/env` is special, it contains environment detection scripts
+and is not installed. See the _Environment Detection_ section for more details.
+
+Within each source directory (`bin`, `config`, etc.) files have the same
+relative path as they will have when installed.
+
+There are several kinds of configuration files: raw, M4, and links.
+These can be distinguished by their extension, which is stripped before
+install.
+
+### Raw files
+These files have no special extension and are installed by copying them into the
+install location without changes.
+
+### M4 files
+These files are configured for the user and environment using the
+[M4 preprocessor](https://www.gnu.org/software/m4/m4.html).
+Each has the extension `.m4`. User configuration variables are specified in
+`user.cfg` and written to `user_config.m4`. Environment configuration variables
+are emitted by shell scripts (in `env/`) and saved to `env_config.m4`.
+
+When developing M4 files, macros must be prefixed with `m4_`.
+Use `m4_include(user_config.m4)` and `m4_include(env_config.m4)` to import user
+and environment configuration variables, respectively.
+M4 does not allow escaping of quotes, so to avoid collisions, this project uses
+`??[[<<` and `??]]>>` as left and right quotes.
+
+### Links
+Links end with `.link` and cause a symbolic link to be installed pointing to the
+path given by the contents of the link file.
+Link files can also be M4 files (`.link.m4`) in order to make the link
+destination (i.e. link file contents) configurable.
+
+### Environment Detection
+Executable files in `env/` are used to detect features of the environment that
+can be then applied to configure M4 files.
+Each script should output any number of lines of the form:
+`SETTING_NAME=some value`,
+which will be transformed into an m4 macro named `m4_env_config_SETTING_NAME`
+with value `some value`.
+
+Scripts can also output comment lines that start with the `#` character.
+These are displayed in the output of `make show-config`.
+
+## Development
+### Pre-commit
+Set up pre-commit hooks by installing the [pre-commit](http://pre-commit.com)
+package (`pip install pre-commit`) and running
 
 ```bash
 pre-commit install
 ```
-
-## Making Changes
-The dotfiles are built for a specific user and system using the
-[m4 preprocessor](https://www.gnu.org/software/m4/m4.html). The source for each
-dotfile is a `.m4` file. User configuration variables are specified in
-`user.cfg` and written to `user_config.m4`. Environment configuration variables
-are emitted by shell scripts (in `env/`) and saved to `env_config.m4`.
-
-### New File
-To create a new dotfile named `NAME`, create the file `NAME.m4` in the same
-location relative to `dotfiles/` that the installed file is to be relative to
-`$HOME/`. Add `NAME` to the `DOTFILES` variable in `Makefile`.
-
-The contents of the file will be processed using m4. The file contents will be
-passed through unchanged unless m4 macros are present. m4 macros may be used for
-configuration, and must be prefixed with `m4_`.
-
-Use `m4_include(user_config.m4)` and `m4_include(env_config.m4)` to import user
-and environment configuration variables, respectively.
-
-### New Directory
-To create a new directory, create it in `dotfiles/` and add its name to the
-`DOTDIRS` variable in `Makefile`. A symbolic link will be created from within
-`$HOME` to this directory. 
-
-### New Environment Configuration
-Create an executable script in the `env/` directory that outputs lines of the
-form `NAME=VALUE`. If no value is necessary, the script can output `NAME=` but
-the `=` is always required. The set of variables emitted is permitted to vary.
-Add the script to the `ENV_CONFIG_FILES` variable in `Makefile`.
-
-The emitted variables will be saved to `env_config.m4` under the name
-`m4_env_config_NAME`, where `NAME` is the name emitted by the script.
