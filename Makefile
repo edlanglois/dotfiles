@@ -67,8 +67,9 @@ WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 # 	- Names % where BUILD_DIR/<TYPE>/% is required for install
 # <TYPE>_INSTALL
 # 	- Names % where <TYPE>_INSTALL_PREFIX/% is an install target
-# <TYPE>_EXIST
-# 	- Names % where <TYPE>_INSTALL_PREFIX/% should exist (never updated)
+# <TYPE>_INSTALL_ONCE
+# 	- Names % where <TYPE>_INSTALL_PREFIX/% is an install target that does not
+# 		need to be updated once installed.
 #
 # These variables are used to define the make targets (build and install)
 # and to create templated rules that depend on the target directory existing.
@@ -90,7 +91,7 @@ BIN_FIRST_BUILD:=
 BIN_BUILD:=
 BIN_LINKS:=
 BIN_DLINKS:=
-BIN_EXIST:=$(BIN_LINKS) $(BIN_DLINKS)
+BIN_INSTALL_ONCE:=$(BIN_LINKS) $(BIN_DLINKS)
 BIN_INSTALL:=\
 	backtrace\
 	combinediff-careful\
@@ -200,7 +201,7 @@ CONFIG_DLINKS:=\
 	libreoffice\
 	Slack\
 
-CONFIG_EXIST:=$(CONFIG_LINKS) $(CONFIG_DLINKS)
+CONFIG_INSTALL_ONCE:=$(CONFIG_LINKS) $(CONFIG_DLINKS)
 
 CONFIG_FB:=\
 	$(addsuffix .link,$(CONFIG_LINKS))\
@@ -256,7 +257,7 @@ DATA_DLINKS:=\
 	Slack/Cache\
 	Steam/appcache\
 
-DATA_EXIST=$(DATA LINKS) $(DATA_DLINKS)
+DATA_INSTALL_ONCE=$(DATA LINKS) $(DATA_DLINKS)
 
 DATA_FB:=\
 	$(addsuffix .link,$(DATA_LINKS))\
@@ -328,7 +329,7 @@ ifneq ($(strip $(shell command -v zotero)),)
 HOME_DLINKS += .zotero
 endif
 
-HOME_EXIST=$(HOME_LINKS) $(HOME_DLINKS)
+HOME_INSTALL_ONCE=$(HOME_LINKS) $(HOME_DLINKS)
 
 HOME_FB:=\
 	$(addsuffix .link,$(HOME_LINKS))\
@@ -423,11 +424,11 @@ INSTALL_TARGETS:=\
 	$(addprefix $(DATA_DIR)/,$(DATA_INSTALL))\
 	$(addprefix $(HOME_DIR)/,$(HOME_INSTALL))\
 
-INSTALL_EXIST_TARGETS:=\
-	$(addprefix $(BIN_DIR)/,$(BIN_EXIST))\
-	$(addprefix $(CONFIG_DIR)/,$(CONFIG_EXIST))\
-	$(addprefix $(DATA_DIR)/,$(DATA_EXIST))\
-	$(addprefix $(HOME_DIR)/,$(HOME_EXIST))\
+INSTALL_ONCE_TARGETS:=\
+	$(addprefix $(BIN_DIR)/,$(BIN_INSTALL_ONCE))\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_INSTALL_ONCE))\
+	$(addprefix $(DATA_DIR)/,$(DATA_INSTALL_ONCE))\
+	$(addprefix $(HOME_DIR)/,$(HOME_INSTALL_ONCE))\
 
 INSTALL_SYSTEM_TARGETS:=$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_INSTALL))
 
@@ -444,7 +445,7 @@ build: $(BUILD_TARGETS)
 
 install: install-user systemd-reload font-cache
 
-install-user: $(INSTALL_TARGETS) | $(INSTALL_EXIST_TARGETS)
+install-user: $(INSTALL_TARGETS) | $(INSTALL_ONCE_TARGETS)
 
 install-system: $(INSTALL_SYSTEM_TARGETS)
 
