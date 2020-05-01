@@ -38,11 +38,8 @@ This repository attempts to install a number of symbolic links.
 Check the status of these with `make show-links`.
 If the target already exists as a regular file or directory then the link is not
 created. You can optionally move the file to the intended link destination
-(see the corresponding `.link` file within `build/` to find the destination).
-Many of the links are for directories and the destination directory is not
-(currently) created.
-This can cause programs to fail when attempting to use the link, so to fix that
-you can create the destination directory manually.
+(see the corresponding `.link` file within `build/` to find the destination)
+and re-run `make install` to create the links.
 
 ### Extras
 Decide on a case-by-case basis whether to run these.
@@ -102,8 +99,9 @@ M4 does not allow escaping of quotes, so to avoid collisions, this project uses
 `??[[<<` and `??]]>>` as left and right quotes.
 
 ### Links
-Links end with `.link` and cause a symbolic link to be installed pointing to the
-path given by the contents of the link file.
+Links end with `.link` or `.dlink` and cause a symbolic link to be installed
+pointing to the path given by the contents of the link file.
+Directory links (`.dlink`) also create a directory at the link destination.
 Link files can also be M4 files (`.link.m4`) in order to make the link
 destination (i.e. link file contents) configurable.
 

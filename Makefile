@@ -67,8 +67,8 @@ WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 # 	- Names % where BUILD_DIR/<TYPE>/% is required for install
 # <TYPE>_INSTALL
 # 	- Names % where <TYPE>_INSTALL_PREFIX/% is an install target
-# <TYPE>_LINKS
-# 	- Names % where <TYPE>_INSTALL_PREFIX/% is a symbolic link
+# <TYPE>_EXIST
+# 	- Names % where <TYPE>_INSTALL_PREFIX/% should exist (never updated)
 #
 # These variables are used to define the make targets (build and install)
 # and to create templated rules that depend on the target directory existing.
@@ -76,6 +76,10 @@ WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 # Useful intermediate variables:
 # <TYPE>_FBI (or a subset of FBI)
 # 	- Intersections of <TYPE>_FIRST_BUILD, <TYPE>_BUILD, <TYPE>_INSTALL
+# <TYPE>_LINKS
+# 	- Names % where <TYPE>_INSTALL_PREFIX/% is a symbolic link to a file
+# <TYPE>_DLINKS
+# 	- Names % where <TYPE>_INSTALL_PREFIX/% is a symbolic link to a directory
 
 # Files can be installed directly from SOURCE_DIR or from BUILD_DIR
 # Files in BUILD_DIR can depend on other build files.
@@ -85,6 +89,8 @@ WARNING_PREFIX:=$(shell echo "$$(tput setaf 172)WARNING$$(tput sgr0):")
 BIN_FIRST_BUILD:=
 BIN_BUILD:=
 BIN_LINKS:=
+BIN_DLINKS:=
+BIN_EXIST:=$(BIN_LINKS) $(BIN_DLINKS)
 BIN_INSTALL:=\
 	backtrace\
 	combinediff-careful\
@@ -184,7 +190,8 @@ CONFIG_FBI:=\
 	yapf/style\
 	yay/config.json\
 
-CONFIG_LINKS:=\
+CONFIG_LINKS:=
+CONFIG_DLINKS:=\
 	chromium\
 	duplicacy-web/bin\
 	duplicacy-web/stats\
@@ -193,8 +200,11 @@ CONFIG_LINKS:=\
 	libreoffice\
 	Slack\
 
+CONFIG_EXIST:=$(CONFIG_LINKS) $(CONFIG_DLINKS)
+
 CONFIG_FB:=\
 	$(addsuffix .link,$(CONFIG_LINKS))\
+	$(addsuffix .dlink,$(CONFIG_DLINKS))\
 
 CONFIG_FIRST_BUILD:=\
 	$(CONFIG_FBI)\
@@ -240,13 +250,17 @@ CONFIG_INSTALL:=\
 
 # Data
 # ----
-DATA_LINKS:=\
+DATA_LINKS:=
+DATA_DLINKS:=\
 	libreoffice/4/cache\
 	Slack/Cache\
 	Steam/appcache\
 
+DATA_EXIST=$(DATA LINKS) $(DATA_DLINKS)
+
 DATA_FB:=\
 	$(addsuffix .link,$(DATA_LINKS))\
+	$(addsuffix .dlink,$(DATA_DLINKS))\
 
 # Custom install for Steam Desktop
 SOURCE_STEAM_DESKTOP:=/usr/share/applications/steam.desktop
@@ -290,30 +304,35 @@ HOME_LINKS:=\
 	.profile\
 	.xprofile\
 
+HOME_DLINKS:=
+
 ifneq ($(strip $(shell command -v duplicacy-web)),)
-HOME_LINKS += .duplicacy-web
+HOME_DLINKS += .duplicacy-web
 endif
 ifneq ($(strip $(shell command -v gkrellm)),)
-HOME_LINKS += .gkrellm2
+HOME_DLINKS += .gkrellm2
 endif
 ifneq ($(strip $(shell command -v imwheel)),)
 HOME_LINKS += .imwheelrc
 endif
 ifneq ($(strip $(shell command -v firefox)),)
-HOME_LINKS += .mozilla
+HOME_DLINKS += .mozilla
 endif
 ifneq ($(strip $(shell command -v thunderbird)),)
-HOME_LINKS += .thunderbird
+HOME_DLINKS += .thunderbird
 endif
 ifneq ($(strip $(shell command -v lightdm || command -v gdm)),)
 HOME_LINKS += .Xresources
 endif
 ifneq ($(strip $(shell command -v zotero)),)
-HOME_LINKS += .zotero
+HOME_DLINKS += .zotero
 endif
+
+HOME_EXIST=$(HOME_LINKS) $(HOME_DLINKS)
 
 HOME_FB:=\
 	$(addsuffix .link,$(HOME_LINKS))\
+	$(addsuffix .dlink,$(HOME_DLINKS))\
 
 HOME_FIRST_BUILD:=\
 	$(HOME_FBI)\
@@ -404,11 +423,11 @@ INSTALL_TARGETS:=\
 	$(addprefix $(DATA_DIR)/,$(DATA_INSTALL))\
 	$(addprefix $(HOME_DIR)/,$(HOME_INSTALL))\
 
-INSTALL_LINK_TARGETS:=\
-	$(addprefix $(BIN_DIR)/,$(BIN_LINKS))\
-	$(addprefix $(CONFIG_DIR)/,$(CONFIG_LINKS))\
-	$(addprefix $(DATA_DIR)/,$(DATA_LINKS))\
-	$(addprefix $(HOME_DIR)/,$(HOME_LINKS))\
+INSTALL_EXIST_TARGETS:=\
+	$(addprefix $(BIN_DIR)/,$(BIN_EXIST))\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_EXIST))\
+	$(addprefix $(DATA_DIR)/,$(DATA_EXIST))\
+	$(addprefix $(HOME_DIR)/,$(HOME_EXIST))\
 
 INSTALL_SYSTEM_TARGETS:=$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_INSTALL))
 
@@ -425,7 +444,7 @@ build: $(BUILD_TARGETS)
 
 install: install-user systemd-reload font-cache
 
-install-user: $(INSTALL_TARGETS) | $(INSTALL_LINK_TARGETS)
+install-user: $(INSTALL_TARGETS) | $(INSTALL_EXIST_TARGETS)
 
 install-system: $(INSTALL_SYSTEM_TARGETS)
 
@@ -613,8 +632,15 @@ $1/%: $(BUILD_DIR)/$2/%
 	@cp -v "$$<" "$$@"
 
 $1/%: | $(BUILD_DIR)/$2/%.link
-	! [ -d "$$@" ] && \
-	ln -s -f "$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.link,$$@)")" "$$@"
+	DEST="$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.dlink,$$@)")"; \
+	[ -n "$$$$DEST" ] && ! [ -d "$$@" ] && \
+	ln -s -f "$$$$DEST" "$$@"
+
+$1/%: | $(BUILD_DIR)/$2/%.dlink
+	DEST="$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.dlink,$$@)")"; \
+	[ -n "$$$$DEST" ] && ! [ -d "$$@" ] && \
+	ln -s -f "$$$$DEST" "$$@" && \
+	mkdir -p "$$$$DEST"
 endef
 
 $(eval $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
