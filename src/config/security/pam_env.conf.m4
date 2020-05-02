@@ -38,6 +38,8 @@ PYTHONSTARTUP      DEFAULT="m4_env_config_XDG_CONFIG_HOME/python/startup.py"
 PYLINTRC           DEFAULT="m4_env_config_XDG_CONFIG_HOME/pylint/config"
 PYLINTHOME         DEFAULT="=m4_env_config_XDG_CACHE_HOME/pylint"
 THEANORC           DEFAULT="=m4_env_config_XDG_CONFIG_HOME/theano/config"
+# Set Tensorflow loglevel to WARNING (default INFO)
+TF_CPP_MIN_LOG_LEVEL DEFAULT=1
 )m4_dnl
 
 # OpenSSL Seed File (Defaults to $HOME/.rnd)
