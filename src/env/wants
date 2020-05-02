@@ -14,6 +14,20 @@ find_program THE_SILVER_SEARCHER ag || true
 echo "# Shell script analysis tool; used automatically by ALE"
 find_program SHELLCHECK shellcheck || true
 
+# The following have complex configuration files that I think makes more sense
+# to edit rather than specify the whole file.
+# However, edits don't work with make because building the file depends on the
+# installed file, which then gets updated using the built file, making the build
+# out of date, etc.
+
+GPMDP_SETTINGS_FILE="$XDG_CONFIG_HOME/Google Play Music Desktop Player/json_store/.settings.json"
+if [ -f "$GPMDP_SETTINGS_FILE" ]; then
+	MINIMIZE_TO_TRAY="$(sed -n '/^[^"]*"minToTray"[[:space:]]*:[[:space:]]*\([[:alpha:]]*\)[[:space:]]*,/{s//\1/p;q}' "$GPMDP_SETTINGS_FILE")"
+	echo "# Set \"minToTray\": false in \"$GPMDP_SETTINGS_FILE\""
+	echo "# Prevents GPMDP from closing when true."
+	echo "MINIMIZE_TO_TRAY=$MINIMIZE_TO_TRAY"
+fi
+
 LOGIN_DEFS_FILE="/etc/login.defs"
 if [ -f "$LOGIN_DEFS_FILE" ]; then
 	FAIL_DELAY="$(sed -n '/^[[:space:]]*FAIL_DELAY[[:space:]]*\([[:digit:]]*\)[[:space:]]*$/{s//\1/;p;q}' "$LOGIN_DEFS_FILE")"
@@ -26,7 +40,7 @@ if ! [ -f "$PICOM_FILE" ]; then
 	PICOM_FILE="/etc/xdg/picom.conf"
 fi
 if [ -f "$PICOM_FILE" ]; then
-	echo "# Picom; set shadow=false and fading=false"
+	echo "# Picom; set shadow=false and fading=false in $PICOM_FILE"
 	SHADOW="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
 	echo "PICOM_SHADOW=$SHADOW"
 	FADING="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
