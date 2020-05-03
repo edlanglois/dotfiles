@@ -650,14 +650,6 @@ $(eval $(call INSTALL_TEMPLATE,$(DATA_DIR),data))
 $(eval $(call INSTALL_TEMPLATE,$(HOME_DIR),home))
 $(eval $(call INSTALL_TEMPLATE,$(SYSTEM_PREFIX),system))
 
-#################################
-##  Install Link Dependencies  ##
-#################################
-
-$(DATA_DIR)/libreoffice/4/cache: | $(CONFIG_DIR)/libreoffice
-
-$(DATA_DIR)/Slack/Cache: | $(CONFIG_DIR)/Slack
-
 ###########
 ##  Vim  ##
 ###########
