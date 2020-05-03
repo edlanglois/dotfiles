@@ -257,7 +257,13 @@ DATA_DLINKS:=\
 	Slack/Cache\
 	Steam/appcache\
 
-DATA_INSTALL_ONCE=$(DATA LINKS) $(DATA_DLINKS)
+# These directories need to exist
+# In some cases, if there is a environment variable telling the
+# program to use this directory then the program expects it to exist.
+DATA_DIRS:=\
+	gnupg/.\
+
+DATA_INSTALL_ONCE=$(DATA LINKS) $(DATA_DLINKS) $(DATA_DIRS)
 
 DATA_FB:=\
 	$(addsuffix .link,$(DATA_LINKS))\
