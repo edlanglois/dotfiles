@@ -88,7 +88,6 @@ Plugin 'edlanglois/vim-textobj-parameter'     " MIT
 Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
 Plugin 'edlanglois/vim-toml'                  " MIT
 Plugin 'edlanglois/vimwiki'                   " MIT
-Plugin 'ervandew/supertab'                    " BSD 3-Clause
 Plugin 'google/vim-codefmt'                   " Apache 2.0
 Plugin 'google/vim-glaive'                    " Apache 2.0
 Plugin 'google/vim-maktaba'                   " Apache 2.0
