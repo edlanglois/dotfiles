@@ -77,7 +77,6 @@ Plugin 'airblade/vim-gitgutter'               " MIT
 Plugin 'alfredodeza/coveragepy.vim'           " Apache 2.0
 Plugin 'chrisbra/Recover.vim'                 " Vim
 Plugin 'chriskempson/base16-vim'              " MIT
-Plugin 'christoomey/vim-tmux-navigator'       " MIT
 Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
 Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
