@@ -6,11 +6,11 @@ import shutil
 import sys
 
 
-def parse_args(args=None):
+def parse_args(argv=None):
     """Parse command-line arguments.
 
     Args:
-        args: A list of argument strings to use instead of sys.argv.
+        argv: A list of argument strings to use instead of sys.argv.
 
     Returns:
         An \`argparse.Namespace\` object containing the parsed arguments.
@@ -19,16 +19,16 @@ def parse_args(args=None):
         description=__doc__.splitlines()[0] if __doc__ else None,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    return parser.parse_args(args)
+    return parser.parse_args(argv)
 
 
-def main(args=None):
+def main(argv=None):
     """Run script.
 
     Args:
-        args: A list of argument strings to use instead of sys.argv.
+        argv: A list of argument strings to use instead of sys.argv.
     """
-    args = parse_args(args)
+    args = parse_args(argv)
     ${2}
 
 if __name__ == '__main__':
