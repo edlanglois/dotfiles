@@ -17,3 +17,6 @@ command! -range Tsort <line1>,<line2>sort i /[^{]*{/
 " Usage:
 "    :Gr regex --extra-args-to-grep
 command! -nargs=+ Gr :grep! <args> -I -R * | :copen
+
+" Open help with a vertical split
+cabbrev help vert help

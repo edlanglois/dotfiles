@@ -101,3 +101,6 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 
 " Sort
 vnoremap <leader>s :sort i<cr>
+
+" Disable q: command history. Use :<ctrl-f> instead.
+nnoremap q: <nop>

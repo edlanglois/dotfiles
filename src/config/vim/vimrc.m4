@@ -275,9 +275,3 @@ let g:tex_flavor = "latex" " Load .tex files as latex
 let g:less = {}
 " Disable less compatibility mode
 let g:less.enabled = 0
-
-" Open help with a vertical split
-cabbrev help vert help
-
-" Disable q: command history. Use :<ctrl-f> instead.
-nnoremap q: <nop>
