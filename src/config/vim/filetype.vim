@@ -3,6 +3,7 @@ if exists("did_load_filetypes")
 	finish
 endif
 
+" TODO: Move these into ftdetect/ ?
 augroup filetypedetect
 	" au! commands to set the filetype go here
 	au! BufNewFile,BufRead .latexmkrc,latexmkrc  setf perl
