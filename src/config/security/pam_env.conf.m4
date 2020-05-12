@@ -16,6 +16,11 @@ XDG_CACHE_HOME     DEFAULT="m4_env_config_XDG_CACHE_HOME"
 HISTFILE           DEFAULT="m4_env_config_XDG_DATA_HOME/bash/history"
 
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
+# Rust Cargo Configuration
+CARGO_HOME         DEFAULT="m4_env_config_XDG_DATA_HOME/cargo"
+)m4_dnl
+
+m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
 # CUDA Configuration
 CUDA_CACHE_PATH    DEFAULT="m4_env_config_XDG_CACHE_HOME/nv"
 )m4_dnl
