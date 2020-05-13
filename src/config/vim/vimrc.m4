@@ -80,6 +80,7 @@ Plugin 'chriskempson/base16-vim'              " MIT
 Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
 Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
+Plugin 'edlanglois/lark-syntax.vim'           " MIT
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
 Plugin 'edlanglois/vim-hledger-syntax'        " MIT
