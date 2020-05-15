@@ -1,6 +1,9 @@
 if exists("g:python_linelength")
   let &l:textwidth=g:python_linelength
 endif
+" Don't auto-wrap; have an auto-formatter to do that
+setlocal formatoptions-=t
+
 " Exclude pylint: slow, must run on files in filesystem
 let b:ale_linters_ignore = ['pylint']
 let b:ale_fixers = ['black', 'isort', 'trim_whitespace']

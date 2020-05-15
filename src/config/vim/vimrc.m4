@@ -177,6 +177,7 @@ set textwidth=80     " Auto wrap at 80 char line width
 " Note: I occasionally swap the t setting. I'll start recording what filetype
 " I have in mind when doing so.
 "  * vimwiki: +t
+"  * python: -t
 set formatoptions+=t " Auto-wrap text using textwidth
 set formatoptions+=c " Auto-wrap comments using textwidth, inserting the
                      " current comment leader automatically.
