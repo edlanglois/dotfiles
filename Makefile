@@ -639,7 +639,7 @@ $1/%: $(BUILD_DIR)/$2/%
 	@cp -v "$$<" "$$@"
 
 $1/%: | $(BUILD_DIR)/$2/%.link
-	DEST="$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.dlink,$$@)")"; \
+	DEST="$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.link,$$@)")"; \
 	[ -n "$$$$DEST" ] && ! [ -d "$$@" ] && \
 	ln -s -f "$$$$DEST" "$$@"
 

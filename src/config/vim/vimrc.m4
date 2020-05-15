@@ -80,7 +80,9 @@ Plugin 'chriskempson/base16-vim'              " MIT
 Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
 Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
+Plugin 'edlanglois/lark-syntax.vim'           " MIT
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
+Plugin 'edlanglois/vim-fish'                  " MIT
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
 Plugin 'edlanglois/vim-hledger-syntax'        " MIT
 Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
@@ -121,7 +123,6 @@ Plugin 'scrooloose/nerdtree'                  " WTFPL
 Plugin 'Xuyuanp/nerdtree-git-plugin'          " WTFPL
 )m4_dnl
 m4_ifelse(m4_user_config_ALLOW_LICENSE_NONE,true,
-Plugin 'edlanglois/fish-syntax'               " None
 Plugin 'edlanglois/vim-HiLinkTrace'           " None
 Plugin 'JamshedVesuna/vim-markdown-preview'   " None
 " Must go after nerdtree
