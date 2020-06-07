@@ -64,8 +64,6 @@ fi
 # Add user local directories to environment paths
 PATH="$(pathprepend_if_isdir "$PATH" "$LOCAL_PREFIX_/bin")"
 
-LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "$LOCAL_PREFIX_/lib")"
-
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/man")"
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 
