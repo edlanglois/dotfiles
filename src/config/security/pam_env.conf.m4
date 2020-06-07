@@ -77,6 +77,11 @@ VIMINIT            DEFAULT=":source m4_env_config_XDG_CONFIG_HOME/vim/vimrc"
 # wget
 WGETRC             DEFAULT="m4_env_config_XDG_CONFIG_HOME/wgetrc"
 
+# WINE
+m4_ifdef(??[[<<m4_env_config_WINE>>]]??,m4_dnl
+WINEPREFIX         DEFAULT="m4_env_config_XDG_DATA_HOME/wine"
+)m4_dnl
+
 # xinit configuration
 XINITRC            DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc"
 XSERVERRC          DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc"
