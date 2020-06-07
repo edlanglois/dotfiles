@@ -1,0 +1,12 @@
+#!/bin/bash
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+GIT_VERSION="$(git --version)"
+if version_ge "$GIT_VERSION" "git version 1.9.1"; then
+	echo GIT_CONFIG_PUSH_DEFAULT=
+fi;
+if version_ge "$GIT_VERSION" "git version 2.27.0"; then
+	echo GIT_CONFIG_PULL_REBASE=
+fi;

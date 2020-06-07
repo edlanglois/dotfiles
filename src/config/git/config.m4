@@ -38,7 +38,11 @@ m4_include(env_config.m4)m4_dnl
 	tas = log --graph --oneline --decorate --author-date-order --all --numstat
 	tns = log --graph --author-date-order --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%n" --numstat
 	tans = log --graph --author-date-order --all --pretty=format:"%C(yellow)%h%Cblue\\ [%cn]%Cred%d\\ %Creset%s%n" --numstat
-m4_ifdef(??[[<<m4_env_config_GIT_PUSH_DEFAULT_SIMPLE>>]]??,
+m4_ifdef(??[[<<m4_env_config_GIT_CONFIG_PUSH_DEFAULT>>]]??,
 [push]
 	default = simple
+)m4_dnl
+m4_ifdef(??[[<<m4_env_config_GIT_CONFIG_PULL_REBASE>>]]??,
+[pull]
+	rebase = false
 )m4_dnl

@@ -380,7 +380,7 @@ ENV_FIRST_BUILD:=\
 	colours\
 	cuda\
 	dpi\
-	git-push-default-simple\
+	git\
 	github_id\
 	go\
 	lock\

@@ -1,8 +1,0 @@
-#!/bin/bash
-set -eu
-# shellcheck source=env_utils
-source "${BASH_SOURCE%/*}/env_utils"
-
-if version_ge "$(git --version)" "git version 1.9.1"; then
-	echo GIT_PUSH_DEFAULT_SIMPLE=
-fi;
