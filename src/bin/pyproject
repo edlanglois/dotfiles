@@ -108,7 +108,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                 predicted = None
 
             if predicted:
-                value = input(f"{description} ({predicted}): ")
+                value = input(f"{description} [{predicted}]: ")
                 if not value:
                     value = predicted
             else:
