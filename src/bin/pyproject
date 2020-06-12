@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import datetime
 import os
 import pathlib
 import pwd
@@ -94,7 +95,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         sys.exit(f"Missing configuration directory '{missing_config_dir}'")
     config_dir = pathlib.Path(config_dir)
 
-    config: Dict[str, Any] = {"PROJECT_DIR": project_dir}
+    config: Dict[str, Any] = {
+        "PROJECT_DIR": project_dir,
+        "YEAR": datetime.datetime.now().year,
+    }
+
     for id_, description, nonempty, helper in SETTINGS:
         while True:
             if helper is not None:
