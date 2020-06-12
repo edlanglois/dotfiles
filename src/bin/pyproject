@@ -129,14 +129,15 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
     if not config["PROJECT_ID"]:
         sys.exit("Must set nonempty project_id")
-    if not prompt_yes_no("Continue?", "y"):
-        return
 
     project_dir.mkdir(parents=True, exist_ok=True)
     if list(project_dir.glob("*")):
         if not prompt_yes_no(
             f"Project directory '{project_dir}' is nonempty. Continue?", "n"
         ):
+            return
+    else:
+        if not prompt_yes_no("Continue?", "y"):
             return
 
     def add_file(src_path: pathlib.Path, relative_path: Union[str, pathlib.Path]):
