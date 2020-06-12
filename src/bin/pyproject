@@ -63,6 +63,10 @@ def _get_author_email(config: Dict[str, Any]) -> str:
     return ""
 
 
+def _get_project_name(config: Dict[str, Any]) -> str:
+    return config["PROJECT_DIR"].name
+
+
 def _get_project_title(config: Dict[str, Any]) -> str:
     try:
         return config["PROJECT_NAME"].replace("_", " ").title()
@@ -75,7 +79,7 @@ LICENSES = {"mit": ("MIT.txt", "MIT", "License :: OSI Approved :: MIT License")}
 SETTINGS = [
     ("AUTHOR_NAME", "Author Full Name", True, _get_author_name),
     ("AUTHOR_EMAIL", "Author Email Address", True, _get_author_email),
-    ("PROJECT_NAME", "Project Name", True, None),
+    ("PROJECT_NAME", "Project Name", True, _get_project_name),
     ("PROJECT_TITLE", "Project Title", True, _get_project_title),
     ("SHORT_DESCRIPTION", "Short Description", False, None),
 ]
