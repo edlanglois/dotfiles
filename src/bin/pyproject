@@ -42,6 +42,27 @@ def _get_author_name(config: Dict[str, Any]) -> str:
     return gecos.split(",")[0]
 
 
+def _get_author_email(config: Dict[str, Any]) -> str:
+    try:
+        result = subprocess.run(
+            ["git", "config", "--get", "user.email"], check=True, capture_output=True
+        )
+    except subprocess.CalledProcessError:
+        pass
+    else:
+        return result.stdout.decode().strip()
+
+    gecos = pwd.getpwuid(os.getuid()).pw_gecos
+    try:
+        _, _, _, contact = gecos.split(",")
+    except ValueError:
+        pass
+    else:
+        return contact
+
+    return ""
+
+
 def _get_project_name(config: Dict[str, Any]) -> str:
     try:
         return config["PROJECT_ID"].replace("_", " ").title()
@@ -53,6 +74,7 @@ LICENSES = {"mit": ("MIT.txt", "MIT", "License :: OSI Approved :: MIT License")}
 
 SETTINGS = [
     ("AUTHOR_NAME", "Author Full Name", True, _get_author_name),
+    ("AUTHOR_EMAIL", "Author Email Address", True, _get_author_email),
     ("PROJECT_ID", "Project Name (ID)", True, None),
     ("PROJECT_NAME", "Project Name (Words)", True, _get_project_name),
     ("SHORT_DESCRIPTION", "Short Description", False, None),
