@@ -208,6 +208,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             # time.
             result = subprocess.run(["git", "commit", "-m", "Initial project"])
             if result.returncode != 0:
+                subprocess.run(["git", "add", "."], check=True)
                 result = subprocess.run(
                     ["git", "commit", "-m", "Initial project"], check=True
                 )
