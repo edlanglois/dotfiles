@@ -1,0 +1,224 @@
+#!/usr/bin/env python
+"""Initialize a Python project repository"""
+from __future__ import annotations
+
+import argparse
+import os
+import pathlib
+import pwd
+import shutil
+import subprocess
+import sys
+from typing import Any, Dict, Optional, Sequence, Union
+
+import xdg.BaseDirectory
+
+
+def parse_args(argv=None):
+    """Parse command-line arguments.
+
+    Args:
+        argv: A list of argument strings to use instead of sys.argv.
+
+    Returns:
+        An `argparse.Namespace` object containing the parsed arguments.
+    """
+    parser = argparse.ArgumentParser(
+        description=__doc__.splitlines()[0] if __doc__ else None,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    parser.add_argument(
+        "project_dir", type=str, help="Path to top level project directory."
+    )
+    parser.add_argument(
+        "--license", "-l", choices=LICENSES.keys(), help="License to apply"
+    )
+    return parser.parse_args(argv)
+
+
+def _get_author_name(config: Dict[str, Any]) -> str:
+    return pwd.getpwuid(os.getuid()).pw_gecos
+
+
+def _get_project_name(config: Dict[str, Any]) -> str:
+    try:
+        return config["PROJECT_ID"].replace("_", " ").title()
+    except KeyError:
+        return ""
+
+
+LICENSES = {"mit": ("MIT.txt", "MIT", "License :: OSI Approved :: MIT License")}
+
+SETTINGS = [
+    ("AUTHOR_NAME", "Author Full Name", True, _get_author_name),
+    ("PROJECT_ID", "Project Name (ID)", True, None),
+    ("PROJECT_NAME", "Project Name (Words)", True, _get_project_name),
+    ("SHORT_DESCRIPTION", "Short Description", False, None),
+]
+
+
+def prompt_yes_no(question: str, default=None) -> bool:
+    default = default.lower()
+    if default == "y":
+        prompt = "[Y/n]"
+    elif default == "n":
+        prompt = "[y/N]"
+    elif default is None:
+        prompt = "[y/n]"
+    else:
+        raise ValueError("default must be 'y', 'n', or None")
+    print()
+    while True:
+        response = input(f"{question} {prompt}: ")
+        if not response and default:
+            response = default
+        if response.lower() in ("y", "ye", "yes"):
+            return True
+        if response.lower() in ("n", "no"):
+            return False
+        print(f"Invalid answer: '{response}'")
+
+
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    """Run script.
+
+    Args:
+        argv: A list of argument strings to use instead of sys.argv.
+    """
+    args = parse_args(argv)
+    project_dir = pathlib.Path(args.project_dir).absolute()
+
+    config_dir = xdg.BaseDirectory.load_first_config("pyproject")
+    if config_dir is None:
+        missing_config_dir = xdg.BaseDirectory.save_config_path("pyproject")
+        sys.exit(f"Missing configuration directory '{missing_config_dir}'")
+    config_dir = pathlib.Path(config_dir)
+
+    config: Dict[str, Any] = {"PROJECT_DIR": project_dir}
+    for id_, description, nonempty, helper in SETTINGS:
+        while True:
+            if helper is not None:
+                predicted: Optional[str] = helper(config)
+            else:
+                predicted = None
+
+            if predicted:
+                value = input(f"{description} ({predicted}): ")
+                if not value:
+                    value = predicted
+            else:
+                value = input(f"{description}: ")
+            if nonempty and not value:
+                print("Must specify a nonempty value")
+            else:
+                break
+        config[id_] = value
+
+    print()
+    print("Settings")
+    print("--------")
+    for id_, value in config.items():
+        print(f"{id_}: {value}")
+
+    classifiers = ["Programming Language :: Python :: 3"]
+
+    if not config["PROJECT_ID"]:
+        sys.exit("Must set nonempty project_id")
+    if not prompt_yes_no("Continue?", "y"):
+        return
+
+    project_dir.mkdir(parents=True, exist_ok=True)
+    if list(project_dir.glob("*")):
+        if not prompt_yes_no(
+            f"Project directory '{project_dir}' is nonempty. Continue?", "n"
+        ):
+            return
+
+    def add_file(src_path: pathlib.Path, relative_path: Union[str, pathlib.Path]):
+        print(f"Adding {relative_path}")
+        with open(src_path, "r") as f:
+            contents = f.read()
+        dest_path = project_dir / relative_path
+        dest_path.parent.mkdir(exist_ok=True)
+        with open(dest_path, "w") as f:
+            f.write(contents.format(**config))
+
+    template_dir = config_dir / "templates"
+
+    print()
+    if args.license:
+        license_file_name, license_short, license_classifier = LICENSES[args.license]
+        config["LICENSE_SHORT"] = license_short
+        classifiers.append(license_classifier)
+        license_file = template_dir / "license" / license_file_name
+        add_file(license_file, "LICENSE.txt")
+    else:
+        config["LICENSE_SHORT"] = ""
+
+    config["CLASSIFIERS"] = "\n".join("    " + c for c in classifiers)
+
+    root_template_dir = template_dir / "root"
+    for template_file in root_template_dir.rglob("*"):
+        add_file(template_file, template_file.relative_to(root_template_dir))
+
+    pyroot_template_dir = template_dir / "pyroot"
+    for template_file in pyroot_template_dir.rglob("*"):
+        add_file(
+            template_file,
+            config["PROJECT_ID"] / template_file.relative_to(pyroot_template_dir),
+        )
+
+    os.chdir(project_dir)
+
+    in_git_repo = (
+        subprocess.run(
+            ["git", "rev-parse", "--is-inside-work-tree"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode
+        == 0
+    )
+    if not in_git_repo and prompt_yes_no("Initialize a git repository?", "y"):
+        subprocess.run(["git", "init"], check=True)
+        in_git_repo = True
+
+    if in_git_repo:
+        if (project_dir / ".pre-commit-config.yaml").exists():
+            subprocess.run(["pre-commit", "install"], check=True)
+            subprocess.run(["pre-commit", "autoupdate"], check=True)
+
+        no_commits = (
+            subprocess.run(
+                ["git", "rev-parse", "--short", "HEAD"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            ).returncode
+            != 0
+        )
+
+        if no_commits and prompt_yes_no("Create initial empty commit?", "y"):
+            subprocess.run(
+                ["git", "commit", "--allow-empty", "-m", "Initial Commit"], check=True,
+            )
+
+        if prompt_yes_no("Commit initial project", "y"):
+            subprocess.run(["git", "add", "."], check=True)
+            # This can fail from pre-commit fixers so run again if it fails the first
+            # time.
+            result = subprocess.run(["git", "commit", "-m", "Initial project"])
+            if result.returncode != 0:
+                result = subprocess.run(
+                    ["git", "commit", "-m", "Initial project"], check=True
+                )
+
+
+if __name__ == "__main__":
+    try:
+        _np = sys.modules["numpy"]
+    except KeyError:
+        pass
+    else:
+        _np.set_printoptions(  # type: ignore
+            linewidth=shutil.get_terminal_size().columns
+        )
+    main()

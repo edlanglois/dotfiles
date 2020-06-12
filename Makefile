@@ -108,6 +108,7 @@ BIN_INSTALL:=\
 	plot\
 	print24bitcolours\
 	print256colours\
+	pyproject\
 	tmuxm\
 	xopen\
 
@@ -246,6 +247,15 @@ CONFIG_INSTALL:=\
 	i3blocks/scripts/ssid\
 	i3blocks/scripts/weather\
 	pudb/pudb.cfg\
+	pyproject/templates/license/MIT.txt\
+	pyproject/templates/pyroot/__init__.py\
+	pyproject/templates/pyroot/version.py\
+	pyproject/templates/root/.gitignore\
+	pyproject/templates/root/.pre-commit-config.yaml\
+	pyproject/templates/root/pyproject.toml\
+	pyproject/templates/root/README.md\
+	pyproject/templates/root/setup.cfg\
+	pyproject/templates/root/setup.py\
 	python/startup.py\
 	zathura/zathurarc\
 
