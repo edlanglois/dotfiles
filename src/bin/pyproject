@@ -38,7 +38,8 @@ def parse_args(argv=None):
 
 
 def _get_author_name(config: Dict[str, Any]) -> str:
-    return pwd.getpwuid(os.getuid()).pw_gecos
+    gecos = pwd.getpwuid(os.getuid()).pw_gecos
+    return gecos.split(",")[0]
 
 
 def _get_project_name(config: Dict[str, Any]) -> str:
