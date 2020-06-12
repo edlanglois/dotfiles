@@ -162,10 +162,11 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         add_file(template_file, template_file.relative_to(root_template_dir))
 
     pyroot_template_dir = template_dir / "pyroot"
+    pyproject_dir = config["PROJECT_ID"].replace("-", "_")
     for template_file in pyroot_template_dir.rglob("*"):
         add_file(
             template_file,
-            config["PROJECT_ID"] / template_file.relative_to(pyroot_template_dir),
+            pyproject_dir / template_file.relative_to(pyroot_template_dir),
         )
 
     os.chdir(project_dir)
