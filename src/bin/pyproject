@@ -63,9 +63,9 @@ def _get_author_email(config: Dict[str, Any]) -> str:
     return ""
 
 
-def _get_project_name(config: Dict[str, Any]) -> str:
+def _get_project_title(config: Dict[str, Any]) -> str:
     try:
-        return config["PROJECT_ID"].replace("_", " ").title()
+        return config["PROJECT_NAME"].replace("_", " ").title()
     except KeyError:
         return ""
 
@@ -75,8 +75,8 @@ LICENSES = {"mit": ("MIT.txt", "MIT", "License :: OSI Approved :: MIT License")}
 SETTINGS = [
     ("AUTHOR_NAME", "Author Full Name", True, _get_author_name),
     ("AUTHOR_EMAIL", "Author Email Address", True, _get_author_email),
-    ("PROJECT_ID", "Project Name (ID)", True, None),
-    ("PROJECT_NAME", "Project Name (Words)", True, _get_project_name),
+    ("PROJECT_NAME", "Project Name", True, None),
+    ("PROJECT_TITLE", "Project Title", True, _get_project_title),
     ("SHORT_DESCRIPTION", "Short Description", False, None),
 ]
 
@@ -150,7 +150,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
     classifiers = ["Programming Language :: Python :: 3"]
 
-    if not config["PROJECT_ID"]:
+    if not config["PROJECT_NAME"]:
         sys.exit("Must set nonempty project_id")
 
     project_dir.mkdir(parents=True, exist_ok=True)
@@ -191,7 +191,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         add_file(template_file, template_file.relative_to(root_template_dir))
 
     pyroot_template_dir = template_dir / "pyroot"
-    pyproject_dir = config["PROJECT_ID"].replace("-", "_")
+    pyproject_dir = config["PROJECT_NAME"].replace("-", "_")
     for template_file in pyroot_template_dir.rglob("*"):
         add_file(
             template_file,
