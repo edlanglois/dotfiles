@@ -188,7 +188,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     else:
         config["LICENSE_SHORT"] = ""
 
-    config["CLASSIFIERS"] = "\n".join("    " + c for c in classifiers)
+    config["CLASSIFIERS"] = "\n".join("\t" + c for c in classifiers)
 
     root_template_dir = template_dir / "root"
     for template_file in root_template_dir.rglob("*"):
