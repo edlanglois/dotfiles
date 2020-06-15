@@ -82,6 +82,7 @@ Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
 Plugin 'edlanglois/lark-syntax.vim'           " MIT
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
+Plugin 'edlanglois/vim-edict'                 " MIT
 Plugin 'edlanglois/vim-fish'                  " MIT
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
 Plugin 'edlanglois/vim-hledger-syntax'        " MIT
