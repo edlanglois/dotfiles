@@ -328,6 +328,9 @@ HOME_DLINKS:=
 ifneq ($(strip $(shell command -v duplicacy-web)),)
 HOME_DLINKS += .duplicacy-web
 endif
+ifneq ($(strip $(shell command -v factorio)),)
+HOME_DLINKS += .factorio
+endif
 ifneq ($(strip $(shell command -v gkrellm)),)
 HOME_DLINKS += .gkrellm2
 endif
