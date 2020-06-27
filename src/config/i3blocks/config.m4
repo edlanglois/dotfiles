@@ -171,12 +171,11 @@ separator_block_width=4
 [wifi]
 instance=m4_env_config_WIRELESS_INTERFACE
 interval=10
-separator_block_width=9
+separator_block_width=6
 
 [ssid]
 instance=m4_env_config_WIRELESS_INTERFACE
 interval=60
-separator_block_width=4
 )
 m4_ifdef(??[[<<m4_env_config_BATTERY_0>>]]??,m4_dnl
 
