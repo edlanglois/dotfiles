@@ -1,5 +1,24 @@
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
+m4_ifdef(??[[<<m4_env_config_FONT_AWESOME>>]]??,??[[<<m4_dnl
+m4_define(m4_ICON_CALENDAR,)
+m4_define(m4_ICON_CPU,)
+m4_define(m4_ICON_GPU,)
+m4_define(m4_ICON_MEMORY,)
+m4_define(m4_ICON_SPEAKER,)
+m4_define(m4_ICON_TEMPERATURE,)
+m4_define(m4_ICON_TIME,)
+m4_define(m4_ICON_WIFI,)
+>>]]??,??[[<<m4_dnl
+m4_define(m4_ICON_CALENDAR,📅)
+m4_define(m4_ICON_CPU,⌬)
+m4_define(m4_ICON_GPU,⊞)
+m4_define(m4_ICON_MEMORY,⎍)
+m4_define(m4_ICON_SPEAKER,🔊︎)
+m4_define(m4_ICON_TEMPERATURE,🌡)
+m4_define(m4_ICON_TIME,🕒︎)
+m4_define(m4_ICON_WIFI,📶︎)
+>>]]??)m4_dnl
 # i3blocks config file
 #
 # Please see man i3blocks for a complete reference!
@@ -50,7 +69,7 @@ signal=10
 # The second parameter overrides the mixer selection
 # See the script for details.
 [volume-label]
-full_text=🔊︎
+full_text=m4_ICON_SPEAKER
 color=#00ffff
 separator_block_width=4
 
@@ -75,7 +94,7 @@ interval=600)
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [cpu_usage-label]
-full_text=CPU
+full_text=m4_ICON_CPU
 color=#00ffff
 separator_block_width=4
 
@@ -95,7 +114,7 @@ align=right
 m4_ifdef(??[[<<m4_env_config_NVIDIA_SMI>>]]??,m4_dnl
 # GPU usage
 [gpu-usage-label]
-full_text=GPU
+full_text=m4_ICON_GPU
 color=#00ffff
 separator_block_width=4
 GPU_USAGE(m4_eval(m4_env_config_NUM_GPUS - 1)))
@@ -104,7 +123,7 @@ GPU_USAGE(m4_eval(m4_env_config_NUM_GPUS - 1)))
 #
 # The type defaults to "mem" if the instance is not specified.
 [memory-label]
-full_text=MEM
+full_text=m4_ICON_MEMORY
 color=#00ffff
 separator_block_width=4
 
@@ -141,7 +160,7 @@ interval=30
 # The script may be called with -w and -c switches to specify thresholds,
 # see the script for details.
 [temperature-label]
-full_text=🌡
+full_text=m4_ICON_TEMPERATURE
 color=#00ffff
 separator_block_width=4
 
@@ -164,7 +183,7 @@ interval=10
 m4_ifdef(??[[<<m4_env_config_WIRELESS_INTERFACE>>]]??,m4_dnl
 
 [wifi-label]
-full_text=📶︎
+full_text=m4_ICON_WIFI
 color=#00ffff
 separator_block_width=4
 
@@ -199,7 +218,7 @@ interval=30)
 
 # Date
 [date-label]
-full_text=📅
+full_text=m4_ICON_CALENDAR
 color=#00ffff
 separator_block_width=4
 
@@ -207,7 +226,7 @@ separator_block_width=4
 interval=60
 
 [time-label]
-full_text=🕒︎
+full_text=
 color=#00ffff
 separator_block_width=4
 

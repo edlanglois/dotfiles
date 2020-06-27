@@ -395,6 +395,7 @@ ENV_FIRST_BUILD:=\
 	colours\
 	cuda\
 	dpi\
+	fonts\
 	git\
 	github_id\
 	go\

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -eu
+if fc-list | grep 'Font Awesome' >/dev/null; then
+	echo FONT_AWESOME=
+fi
