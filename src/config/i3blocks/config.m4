@@ -226,7 +226,7 @@ separator_block_width=4
 interval=60
 
 [time-label]
-full_text=
+full_text=m4_ICON_TIME
 color=#00ffff
 separator_block_width=4
 
