@@ -113,6 +113,10 @@ BIN_INSTALL:=\
 	tmuxm\
 	xopen\
 
+ifneq ($(strip $(shell command -v dwarffortress)),)
+BIN_INSTALL+=dwarffortress
+endif
+
 # Config
 # ------
 CONFIG_FBI_SYSTEMD:=\

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# This is a modified version of the startup file that is distributed with the
+# dwarf fortress arch linux package.
+# It is modified to follow the XDG spec.
+
+export SDL_DISABLE_LOCK_KEYS=1 # Work around for bug in Debian/Ubuntu SDL patch.
+#export SDL_VIDEO_CENTERED=1    # Centre the screen.  Messes up resizing.
+
+pkgname=dwarffortress
+old_user_pkg_dir="$HOME/.$pkgname"
+if [[ -d "$old_user_pkg_dir" ]]; then
+	user_pkg_dir="$old_user_pkg_dir"
+else
+	user_pkg_dir="${XDG_DATA_HOME:-$HOME/.local/share}/$pkgname"
+fi
+root_pkg_dir="/opt/$pkgname"
+
+if [[ ! -d "$user_pkg_dir" ]]; then
+	mkdir -p "$user_pkg_dir/data"
+	ln -s "$root_pkg_dir/"{raw,libs} "$user_pkg_dir/"
+	cp -r "$root_pkg_dir/data/"{art,init,index,movies} "$user_pkg_dir/data/"
+	ln -s "$root_pkg_dir/data/"{announcement,dipscript,help,initial_movies,shader.fs,shader.vs,sound,speech} \
+		"$user_pkg_dir/data/"
+fi
+
+cd "$user_pkg_dir" || exit 1
+exec ./libs/Dwarf_Fortress "$@"
