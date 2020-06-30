@@ -24,10 +24,9 @@ fi
 if [[ ! -d "$user_pkg_dir" ]]; then
 	mkdir -p "$user_pkg_dir/data"
 	ln -s "$root_pkg_dir/"{raw,libs} "$user_pkg_dir/"
-	cp -r "$root_pkg_dir/data/"{art,index,movies} "$user_pkg_dir/data/"
+	cp -r "$root_pkg_dir/data/"{announcement,dipscript,help,art,index,movies} "$user_pkg_dir/data/"
 	ln -s "$user_config_dir/init" "$user_pkg_dir/data/"
-	ln -s "$root_pkg_dir/data/"{announcement,dipscript,help,initial_movies,shader.fs,shader.vs,sound,speech} \
-		"$user_pkg_dir/data/"
+	ln -s "$root_pkg_dir/data/"{initial_movies,shader.fs,shader.vs,sound,speech} "$user_pkg_dir/data/"
 fi
 
 cd "$user_pkg_dir" || exit 1
