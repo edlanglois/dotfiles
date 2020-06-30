@@ -184,7 +184,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         config["LICENSE_SHORT"] = license_short
         classifiers.append(license_classifier)
         license_file = template_dir / "license" / license_file_name
-        add_file(license_file, "LICENSE.txt")
+        add_file(license_file, "LICENSE")
     else:
         config["LICENSE_SHORT"] = ""
 
