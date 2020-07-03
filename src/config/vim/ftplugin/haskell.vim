@@ -4,4 +4,4 @@ let g:ale_haskell_ghc_options = "-fno-code -v0 -dynamic"
 
 let b:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
 
-set expandtab
+setlocal expandtab

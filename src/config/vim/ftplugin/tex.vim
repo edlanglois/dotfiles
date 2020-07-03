@@ -1,8 +1,8 @@
 setlocal spell
 
-set expandtab
-set tabstop=2
-set shiftwidth=2
+setlocal expandtab
+setlocal tabstop=2
+setlocal shiftwidth=2
 
 " Vimtex paren matching is too slow.
 let g:vimtex_matchparen_enabled = 0
