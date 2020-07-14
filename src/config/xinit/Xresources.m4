@@ -6,6 +6,10 @@ UXTerm.termName: xterm-256color
 
 Xft.rgba: rgb
 m4_ifdef(??[[<<m4_env_config_XFT_DPI>>]]??,m4_dnl
+# Xft.dpi values above 96 impact UI scaling
+# When the correct value of Xft.dpi is the default of 96 most applications don't
+# need it to be set but it is needed for proper rendering by some Qt programs.
+# See https://github.com/keepassxreboot/keepassxc/issues/5029
 Xft.dpi: m4_env_config_XFT_DPI)
 
 *renderFont: true
