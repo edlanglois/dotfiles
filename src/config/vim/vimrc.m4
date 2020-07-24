@@ -75,6 +75,7 @@ Plugin 'VundleVim/Vundle.vim'  " MIT
 "                                               -------
 Plugin 'airblade/vim-gitgutter'               " MIT
 Plugin 'alfredodeza/coveragepy.vim'           " Apache 2.0
+Plugin 'chrisbra/csv.vim'                     " Vim
 Plugin 'chrisbra/Recover.vim'                 " Vim
 Plugin 'chriskempson/base16-vim'              " MIT
 Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
