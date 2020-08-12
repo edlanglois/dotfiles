@@ -96,6 +96,7 @@ BIN_INSTALL:=\
 	backtrace\
 	cleanup-home\
 	combinediff-careful\
+	csv2yaml\
 	dblp-makebib\
 	dfix\
 	geolocate\
