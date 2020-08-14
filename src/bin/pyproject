@@ -240,12 +240,17 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             subprocess.run(["git", "add", "."], check=True)
             # This can fail from pre-commit fixers so run again if it fails the first
             # time.
-            result = subprocess.run(["git", "commit", "-m", "Initial project"])
+            result = subprocess.run(["git", "commit", "-m", "Empty project"])
             if result.returncode != 0:
                 subprocess.run(["git", "add", "."], check=True)
                 result = subprocess.run(
-                    ["git", "commit", "-m", "Initial project"], check=True
+                    ["git", "commit", "-m", "Empty project"], check=True
                 )
+
+            subprocess.run(
+                ["git", "tag", "-a", "v0.1.0", "-m", "Version 0.1.0\n\nEmpty project"],
+                check=True,
+            )
 
 
 if __name__ == "__main__":
