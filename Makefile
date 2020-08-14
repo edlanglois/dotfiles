@@ -96,6 +96,7 @@ BIN_INSTALL:=\
 	backtrace\
 	cleanup-home\
 	combinediff-careful\
+	csv2yaml\
 	dblp-makebib\
 	dfix\
 	geolocate\
@@ -120,6 +121,8 @@ endif
 # Config
 # ------
 CONFIG_FBI_SYSTEMD:=\
+	systemd/user/auto-suspend.service\
+	systemd/user/auto-suspend.timer\
 	systemd/user/duplicacy-backup.service\
 	systemd/user/duplicacy-backup.timer\
 	systemd/user/duplicacy-prune.service\
