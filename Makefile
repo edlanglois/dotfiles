@@ -95,7 +95,6 @@ BIN_INSTALL_ONCE:=$(BIN_LINKS) $(BIN_DLINKS)
 BIN_INSTALL:=\
 	backtrace\
 	check-home\
-	cleanup-home\
 	combinediff-careful\
 	csv2yaml\
 	dblp-makebib\

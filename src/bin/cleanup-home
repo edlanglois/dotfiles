@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-set -eu
-# Remove nuisance files that don't respect XDG from $HOME
-rm -vrf \
-	"$HOME/.java" \
-	"$HOME/.keras" \
-	"$HOME/.xournalpp" \
