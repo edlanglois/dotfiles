@@ -1,0 +1,116 @@
+#!/usr/bin/env python
+"""Check home directory for unwanted configuration files."""
+from __future__ import annotations
+
+import argparse
+import enum
+import pathlib
+import shutil
+import sys
+from typing import Optional, Sequence
+
+from termcolor import colored
+
+
+def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+    """Parse command-line arguments.
+
+    Args:
+        argv: A list of argument strings to use instead of sys.argv.
+
+    Returns:
+        An `argparse.Namespace` object containing the parsed arguments.
+    """
+    parser = argparse.ArgumentParser(
+        description=__doc__.splitlines()[0] if __doc__ else None,
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
+    return parser.parse_args(argv)
+
+
+class Status(enum.Enum):
+    APPROVED = 1
+    APPROVED_SYMLINK = 2  # Approved iff it is a symbolic link
+    TOLERATED = 3
+    TOLERATED_SYMLINK = 4  # Tolerated iff it is a symbolic link
+    TO_INVESTIGATE = 5
+    REMOVE = 6  # Delete on sight
+    UNKNOWN = 7
+
+
+KNOWN_FILES = {
+    ".Private": Status.APPROVED,
+    ".bash_profile": Status.TOLERATED_SYMLINK,
+    ".bashrc": Status.TOLERATED_SYMLINK,
+    ".cache": Status.APPROVED,
+    ".config": Status.APPROVED,
+    ".duplicacy": Status.TOLERATED,
+    ".duplicacy-web": Status.TOLERATED_SYMLINK,
+    ".ecryptfs": Status.TO_INVESTIGATE,
+    ".elinks": Status.REMOVE,  # Possible to relocate with env var
+    ".ghc": Status.REMOVE,
+    ".java": Status.REMOVE,  # Possible to relocate with env var
+    ".local": Status.APPROVED,
+    ".mozilla": Status.TOLERATED_SYMLINK,
+    ".oracle_jre_usage": Status.REMOVE,
+    ".pam_environment": Status.APPROVED_SYMLINK,
+    ".paradoxlauncher": Status.TO_INVESTIGATE,
+    ".pki": Status.TO_INVESTIGATE,  # Supposedly fixed but keeps reappearing. Delete OK
+    ".profile": Status.APPROVED_SYMLINK,
+    ".pulse-cookie": Status.TO_INVESTIGATE,
+    ".ssh": Status.APPROVED,
+    ".thumbnails": Status.REMOVE,  # I can't figure out what's making this
+    ".thunderbird": Status.TOLERATED_SYMLINK,
+    ".xprofile": Status.APPROVED_SYMLINK,
+}
+
+
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    """Run script.
+
+    Args:
+        argv: A list of argument strings to use instead of sys.argv.
+    """
+    args = parse_args(argv)
+    del args
+
+    home = pathlib.Path.home()
+    for file in sorted(home.iterdir()):
+        name = file.name
+        if not name.startswith("."):
+            continue
+        status = KNOWN_FILES.get(name, Status.UNKNOWN)
+        if status == Status.APPROVED:
+            print(name, ":", colored("OK", "green"))
+        elif status == Status.APPROVED_SYMLINK:
+            if file.is_symlink():
+                print(name, ":", colored("OK", "green"))
+            else:
+                print(name, ":", colored("not symlink", "red"))
+        elif status == Status.TOLERATED:
+            print(name, ":", colored("tolerated", "green"))
+        elif status == Status.TOLERATED_SYMLINK:
+            if file.is_symlink():
+                print(name, ":", colored("tolerated", "green"))
+            else:
+                print(name, ":", colored("not symlink", "red"))
+        elif status == Status.TO_INVESTIGATE:
+            print(name, ":", colored("investigation required", "yellow"))
+        elif status == Status.REMOVE:
+            print(name, ":", colored("remove", "red"))
+        elif status == Status.UNKNOWN:
+            print(name, ":", colored("unknown", "magenta"))
+        else:
+            assert False, "Invalid status"
+
+
+if __name__ == "__main__":
+    try:
+        _np = sys.modules["numpy"]
+    except KeyError:
+        pass
+    else:
+        _np.set_printoptions(  # type: ignore
+            linewidth=shutil.get_terminal_size().columns
+        )
+    main()
