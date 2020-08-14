@@ -86,7 +86,8 @@ SETTINGS = [
 
 
 def prompt_yes_no(question: str, default=None) -> bool:
-    default = default.lower()
+    if default is not None:
+        default = default.lower()
     if default == "y":
         prompt = "[Y/n]"
     elif default == "n":
