@@ -254,6 +254,7 @@ CONFIG_INSTALL:=\
 	i3blocks/scripts/music\
 	i3blocks/scripts/ssid\
 	i3blocks/scripts/weather\
+	keepassxc/keepassxc.ini\
 	pudb/pudb.cfg\
 	pyproject/templates/license/MIT.txt\
 	pyproject/templates/pyroot/__init__.py\
