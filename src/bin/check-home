@@ -39,7 +39,6 @@ class Status(enum.Enum):
 
 
 KNOWN_FILES = {
-    ".Private": Status.APPROVED,
     ".bash_profile": Status.TOLERATED_SYMLINK,
     ".bashrc": Status.TOLERATED_SYMLINK,
     ".cache": Status.APPROVED,
@@ -56,6 +55,7 @@ KNOWN_FILES = {
     ".pam_environment": Status.APPROVED_SYMLINK,
     ".paradoxlauncher": Status.TO_INVESTIGATE,
     ".pki": Status.TO_INVESTIGATE,  # Supposedly fixed but keeps reappearing. Delete OK
+    ".Private": Status.APPROVED,
     ".profile": Status.APPROVED_SYMLINK,
     ".pulse-cookie": Status.TO_INVESTIGATE,
     ".ssh": Status.APPROVED,
