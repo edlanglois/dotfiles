@@ -57,7 +57,7 @@ KNOWN_FILES = {
     ".pki": Status.TO_INVESTIGATE,  # Supposedly fixed but keeps reappearing. Delete OK
     ".Private": Status.APPROVED,
     ".profile": Status.APPROVED_SYMLINK,
-    ".pulse-cookie": Status.TO_INVESTIGATE,
+    ".pulse-cookie": Status.TO_INVESTIGATE,  # Who's responsible?
     ".ssh": Status.APPROVED,
     ".steam": Status.TOLERATED,
     ".steampath": Status.TOLERATED_SYMLINK,
