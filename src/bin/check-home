@@ -70,6 +70,7 @@ KNOWN_FILES = {
     ".thunderbird": Status.TOLERATED_SYMLINK,
     ".xournalpp": Status.REMOVE,  # https://github.com/xournalpp/xournalpp/pull/1384
     ".xprofile": Status.APPROVED_SYMLINK,
+    ".zotero": Status.TOLERATED_SYMLINK,
 }
 
 
