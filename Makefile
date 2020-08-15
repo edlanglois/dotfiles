@@ -348,6 +348,9 @@ endif
 ifneq ($(strip $(shell command -v firefox)),)
 HOME_DLINKS += .mozilla
 endif
+ifneq ($(strip $(shell command -v steam)),)
+HOME_DLINKS += .paradoxlauncher
+endif
 ifneq ($(strip $(shell command -v thunderbird)),)
 HOME_DLINKS += .thunderbird
 endif

@@ -57,7 +57,7 @@ KNOWN_FILES = {
     ".mozilla": Status.TOLERATED_SYMLINK,
     ".oracle_jre_usage": Status.REMOVE,
     ".pam_environment": Status.APPROVED_SYMLINK,
-    ".paradoxlauncher": Status.TO_INVESTIGATE,
+    ".paradoxlauncher": Status.TOLERATED_SYMLINK,
     ".pki": Status.TO_INVESTIGATE,  # Supposedly fixed but keeps reappearing. Delete OK
     ".Private": Status.APPROVED,
     ".profile": Status.APPROVED_SYMLINK,
