@@ -49,7 +49,7 @@ KNOWN_FILES = {
     ".config": Status.APPROVED,
     ".duplicacy": Status.TOLERATED,
     ".duplicacy-web": Status.TOLERATED_SYMLINK,
-    ".ecryptfs": Status.TO_INVESTIGATE,
+    ".ecryptfs": Status.APPROVED,
     ".elinks": Status.REMOVE,  # Possible to relocate with env var
     ".ghc": Status.REMOVE,
     ".java": Status.REMOVE,  # Possible to relocate with env var
