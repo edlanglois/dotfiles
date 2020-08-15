@@ -68,6 +68,7 @@ KNOWN_FILES = {
     ".steampid": Status.TOLERATED_SYMLINK,
     ".thumbnails": Status.REMOVE,  # I can't figure out what's making this
     ".thunderbird": Status.TOLERATED_SYMLINK,
+    ".xournalpp": Status.REMOVE,  # https://github.com/xournalpp/xournalpp/pull/1384
     ".xprofile": Status.APPROVED_SYMLINK,
 }
 
