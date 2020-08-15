@@ -53,6 +53,7 @@ KNOWN_FILES = {
     ".elinks": Status.REMOVE,  # Possible to relocate with env var
     ".ghc": Status.REMOVE,
     ".java": Status.REMOVE,  # Possible to relocate with env var
+    ".keras": Status.REMOVE,  # https://github.com/keras-team/keras/issues/14186
     ".local": Status.APPROVED,
     ".mozilla": Status.TOLERATED_SYMLINK,
     ".oracle_jre_usage": Status.REMOVE,
