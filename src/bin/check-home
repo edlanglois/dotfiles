@@ -51,6 +51,7 @@ KNOWN_FILES = {
     ".duplicacy-web": Status.TOLERATED_SYMLINK,
     ".ecryptfs": Status.APPROVED,
     ".elinks": Status.REMOVE,  # Possible to relocate with env var
+    ".factorio": Status.TOLERATED_SYMLINK,
     ".ghc": Status.REMOVE,
     ".grip": Status.REMOVE,  # Fixed with env var
     ".java": Status.REMOVE,  # Possible to relocate with env var
