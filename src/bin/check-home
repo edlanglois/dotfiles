@@ -59,6 +59,9 @@ KNOWN_FILES = {
     ".profile": Status.APPROVED_SYMLINK,
     ".pulse-cookie": Status.TO_INVESTIGATE,
     ".ssh": Status.APPROVED,
+    ".steam": Status.TOLERATED,
+    ".steampath": Status.TOLERATED_SYMLINK,
+    ".steampid": Status.TOLERATED_SYMLINK,
     ".thumbnails": Status.REMOVE,  # I can't figure out what's making this
     ".thunderbird": Status.TOLERATED_SYMLINK,
     ".xprofile": Status.APPROVED_SYMLINK,
