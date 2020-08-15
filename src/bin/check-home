@@ -38,6 +38,10 @@ class Status(enum.Enum):
     UNKNOWN = 7
 
 
+# NOTE:
+# It is possible to watch for file creation in $HOME with the following command:
+# inotifywait -m -e create ~/
+
 KNOWN_FILES = {
     ".bash_profile": Status.TOLERATED_SYMLINK,
     ".bashrc": Status.TOLERATED_SYMLINK,
