@@ -2,8 +2,9 @@
 Description=Automatically suspend to discourage late-night usage.
 
 [Timer]
-# Suspend every 15 minutes from midnight to 4 am
-OnCalendar=*-*-* 00..04:00/15:00
+# Suspend every 15 minutes from midnight to 4 am on weekdays; 2-4 on weekends
+OnCalendar=Mon..Fri *-*-* 00..04:00/15:00
+OnCalendar=Sat..Sun *-*-* 02..04:00/15:00
 
 [Install]
 WantedBy=timers.target
