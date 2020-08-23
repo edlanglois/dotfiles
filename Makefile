@@ -183,6 +183,7 @@ CONFIG_FBI:=\
 	procps/toprc\
 	profile\
 	pylint/config\
+	redshift/redshift.conf\
 	security/pam_env.conf\
 	task/config\
 	terminator/config\
