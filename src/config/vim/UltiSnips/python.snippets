@@ -46,6 +46,15 @@ if __name__ == "__main__":
     main()
 endsnippet
 
+snippet newfile "New python module file." b
+"""${1:TODO: Module description.}"""
+from __future__ import annotations
+
+__all__ = []
+
+${0}
+endsnippet
+
 snippet setup "Package setup script"
 """Package setup script."""
 import setuptools
