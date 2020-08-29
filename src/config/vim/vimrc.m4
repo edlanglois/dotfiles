@@ -121,7 +121,7 @@ Plugin 'moll/vim-bbye'                        " GNU AGPL v3
 )m4_dnl
 m4_ifelse(m4_user_config_ALLOW_LICENSE_WTFPL,true,
 Plugin 'Konfekt/FastFold'                     " WTFPL (French)
-Plugin 'scrooloose/nerdtree'                  " WTFPL
+Plugin 'preservim/nerdtree'                   " WTFPL
 Plugin 'Xuyuanp/nerdtree-git-plugin'          " WTFPL
 )m4_dnl
 m4_ifelse(m4_user_config_ALLOW_LICENSE_NONE,true,
