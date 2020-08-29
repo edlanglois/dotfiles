@@ -130,6 +130,7 @@ Plugin 'JamshedVesuna/vim-markdown-preview'   " None
 " Must go after nerdtree
 Plugin 'edlanglois/nerdtree-chmod'            " None
 )m4_dnl
+Plugin 'edlanglois/nerdtree-async-open'       " MIT
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
 Plugin 'Valloric/YouCompleteMe'               " GPL 3.0
