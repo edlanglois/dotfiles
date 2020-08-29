@@ -55,6 +55,12 @@ __all__ = []
 ${0}
 endsnippet
 
+snippet fixture "Pytest parametrized fixture." b
+@pytest.fixture(params=[${2}])
+def ${1:my_fixture}(request):
+    return request.param
+endsnippet
+
 snippet setup "Package setup script"
 """Package setup script."""
 import setuptools
