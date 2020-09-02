@@ -9,8 +9,8 @@
 set -eu
 
 DBLP_KEY_REGEX="DBLP:\K[-/[:alnum:]]+"
-URL_PREFIX="https://dblp.uni-trier.de/rec/bib0/"
-URL_SUFFIX=".bib"
+URL_PREFIX="https://dblp.uni-trier.de/rec/"
+URL_SUFFIX=".bib?param=0"
 
 REQUIRED_KEYS=$(grep -Po "$DBLP_KEY_REGEX" | sort | uniq)
 
