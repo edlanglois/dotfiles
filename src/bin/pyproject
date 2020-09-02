@@ -10,7 +10,7 @@ import pwd
 import shutil
 import subprocess
 import sys
-from typing import Any, Dict, Optional, Sequence, Union
+from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
 
 import xdg.BaseDirectory
 
@@ -30,9 +30,6 @@ def parse_args(argv=None):
     )
     parser.add_argument(
         "project_dir", type=str, help="Path to top level project directory."
-    )
-    parser.add_argument(
-        "--license", "-l", choices=LICENSES.keys(), help="License to apply"
     )
     return parser.parse_args(argv)
 
@@ -76,12 +73,38 @@ def _get_project_title(config: Dict[str, Any]) -> str:
 
 LICENSES = {"mit": ("MIT.txt", "MIT", "License :: OSI Approved :: MIT License")}
 
-SETTINGS = [
-    ("AUTHOR_NAME", "Author Full Name", True, _get_author_name),
-    ("AUTHOR_EMAIL", "Author Email Address", True, _get_author_email),
-    ("PROJECT_NAME", "Project Name", True, _get_project_name),
-    ("PROJECT_TITLE", "Project Title", True, _get_project_title),
-    ("SHORT_DESCRIPTION", "Short Description", False, None),
+# Validation functions return an error message if the value is valid.
+# If the value is valid they return None
+
+
+def _check_nonempty(value: Optional[str]) -> Optional[str]:
+    if not value:
+        return "Must specify a nonempty value"
+    return None
+
+
+def _check_license(value: Optional[str]) -> Optional[str]:
+    if not value:
+        return None
+    if value.lower() not in LICENSES:
+        return (
+            "Unknown license. "
+            f"Leave blank for no license or: {', '.join(LICENSES.keys())}"
+        )
+    return None
+
+
+_Context = Dict[str, Any]
+_GetDefaultFn = Callable[[_Context], Optional[str]]
+_ValidateFn = Callable[[Optional[str]], Optional[str]]
+# ID, description, get_default, validate
+SETTINGS: List[Tuple[str, str, Optional[_GetDefaultFn], Optional[_ValidateFn]]] = [
+    ("AUTHOR_NAME", "Author Full Name", _get_author_name, _check_nonempty),
+    ("AUTHOR_EMAIL", "Author Email Address", _get_author_email, _check_nonempty),
+    ("PROJECT_NAME", "Project Name", _get_project_name, _check_nonempty),
+    ("PROJECT_TITLE", "Project Title", _get_project_title, _check_nonempty),
+    ("SHORT_DESCRIPTION", "Short Description", None, None),
+    ("LICENSE", "License", None, _check_license),
 ]
 
 
@@ -128,21 +151,23 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         "YEAR": datetime.datetime.now().year,
     }
 
-    for id_, description, nonempty, helper in SETTINGS:
+    for id_, description, get_default, validate in SETTINGS:
         while True:
-            if helper is not None:
-                predicted: Optional[str] = helper(config)
+            if get_default is not None:
+                default: Optional[str] = get_default(config)
             else:
-                predicted = None
+                default = None
 
-            if predicted:
-                value = input(f"{description} [{predicted}]: ")
+            if default:
+                value = input(f"{description} [{default}]: ")
                 if not value:
-                    value = predicted
+                    value = default
             else:
                 value = input(f"{description}: ")
-            if nonempty and not value:
-                print("Must specify a nonempty value")
+
+            msg = validate(value) if validate else None
+            if msg:
+                print(msg)
             else:
                 break
         config[id_] = value
@@ -180,8 +205,9 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     template_dir = config_dir / "templates"
 
     print()
-    if args.license:
-        license_file_name, license_short, license_classifier = LICENSES[args.license]
+    license = config["LICENSE"].lower()
+    if license:
+        license_file_name, license_short, license_classifier = LICENSES[license]
         config["LICENSE_SHORT"] = license_short
         classifiers.append(license_classifier)
         license_file = template_dir / "license" / license_file_name
@@ -233,7 +259,8 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
 
         if no_commits and prompt_yes_no("Create initial empty commit?", "y"):
             subprocess.run(
-                ["git", "commit", "--allow-empty", "-m", "Initial Commit"], check=True,
+                ["git", "commit", "--allow-empty", "-m", "Initial Commit"],
+                check=True,
             )
 
         if prompt_yes_no("Commit initial project", "y"):
