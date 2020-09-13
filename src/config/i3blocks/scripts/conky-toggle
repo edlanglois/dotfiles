@@ -5,7 +5,6 @@
 set -eu
 
 RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp}/conky"
-CONFIG_NAME=${1:-default-popup}
 CONFIG_FILE=${XDG_CONFIG_HOME:-$HOME/.config}/conky/default-popup.lua
 
 if [ -n "${1:-}" ]; then
@@ -23,11 +22,11 @@ if [ -e "$PID_FILE" ]; then
 	PID=$(cat "$PID_FILE")
 	# Don't want to leave the PID file permanently there if the kill fails, so
 	# remove first.
-	rm $PID_FILE
-	kill $PID
+	rm "$PID_FILE"
+	kill "$PID"
 else
-	mkdir -p $RUNTIME_DIR
-	if [ -n "${BLOCK_X:-}" -a -n "${BLOCK_Y:-}" ]; then
+	mkdir -p "$RUNTIME_DIR"
+	if [ -n "${BLOCK_X:-}" ] && [ -n "${BLOCK_Y:-}" ]; then
 		ARGS+=( "-x" "$BLOCK_X" "-y" $(( BLOCK_Y - 400 )) )
 	fi
 	conky "${ARGS[@]}" >/dev/null 2>&1 &

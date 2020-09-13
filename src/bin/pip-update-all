@@ -11,9 +11,11 @@ PACKAGES=$(echo "$OUTDATED" | tail -n +3 | cut -d' ' -f1)
 
 echo "$OUTDATED"
 echo ""
-read -p "Continue (y/N)? " choice
+read -rp "Continue (y/N)? " choice
 case "$choice" in
   y|Y)
+    # intentional splitting
+    # shellcheck disable=SC2086
     pip install -U $PACKAGES;;
   *)
     exit 1;;

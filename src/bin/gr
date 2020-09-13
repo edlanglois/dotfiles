@@ -30,7 +30,9 @@ if [ -n "$MAXDEPTH" ]; then
 		GREP_ARGS+=('--')
 		DASHES=1
 	fi
-		GREP_ARGS+=( $(find . -maxdepth "$MAXDEPTH" -type f) )
+		while IFS='' read -r line;
+			do GREP_ARGS+=("$line");
+		done < <(find . -maxdepth "$MAXDEPTH" -type f)
 else
 	GREP_ARGS+=('-R')  # Recursive
 fi

@@ -2,6 +2,6 @@
 set -eu
 date '+%Y-%m-%d %a'
 CALENDAR=${1:-}
-if [ -n "$CALENDAR" -a "${BLOCK_BUTTON:-}" == "1" ]; then
+if [ -n "$CALENDAR" ] && [ "${BLOCK_BUTTON:-}" == "1" ]; then
   $CALENDAR &>/dev/null &
 fi

@@ -2,7 +2,7 @@
 # Get the requirements of a python package without installing it.
 set -eu
 
-if [ "$#" -lt 1 -o "$#" -gt 3 ]; then
+if [ "$#" -lt 1 ] || [ "$#" -gt 3 ]; then
 	echo "Usage: $0 pkgname [ pip-binary [ python-binary ]]"
 	exit 1
 fi
@@ -20,7 +20,7 @@ PKGFILE="$(\
 tar -xzf "$PKGFILE" -C "/tmp"
 PKGDIR="${PKGFILE%.tar.gz}"
 >&2 echo "Extracted to $PKGDIR"
-cd $PKGDIR
+cd "$PKGDIR"
 >&2 echo "Creating package info"
 REQUIREMENTS_FILE="$(\
 	"$PYTHON" setup.py egg_info 2>/dev/null | \

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2064
 set -eu
 
 usage() {
@@ -60,7 +61,7 @@ while [ "$#" -ge 1 ]; do
 					exit 1
 					;;
 			esac
-			pos=`expr $pos + 1`
+			((pos+=1))
 			;;
 	esac
 done
@@ -71,7 +72,7 @@ if [ "${terminal:-}" = "?" ]; then
 fi
 
 if [ "${file:-"-"}" == "-" ]; then
-	tempfile=`mktemp`
+	tempfile=$(mktemp)
 	trap "rm -f ${tempfile}" EXIT
 	file="${tempfile}"
 	cat - > "${tempfile}"
@@ -86,7 +87,7 @@ fi
 
 if [ -z "${y_cols:-}" ]; then
 	separator_expr=${separator:-"\s\+"}
-	num_cols=`head -n1 "$file" | grep -o "$separator_expr" | wc -l | xargs expr 1 +`
+	num_cols=$(head -n1 "$file" | grep -o "$separator_expr" | wc -l | xargs expr 1 +)
 	y_cols="1:$num_cols"
 fi
 
