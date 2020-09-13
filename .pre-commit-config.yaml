@@ -12,6 +12,6 @@ repos:
       - id: detect-private-key
       - id: end-of-file-fixer
   - repo: https://github.com/edlanglois/pre-commit-hooks
-    rev: v1.0.0
+    rev: v1.0.1
     hooks:
       - id: shellcheck
