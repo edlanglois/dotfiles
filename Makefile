@@ -169,6 +169,7 @@ CONFIG_FBI:=\
 	gem/config.yaml\
 	git/config\
 	git/ignore\
+	git/template/hooks/pre-commit\
 	gsimplecal/config\
 	gtk-3.0/settings.ini\
 	hg/hgrc\
