@@ -11,3 +11,7 @@ repos:
       - id: check-yaml
       - id: detect-private-key
       - id: end-of-file-fixer
+  - repo: https://github.com/edlanglois/pre-commit-hooks
+    rev: v1.0.0
+    hooks:
+      - id: shellcheck
