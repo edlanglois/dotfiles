@@ -4,4 +4,8 @@ set -eu
 INTERFACE=$(find /sys/class/net/* -follow -maxdepth 1 -type d -name wireless -print -quit | sed -e 's!/sys/class/net/!!' -e 's!/wireless!!')
 if [ -n "$INTERFACE" ]; then
 	echo "WIRELESS_INTERFACE=$INTERFACE"
+	RFKILL_WLAN_ID="$(rfkill --output ID,TYPE | sed -ne '/ *\([[:digit:]]\+\) wlan/{s//\1/p;q}')"
+	if [ -n "$RFKILL_WLAN_ID" ]; then
+		echo "RFKILL_WLAN_ID=$RFKILL_WLAN_ID"
+	fi
 fi

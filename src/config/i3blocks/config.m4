@@ -9,6 +9,7 @@ m4_define(m4_ICON_SPEAKER,)
 m4_define(m4_ICON_TEMPERATURE,)
 m4_define(m4_ICON_TIME,)
 m4_define(m4_ICON_WIFI,)
+m4_define(m4_ICON_WIFI_OFF,)
 >>]]??,??[[<<m4_dnl
 m4_define(m4_ICON_CALENDAR,📅)
 m4_define(m4_ICON_CPU,⌬)
@@ -18,6 +19,7 @@ m4_define(m4_ICON_SPEAKER,🔊︎)
 m4_define(m4_ICON_TEMPERATURE,🌡)
 m4_define(m4_ICON_TIME,🕒︎)
 m4_define(m4_ICON_WIFI,📶︎)
+m4_define(m4_ICON_WIFI_OFF,⚠)
 >>]]??)m4_dnl
 # i3blocks config file
 #
@@ -183,7 +185,12 @@ interval=10
 m4_ifdef(??[[<<m4_env_config_WIRELESS_INTERFACE>>]]??,m4_dnl
 
 [wifi-label]
+m4_ifdef(??[[<<m4_env_config_RFKILL_WLAN_ID>>]]??,m4_dnl
+command=m4_I3BLOCKS_DIR/wifi-label m4_env_config_RFKILL_WLAN_ID m4_ICON_WIFI m4_ICON_WIFI_OFF
+,m4_dnl
 full_text=m4_ICON_WIFI
+)m4_dnl
+interval=10
 color=#00ffff
 separator_block_width=4
 

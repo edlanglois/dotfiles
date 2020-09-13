@@ -256,6 +256,7 @@ CONFIG_INSTALL:=\
 	i3blocks/scripts/music\
 	i3blocks/scripts/ssid\
 	i3blocks/scripts/weather\
+	i3blocks/scripts/wifi-label\
 	keepassxc/keepassxc.ini\
 	pudb/pudb.cfg\
 	pyproject/templates/license/MIT.txt\
