@@ -5,6 +5,8 @@ m4_define(m4_ICON_CALENDAR,)
 m4_define(m4_ICON_CPU,)
 m4_define(m4_ICON_GPU,)
 m4_define(m4_ICON_MEMORY,)
+m4_define(m4_ICON_POWER_BATTERY,)
+m4_define(m4_ICON_POWER_WIRE,)
 m4_define(m4_ICON_SPEAKER,)
 m4_define(m4_ICON_TEMPERATURE,)
 m4_define(m4_ICON_TIME,)
@@ -15,6 +17,8 @@ m4_define(m4_ICON_CALENDAR,📅)
 m4_define(m4_ICON_CPU,⌬)
 m4_define(m4_ICON_GPU,⊞)
 m4_define(m4_ICON_MEMORY,⎍)
+m4_define(m4_ICON_POWER_BATTERY,🔋)
+m4_define(m4_ICON_POWER_WIRE,🔌)
 m4_define(m4_ICON_SPEAKER,🔊︎)
 m4_define(m4_ICON_TEMPERATURE,🌡)
 m4_define(m4_ICON_TIME,🕒︎)
@@ -209,6 +213,7 @@ m4_ifdef(??[[<<m4_env_config_BATTERY_0>>]]??,m4_dnl
 #
 # The battery instance defaults to 0.
 [battery-label]
+command=m4_I3BLOCKS_DIR/battery-label m4_ICON_POWER_WIRE m4_ICON_POWER_BATTERY
 interval=30
 color=#00ffff
 separator_block_width=4

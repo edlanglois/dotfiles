@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -eu
-if acpi -a | grep 'on-line' &>/dev/null; then
-	echo 🔌
-	echo 🔌
+OUTPUT_WIRED="$1"
+OUTPUT_BATTERY="$2"
+if acpi -a | grep -q 'on-line'; then
+	echo "$OUTPUT_WIRED"
+	echo "$OUTPUT_WIRED"
 else
-	echo 🔋
-	echo 🔋
+	echo "$OUTPUT_BATTERY"
+	echo "$OUTPUT_BATTERY"
 fi
