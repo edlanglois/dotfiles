@@ -8,7 +8,7 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-source "${XDG_CONFIG_HOME:-$HOME/.config}/env_profile"
+. "${XDG_CONFIG_HOME:-$HOME/.config}/env_profile"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
