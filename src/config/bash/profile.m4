@@ -5,7 +5,3 @@ if [[ -f ~/.profile ]]; then
 elif [[ -f ~/.bashrc ]]; then
 	source ~/.bashrc;
 fi
-
-m4_ifdef(??[[<<m4_env_config_KEYCHAIN>>]]??,
-eval $(keychain --eval --agents ssh --quick --quiet --dir m4_user_config_XDG_DATA_HOME/keychain)
-)m4_dnl
