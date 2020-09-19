@@ -43,6 +43,9 @@ m4_ifdef(??[[<<m4_env_config_GRIP>>]]??,m4_dnl
 GRIPHOME           DEFAULT="m4_env_config_XDG_CACHE_HOME/grip"
 )m4_dnl
 
+# ICE
+ICEAUTHORITY       DEFAULT="$XDG_CACHE_HOME"/ICEauthority
+
 # less: disable history
 LESSHISTFILE       DEFAULT=-
 
