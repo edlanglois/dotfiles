@@ -4,8 +4,9 @@ set -eux
 
 # Terminal info for termite
 if ! infocmp xterm-termite 1>/dev/null 2>&1; then
-	curl 'https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo' -o '/tmp/termite.terminfo'
-	tic -x '/tmp/termite.terminfo'
+	TMPDIR="$(mktemp -d)"
+	curl 'https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo' -o "$TMPDIR/termite.terminfo"
+	tic -x "$TMPDIR/termite.terminfo"
 fi
 
 # GNOME configuration
