@@ -59,6 +59,7 @@ KNOWN_FILES = {
     ".grip": Status.REMOVE,  # Fixed with env var
     ".java": Status.REMOVE,  # Possible to relocate with env var
     ".keras": Status.REMOVE,  # https://github.com/keras-team/keras/issues/14186
+    ".klei": Status.TOLERATED_SYMLINK,
     ".local": Status.APPROVED,
     ".mozilla": Status.TOLERATED_SYMLINK,
     ".oracle_jre_usage": Status.REMOVE,
@@ -110,7 +111,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             status_str = "tolerated"
         elif status == Status.TOLERATED_SYMLINK:
             if file.is_symlink():
-                status_str = "tolerated"
+                status_str = "tolerated symlink"
             else:
                 status_str = "not symlink"
         elif status == Status.TO_INVESTIGATE:
@@ -132,11 +133,12 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                 pass
 
         status_colour = {
-            "OK": "green",
-            "not symlink": "red",
-            "tolerated": "green",
             "investigation required": "yellow",
+            "not symlink": "red",
+            "OK": "green",
             "remove": "red",
+            "tolerated symlink": "green",
+            "tolerated": "green",
             "unknown": "magenta",
         }[status_str]
         print(name, ":", colored(status_str, status_colour), *extras)
