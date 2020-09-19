@@ -35,4 +35,7 @@ if hash systemctl 2>/dev/null; then
   if hash duplicacy 2>/dev/null; then
     systemctl --user enable --now duplicacy-backup.timer
   fi
+
+  # SSH Agent
+  systemctl --user enable --now ssh-agent.service
 fi
