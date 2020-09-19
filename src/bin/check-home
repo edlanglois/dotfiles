@@ -95,27 +95,32 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         if not name.startswith("."):
             continue
         status = KNOWN_FILES.get(name, Status.UNKNOWN)
+        extras = []
 
         if status == Status.APPROVED:
-            print(name, ":", colored("OK", "green"))
+            status_str = "OK"
         elif status == Status.APPROVED_SYMLINK:
             if file.is_symlink():
-                print(name, ":", colored("OK", "green"))
+                status_str = "OK"
             else:
-                print(name, ":", colored("not symlink", "red"))
+                status_str = "not symlink"
         elif status == Status.TOLERATED:
-            print(name, ":", colored("tolerated", "green"))
+            status_str = "tolerated"
         elif status == Status.TOLERATED_SYMLINK:
             if file.is_symlink():
-                print(name, ":", colored("tolerated", "green"))
+                status_str = "tolerated"
             else:
-                print(name, ":", colored("not symlink", "red"))
+                status_str = "not symlink"
         elif status == Status.TO_INVESTIGATE:
-            print(name, ":", colored("investigation required", "yellow"))
+            status_str = "investigation required"
         elif status == Status.REMOVE:
-            print(name, ":", colored("remove", "red"))
+            status_str = "remove"
         elif status == Status.UNKNOWN:
-            extras = []
+            status_str = "unknown"
+        else:
+            assert False, "Invalid status"
+
+        if status in (Status.UNKNOWN, status.TO_INVESTIGATE):
             try:
                 last_modified_time = datetime.datetime.fromtimestamp(
                     os.stat(file)[stat.ST_MTIME]
@@ -123,9 +128,16 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                 extras.append(f"[{last_modified_time}]")
             except KeyError:
                 pass
-            print(name, ":", colored("unknown", "magenta"), *extras)
-        else:
-            assert False, "Invalid status"
+
+        status_colour = {
+            "OK": "green",
+            "not symlink": "red",
+            "tolerated": "green",
+            "investigation required": "yellow",
+            "remove": "red",
+            "unknown": "magenta",
+        }[status_str]
+        print(name, ":", colored(status_str, status_colour), *extras)
 
 
 if __name__ == "__main__":
