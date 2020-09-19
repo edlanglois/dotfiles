@@ -23,7 +23,6 @@
 
 import argparse
 import enum
-import shutil
 import sys
 import time
 
@@ -79,7 +78,7 @@ def main(args=None):
     client_interface_name = geoclue_name + ".Client"
     location_interface_name = geoclue_name + ".Location"
     properties_interface_name = "org.freedesktop.DBus.Properties"
-    introspect_interface_name = "org.freedesktop.DBus.Introspectable"
+    # introspect_interface_name = "org.freedesktop.DBus.Introspectable"
 
     bus = dbus.SystemBus()
 
