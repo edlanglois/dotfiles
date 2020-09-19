@@ -43,6 +43,12 @@ m4_ifdef(??[[<<m4_env_config_GRIP>>]]??,m4_dnl
 GRIPHOME           DEFAULT="m4_env_config_XDG_CACHE_HOME/grip"
 )m4_dnl
 
+# GTK
+GTK2_RC_FILES=     DEFAULT="m4_env_config_XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+
+# ICE
+ICEAUTHORITY       DEFAULT="m4_env_config_XDG_CACHE_HOME/ICEauthority"
+
 # less: disable history
 LESSHISTFILE       DEFAULT=-
 
