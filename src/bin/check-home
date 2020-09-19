@@ -74,6 +74,7 @@ KNOWN_FILES = {
     ".steampid": Status.TOLERATED_SYMLINK,
     ".thumbnails": Status.REMOVE,  # I can't figure out what's making this
     ".thunderbird": Status.TOLERATED_SYMLINK,
+    ".Xauthority": Status.TOLERATED,  # XAUTHORITY breaks lightdm. Maybe make SYMLINK?
     ".xournalpp": Status.REMOVE,  # https://github.com/xournalpp/xournalpp/pull/1384
     ".xprofile": Status.APPROVED_SYMLINK,
     ".Xresources": Status.APPROVED_SYMLINK,
