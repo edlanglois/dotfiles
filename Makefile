@@ -425,6 +425,7 @@ ENV_FIRST_BUILD:=\
 	root\
 	ruby\
 	sys-monitor\
+	terminfo\
 	tmux\
 	torch\
 	touchpad\
