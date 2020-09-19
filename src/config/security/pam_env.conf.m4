@@ -1,6 +1,9 @@
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 
+# Used to check whether this file has been read
+PAM_USER_ENV       DEFAULT=1
+
 EDITOR             DEFAULT=vim
 VISUAL             DEFAULT=vim
 
