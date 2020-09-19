@@ -19,7 +19,7 @@ if command -v gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 fi
 
 # Program Defaults
-DEFAULT_BROWSER=$(./env/browser | grep 'BROWSER=' | sed 's/.*=//')
+DEFAULT_BROWSER=$(./src/env/browser | grep 'BROWSER=' | sed 's/.*=//')
 if [ -n "$DEFAULT_BROWSER" ] && [ -z "$BROWSER" ]; then
 	xdg-settings set default-web-browser "${DEFAULT_BROWSER}.desktop"
 fi
@@ -27,7 +27,7 @@ fi
 # Enable user systemd units
 if hash systemctl 2>/dev/null; then
   # Low battery monitory
-  if [ -n "$(env/battery)" ]; then
+  if [ -n "$(./src/env/battery)" ]; then
     systemctl --user enable --now low-battery.timer
   fi
 
