@@ -49,6 +49,9 @@ GTK2_RC_FILES=     DEFAULT="m4_env_config_XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 # ICE
 ICEAUTHORITY       DEFAULT="m4_env_config_XDG_CACHE_HOME/ICEauthority"
 
+# KDE
+KDEHOME            DEFAULT="m4_env_config_XDG_CONFIG_HOME/kde"
+
 # less: disable history
 LESSHISTFILE       DEFAULT=-
 
