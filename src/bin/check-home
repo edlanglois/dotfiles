@@ -3,9 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import datetime
 import enum
+import os
 import pathlib
 import shutil
+import stat
 import sys
 from typing import Optional, Sequence
 
@@ -92,6 +95,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         if not name.startswith("."):
             continue
         status = KNOWN_FILES.get(name, Status.UNKNOWN)
+
         if status == Status.APPROVED:
             print(name, ":", colored("OK", "green"))
         elif status == Status.APPROVED_SYMLINK:
@@ -111,7 +115,15 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         elif status == Status.REMOVE:
             print(name, ":", colored("remove", "red"))
         elif status == Status.UNKNOWN:
-            print(name, ":", colored("unknown", "magenta"))
+            extras = []
+            try:
+                last_modified_time = datetime.datetime.fromtimestamp(
+                    os.stat(file)[stat.ST_MTIME]
+                )
+                extras.append(f"[{last_modified_time}]")
+            except KeyError:
+                pass
+            print(name, ":", colored("unknown", "magenta"), *extras)
         else:
             assert False, "Invalid status"
 
