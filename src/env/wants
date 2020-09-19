@@ -20,7 +20,7 @@ find_program SHELLCHECK shellcheck || true
 # installed file, which then gets updated using the built file, making the build
 # out of date, etc.
 
-GPMDP_SETTINGS_FILE="$XDG_CONFIG_HOME/Google Play Music Desktop Player/json_store/.settings.json"
+GPMDP_SETTINGS_FILE="$CONFIG_DIR/Google Play Music Desktop Player/json_store/.settings.json"
 if [ -f "$GPMDP_SETTINGS_FILE" ]; then
 	MINIMIZE_TO_TRAY="$(sed -n '/^[^"]*"minToTray"[[:space:]]*:[[:space:]]*\([[:alpha:]]*\)[[:space:]]*,/{s//\1/p;q}' "$GPMDP_SETTINGS_FILE")"
 	echo "# Set \"minToTray\": false in \"$GPMDP_SETTINGS_FILE\""
