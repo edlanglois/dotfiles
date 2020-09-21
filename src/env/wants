@@ -53,3 +53,18 @@ if [ -f "$PICOM_FILE" ]; then
 	FADING="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
 	echo "PICOM_FADING=$FADING"
 fi
+
+function service_status() {
+	if ! systemctl cat "$2" >/dev/null 2>&1; then
+		STATUS="missing"
+	else
+		STATUS="$(systemctl is-active "$2")"
+	fi
+	echo "$1_STATUS=$STATUS"
+}
+
+if program_exists systemctl; then
+	echo
+	echo "# Uncomplicated Firewall ufw.service (enable if personal computer)"
+	service_status UFW ufw.service
+fi
