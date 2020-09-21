@@ -5,12 +5,16 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
+echo
 echo "# Python linting"
 find_program FLAKE8 flake8 || true
+echo
 echo "# Reorder python imports; used automatically by ALE"
 find_program ISORT isort || true
+echo
 echo "# Fast code search"
 find_program THE_SILVER_SEARCHER ag || true
+echo
 echo "# Shell script analysis tool; used automatically by ALE"
 find_program SHELLCHECK shellcheck || true
 
@@ -23,6 +27,7 @@ find_program SHELLCHECK shellcheck || true
 GPMDP_SETTINGS_FILE="$CONFIG_DIR/Google Play Music Desktop Player/json_store/.settings.json"
 if [ -f "$GPMDP_SETTINGS_FILE" ]; then
 	MINIMIZE_TO_TRAY="$(sed -n '/^[^"]*"minToTray"[[:space:]]*:[[:space:]]*\([[:alpha:]]*\)[[:space:]]*,/{s//\1/p;q}' "$GPMDP_SETTINGS_FILE")"
+	echo
 	echo "# Set \"minToTray\": false in \"$GPMDP_SETTINGS_FILE\""
 	echo "# Prevents GPMDP from closing when true."
 	echo "MINIMIZE_TO_TRAY=$MINIMIZE_TO_TRAY"
@@ -31,6 +36,7 @@ fi
 LOGIN_DEFS_FILE="/etc/login.defs"
 if [ -f "$LOGIN_DEFS_FILE" ]; then
 	FAIL_DELAY="$(sed -n '/^[[:space:]]*FAIL_DELAY[[:space:]]*\([[:digit:]]*\)[[:space:]]*$/{s//\1/;p;q}' "$LOGIN_DEFS_FILE")"
+	echo
 	echo "# Login password fail delay; set to 1 in $LOGIN_DEFS_FILE"
 	echo "FAIL_DELAY=$FAIL_DELAY"
 fi
@@ -40,6 +46,7 @@ if ! [ -f "$PICOM_FILE" ]; then
 	PICOM_FILE="/etc/xdg/picom.conf"
 fi
 if [ -f "$PICOM_FILE" ]; then
+	echo
 	echo "# Picom; set shadow=false and fading=false in $PICOM_FILE"
 	SHADOW="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
 	echo "PICOM_SHADOW=$SHADOW"
