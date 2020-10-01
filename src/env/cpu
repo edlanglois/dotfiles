@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -eu
+
+NUM_CPU_CORES="$(lscpu --parse=cpu | grep --invert --count '^#')"
+echo "NUM_CPU_CORES=$NUM_CPU_CORES"

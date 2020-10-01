@@ -181,6 +181,7 @@ CONFIG_FBI:=\
 	locale.conf\
 	matplotlib/matplotlibrc\
 	npm/config\
+	pacman/makepkg.conf\
 	procps/toprc\
 	profile\
 	pylint/config\
@@ -407,6 +408,7 @@ ENV_FIRST_BUILD:=\
 	battery\
 	browser\
 	colours\
+	cpu\
 	cuda\
 	dpi\
 	fonts\
