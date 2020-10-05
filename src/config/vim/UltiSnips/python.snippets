@@ -114,7 +114,7 @@ add_argument('--${1:name}', default=${2:0}, type=float,
 endsnippet
 
 snippet sarg "Add string argument." w
-add_argument('--${1:name}', default=${2:0}, type=str,
+add_argument('--${1:name}', default='${2}', type=str,
              help='${3}')
 endsnippet
 
