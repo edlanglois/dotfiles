@@ -129,6 +129,10 @@ add_argument('--no-${1:name}', action='store_false',
              help='${2}')
 endsnippet
 
+snippet varg "Add a version argument." w
+add_argument("-v", "--version", action="version", version=${1}.__version__)
+endsnippet
+
 # Imports
 snippet iplt "Import matplotlib.pyplot." b
 import matplotlib.pyplot as plt
