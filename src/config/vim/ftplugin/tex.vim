@@ -3,6 +3,7 @@ setlocal spell
 setlocal expandtab
 setlocal tabstop=2
 setlocal shiftwidth=2
+setlocal textwidth=0  " Disable text width
 
 " Vimtex paren matching is too slow.
 let g:vimtex_matchparen_enabled = 0
