@@ -1,6 +1,9 @@
 m4_include(env_config.m4)m4_dnl
 [Unit]
 Description=Prune duplicacy backups.
+# Don't restart more than 3 times in 2 hours
+StartLimitIntervalSec=7200
+StartLimitBurst=3
 
 [Service]
 # Prune old snapshots
