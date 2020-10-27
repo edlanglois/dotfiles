@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -eu
 
-IGNORE=firefox,chromium,chrome
-METADATA="$(playerctl metadata \
-	--ignore-player "$IGNORE" \
-	--format '{{title}} | {{artist}}')"
+METADATA="$(pplayerctl metadata --format '{{title}} | {{artist}}')"
 echo "$METADATA"
 echo ""

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -eu
+# Playerctl wrapper with optional player prioritization
+
+# The file playerctl/players should consist of a single with a comma-separated
+# list of player names. Names to the left are preferred. %any will match any
+# name not listed elsewhere.
+CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/playerctl/players"
+if PLAYERS="$(cat "$CONFIG_FILE" 2>/dev/null)"
+then
+	playerctl --player "$PLAYERS" "$@"
+else
+	playerctl "$@"
+fi

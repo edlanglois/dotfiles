@@ -108,6 +108,7 @@ BIN_INSTALL:=\
 	pip-deps\
 	pip-update-all\
 	plot\
+	pplayerctl\
 	print24bitcolours\
 	print256colours\
 	pyproject\
@@ -259,6 +260,7 @@ CONFIG_INSTALL:=\
 	i3blocks/scripts/weather\
 	i3blocks/scripts/wifi-label\
 	keepassxc/keepassxc.ini\
+	playerctl/players\
 	pudb/pudb.cfg\
 	pyproject/templates/license/MIT.txt\
 	pyproject/templates/pyroot/__init__.py\
