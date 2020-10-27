@@ -165,12 +165,12 @@ bindsym $mod+Mod4+l exec "m4_env_config_MANUAL_LOCK_CMD"
 
 m4_ifdef(??[[<<m4_env_config_PLAYERCTL>>]]??,m4_dnl
 # Media player controls
-bindsym XF86AudioPlay exec pplayerctl play-pause
-bindsym XF86AudioPause exec pplayerctl play-pause
-bindsym XF86AudioNext exec pplayerctl next
-bindsym XF86AudioPrev exec pplayerctl previous
-bindsym XF86Forward exec pplayerctl next
-bindsym XF86Back exec pplayerctl previous
+bindsym XF86AudioPlay exec "pplayerctl play-pause; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioPause exec "pplayerctl play-pause; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioNext exec "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioPrev exec "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym XF86Forward exec "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym XF86Back exec "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
 )
 # Volume
 bindsym $mod+comma exec "amixer -q set Master 5%- unmute; pkill -RTMIN+1 i3blocks"

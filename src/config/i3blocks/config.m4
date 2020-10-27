@@ -67,7 +67,7 @@ interval=5
 # Song information
 [music]
 interval=5
-signal=10
+signal=2
 
 # Volume indicator
 #
