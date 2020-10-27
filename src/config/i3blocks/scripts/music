@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -eu
 
-METADATA="$(pplayerctl metadata --format '{{title}} | {{artist}}')"
-echo "$METADATA"
+METADATA="$(pplayerctl metadata --format '{{title}} — {{artist}}')"
+case "$(pplayerctl status)" in
+	Playing) ICON="▶ ";;
+	Paused) ICON="⏸ ";;
+	Stopped) ICON="⏹ ";;
+	*) ICON="";;
+esac
+echo "$ICON$METADATA"
 echo ""
