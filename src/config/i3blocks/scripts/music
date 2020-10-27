@@ -2,7 +2,8 @@
 set -eu
 
 IGNORE=firefox,chromium,chrome
-ARTIST="$(playerctl --ignore-player "$IGNORE" metadata artist)"
-TITLE="$(playerctl --ignore-player "$IGNORE" metadata title)"
-echo "$TITLE | $ARTIST"
+METADATA="$(playerctl metadata \
+	--ignore-player "$IGNORE" \
+	--format '{{title}} | {{artist}}')"
+echo "$METADATA"
 echo ""
