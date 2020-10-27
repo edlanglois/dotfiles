@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -eu
 
-ARTIST="$(playerctl metadata artist)"
-TITLE="$(playerctl metadata title)"
+IGNORE=firefox,chromium,chrome
+ARTIST="$(playerctl --ignore-player "$IGNORE" metadata artist)"
+TITLE="$(playerctl --ignore-player "$IGNORE" metadata title)"
 echo "$TITLE | $ARTIST"
 echo ""
