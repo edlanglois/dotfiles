@@ -130,7 +130,9 @@ CONFIG_FBI_SYSTEMD:=\
 	systemd/user/duplicacy-prune.timer\
 	systemd/user/low-battery.service\
 	systemd/user/low-battery.timer\
+	systemd/user/redshift.service\
 	systemd/user/ssh-agent.service\
+	systemd/user/xsession.target\
 
 CONFIG_FBI_VIM:=\
 	vim/plugin/settings/airline.vim\
