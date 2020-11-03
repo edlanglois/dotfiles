@@ -3,7 +3,7 @@
 
 ## Install
 ```sh
-pip install .
+pip install {PROJECT_NAME}
 ```
 
 ## Development
