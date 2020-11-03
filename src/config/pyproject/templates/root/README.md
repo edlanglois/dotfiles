@@ -18,5 +18,5 @@ Uses [Semantic Versioning](https://semver.org/).
 
 Versions are set exclusively via git tags:
 ```sh
-git -a v0.1.2 -m "Version 0.1.2"
+git -a v0.1.2 -m ""
 ```
