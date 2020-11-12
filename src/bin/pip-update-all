@@ -14,9 +14,9 @@ echo ""
 read -rp "Continue (y/N)? " choice
 case "$choice" in
   y|Y)
-    # intentional splitting
-    # shellcheck disable=SC2086
-    pip install -U $PACKAGES;;
+    # pass one at a time to pip install so that
+    # any failure does not stop the whole install
+    xargs -n1 pip install -U <<< "$PACKAGES";;
   *)
     exit 1;;
 esac
