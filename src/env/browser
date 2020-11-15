@@ -3,7 +3,7 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
-for browser in chromium firefox google-chrome; do
+for browser in firefox chromium google-chrome; do
 	if command -v "$browser" 2>/dev/null; then
 		echo "BROWSER=${browser}"
 		break
