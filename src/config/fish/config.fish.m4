@@ -48,6 +48,9 @@ m4_env_config_VIRTUALFISH_INIT
 # Start X at login
 if status is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-        exec startx m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc -- m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc -keeptty
+        # Save startx output to a log file
+        # xorg also logs to /home/eric/.local/share/xorg/Xorg.0.log
+        # but the contents are different
+        exec startx m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc -- m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc -keeptty &>m4_env_config_XDG_CACHE_HOME/fish-startx.log
     end
 end
