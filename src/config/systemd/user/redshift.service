@@ -6,6 +6,7 @@ PartOf=graphical-session.target
 [Service]
 ExecStart=/usr/bin/redshift
 Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=xsession.target
