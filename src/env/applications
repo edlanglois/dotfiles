@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+function find_application() {
+	# Search for an application desktop file
+	#
+	# find_application VAR_NAME NAME [NAME]...
+	#
+	# Outputs
+	#   VAR_NAME=NAME.desktop
+	# for the first NAME.desktop in /usr/share/applications
+	#
+	# Returns 0 if a program was found, 1 otherwise
+	VARIABLE_NAME="$1"
+	shift
+	for NAME in "$@"; do
+		if [ -f "/usr/share/applications/$NAME.desktop" ]; then
+			echo "$VARIABLE_NAME=$NAME.desktop"
+			return 0
+		fi
+	done
+	# Echo commented out so that it shows up in `make show`
+	echo "# $VARIABLE_NAME not found"
+	return 1
+}
+
+GUI_BROWSERS=(firefox chromium google-chrome)
+find_program BROWSER "${GUI_BROWSERS[@]}" || true
+find_application BROWSER_APP "${GUI_BROWSERS[@]}"
+find_program TERMINAL_BROWSER elinks lynx || true
+
+find_application PDF_READER_APP org.pwmt.zathura || true

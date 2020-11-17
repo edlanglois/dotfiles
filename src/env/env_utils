@@ -27,7 +27,7 @@ function find_program() {
 function find_directory() {
 	# Search for a directory that exists among a list of options
 	#
-	# find_directory VAR_NAME DIR [DIR]. ..
+	# find_directory VAR_NAME DIR [DIR]...
 	#
 	# Outputs
 	#   VAR_NAME=DIR
@@ -50,7 +50,7 @@ function find_directory() {
 function find_file() {
 	# Search for a file that exists among a list of options
 	#
-	# find_file VAR_NAME PATH [PATH]. ..
+	# find_file VAR_NAME PATH [PATH]...
 	#
 	# Outputs
 	#   VAR_NAME=PATH

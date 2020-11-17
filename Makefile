@@ -182,6 +182,7 @@ CONFIG_FBI:=\
 	isort.cfg\
 	latexmk/latexmkrc\
 	locale.conf\
+	mimeapps.list\
 	matplotlib/matplotlibrc\
 	npm/config\
 	pacman/makepkg.conf\
@@ -409,8 +410,8 @@ SYSTEM_INSTALL:=\
 # Environment
 # -----------
 ENV_FIRST_BUILD:=\
+	applications\
 	battery\
-	browser\
 	colours\
 	cpu\
 	cuda\

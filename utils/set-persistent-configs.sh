@@ -19,12 +19,6 @@ if command -v gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 	gsettings set org.gnome.desktop.background show-desktop-icons false || true
 fi
 
-# Program Defaults
-DEFAULT_BROWSER=$(./src/env/browser | grep 'BROWSER=' | sed 's/.*=//')
-if [ -n "$DEFAULT_BROWSER" ] && [ -z "$BROWSER" ]; then
-	xdg-settings set default-web-browser "${DEFAULT_BROWSER}.desktop"
-fi
-
 # Enable user systemd units
 if hash systemctl 2>/dev/null; then
   # Low battery monitory
