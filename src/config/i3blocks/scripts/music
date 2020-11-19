@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-METADATA="$(pplayerctl metadata --format '{{title}} • {{artist}}' &>/dev/null)" || exit 0
+METADATA="$(pplayerctl metadata --format '{{title}} • {{artist}}' 2>/dev/null)" || exit 0
 case "$(pplayerctl status)" in
 	Playing) ICON="▶ ";;
 	Paused) ICON="⏸ ";;
