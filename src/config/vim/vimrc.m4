@@ -248,6 +248,9 @@ let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
 hi Normal ctermbg=black guibg=black ctermfg=white guifg=white
 hi Comment ctermfg=darkcyan guifg=darkcyan
+" HACK: Gruvbox sets this highlight but there are false positives so unset it.
+" See https://github.com/tpope/vim-markdown/issues/164
+hi clear markdownCodeBlock
 
 set colorcolumn=+1  " Highlight the column after textwidth
 
