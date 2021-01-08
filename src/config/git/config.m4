@@ -10,6 +10,7 @@ m4_include(env_config.m4)m4_dnl
 	excludesfile = m4_user_config_XDG_CONFIG_HOME/git/ignore
 [init]
 	templateDir = m4_user_config_XDG_CONFIG_HOME/git/template
+	defaultBranch = master
 [diff]
 	tool = vimdiff
 [merge]
