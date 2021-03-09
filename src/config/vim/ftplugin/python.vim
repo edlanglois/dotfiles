@@ -22,18 +22,30 @@ let g:ale_python_mypy_options.=' --follow-imports="silent"'
 let g:ale_python_mypy_options.=' --cache-dir="'.g:xdg_cache_home.'/mypy"'
 let g:ale_python_mypy_options.=' --sqlite-cache'
 
-function! UpdateTextwidthVars()
-  let b:ale_python_black_options=printf('--line-length=%d', &l:textwidth)
-  let b:ale_python_flake8_options=printf('--max-line-length=%d', &l:textwidth)
-  let b:black_linelength=&l:textwidth
+function! UpdateTextwidthVars(width)
+  let b:ale_python_black_options=printf('--line-length=%d', a:width)
+  let b:ale_python_flake8_options=printf('--max-line-length=%d', a:width)
+  let b:black_linelength=a:width
 endfunction
-call UpdateTextwidthVars()
 
 " I can't find a way to make this buffer local but it doesn't matter much
 " because the variables are irrelevant to non-python files.
 augroup textwidth_onset
-  autocmd! *
-  autocmd OptionSet textwidth :call UpdateTextwidthVars()
+  autocmd!
+  autocmd OptionSet textwidth call UpdateTextwidthVars(v:option_new)
 augroup END
+
+" Add an editorconfig hook for UpdateTextwidthVars
+" OptionSet does not trigger inside another autocmd so we need this in addition
+function! UpdateTextwidthHook(config)
+  if !has_key(a:config, 'max_line_length')
+    return 0
+  endif
+
+  call UpdateTextwidthVars(a:config['max_line_length'])
+
+  return 0   " Return 0 to show no error happened
+endfunction
+call editorconfig#AddNewHook(function('UpdateTextwidthHook'))
 
 nnoremap <buffer> <silent> <localleader>b Obreakpoint()  # XXX<esc>
