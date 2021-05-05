@@ -55,9 +55,6 @@ KDEHOME            DEFAULT="m4_env_config_XDG_CONFIG_HOME/kde"
 # less: disable history
 LESSHISTFILE       DEFAULT=-
 
-# mono
-MONO_REGISTRY_PATH DEFAULT="m4_env_config_XDG_CONFIG_HOME/mono/registry"
-
 # npm
 m4_dnl I've had ~/.npm created even when npm isn't installed so no program check
 NPM_CONFIG_USERCONFIG DEFAULT="m4_env_config_XDG_CONFIG_HOME/npm/config"
