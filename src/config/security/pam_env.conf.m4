@@ -112,3 +112,8 @@ WINEPREFIX         DEFAULT="m4_env_config_XDG_DATA_HOME/wine"
 # xinit configuration
 XINITRC            DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc"
 XSERVERRC          DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc"
+
+# zoom
+m4_ifdef(??[[<<m4_env_config_ZOOM>>]]??,m4_dnl
+SSB_HOME           DEFAULT="m4_env_config_XDG_CONFIG_HOME/zoom"
+)m4_dnl
