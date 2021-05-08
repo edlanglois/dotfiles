@@ -152,6 +152,7 @@ CONFIG_FBI:=\
 	$(CONFIG_FBI_SYSTEMD)\
 	$(CONFIG_FBI_VIM)\
 	$(addprefix i3blocks/scripts/,$(notdir $(CONFIG_I3BLOCKS_CONTRIB)))\
+	alacritty/alacritty.yml\
 	bash/aliases\
 	bash/bashrc\
 	bash/profile\
