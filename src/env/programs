@@ -21,7 +21,7 @@ find_program SETXKBMAP setxkbmap || true
 find_program SHELL fish || true
 find_program SYSTEMCTL systemctl || true
 find_program TASK task || true
-find_program TERMINAL terminator termite gnome-terminal xterm || true
+find_program TERMINAL alacritty terminator termite gnome-terminal xterm || true
 find_program WINE wine || true
 # Install acpilight for xbacklight
 find_program XBACKLIGHT xbacklight || true
