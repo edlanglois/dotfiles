@@ -177,6 +177,7 @@ CONFIG_FBI:=\
 	gsimplecal/config\
 	gtk-3.0/settings.ini\
 	hg/hgrc\
+	htop/htoprc\
 	i3/config\
 	i3blocks/config\
 	imwheel/config\
