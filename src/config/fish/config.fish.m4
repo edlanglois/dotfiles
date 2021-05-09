@@ -11,6 +11,15 @@ set -g fish_pager_color_description cea746
 # Disable greeting message
 set fish_greeting ""
 
+# Colourize `ls` output with dircolors
+if command -q dircolors
+	if test -f m4_user_config_XDG_CONFIG_HOME/dircolors/database
+		eval (dircolors -c m4_user_config_XDG_CONFIG_HOME/dircolors/database)
+	else
+		eval (dircolors -c)
+	end
+end
+
 # Coloured man pages
 set -x LESS_TERMCAP_mb (printf \e"[01;31m")
 set -x LESS_TERMCAP_md (printf \e"[01;38;5;74m")
