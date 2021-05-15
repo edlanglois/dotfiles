@@ -237,6 +237,7 @@ set foldlevel=99
 
 if has('termguicolors')
 	" See :help xterm-true-color
+	" This must be set for all truecolor terminals that don't have TERM=xterm
 	set t_8f=[38;2;%lu;%lu;%lum
 	set t_8b=[48;2;%lu;%lu;%lum
 	set termguicolors " Use 24-bit colours
