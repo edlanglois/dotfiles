@@ -157,6 +157,7 @@ CONFIG_FBI:=\
 	bash/bashrc\
 	bash/profile\
 	conky/default-popup.lua\
+	dircolors/database\
 	duplicacy-web/settings.json\
 	duplicacy/filters\
 	env_profile\
