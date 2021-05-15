@@ -255,7 +255,7 @@ hi clear markdownCodeBlock
 set colorcolumn=+1  " Highlight the column after textwidth
 
 " Search for tags file first in cwd then recursively up to ~/Programming
-set tags=./tags;~/Programming
+set tags=./tags
 
 " Display tabs as ⇥
 set list
