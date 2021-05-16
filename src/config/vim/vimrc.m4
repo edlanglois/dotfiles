@@ -78,9 +78,9 @@ Plugin 'alfredodeza/coveragepy.vim'           " Apache 2.0
 Plugin 'chrisbra/csv.vim'                     " Vim
 Plugin 'chrisbra/Recover.vim'                 " Vim
 Plugin 'chriskempson/base16-vim'              " MIT
-Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
 Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
+Plugin 'edlanglois/ctrlp.vim'                 " Vim  -- For https://github.com/ctrlpvim/ctrlp.vim/pull/571
 Plugin 'edlanglois/lark-syntax.vim'           " MIT
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
 Plugin 'edlanglois/vim-edict'                 " MIT
