@@ -12,7 +12,7 @@ set -g fish_pager_color_description cea746
 set fish_greeting ""
 
 # Colourize `ls` output with dircolors
-if command -q dircolors
+if command -qs dircolors
 	if test -f m4_user_config_XDG_CONFIG_HOME/dircolors/database
 		eval (dircolors -c m4_user_config_XDG_CONFIG_HOME/dircolors/database)
 	else
