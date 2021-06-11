@@ -21,6 +21,7 @@ HISTFILE           DEFAULT="m4_env_config_XDG_DATA_HOME/bash/history"
 m4_ifdef(??[[<<m4_env_config_CARGO>>]]??,m4_dnl
 # Rust Cargo Configuration
 CARGO_HOME         DEFAULT="m4_env_config_XDG_DATA_HOME/cargo"
+RUSTUP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rustup"
 )m4_dnl
 
 m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
