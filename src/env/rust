@@ -1,0 +1,13 @@
+#!/bin/bash
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+if find_program CARGO cargo; then
+	# Maybe add it if the directory exists at all?
+	# Not sure if cargo can find it normally.
+	CARGO_CUSTOM_PATH="${DATA_DIR}/cargo/bin"
+	if [ -f "${CARGO_CUSTOM_PATH}/cargo" ]; then
+		echo "CARGO_CUSTOM_PATH=${CARGO_CUSTOM_PATH}"
+	fi
+fi

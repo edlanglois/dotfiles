@@ -119,6 +119,11 @@ while IFS=: read -d: -r gempath; do
 done <<< "m4_env_config_GEM_BIN_PATH:"
 )m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_CARGO_CUSTOM_PATH>>]]??,m4_dnl
+# Custom Cargo (Rust) Paths
+PATH="$(pathprepend_if_isdir "$PATH" "m4_env_config_CARGO_CUSTOM_PATH")"
+)m4_dnl
+
 export PATH
 export LD_LIBRARY_PATH
 export MANPATH

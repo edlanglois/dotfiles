@@ -435,6 +435,7 @@ ENV_FIRST_BUILD:=\
 	python\
 	root\
 	ruby\
+	rust\
 	sys-monitor\
 	terminfo\
 	tmux\
