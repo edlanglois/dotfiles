@@ -419,7 +419,7 @@ ENV_FIRST_BUILD:=\
 	colours\
 	cpu\
 	cuda\
-	dpi\
+	display\
 	fonts\
 	git\
 	github_id\
