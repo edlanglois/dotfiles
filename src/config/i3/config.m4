@@ -14,6 +14,14 @@ font pango:Noto Sans m4_user_config_TERMINAL_FONT_SIZE
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+m4_ifdef(??[[<<m4_env_config_I3_MAX_FLOAT_WIDTH>>]]??,m4_dnl
+# Set a maximum size for floating windows.
+# In particular prevent windows from being larger than the display.
+# This happens frequently with browser save dialogs;
+# possibly related to XFT_DPI / GDK_SCALE.
+floating_maximum_size m4_env_config_I3_MAX_FLOAT_WIDTH x m4_env_config_I3_MAX_FLOAT_HEIGHT
+)m4_dnl
+
 # start a terminal
 bindsym $mod+Return exec m4_ifdef(??[[<<m4_env_config_TERMINAL>>]]??,m4_dnl
 m4_env_config_TERMINAL, i3-sensible-terminal)

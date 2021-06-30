@@ -6,14 +6,12 @@ set -eu
 # https://bugs.freedesktop.org/show_bug.cgi?id=23705
 # https://gitlab.freedesktop.org/xorg/xserver/issues/253
 # https://pastebin.com/vtzyBK6e
-# shellcheck disable=SC2034  # DISPLAY_WIDTH_PX intentionally unused
 read -r DISPLAY_NAME DISPLAY_WIDTH_PX DISPLAY_HEIGHT_PX DISPLAY_WIDTH_MM DISPLAY_HEIGHT_MM <<< \
 	"$(xrandr | sed -ne '/^\([^ ]\+\) connected primary \([[:digit:]]\+\)x\([[:digit:]]\+\).* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/{s//\1 \2 \3 \4 \5/p;q}')"
 
 # If there was no connected primary then try again with just the first connected
 # monitor.
 if [ -z "$DISPLAY_NAME" ]; then
-	# shellcheck disable=SC2034  # DISPLAY_WIDTH_PX intentionally unused
 	read -r DISPLAY_NAME DISPLAY_WIDTH_PX DISPLAY_HEIGHT_PX DISPLAY_WIDTH_MM DISPLAY_HEIGHT_MM <<< \
 		"$(xrandr | sed -ne '/^\([^ ]\+\) connected \(primary \)\?\([[:digit:]]\+\)x\([[:digit:]]\+\).* \([[:digit:]]\+\)mm x \([[:digit:]]\+\)mm *$/{s//\1 \3 \4 \5 \6/p;q}')"
 fi
@@ -21,6 +19,9 @@ fi
 if [ -n "$DISPLAY_NAME" ]; then
 	echo "DISPLAY_NAME=$DISPLAY_NAME"
 	echo "DISPLAY_DIMS=$DISPLAY_WIDTH_MM $DISPLAY_HEIGHT_MM"
+	echo "DISPLAY_WIDTH_PX=$DISPLAY_WIDTH_PX"
+	echo "DISPLAY_HEIGHT_PX=$DISPLAY_HEIGHT_PX"
+
 	# True DPI
 	DPI=$(( (DISPLAY_WIDTH_PX * 254) / (10 * DISPLAY_WIDTH_MM) ))
 	# Unused (as of the time of this comment) but nice to have in show-config
@@ -48,4 +49,8 @@ if [ -n "$DISPLAY_NAME" ]; then
 	if (( GDK_SCALE > 1 )); then  # Only output if != default
 		echo "GDK_SCALE=$GDK_SCALE"
 	fi
+
+	# i3 max float dimensions
+	echo "I3_MAX_FLOAT_WIDTH=$(( DISPLAY_WIDTH_PX * 3 / 4 ))"
+	echo "I3_MAX_FLOAT_HEIGHT=$(( DISPLAY_HEIGHT_PX * 3 / 4 ))"
 fi
