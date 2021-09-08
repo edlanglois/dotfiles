@@ -91,7 +91,6 @@ Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
 Plugin 'edlanglois/vim-textobj-parameter'     " MIT
 Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
 Plugin 'edlanglois/vim-toml'                  " MIT
-Plugin 'edlanglois/vimwiki'                   " MIT
 Plugin 'google/vim-codefmt'                   " Apache 2.0
 Plugin 'google/vim-glaive'                    " Apache 2.0
 Plugin 'google/vim-maktaba'                   " Apache 2.0
@@ -114,6 +113,7 @@ Plugin 'tpope/vim-unimpaired'                 " Vim
 Plugin 'vim-airline/vim-airline'              " MIT
 Plugin 'vim-airline/vim-airline-themes'       " MIT
 Plugin 'vim-python/python-syntax'             " MIT
+Plugin 'vimwiki/vimwiki'                      " MIT
 Plugin 'w0rp/ale'                             " BSD 2-Clause
 m4_ifelse(m4_user_config_ALLOW_LICENSE_AGPL,true,
 Plugin 'moll/vim-bbye'                        " GNU AGPL v3
