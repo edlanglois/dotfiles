@@ -64,6 +64,7 @@ KNOWN_FILES = {
     ".klei": Status.TOLERATED_SYMLINK,
     ".lldb": Status.REMOVE,
     ".local": Status.APPROVED,
+    ".mono": Status.TO_INVESTIGATE,
     ".mozilla": Status.TOLERATED_SYMLINK,
     ".oracle_jre_usage": Status.REMOVE,
     ".Osmos": Status.TOLERATED_SYMLINK,
