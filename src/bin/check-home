@@ -38,7 +38,8 @@ class Status(enum.Enum):
     TOLERATED_SYMLINK = 4  # Tolerated iff it is a symbolic link
     TO_INVESTIGATE = 5
     REMOVE = 6  # Delete on sight
-    UNKNOWN = 7
+    FIXED = 7  # Supposedly fixed (upstream, env var, etc); check config if appears
+    UNKNOWN = 8
 
 
 # NOTE:
@@ -53,16 +54,17 @@ KNOWN_FILES = {
     ".duplicacy": Status.TOLERATED,
     ".duplicacy-web": Status.TOLERATED_SYMLINK,
     ".ecryptfs": Status.APPROVED,
-    ".elinks": Status.REMOVE,  # Possible to relocate with env var
+    ".elinks": Status.TO_INVESTIGATE,  # Possible to relocate with env var
     ".factorio": Status.TOLERATED_SYMLINK,
     ".ghc": Status.REMOVE,
-    ".grip": Status.REMOVE,  # Fixed with env var
-    ".java": Status.REMOVE,  # Possible to relocate with env var
+    ".grip": Status.FIXED,  # Fixed with env var
+    ".java": Status.TO_INVESTIGATE,  # Possible to relocate with env var
     ".keras": Status.REMOVE,  # https://github.com/keras-team/keras/issues/14186
     ".klei": Status.TOLERATED_SYMLINK,
     ".local": Status.APPROVED,
     ".mozilla": Status.TOLERATED_SYMLINK,
     ".oracle_jre_usage": Status.REMOVE,
+    ".Osmos": Status.TOLERATED_SYMLINK,
     ".pam_environment": Status.APPROVED_SYMLINK,
     ".paradoxlauncher": Status.TOLERATED_SYMLINK,
     ".pki": Status.TO_INVESTIGATE,  # Supposedly fixed but keeps reappearing. Delete OK
@@ -73,7 +75,7 @@ KNOWN_FILES = {
     ".steam": Status.TOLERATED,
     ".steampath": Status.TOLERATED_SYMLINK,
     ".steampid": Status.TOLERATED_SYMLINK,
-    ".thumbnails": Status.REMOVE,  # I can't figure out what's making this
+    ".thumbnails": Status.TO_INVESTIGATE,  # I can't figure out what's making this
     ".thunderbird": Status.TOLERATED_SYMLINK,
     ".Xauthority": Status.TOLERATED,  # XAUTHORITY breaks lightdm. Maybe make SYMLINK?
     ".xournalpp": Status.REMOVE,  # https://github.com/xournalpp/xournalpp/pull/1384
@@ -118,6 +120,8 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             status_str = "investigation required"
         elif status == Status.REMOVE:
             status_str = "remove"
+        elif status == Status.FIXED:
+            status_str = "fixed?"
         elif status == Status.UNKNOWN:
             status_str = "unknown"
         else:
@@ -139,6 +143,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             "remove": "red",
             "tolerated symlink": "green",
             "tolerated": "green",
+            "fixed?": "red",
             "unknown": "magenta",
         }[status_str]
         print(name, ":", colored(status_str, status_colour), *extras)
