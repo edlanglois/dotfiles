@@ -1,6 +1,3 @@
-if exists("g:python_linelength")
-  let &l:textwidth=g:python_linelength
-endif
 " Don't auto-wrap; have an auto-formatter to do that
 setlocal formatoptions-=t
 
@@ -27,6 +24,12 @@ function! UpdateTextwidthVars(width)
   let b:ale_python_flake8_options=printf('--max-line-length=%d', a:width)
   let b:black_linelength=a:width
 endfunction
+
+if exists("g:python_linelength")
+  let &l:textwidth=g:python_linelength
+  " Call explicitly as the autocmds don't work at this point in setup.
+  call UpdateTextwidthVars(g:python_linelength)
+endif
 
 " I can't find a way to make this buffer local but it doesn't matter much
 " because the variables are irrelevant to non-python files.
