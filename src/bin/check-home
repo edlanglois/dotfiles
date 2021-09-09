@@ -73,7 +73,7 @@ KNOWN_FILES = {
     ".pki": Status.TO_INVESTIGATE,  # Supposedly fixed but keeps reappearing. Delete OK
     ".Private": Status.APPROVED,
     ".profile": Status.APPROVED_SYMLINK,
-    ".pulse-cookie": Status.TO_INVESTIGATE,  # Who's responsible?
+    ".pulse-cookie": Status.TO_INVESTIGATE,  # Config ignored? See man pulse-client.conf
     ".ssh": Status.APPROVED,
     ".steam": Status.TOLERATED,
     ".SteamCloud": Status.TO_INVESTIGATE,
