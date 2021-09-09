@@ -5,6 +5,9 @@ m4_dnl The problem is that these filters need to be relative to $HOME
 -Dropbox/
 -.dropbox/logs/
 
+-Torrents
+-hdd/Torrents
+
 # The following patterns come from Chromium-based / Electron programs
 -.config/*/Cache/
 -.config/*/GPUCache/
