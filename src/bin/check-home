@@ -62,6 +62,7 @@ KNOWN_FILES = {
     ".java": Status.TO_INVESTIGATE,  # Possible to relocate with env var
     ".keras": Status.REMOVE,  # https://github.com/keras-team/keras/issues/14186
     ".klei": Status.TOLERATED_SYMLINK,
+    ".lldb": Status.REMOVE,
     ".local": Status.APPROVED,
     ".mozilla": Status.TOLERATED_SYMLINK,
     ".oracle_jre_usage": Status.REMOVE,
