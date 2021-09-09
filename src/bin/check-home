@@ -73,6 +73,7 @@ KNOWN_FILES = {
     ".pulse-cookie": Status.TO_INVESTIGATE,  # Who's responsible?
     ".ssh": Status.APPROVED,
     ".steam": Status.TOLERATED,
+    ".SteamCloud": Status.TO_INVESTIGATE,
     ".steampath": Status.TOLERATED_SYMLINK,
     ".steampid": Status.TOLERATED_SYMLINK,
     ".thumbnails": Status.TO_INVESTIGATE,  # I can't figure out what's making this
