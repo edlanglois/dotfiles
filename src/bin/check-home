@@ -96,7 +96,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     del args
 
     home = pathlib.Path.home()
-    for file in sorted(home.iterdir()):
+    for file in sorted(home.iterdir(), key=lambda f: f.name.casefold()):
         name = file.name
         if not name.startswith("."):
             continue
