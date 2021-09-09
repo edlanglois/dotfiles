@@ -39,6 +39,11 @@ GEM_SPEC_CACHE     DEFAULT="m4_env_config_XDG_CACHE_HOME/gem"
 # gnupg
 GNUPGHOME          DEFAULT="m4_env_config_XDG_DATA_HOME/gnupg"
 
+m4_ifdef(??[[<<m4_env_config_GRADLE>>]]??,m4_dnl
+# grip
+GRADLE_USER_HOME   DEFAULT="m4_env_config_XDG_DATA_HOME/gradle"
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_GRIP>>]]??,m4_dnl
 # grip
 GRIPHOME           DEFAULT="m4_env_config_XDG_CACHE_HOME/grip"

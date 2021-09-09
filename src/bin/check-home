@@ -57,6 +57,7 @@ KNOWN_FILES = {
     ".elinks": Status.TO_INVESTIGATE,  # Possible to relocate with env var
     ".factorio": Status.TOLERATED_SYMLINK,
     ".ghc": Status.REMOVE,
+    ".gradle": Status.FIXED,
     ".grip": Status.FIXED,  # Fixed with env var
     ".java": Status.TO_INVESTIGATE,  # Possible to relocate with env var
     ".keras": Status.REMOVE,  # https://github.com/keras-team/keras/issues/14186
