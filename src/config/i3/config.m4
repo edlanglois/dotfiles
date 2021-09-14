@@ -200,6 +200,10 @@ bindsym Print exec "maim -i $(xdotool getactivewindow) | xclip -selection clipbo
 bindsym Control+Print exec "mkdir -p ~/Pictures/screenshots && maim ~/Pictures/screenshots/$(date -Iseconds | sed 's/:/_/g').png"
 bindsym $mod+g exec "maim -s | xclip -selection clipboard -t image/png")
 
+# Program special cases
+# Zoom creates many small windows; default them to floating
+for_window [class="zoom"] floating enable
+
 # Start a status bar.
 bar {
 m4_ifdef(??[[<<m4_env_config_I3BLOCKS>>]]??,m4_dnl
