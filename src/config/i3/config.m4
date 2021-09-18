@@ -201,7 +201,7 @@ bindsym Control+Print exec "mkdir -p ~/Pictures/screenshots && maim ~/Pictures/s
 bindsym $mod+g exec "maim -s | xclip -selection clipboard -t image/png")
 
 # Program special cases
-# Zoom creates many small windows; default them to floating
+for_window [class="stellaris"] floating disable, fullscreen enable
 for_window [class="zoom"] floating enable
 
 # Start a status bar.
