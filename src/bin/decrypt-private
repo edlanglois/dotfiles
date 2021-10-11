@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Decrypt a private directory managed by eCryptfs using a key accessed through
+# libsecret
+set -eu
+
+MOUNT_PASSPHRASE_SIG_FILE="$HOME/.ecryptfs/Private.sig"
+WRAPPED_PASSPHRASE_FILE="$HOME/.ecryptfs/wrapped-passphrase"
+
+if ! LOGINPASS="$(secret-tool lookup account "private-key-$(hostname)")"; then
+	>&2 echo "Could not find password in the secret manager."
+	>&2 echo "Make sure the secret manager is running and the password is stored with key \"account\" and value \"private-key-$(hostname)\"."
+	exit 1
+fi
+
+if [ "$(wc -l < "$MOUNT_PASSPHRASE_SIG_FILE")" = "1" ]; then
+	# No filename encryption
+	printf "%s\0" "$LOGINPASS" | ecryptfs-unwrap-passphrase "$WRAPPED_PASSPHRASE_FILE" - | ecryptfs-add-passphrase -
+else
+	# With filename encryption
+	printf "%s\0" "$LOGINPASS" | ecryptfs-insert-wrapped-passphrase-into-keyring "$WRAPPED_PASSPHRASE_FILE" -
+fi
+
+/sbin/mount.ecryptfs_private >/dev/null 2>&1
