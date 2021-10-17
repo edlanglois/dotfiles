@@ -49,6 +49,7 @@ class Status(enum.Enum):
 KNOWN_FILES = {
     ".bash_profile": Status.TOLERATED_SYMLINK,
     ".bashrc": Status.TOLERATED_SYMLINK,
+    ".bean-shell-history": Status.REMOVE,  # Beancount
     ".cache": Status.APPROVED,
     ".config": Status.APPROVED,
     ".duplicacy": Status.TOLERATED,
