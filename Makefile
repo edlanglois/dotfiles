@@ -98,6 +98,7 @@ BIN_INSTALL:=\
 	combinediff-careful\
 	csv2yaml\
 	dblp-makebib\
+	decrypt-private\
 	dfix\
 	geolocate\
 	get-gitignore\
