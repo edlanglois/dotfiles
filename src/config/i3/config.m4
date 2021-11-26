@@ -178,13 +178,13 @@ bindsym XF86Forward exec "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
 bindsym XF86Back exec "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
 )
 # Volume
-bindsym $mod+comma exec "amixer -q set Master 5%- unmute; pkill -RTMIN+1 i3blocks"
-bindsym $mod+period exec "amixer -q set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
-bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
-bindsym XF86AudioLowerVolume exec "amixer -q set Master 5%- unmute; pkill -RTMIN+1 i3blocks"
-m4_ifdef(??[[<<m4_env_config_PULSEAUDIO>>]]??,m4_dnl
-bindsym XF86AudioMute exec "amixer -q -D pulse set Master toggle; pkill -RTMIN+1 i3blocks",m4_dnl
-bindsym XF86AudioMute exec "amixer -q set Master toggle; pkill -RTMIN+1 i3blocks")
+m4_define(??[[<<m4_ALSA_DEVICE>>]]??,m4_dnl
+m4_ifdef(??[[<<m4_env_config_PULSEAUDIO>>]]??,-D pulse))
+bindsym $mod+comma exec "amixer -q m4_ALSA_DEVICE set Master 5%- unmute; pkill -RTMIN+1 i3blocks"
+bindsym $mod+period exec "amixer -q m4_ALSA_DEVICE set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioRaiseVolume exec "amixer -q m4_ALSA_DEVICE set Master 5%+ unmute; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioLowerVolume exec "amixer -q m4_ALSA_DEVICE set Master 5%- unmute; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioMute exec "amixer -q m4_ALSA_DEVICE set Master toggle; pkill -RTMIN+1 i3blocks")
 
 m4_ifdef(??[[<<m4_env_config_XBACKLIGHT>>]]??,m4_dnl
 # Brightness
