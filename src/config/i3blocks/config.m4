@@ -68,6 +68,7 @@ signal=2
 
 [volume]
 ICON=m4_ICON_SPEAKER
+STEP=3%
 instance=Master
 interval=once
 signal=1
