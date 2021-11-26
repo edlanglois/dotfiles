@@ -104,6 +104,8 @@ interval=30
 
 [temperature]
 ICON=m4_ICON_TEMPERATURE
+# Likely have to generalize this to an env config at some point
+SENSOR_CHIP=*-isa-*
 interval=10
 
 m4_ifdef(??[[<<m4_env_config_WIRELESS_INTERFACE>>]]??,m4_dnl
