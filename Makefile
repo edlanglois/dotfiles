@@ -676,10 +676,10 @@ show-links: build $(UTILS_DIR)/check-links
 # Args: INSTALL_DIR SOURCE_TYPE
 define INSTALL_TEMPLATE
 $1/%: $(SOURCE_DIR)/$2/%
-	@cp -v "$$<" "$$@"
+	@install -v "$$<" "$$@"
 
 $1/%: $(BUILD_DIR)/$2/%
-	@cp -v "$$<" "$$@"
+	@install -v "$$<" "$$@"
 
 $1/%: | $(BUILD_DIR)/$2/%.link
 	DEST="$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.link,$$@)")"; \
