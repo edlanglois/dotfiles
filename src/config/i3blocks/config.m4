@@ -91,7 +91,6 @@ m4_ifelse(m4_env_config_NUM_GPUS,0,,
 ICON=m4_ICON_GPU
 interval=10
 min_width=m4_ICON_GPU 100%
-align=right
 )
 
 [memory]
