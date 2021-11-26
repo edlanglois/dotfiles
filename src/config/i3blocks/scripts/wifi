@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# usage: wifi [INTERFACE]
+set -eu
+
+INTERFACE=${1:-$BLOCK_INSTANCE}
+if [[ -z $INTERFACE ]]; then
+	>&2 echo "No interface specified"
+	exit 1
+fi
+
+LABEL=${LABEL:-}
+LABEL_OFF=${LABEL_OFF:-$LABEL}
+LABEL_DOWN=${LABEL_DOWN:-$LABEL}
+
+LABEL_COLOUR=${LABEL_COLOUR:-}
+
+COLOUR_MED=${COLOUR_MED:-#FFF600}
+COLOUR_LOW=${COLOUR_LOW:-#FF0000}
+COLOUR_OFF=${COLOUR_OFF:-#FF0000}
+COLOUR_DOWN=${COLOUR_DOWN:-#FF0000}
+
+RFKILL_WLAN_ID=${RFKILL_WLAN_ID:-}
+
+# colour_fmt MSG [COLOUR]
+function colour_fmt() {
+	if [[ -n $2 ]]; then
+		printf '<span foreground="%s">%s</span>' "$2" "$1"
+	else
+		printf '%s' "$1"
+	fi
+}
+
+# msg_fmt MSG LABEL
+function msg_fmt() {
+	if [[ -n $2 ]]; then
+		colour_fmt "$2" "$LABEL_COLOUR"
+		printf ' '
+	fi
+	echo "$1"
+}
+
+if [[ -n "$RFKILL_WLAN_ID" ]] && \
+	rfkill --output SOFT,HARD --noheadings list "$RFKILL_WLAN_ID" | \
+		grep -q '\<blocked'; then
+	msg_fmt "off" "$LABEL_OFF"
+	msg_fmt "off" "$LABEL_OFF"
+	echo "$COLOUR_OFF"
+	exit
+fi
+
+STATUS="$(iw dev "$INTERFACE" link)"
+if [ "$STATUS" == "Not connected." ]; then
+	msg_fmt "down" "$LABEL_DOWN"
+	msg_fmt "down" "$LABEL_DOWN"
+	echo "$COLOUR_DOWN"
+	exit
+fi
+
+SIGNAL_DBM=$(sed -n '/^\s*signal:\s*\(.*\)\s*dBm$/{s//\1/;p;q}' <<< "$STATUS")
+SSID=$(sed -n '/^\s*SSID:\s*\(.*\)$/{s//\1/;p;q}' <<< "$STATUS")
+
+# Quality "percentage" measuring dBm within -100 to -50 range
+if [[ $SIGNAL_DBM -gt -50 ]]; then
+	SIGNAL_PCT=100
+elif [[ $SIGNAL_DBM -lt -100 ]]; then
+	SIGNAL_PCT=0
+else
+	SIGNAL_PCT=$(( (SIGNAL_DBM + 100) * 2 ))
+fi
+
+if [[ $SIGNAL_PCT -lt 50 ]]; then
+	SIGNAL_COLOUR=$COLOUR_LOW
+elif [[ $SIGNAL_PCT -lt 70 ]]; then
+	SIGNAL_COLOUR=$COLOUR_MED
+else
+	SIGNAL_COLOUR=""
+fi
+
+SIGNAL_MSG=$(colour_fmt "$SIGNAL_PCT%" "$SIGNAL_COLOUR")
+msg_fmt "$SIGNAL_MSG  $SSID" "$LABEL"

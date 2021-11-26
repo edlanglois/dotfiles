@@ -147,7 +147,6 @@ CONFIG_I3BLOCKS_CONTRIB:=\
 	memory/memory\
 	temperature/temperature\
 	volume/volume\
-	wifi/wifi\
 
 CONFIG_FBI:=\
 	$(CONFIG_FBI_SYSTEMD)\
@@ -266,7 +265,7 @@ CONFIG_INSTALL:=\
 	i3blocks/scripts/music\
 	i3blocks/scripts/ssid\
 	i3blocks/scripts/weather\
-	i3blocks/scripts/wifi-label\
+	i3blocks/scripts/wifi\
 	keepassxc/keepassxc.ini\
 	playerctl/players\
 	pudb/pudb.cfg\

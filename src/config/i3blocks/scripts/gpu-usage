@@ -1,16 +1,23 @@
 #!/usr/bin/env bash
-# usage: gpu-usage [ID [WARNING_THRESHOLD [CRITICAL_THRESHOLD]]]
+# usage: gpu-usage [NUM_GPUS [WARNING_THRESHOLD [CRITICAL_THRESHOLD]]]
 set -eu
 
-ID=${1:-0}
+NUM_GPUS=${1:-1}
 WARNING_THRESHOLD=${2:-200}
 ERROR_THRESHOLD=${3:-200}
 
-PCT_USAGE="$(nvidia-smi --query-gpu=utilization.gpu --format=csv,nounits,noheader --id="$ID")"
-echo "$PCT_USAGE%"
-echo "$PCT_USAGE%"
-if [ "$PCT_USAGE" -ge "$ERROR_THRESHOLD" ]; then
-	echo "#FF0000"
-elif [ "$PCT_USAGE" -ge "$WARNING_THRESHOLD" ]; then
-	echo "#FFFC00"
-fi
+for ((ID=0;ID<NUM_GPUS;ID++)); do
+	PCT_USAGE="$(nvidia-smi --query-gpu=utilization.gpu --format=csv,nounits,noheader --id="$ID")"
+	FG=""
+	if [ "$PCT_USAGE" -ge "$ERROR_THRESHOLD" ]; then
+		FG="#FF0000"
+	elif [ "$PCT_USAGE" -ge "$WARNING_THRESHOLD" ]; then
+		FG="#FFFC00"
+	fi
+	USAGE_TEXT="$PCT_USAGE%"
+	if [ -n "$FG" ]; then
+		USAGE_TEXT="<span foreground=\"$FG\">$USAGE_TEXT</span>"
+	fi
+	printf "%s" "$USAGE_TEXT"
+done
+printf "\n"
