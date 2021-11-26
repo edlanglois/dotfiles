@@ -16,7 +16,7 @@ for ((ID=0;ID<NUM_GPUS;ID++)); do
 	fi
 	USAGE_TEXT="$PCT_USAGE%"
 	if [ -n "$FG" ]; then
-		USAGE_TEXT="<span foreground=\"$FG\">$USAGE_TEXT</span>"
+		USAGE_TEXT="<span color=\"$FG\">$USAGE_TEXT</span>"
 	fi
 	printf "%s" "$USAGE_TEXT"
 done

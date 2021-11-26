@@ -55,7 +55,7 @@ m4_define(m4_ICON_WIFI_OFF,⚠)
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 m4_define(m4_I3BLOCKS_DIR,??[[<<m4_user_config_XDG_CONFIG_HOME/i3blocks/scripts>>]]??)
-command=m4_I3BLOCKS_DIR/$BLOCK_NAME | sed -e '1,2s/^/<span foreground="cyan">'"$ICON"'<\/span> /'
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME | sed -e '1,2s/^/<span color="cyan">'"$ICON"'<\/span> /'
 align=center
 color=#fbfaf5
 markup=pango
@@ -75,12 +75,12 @@ signal=1
 
 m4_ifdef(??[[<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>]]??,m4_dnl
 [weather]
-command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '??[[<<m4_user_config_OPEN_WEATHER_MAP_CITY>>]]??' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '<span foreground="cyan">%i</span> %t %s (%c)' --sfmt '%t'
+command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '??[[<<m4_user_config_OPEN_WEATHER_MAP_CITY>>]]??' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '<span color="cyan">%i</span> %t %s (%c)' --sfmt '%t'
 interval=600)
 
 [cpu_usage2]
 command=m4_I3BLOCKS_DIR/$BLOCK_NAME
-LABEL=<span foreground="cyan">m4_ICON_CPU</span>
+LABEL=<span color="cyan">m4_ICON_CPU</span>
 WARN_PERCENT=90
 REFRESH_TIME=10
 interval=persist
@@ -96,7 +96,7 @@ min_width=m4_ICON_GPU 100%
 [memory]
 ICON=m4_ICON_MEMORY
 m4_ifdef(??[[<<m4_env_config_I3BLOCKS_MEM_POPUP>>]]??,m4_dnl
-command=m4_I3BLOCKS_DIR/$BLOCK_NAME | ??[[<<sed -e '1,2s/^/<span foreground="cyan">'"$ICON"'<\/span> /'>>]]?? && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_MEM_POPUP; fi ))
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME | ??[[<<sed -e '1,2s/^/<span color="cyan">'"$ICON"'<\/span> /'>>]]?? && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_MEM_POPUP; fi ))
 interval=30
 
 [temperature]
@@ -143,7 +143,7 @@ markup=pango
 
 [time]
 ICON=m4_ICON_TIME
-command=date '+%X' | sed -e '1,2s/^/<span foreground="cyan">'"$ICON"'<\/span> /'
+command=date '+%X' | sed -e '1,2s/^/<span color="cyan">'"$ICON"'<\/span> /'
 interval=1
 
 # Add a trailing separator

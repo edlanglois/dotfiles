@@ -24,7 +24,7 @@ RFKILL_WLAN_ID=${RFKILL_WLAN_ID:-}
 # colour_fmt MSG [COLOUR]
 function colour_fmt() {
 	if [[ -n $2 ]]; then
-		printf '<span foreground="%s">%s</span>' "$2" "$1"
+		printf '<span color="%s">%s</span>' "$2" "$1"
 	else
 		printf '%s' "$1"
 	fi
