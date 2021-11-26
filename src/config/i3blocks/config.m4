@@ -78,15 +78,13 @@ m4_ifdef(??[[<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>]]??,m4_dnl
 command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '??[[<<m4_user_config_OPEN_WEATHER_MAP_CITY>>]]??' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '<span foreground="cyan">%i</span> %t %s (%c)' --sfmt '%t'
 interval=600)
 
-# -w and -c specify warning / critical thresholds
-[cpu_usage -w 80 -c 95]
-ICON=m4_ICON_CPU
-COLOR_NORMAL=#fbfaf5
-m4_ifdef(??[[<<m4_env_config_I3BLOCKS_CPU_POPUP>>]]??,m4_dnl
-command=m4_I3BLOCKS_DIR/$BLOCK_NAME | ??[[<<sed -e '1,2s/^/<span foreground="cyan">'"$ICON"'<\/span> /'>>]]?? && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_CPU_POPUP; fi ))
-interval=10
-min_width=m4_ICON_CPU 99.99%
-align=right
+[cpu_usage2]
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME
+LABEL=<span foreground="cyan">m4_ICON_CPU</span>
+WARN_PERCENT=90
+REFRESH_TIME=10
+interval=persist
+min_width=m4_ICON_CPU 100.00%
 
 m4_ifelse(m4_env_config_NUM_GPUS,0,,
 [gpu-usage m4_env_config_NUM_GPUS 80 95]

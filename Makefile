@@ -3,6 +3,7 @@ SHELL=/bin/bash -o pipefail
 BUILD_DIR=build
 SOURCE_DIR=src
 UTILS_DIR=utils
+CFLAGS=-Wall -Werror -O2
 
 # Check that given variables are set and all have non-empty values,
 # die with an error otherwise.
@@ -143,7 +144,6 @@ CONFIG_FBI_VIM:=\
 
 CONFIG_I3BLOCKS_CONTRIB:=\
 	battery/battery\
-	cpu_usage/cpu_usage\
 	memory/memory\
 	temperature/temperature\
 	volume/volume\
@@ -181,12 +181,13 @@ CONFIG_FBI:=\
 	htop/htoprc\
 	i3/config\
 	i3blocks/config\
+	i3blocks/scripts/cpu_usage2\
 	imwheel/config\
 	isort.cfg\
 	latexmk/latexmkrc\
 	locale.conf\
-	mimeapps.list\
 	matplotlib/matplotlibrc\
+	mimeapps.list\
 	npm/config\
 	pacman/makepkg.conf\
 	procps/toprc\
@@ -568,6 +569,17 @@ endef
 
 $(foreach CONTRIB_SCRIPT,$(CONFIG_I3BLOCKS_CONTRIB),\
 	$(eval $(call BUILD_I3BLOCKS_CONTRIB_TEMPLATE,$(CONTRIB_SCRIPT))))
+
+CPU_USAGE_PATCH:=$(SOURCE_DIR)/config/i3blocks/patches/cpu_usage2.c.patch
+$(BUILD_DIR)/config/i3blocks/scripts/cpu_usage2.c: \
+		$(SOURCE_DIR)/config/i3blocks/i3blocks-contrib/cpu_usage2/cpu_usage2.c \
+		$(CPU_USAGE_PATCH) \
+		| $(BUILD_DIR)/config/i3blocks/scripts/.
+	patch -o "$@" "$<" "$(CPU_USAGE_PATCH)"
+
+$(BUILD_DIR)/config/i3blocks/scripts/cpu_usage2: \
+	$(BUILD_DIR)/config/i3blocks/scripts/cpu_usage2.c
+	$(CC) $(CFLAGS) -o "$@" "$<"
 
 ###################
 ##  Build Steam  ##

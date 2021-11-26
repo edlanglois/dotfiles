@@ -1,0 +1,11 @@
+--- cpu_usage2.c	2021-11-25 21:06:12.121948215 -0500
++++ cpu_usage2.c.new	2021-11-25 21:23:19.330316344 -0500
+@@ -117,6 +117,8 @@
+ 
+   old_total = get_usage(&old_used);
+ 
++  display(label, 100.0 * old_used / old_total, warning, critical, decimals);
++  fflush(stdout);
+   while (1) {
+     ulli used;
+     ulli total;
