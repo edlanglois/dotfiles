@@ -48,6 +48,11 @@ if test -f "m4_env_config_MODULE_INIT_DIR/fish"
 end
 ))m4_dnl
 
+m4_ifdef(??[[<<m4_env_config_DIRENV>>]]??,m4_dnl
+# Enable direnv
+m4_env_config_DIRENV hook fish | source
+)m4_dnl
+
 m4_ifdef(??[[<<m4_env_config_VIRTUALFISH_INIT>>]]??,
 # Enable virtualfish auto-activation.
 set -x VIRTUALFISH_HOME m4_user_config_XDG_DATA_HOME/python-virtualenvs
