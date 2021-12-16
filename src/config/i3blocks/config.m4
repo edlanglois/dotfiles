@@ -59,7 +59,8 @@ command=m4_I3BLOCKS_DIR/$BLOCK_NAME | sed -e '1,2s/^/<span color="cyan">'"$ICON"
 align=center
 color=#fbfaf5
 markup=pango
-separator_block_width=20
+# TODO: Maybe set based on DPI?
+separator_block_width=25
 
 [music]
 ICON=♫
