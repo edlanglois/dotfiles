@@ -184,7 +184,7 @@ bindsym $mod+comma exec "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkil
 bindsym $mod+period exec "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioRaiseVolume exec "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioLowerVolume exec "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
-bindsym XF86AudioMute exec "amixer -M -q m4_ALSA_DEVICE set Master toggle; pkill -RTMIN+1 i3blocks")
+bindsym XF86AudioMute exec "amixer -M -q m4_ALSA_DEVICE set Master toggle; pkill -RTMIN+1 i3blocks"
 
 m4_ifdef(??[[<<m4_env_config_XBACKLIGHT>>]]??,m4_dnl
 # Brightness
