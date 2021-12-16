@@ -119,21 +119,11 @@ m4_ifdef(??[[<<m4_env_config_BATTERY_0>>]]??,m4_dnl
 # Battery indicator
 #
 # The battery instance defaults to 0.
-[battery-label]
-command=m4_I3BLOCKS_DIR/battery-label m4_ICON_POWER_WIRE m4_ICON_POWER_BATTERY
+[battery]
 interval=30
-color=#00ffff
-separator_block_width=4
-
-[battery]
-command=m4_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
-BAT_NUMBER=0
-interval=30)
-m4_ifdef(??[[<<m4_env_config_BATTERY_1>>]]??,m4_dnl
-[battery]
-command=m4_I3BLOCKS_DIR/battery | sed 's/\(CHR\|DIS\) \?//'
-BAT_NUMBER=1
-interval=30)
+CHARGING_LABEL=m4_ICON_POWER_WIRE
+DISCHARGING_LABEL=m4_ICON_POWER_BATTERY
+LABEL_COLOUR=cyan)
 
 # Date
 [date-calendar m4_ifdef(??[[<<m4_env_config_GSIMPLECAL>>]]??,gsimplecal)]

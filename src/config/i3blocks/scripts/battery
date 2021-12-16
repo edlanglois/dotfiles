@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -eu
+LABEL=${LABEL:-}
+CHARGING_LABEL=${CHARGING_LABEL:-$LABEL}
+DISCHARGING_LABEL=${DISCHARGING_LABEL:-$LABEL}
+LABEL_COLOUR=${LABEL_COLOUR:-}
+
+# colour_fmt MSG [COLOUR]
+function colour_fmt() {
+	if [[ -n $2 ]]; then
+		printf '<span color="%s">%s</span>' "$2" "$1"
+	else
+		printf '%s' "$1"
+	fi
+}
+
+TEXT=
+SHORT_TEXT=
+MAX_PCT=
+IS_CHARGING=
+
+while read -r STATUS PERCENT TIME; do
+	if [ -z "$TEXT" ]; then
+		if [ "$STATUS" = "Charging" ]; then
+			TEXT="$(colour_fmt "$CHARGING_LABEL" "$LABEL_COLOUR")"
+			SHORT_TEXT="$(colour_fmt "$CHARGING_LABEL" "$LABEL_COLOUR")"
+			IS_CHARGING=1
+		else
+			TEXT="$(colour_fmt "$DISCHARGING_LABEL" "$LABEL_COLOUR")"
+			SHORT_TEXT="$(colour_fmt "$DISCHARGING_LABEL" "$LABEL_COLOUR")"
+		fi
+	fi
+
+	if [ -n "$TEXT" ]; then
+		TEXT="$TEXT "
+		SHORT_TEXT="$SHORT_TEXT "
+	fi
+	TEXT="$TEXT$PERCENT% ($TIME)"
+	SHORT_TEXT="$SHORT_TEXT$PERCENT%"
+
+	if [ -z "$MAX_PCT" ] || [ "$MAX_PCT" -lt "$PERCENT" ]; then
+		MAX_PCT="$PERCENT"
+	fi
+
+done <<< "$(acpi -b | sed -ne 's/Battery *\([[:digit:]]\+\): *\([[:alpha:]]\+\), *\([[:digit:]]\+\)\%, *\([[:digit:]]\+:[[:digit:]]\+\).*/\2 \3 \4/p')"
+
+echo "$TEXT"
+echo "$SHORT_TEXT"
+if [ -n "$MAX_PCT" ] && [ -z "$IS_CHARGING" ]; then
+	if [ "$MAX_PCT" -le 5 ]; then
+		echo "#FF0000"
+	elif [ "$MAX_PCT" -le 15 ]; then
+		echo "#FF8000"
+	fi
+fi
