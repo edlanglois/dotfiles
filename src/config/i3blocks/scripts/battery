@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -eu
-LABEL=${LABEL:-}
-CHARGING_LABEL=${CHARGING_LABEL:-$LABEL}
-DISCHARGING_LABEL=${DISCHARGING_LABEL:-$LABEL}
-LABEL_COLOUR=${LABEL_COLOUR:-}
+# Defaults use FontAwesome
+ICON_CHARGING=${ICON_CHARGING:-}
+ICON_FULL=${ICON_FULL:-}
+ICON_THREE_QUARTERS=${ICON_THREE_QUARTERS:-}
+ICON_HALF=${ICON_HALF:-}
+ICON_QUARTER=${ICON_QUARTER:-}
+ICON_EMPTY=${ICON_EMPTY:-}
+ICON_COLOUR=${ICON_COLOUR:-}
 
 # colour_fmt MSG [COLOUR]
 function colour_fmt() {
@@ -14,45 +18,63 @@ function colour_fmt() {
 	fi
 }
 
-# msg_fmt MSG LABEL
+# msg_fmt MSG ICON
 function msg_fmt() {
 	if [[ -n $2 ]]; then
-		colour_fmt "$2" "$LABEL_COLOUR"
+		colour_fmt "$2" "$ICON_COLOUR"
 		printf ' '
 	fi
 	echo "$1"
 }
 
-if acpi -a | grep -q "on-line"; then
-	LABEL_TEXT=$CHARGING_LABEL
-	IS_CHARGING=1
-else
-	LABEL_TEXT=$DISCHARGING_LABEL
-	IS_CHARGING=
-fi
-
 TEXT=
 SHORT_TEXT=
 MAX_PCT=
+SUM_PCT=0
+NUM_BATTERIES=0
 while read -r PERCENT TIME; do
 	if [ -n "$TEXT" ]; then
 		TEXT="$TEXT "
 		SHORT_TEXT="$SHORT_TEXT "
 	fi
 	TEXT="$TEXT$PERCENT%"
+	SHORT_TEXT="$SHORT_TEXT$PERCENT%"
 	if [ -n "$TIME" ]; then
 		TEXT="$TEXT ($TIME)"
 	fi
-	SHORT_TEXT="$SHORT_TEXT$PERCENT%"
 
 	if [ -z "$MAX_PCT" ] || [ "$MAX_PCT" -lt "$PERCENT" ]; then
 		MAX_PCT="$PERCENT"
 	fi
 
+	(( ++NUM_BATTERIES ))
+	(( SUM_PCT += PERCENT ))
+
 done <<< "$(acpi -b | sed -ne 's/Battery *\([[:digit:]]\+\): *\([[:alpha:]]\+\), *\([[:digit:]]\+\)\%\(, *\([[:digit:]]\+:[[:digit:]]\+\)\)\?.*/\3 \5/p')"
 
-msg_fmt "$TEXT" "$LABEL_TEXT"
-msg_fmt "$SHORT_TEXT" "$LABEL_TEXT"
+if [ "$NUM_BATTERIES" -eq 0 ]; then
+	return
+fi
+
+MEAN_PCT=$(( SUM_PCT / NUM_BATTERIES ))
+IS_CHARGING=
+if acpi -a | grep -q "on-line"; then
+	ICON=$ICON_CHARGING
+	IS_CHARGING=1
+elif [ "$MEAN_PCT" -ge 90 ]; then
+	ICON=$ICON_FULL
+elif [ "$MEAN_PCT" -ge 65 ]; then
+	ICON=$ICON_THREE_QUARTERS
+elif [ "$MEAN_PCT" -ge 40 ]; then
+	ICON=$ICON_HALF
+elif [ "$MEAN_PCT" -ge 15 ]; then
+	ICON=$ICON_QUARTER
+else
+	ICON=$ICON_EMPTY
+fi
+
+msg_fmt "$TEXT" "$ICON"
+msg_fmt "$SHORT_TEXT" "$ICON"
 if [ -n "$MAX_PCT" ] && [ -z "$IS_CHARGING" ]; then
 	if [ "$MAX_PCT" -le 5 ]; then
 		echo "#FF0000"
