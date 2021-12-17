@@ -14,38 +14,45 @@ function colour_fmt() {
 	fi
 }
 
+# msg_fmt MSG LABEL
+function msg_fmt() {
+	if [[ -n $2 ]]; then
+		colour_fmt "$2" "$LABEL_COLOUR"
+		printf ' '
+	fi
+	echo "$1"
+}
+
+if acpi -a | grep -q "on-line"; then
+	LABEL_TEXT=$CHARGING_LABEL
+	IS_CHARGING=1
+else
+	LABEL_TEXT=$DISCHARGING_LABEL
+	IS_CHARGING=
+fi
+
 TEXT=
 SHORT_TEXT=
 MAX_PCT=
-IS_CHARGING=
-
-while read -r STATUS PERCENT TIME; do
-	if [ -z "$TEXT" ]; then
-		if [ "$STATUS" = "Charging" ]; then
-			TEXT="$(colour_fmt "$CHARGING_LABEL" "$LABEL_COLOUR")"
-			SHORT_TEXT="$(colour_fmt "$CHARGING_LABEL" "$LABEL_COLOUR")"
-			IS_CHARGING=1
-		else
-			TEXT="$(colour_fmt "$DISCHARGING_LABEL" "$LABEL_COLOUR")"
-			SHORT_TEXT="$(colour_fmt "$DISCHARGING_LABEL" "$LABEL_COLOUR")"
-		fi
-	fi
-
+while read -r PERCENT TIME; do
 	if [ -n "$TEXT" ]; then
 		TEXT="$TEXT "
 		SHORT_TEXT="$SHORT_TEXT "
 	fi
-	TEXT="$TEXT$PERCENT% ($TIME)"
+	TEXT="$TEXT$PERCENT%"
+	if [ -n "$TIME" ]; then
+		TEXT="$TEXT ($TIME)"
+	fi
 	SHORT_TEXT="$SHORT_TEXT$PERCENT%"
 
 	if [ -z "$MAX_PCT" ] || [ "$MAX_PCT" -lt "$PERCENT" ]; then
 		MAX_PCT="$PERCENT"
 	fi
 
-done <<< "$(acpi -b | sed -ne 's/Battery *\([[:digit:]]\+\): *\([[:alpha:]]\+\), *\([[:digit:]]\+\)\%, *\([[:digit:]]\+:[[:digit:]]\+\).*/\2 \3 \4/p')"
+done <<< "$(acpi -b | sed -ne 's/Battery *\([[:digit:]]\+\): *\([[:alpha:]]\+\), *\([[:digit:]]\+\)\%\(, *\([[:digit:]]\+:[[:digit:]]\+\)\)\?.*/\3 \5/p')"
 
-echo "$TEXT"
-echo "$SHORT_TEXT"
+msg_fmt "$TEXT" "$LABEL_TEXT"
+msg_fmt "$SHORT_TEXT" "$LABEL_TEXT"
 if [ -n "$MAX_PCT" ] && [ -z "$IS_CHARGING" ]; then
 	if [ "$MAX_PCT" -le 5 ]; then
 		echo "#FF0000"
