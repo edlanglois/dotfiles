@@ -77,4 +77,4 @@ else
 fi
 
 SIGNAL_MSG=$(colour_fmt "$SIGNAL_PCT%" "$SIGNAL_COLOUR")
-msg_fmt "$SIGNAL_MSG  $SSID" "$LABEL"
+msg_fmt "$SIGNAL_MSG $SSID" "$LABEL"
