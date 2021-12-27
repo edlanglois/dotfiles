@@ -80,6 +80,7 @@ command=m4_I3BLOCKS_DIR/$BLOCK_NAME
 LABEL=<span color="cyan">m4_ICON_CPU</span>
 WARN_PERCENT=90
 REFRESH_TIME=10
+DECIMALS=0
 interval=persist
 
 m4_ifelse(m4_env_config_NUM_GPUS,0,,
