@@ -51,7 +51,7 @@ m4_define(m4_ICON_WIFI_OFF,⚠)
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
 m4_define(m4_I3BLOCKS_DIR,??[[<<m4_user_config_XDG_CONFIG_HOME/i3blocks/scripts>>]]??)
-command=m4_I3BLOCKS_DIR/$BLOCK_NAME | sed -e '1,2s/^/<span color="cyan">'"$ICON"'<\/span> /'
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME | if [ -n "$ICON" ]; then sed -e '1,2s/^/<span color="cyan">'"$ICON"'<\/span> /'; else cat; fi
 align=center
 color=#fbfaf5
 markup=pango
