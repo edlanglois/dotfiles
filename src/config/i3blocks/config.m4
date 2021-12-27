@@ -2,7 +2,7 @@ m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 m4_ifdef(??[[<<m4_env_config_FONT_AWESOME>>]]??,??[[<<m4_dnl
 m4_define(m4_ICON_CALENDAR,)
-m4_define(m4_ICON_CPU,)
+m4_define(m4_ICON_CPU,)
 m4_define(m4_ICON_GPU,)
 m4_define(m4_ICON_MEMORY,)
 m4_define(m4_ICON_SPEAKER,)
@@ -81,7 +81,6 @@ LABEL=<span color="cyan">m4_ICON_CPU</span>
 WARN_PERCENT=90
 REFRESH_TIME=10
 interval=persist
-min_width=m4_ICON_CPU 100.00%
 
 m4_ifelse(m4_env_config_NUM_GPUS,0,,
 [gpu-usage m4_env_config_NUM_GPUS 80 95]
