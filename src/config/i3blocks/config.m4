@@ -72,7 +72,7 @@ signal=1
 
 m4_ifdef(??[[<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>]]??,m4_dnl
 [weather]
-command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '??[[<<m4_user_config_OPEN_WEATHER_MAP_CITY>>]]??' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '<span color="cyan">%i</span> %t %s (%c)' --sfmt '%t'
+command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '??[[<<m4_user_config_OPEN_WEATHER_MAP_CITY>>]]??' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '<span color="cyan">%i</span> %t %s (%c)' --sfmt '<span color="cyan">%i</span> %t'
 interval=600)
 
 [cpu_usage2]
