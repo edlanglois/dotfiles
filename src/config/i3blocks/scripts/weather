@@ -89,34 +89,41 @@ ICON_CODE="${BASH_REMATCH[1]}"
 case "${ICON_CODE}" in
 	"01d")         # -- clear sky (day)
 		# ICON=☀;;     # WHITE SUN WITH RAYS
-		ICON=🌣;;   # WHITE SUN
+		# ICON=🌣;;     # WHITE SUN
+		ICON='<span font="Font Awesome 5 Free Solid"></span>';;
 	"01n")         # -- clear sky (night)
 		# ICON=☽;;     # FIRST QUARTER MOON
-		ICON=🌙;;   # CRESCENT MOON
+		# ICON=;;     # CRESCENT MOON
+		ICON='<span font="Font Awesome 5 Free Solid"></span>';;
 	"02d"|"02n")   # -- few clouds
-		# ICON=⛅;;     # SUN BEHIND CLOUDS
-		ICON=🌤;;   # WHITE SUN WITH SMALL CLOUD
+		# ICON=⛅;;    # SUN BEHIND CLOUDS
+		# ICON=🌤;;    # WHITE SUN WITH SMALL CLOUD
+		ICON='<span font="Font Awesome 5 Free Solid"></span>';;
 	"03d"|"03n")   # -- scattered clouds
 		# ICON=☁;;     # CLOUD
-		ICON=🌥;;   # WHITE SUN BEHIND CLOUD
+		# ICON=🌥;;    # WHITE SUN BEHIND CLOUD
+		ICON='<span font="Font Awesome 5 Free Solid"></span>';;
 	"04d"|"04n")   # -- broken clouds
 		# ICON=☁;;     # CLOUD
-		ICON=🌥;;   # WHITE SUN BEHIND CLOUD
+		# ICON=🌥;;    # WHITE SUN BEHIND CLOUD
+		ICON='<span font="Font Awesome 5 Free Solid"></span>';;
 	"09d"|"09n")   # -- shower rain
 		# ICON=⛆;;     # RAIN
-		ICON=🌧;;   # CLOUD WITH RAIN
+		# ICON=🌧;;    # CLOUD WITH RAIN
+		ICON='<span font="Font Awesome 5 Free Solid"></span>';;
 	"10d"|"10n")   # -- rain
 		# ICON=⛆;;     # RAIN
-		ICON=🌧;;   # CLOUD WITH RAIN
+		# ICON=🌧;;    # CLOUD WITH RAIN
+		ICON='<span font="Font Awesome 5 Free Solid"></span>';;
 	"11d"|"11n")   # -- thunderstorm
-		# ICON=⛈;;     # THUNDER CLOUD AND RAIN
-		ICON=🌩;;   # CLOUD WITH LIGHTNING
+		# ICON=⛈;;    # THUNDER CLOUD AND RAIN
+		ICON=🌩;;    # CLOUD WITH LIGHTNING
 	"13d"|"13n")   # -- snow
 		# ICON=☃;;     # SNOWMAN
-		ICON=🌨;;   # CLOUD WITH SNOW
+		ICON=🌨;;    # CLOUD WITH SNOW
 	"50d"|"50n")   # -- mist
 		# ICON=☁;;     # CLOUD
-		ICON=🌫;;   # FOG
+		ICON=🌫;;    # FOG
 	*)
 		ICON=;;
 esac
