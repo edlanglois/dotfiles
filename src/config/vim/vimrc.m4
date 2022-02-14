@@ -87,6 +87,7 @@ Plugin 'edlanglois/vim-edict'                 " MIT
 Plugin 'edlanglois/vim-fish'                  " MIT
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
 Plugin 'edlanglois/vim-hledger-syntax'        " MIT
+Plugin 'edlanglois/vim-pkgbuild'              " MIT
 Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
 Plugin 'edlanglois/vim-textobj-parameter'     " MIT
 Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
