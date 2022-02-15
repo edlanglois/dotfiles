@@ -180,6 +180,13 @@ bindsym XF86Back exec "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
 # Volume
 m4_define(??[[<<m4_ALSA_DEVICE>>]]??,m4_dnl
 m4_ifdef(??[[<<m4_env_config_PULSEAUDIO>>]]??,-D pulse))
+# Note: Using -D pulse requires alsa-plugins on Arch linux
+# If pluse is not used and you get the error
+#	amixer: Unable to find simple control 'Master',0
+# then the wrong (or no?) default card is set.
+# cat /proc/asound/cards to see the available cards.
+# The card can be set with `-c` or in /etc/asound.conf or ~/.asoundrc
+# https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card
 bindsym $mod+comma exec "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
 bindsym $mod+period exec "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioRaiseVolume exec "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
