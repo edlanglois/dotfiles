@@ -2,7 +2,7 @@ m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 m4_ifdef(??[[<<m4_env_config_FONT_AWESOME>>]]??,??[[<<m4_dnl
 m4_define(m4_ICON_CALENDAR,)
-m4_define(m4_ICON_CPU,)
+m4_define(m4_ICON_CPU,)
 m4_define(m4_ICON_GPU,)
 m4_define(m4_ICON_MEMORY,)
 m4_define(m4_ICON_SPEAKER,)
