@@ -47,6 +47,7 @@ class Status(enum.Enum):
 # inotifywait -m -e create ~/
 
 KNOWN_FILES = {
+    ".arduino15": Status.TOLERATED_SYMLINK,  # https://github.com/arduino/Arduino/issues/3915
     ".bash_profile": Status.TOLERATED_SYMLINK,
     ".bashrc": Status.TOLERATED_SYMLINK,
     ".bean-shell-history": Status.REMOVE,  # Beancount
@@ -61,6 +62,7 @@ KNOWN_FILES = {
     ".gradle": Status.FIXED,
     ".grip": Status.FIXED,  # Fixed with env var
     ".java": Status.TO_INVESTIGATE,  # Possible to relocate with env var
+    ".jssc": Status.TOLERATED_SYMLINK,  # https://github.com/arduino/Arduino/issues/3915
     ".keras": Status.REMOVE,  # https://github.com/keras-team/keras/issues/14186
     ".klei": Status.TOLERATED_SYMLINK,
     ".lldb": Status.REMOVE,

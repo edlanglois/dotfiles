@@ -152,6 +152,7 @@ CONFIG_FBI:=\
 	$(CONFIG_FBI_VIM)\
 	$(addprefix i3blocks/scripts/,$(notdir $(CONFIG_I3BLOCKS_CONTRIB)))\
 	alacritty/alacritty.yml\
+	arduino/preferences.txt\
 	bash/aliases\
 	bash/bashrc\
 	bash/profile\
@@ -284,8 +285,11 @@ CONFIG_INSTALL:=\
 
 # Data
 # ----
-DATA_LINKS:=
+DATA_LINKS:=\
+	arduino/preferences.txt\
+
 DATA_DLINKS:=\
+	arduino/cache\
 	libreoffice/4/cache\
 	Slack/Cache\
 	Steam/appcache\
@@ -294,9 +298,10 @@ DATA_DLINKS:=\
 # In some cases, if there is a environment variable telling the
 # program to use this directory then the program expects it to exist.
 DATA_DIRS:=\
+	arduino/sketchbook/.\
 	gnupg/.\
 
-DATA_INSTALL_ONCE=$(DATA LINKS) $(DATA_DLINKS) $(DATA_DIRS)
+DATA_INSTALL_ONCE=$(DATA_LINKS) $(DATA_DLINKS) $(DATA_DIRS)
 
 DATA_FB:=\
 	$(addsuffix .link,$(DATA_LINKS))\
@@ -346,6 +351,9 @@ HOME_LINKS:=\
 
 HOME_DLINKS:=
 
+ifneq ($(strip $(shell command -v arduino)),)
+HOME_DLINKS += .arduino15 .jssc
+endif
 ifneq ($(strip $(shell command -v duplicacy-web)),)
 HOME_DLINKS += .duplicacy-web
 endif
