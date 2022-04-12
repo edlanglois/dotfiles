@@ -156,6 +156,7 @@ CONFIG_FBI:=\
 	bash/aliases\
 	bash/bashrc\
 	bash/profile\
+	cargo/config.toml\
 	conky/default-popup.lua\
 	dircolors/database\
 	duplicacy-web/settings.json\
@@ -287,6 +288,7 @@ CONFIG_INSTALL:=\
 # ----
 DATA_LINKS:=\
 	arduino/preferences.txt\
+	cargo/config.toml\
 
 DATA_DLINKS:=\
 	arduino/cache\
