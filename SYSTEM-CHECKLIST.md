@@ -50,3 +50,9 @@ To work with trusted pdfs, comment out the line:
   <!-- <policy domain="delegate" rights="none" pattern="gs" /> -->
 ```
 https://wiki.archlinux.org/title/ImageMagick
+
+## Paccache
+Regularly removes old cached package files
+```
+systemctl enable --now paccache.timer
+```
