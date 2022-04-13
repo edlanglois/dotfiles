@@ -685,7 +685,7 @@ endif
 		$(COLORIZE_CONFIG)
 
 show-wants: $(SOURCE_DIR)/env/wants $(SOURCE_DIR)/env/env_utils
-	@"$<" | ( echo "# wants" && cat ) | $(COLORIZE_CONFIG)
+	@"$<" | $(COLORIZE_CONFIG)
 
 show-links: build $(UTILS_DIR)/check-links
 	@$(UTILS_DIR)/check-links

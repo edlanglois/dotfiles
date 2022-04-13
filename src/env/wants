@@ -5,6 +5,10 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
+echo "###############"
+echo "# User Checks #"
+echo "###############"
+
 echo
 echo "# Python linting"
 find_program FLAKE8 flake8 || true
@@ -33,14 +37,6 @@ if [ -f "$GPMDP_SETTINGS_FILE" ]; then
 	echo "MINIMIZE_TO_TRAY=$MINIMIZE_TO_TRAY"
 fi
 
-LOGIN_DEFS_FILE="/etc/login.defs"
-if [ -f "$LOGIN_DEFS_FILE" ]; then
-	FAIL_DELAY="$(sed -n '/^[[:space:]]*FAIL_DELAY[[:space:]]*\([[:digit:]]*\)[[:space:]]*$/{s//\1/;p;q}' "$LOGIN_DEFS_FILE")"
-	echo
-	echo "# Login password fail delay; set to 1 in $LOGIN_DEFS_FILE"
-	echo "FAIL_DELAY=$FAIL_DELAY"
-fi
-
 PICOM_FILE="$HOME/.config/picom.conf"
 if ! [ -f "$PICOM_FILE" ]; then
 	PICOM_FILE="/etc/xdg/picom.conf"
@@ -54,6 +50,107 @@ if [ -f "$PICOM_FILE" ]; then
 	echo "PICOM_FADING=$FADING"
 fi
 
+# Check if user is administrator
+if ! groups | grep -q wheel; then
+	echo
+	echo "# Not administrator -- skipping system-wide checks."
+	echo "# Add user to the 'wheel' group if you should be"
+	echo "# and uncomment '%wheel ALL=(ALL) ALL'"
+	exit
+fi
+
+echo
+echo "#################"
+echo "# System Checks #"
+echo "#################"
+
+echo
+echo "# Sudo permission in /etc/sudoers"
+echo "# Check that '%wheel ALL=(ALL) ALL' is uncommented (file not readable without root)"
+echo "# Use 'visudo' if possible."
+
+AUTO_LOGIN_FILE="/etc/systemd/system/getty@tty1.service.d/override.conf"
+echo
+echo "# Auto-login"
+if [ -f "$AUTO_LOGIN_FILE" ]; then
+	echo "AUTO_LOGIN=enabled"
+else
+	echo "# Install '$AUTO_LOGIN_FILE' from 'src/system'"
+	echo "AUTO_LOGIN="
+fi
+
+LOGIN_DEFS_FILE="/etc/login.defs"
+if [ -f "$LOGIN_DEFS_FILE" ]; then
+	FAIL_DELAY="$(sed -n '/^[[:space:]]*FAIL_DELAY[[:space:]]*\([[:digit:]]*\)[[:space:]]*$/{s//\1/;p;q}' "$LOGIN_DEFS_FILE")"
+	echo
+	echo "# Login password fail delay; set to 1 in $LOGIN_DEFS_FILE"
+	echo "FAIL_DELAY=$FAIL_DELAY"
+	# TODO: Consider editing in /etc/security/faillock.conf
+fi
+
+MAKEPKG_FILE="/etc/makepkg.conf"
+if [ -f "$MAKEPKG_FILE" ]; then
+	echo
+	echo "# Packager name in $MAKEPKG_FILE; set to your name and email"
+	echo "PACKAGER=$(sed -ne 's/PACKAGER="\(.*\)"/\1/p' "$MAKEPKG_FILE")"
+fi
+
+NSSWITCH_FILE="/etc/nsswitch.conf"
+if [ -f "$NSSWITCH_FILE" ]; then
+	echo
+	echo "# hostname.local DNS on LAN in $NSSWITCH_FILE; should be enabled"
+	if grep -q '^hosts:.*\<mdns\>' $NSSWITCH_FILE; then
+		echo "MDNS=enabled"
+	else
+		echo "# Install avahi and add 'mdns' before 'resolve'" \
+			"to the 'hosts:' line of '$NSSWITCH_FILE'"
+		echo "MDNS="
+	fi
+fi
+
+WIRELESS_INTERFACE=$(find /sys/class/net/* -follow -maxdepth 1 -type d -name wireless -print -quit | sed -e 's!/sys/class/net/!!' -e 's!/wireless!!')
+if [ -n "$WIRELESS_INTERFACE" ]; then
+	echo
+	echo "# Wireless Regulatory Domain"
+	REGDOM_CONFIG="/etc/conf.d/wireless-regdom"
+	echo "# Regulatory domain configration; install 'crda' if missing"
+	if [ -e "$REGDOM_CONFIG" ]; then
+		echo "REGDOM_CONFIG=$REGDOM_CONFIG"
+		echo "# Uncomment your country code in $REGDOM_CONFIG if unset"
+		echo "WIRELESS_REGDOM=$(sed -ne 's/^WIRELESS_REGDOM="\(.*\)"/\1/p' /etc/conf.d/wireless-regdom)"
+	else
+		echo "REGDOM_CONFIG="
+		echo "WIRELESS_REGDOM="
+	fi
+fi
+
+SSH_CONFIG="/etc/ssh/sshd_config"
+if [ -f "$SSH_CONFIG" ]; then
+	echo
+	echo "# SSH Server Config in $SSH_CONFIG; both should be 'no'"
+	echo "PERMIT_ROOT_LOGIN=$(sed -ne 's/^PermitRootLogin\s\+\(.*\)/\1/p' "$SSH_CONFIG")"
+	echo "PASSWORD_AUTHENTICATION=$(sed -ne 's/^PasswordAuthentication\s\+\(.*\)/\1/p' "$SSH_CONFIG")"
+
+fi
+
+PULSE_DAEMON="/etc/pulse/daemon.conf"
+if [ -f "$PULSE_DAEMON" ]; then
+	echo
+	echo "# Pulse audio daemon volume change delay in $PULSE_DAEMON; should be 'no'"
+	echo "ENABLE_DEFERRED_VOLUME=$(sed -ne 's/^enable-deferred-volume =\s\+\(.*\)/\1/p' "$PULSE_DAEMON")"
+fi
+
+IMAGEMAGICK_POLICY="/etc/ImageMagick-7/policy.xml"
+if [ -f "$IMAGEMAGICK_POLICY" ]; then
+	echo
+	echo "# ImageMagick allow GhostScript in $IMAGEMAGICK_POLICY; should be blank"
+	echo "# GS defaults to disabled because of historical vulnerabilities."
+	echo "# Be careful to only convert trusted PDFs if enabling."
+	echo "# Comment out or remove the line with '<policy domain=\"delegate\" rights=\"none\" pattern=\"gs\" />'"
+	echo "GHOSTSCRIPT_RIGHTS=$(sed -ne 's/^\s*<policy\b.*\brights="\([^"]*\)"\s\+.*\bpattern="gs".*\/>/\1/p' "$IMAGEMAGICK_POLICY")"
+fi
+
+
 function service_status() {
 	if ! systemctl cat "$2" >/dev/null 2>&1; then
 		STATUS="missing"
@@ -65,6 +162,10 @@ function service_status() {
 
 if program_exists systemctl; then
 	echo
-	echo "# Uncomplicated Firewall ufw.service (enable if personal computer)"
+	echo "# Uncomplicated Firewall ufw.service; should be active"
 	service_status UFW ufw.service
+
+	echo
+	echo "# Paccache cleaner; should be active or missing"
+	service_status PACCACHE paccache.timer
 fi
