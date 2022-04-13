@@ -36,6 +36,10 @@ m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl
 GEMRC              DEFAULT="m4_env_config_XDG_CONFIG_HOME/gem/config.yaml"
 GEM_HOME           DEFAULT="m4_env_config_XDG_DATA_HOME/gem"
 GEM_SPEC_CACHE     DEFAULT="m4_env_config_XDG_CACHE_HOME/gem"
+# Ruby Gem Bundler
+BUNDLE_USER_CONFIG DEFAULT="m4_env_config_XDG_CONFIG_HOME/bundle"
+BUNDLE_USER_CACHE  DEFAULT="m4_env_config_XDG_CACHE_HOME/bundle"
+BUNDLE_USER_PLUGIN DEFAULT="m4_env_config_XDG_DATA_HOME/bundle"
 )m4_dnl
 
 # gnupg
