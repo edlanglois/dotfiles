@@ -1,3 +1,5 @@
+m4_dnl Static variable assignments
+m4_dnl Use src/config/env_profile.m4 for static assignments.
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 

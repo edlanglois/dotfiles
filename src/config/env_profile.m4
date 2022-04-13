@@ -1,3 +1,5 @@
+m4_dnl Dynamic variable assignments
+m4_dnl Use src/config/security/pam_env.conf.m4 for static assignments.
 m4_include(user_config.m4)
 m4_include(env_config.m4)
 # Set environment variables

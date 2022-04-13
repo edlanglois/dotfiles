@@ -116,6 +116,19 @@ with value `some value`.
 Scripts can also output comment lines that start with the `#` character.
 These are displayed in the output of `make show-config`.
 
+### Environment Variables
+New environment variables should be defined in
+`src/config/security/pam_env.conf.m4`.
+See `man pam_env` for more information about this system.
+These assignments take place upon login so changes will not be visible until
+logging out and back in.
+If possible, conditionally enable the variable creation by checking for the
+relevant program in `src/env/programs` (or another script in `src/env/`).
+
+If an existing environment variable needs to be modified or otherwise given
+a dynamic assignment (e.g.\ appending to `$PATH`) then use
+`src/config/env_profile.m4`. This file is read on shell startup.
+
 ## Development
 ### Pre-commit
 Set up pre-commit hooks by installing the [pre-commit](http://pre-commit.com)
