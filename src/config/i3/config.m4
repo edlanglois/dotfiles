@@ -14,7 +14,7 @@ font pango:sans serif m4_user_config_TERMINAL_FONT_SIZE
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-m4_ifdef(??[[<<m4_env_config_I3_MAX_FLOAT_WIDTH>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_I3_MAX_FLOAT_WIDTH>>},m4_dnl
 # Set a maximum size for floating windows.
 # In particular prevent windows from being larger than the display.
 # This happens frequently with browser save dialogs;
@@ -23,7 +23,7 @@ floating_maximum_size m4_env_config_I3_MAX_FLOAT_WIDTH x m4_env_config_I3_MAX_FL
 )m4_dnl
 
 # start a terminal
-bindsym $mod+Return exec m4_ifdef(??[[<<m4_env_config_TERMINAL>>]]??,m4_dnl
+bindsym $mod+Return exec m4_ifdef({<<m4_env_config_TERMINAL>>},m4_dnl
 m4_env_config_TERMINAL, i3-sensible-terminal)
 
 # Open a browser window
@@ -32,7 +32,7 @@ bindsym $mod+b exec xdg-open http://
 # kill focused window
 bindsym $mod+Shift+q kill
 
-m4_ifdef(??[[<<m4_env_config_DMENU>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_DMENU>>},m4_dnl
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id m4_env_config_DMENU)
 
@@ -163,12 +163,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-m4_ifdef(??[[<<m4_env_config_MANUAL_LOCK_CMD>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_MANUAL_LOCK_CMD>>},m4_dnl
 # Lock screen
 bindsym $mod+Mod4+l exec "m4_env_config_MANUAL_LOCK_CMD"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_PLAYERCTL>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_PLAYERCTL>>},m4_dnl
 # Media player controls
 bindsym XF86AudioPlay exec "pplayerctl play-pause; sleep 0.1; pkill -RTMIN+2 i3blocks"
 bindsym XF86AudioPause exec "pplayerctl play-pause; sleep 0.1; pkill -RTMIN+2 i3blocks"
@@ -178,8 +178,8 @@ bindsym XF86Forward exec "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
 bindsym XF86Back exec "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
 )
 # Volume
-m4_define(??[[<<m4_ALSA_DEVICE>>]]??,m4_dnl
-m4_ifdef(??[[<<m4_env_config_PULSEAUDIO>>]]??,-D pulse))
+m4_define({<<m4_ALSA_DEVICE>>},m4_dnl
+m4_ifdef({<<m4_env_config_PULSEAUDIO>>},-D pulse))
 # Note: Using -D pulse requires alsa-plugins on Arch linux
 # If pluse is not used and you get the error
 #	amixer: Unable to find simple control 'Master',0
@@ -193,7 +193,7 @@ bindsym XF86AudioRaiseVolume exec "amixer -M -q m4_ALSA_DEVICE set Master 3%+ un
 bindsym XF86AudioLowerVolume exec "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioMute exec "amixer -M -q m4_ALSA_DEVICE set Master toggle; pkill -RTMIN+1 i3blocks"
 
-m4_ifdef(??[[<<m4_env_config_XBACKLIGHT>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_XBACKLIGHT>>},m4_dnl
 # Brightness
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
@@ -201,7 +201,7 @@ bindsym $mod+XF86MonBrightnessUp exec "xbacklight -inc 1"
 bindsym $mod+XF86MonBrightnessDown exec "xbacklight -dec 1"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_MAIM>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_MAIM>>},m4_dnl
 # Screenshots
 bindsym Print exec "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
 bindsym Control+Print exec "mkdir -p ~/Pictures/screenshots && maim ~/Pictures/screenshots/$(date -Iseconds | sed 's/:/_/g').png"
@@ -213,18 +213,18 @@ for_window [class="zoom"] floating enable
 
 # Start a status bar.
 bar {
-m4_ifdef(??[[<<m4_env_config_I3BLOCKS>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_I3BLOCKS>>},m4_dnl
 	status_command i3blocks,
 	status_command i3status)
 	position bottom
 }
 
-m4_ifdef(??[[<<m4_env_config_DEX>>]]??,m4_dnl
-??[[<<# Auto-start desktop entries>>]]??
+m4_ifdef({<<m4_env_config_DEX>>},m4_dnl
+{<<# Auto-start desktop entries>>}
 exec m4_env_config_DEX -ae i3 -s /etc/xdg/autostart:m4_user_config_XDG_CONFIG_HOME/autostart)
 
-m4_ifdef(??[[<<m4_env_config_PICOM>>]]??,m4_dnl
-??[[<<# Run the picom compositor>>]]??
+m4_ifdef({<<m4_env_config_PICOM>>},m4_dnl
+{<<# Run the picom compositor>>}
 exec --no-startup-id m4_env_config_PICOM --daemon)
 
 m4_sinclude(src/config/i3/config.local)m4_dnl

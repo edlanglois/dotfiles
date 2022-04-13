@@ -1,6 +1,6 @@
 m4_include(env_config.m4)m4_dnl
 m4_include(user_config.m4)m4_dnl
-m4_ifdef(??[[<<m4_env_config_SHELL>>]]??,
+m4_ifdef({<<m4_env_config_SHELL>>},
 set -g default-shell m4_env_config_SHELL
 )m4_dnl
 # Force >=256 colours.
@@ -14,7 +14,7 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_2>>]]??,,m4_dnl
+m4_ifdef({<<m4_env_config_TMUX_GE_2_2>>},,m4_dnl
 # Use UTF8
 set -g utf8
 set-window-option -g utf8 on
@@ -39,7 +39,7 @@ set-window-option -g mode-keys vi
 # 12 Hour Clock
 set-window-option -g clock-mode-style 12
 
-m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_0>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_TMUX_GE_2_0>>},m4_dnl
 # Send focus events
 set -g focus-events on
 
@@ -81,7 +81,7 @@ bind -r L resize-pane -R
 bind Space next-layout
 
 # explicitly disable mouse control
-m4_ifdef(??[[<<m4_env_config_TMUX_GE_2_0>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_TMUX_GE_2_0>>},m4_dnl
 set -g mouse off,
 set -g mode-mouse off)
 

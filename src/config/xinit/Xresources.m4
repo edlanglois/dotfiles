@@ -5,7 +5,7 @@ UXTerm.termName: xterm-256color
 *.vt100.locale: true
 
 Xft.rgba: rgb
-m4_ifdef(??[[<<m4_env_config_XFT_DPI>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_XFT_DPI>>},m4_dnl
 ! Xft.dpi values above 96 impact UI scaling
 ! When the correct value of Xft.dpi is the default 96 most applications do not
 ! need it to be set but it is needed for proper rendering by some Qt programs.

@@ -19,6 +19,6 @@ if [ "$colour_prompt" = yes ]; then
 fi
 
 alias R='R --quiet --no-save'
-m4_ifdef(??[[<<m4_env_config_IP_CMD>>]]??,
+m4_ifdef({<<m4_env_config_IP_CMD>>},
 alias ip='m4_env_config_IP_CMD -c'
 )m4_dnl

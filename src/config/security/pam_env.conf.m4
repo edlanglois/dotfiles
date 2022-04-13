@@ -20,23 +20,23 @@ XDG_CACHE_HOME     DEFAULT="m4_env_config_XDG_CACHE_HOME"
 # bash history
 HISTFILE           DEFAULT="m4_env_config_XDG_DATA_HOME/bash/history"
 
-m4_ifdef(??[[<<m4_env_config_CARGO>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_CARGO>>},m4_dnl
 # Rust Cargo Configuration
 CARGO_HOME         DEFAULT="m4_env_config_XDG_DATA_HOME/cargo"
 RUSTUP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rustup"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_CONDA>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_CONDA>>},m4_dnl
 # Conda Root
 CONDA_ROOT         DEFAULT="m4_env_config_XDG_DATA_HOME/conda"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_CUDA_ROOT>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_CUDA_ROOT>>},m4_dnl
 # CUDA Configuration
 CUDA_CACHE_PATH    DEFAULT="m4_env_config_XDG_CACHE_HOME/nv"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_RUBY_GEM>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_RUBY_GEM>>},m4_dnl
 # Ruby Gem Configuration Directories
 GEMRC              DEFAULT="m4_env_config_XDG_CONFIG_HOME/gem/config.yaml"
 GEM_HOME           DEFAULT="m4_env_config_XDG_DATA_HOME/gem"
@@ -50,12 +50,12 @@ BUNDLE_USER_PLUGIN DEFAULT="m4_env_config_XDG_DATA_HOME/bundle"
 # gnupg
 GNUPGHOME          DEFAULT="m4_env_config_XDG_DATA_HOME/gnupg"
 
-m4_ifdef(??[[<<m4_env_config_GRADLE>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_GRADLE>>},m4_dnl
 # grip
 GRADLE_USER_HOME   DEFAULT="m4_env_config_XDG_DATA_HOME/gradle"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_GRIP>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_GRIP>>},m4_dnl
 # grip
 GRIPHOME           DEFAULT="m4_env_config_XDG_CACHE_HOME/grip"
 )m4_dnl
@@ -76,7 +76,7 @@ LESSHISTFILE       DEFAULT=-
 m4_dnl I've had ~/.npm created even when npm isn't installed so no program check
 NPM_CONFIG_USERCONFIG DEFAULT="m4_env_config_XDG_CONFIG_HOME/npm/config"
 
-m4_ifdef(??[[<<m4_env_config_PYTHON>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_PYTHON>>},m4_dnl
 # Python Environment
 PYTHONSTARTUP      DEFAULT="m4_env_config_XDG_CONFIG_HOME/python/startup.py"
 PYLINTRC           DEFAULT="m4_env_config_XDG_CONFIG_HOME/pylint/config"
@@ -90,7 +90,7 @@ TF_CPP_MIN_LOG_LEVEL DEFAULT=1
 # OpenSSL Seed File (Defaults to $HOME/.rnd)
 RANDFILE           DEFAULT="m4_env_config_XDG_CACHE_HOME/openssl/rnd"
 
-m4_ifdef(??[[<<m4_env_config_RLWRAP>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_RLWRAP>>},m4_dnl
 # RLWrap history file directory
 RLWRAP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rlwrap"
 )m4_dnl
@@ -98,12 +98,12 @@ RLWRAP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rlwrap"
 # ssh-agent
 SSH_AUTH_SOCK      DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
-m4_ifdef(??[[<<m4_env_config_TASK>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_TASK>>},m4_dnl
 # Task configuration file
 TASKRC             DEFAULT="m4_env_config_XDG_CONFIG_HOME/task/config"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_TERMINFO>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_TERMINFO>>},m4_dnl
 # terminfo
 # Setting TERMINFO causes the system path to no longer be checked by default
 # Need to set TERMINFO_DIRS as well; and an empty entry (ends with :) searches
@@ -122,7 +122,7 @@ VIMINIT            DEFAULT=":source m4_env_config_XDG_CONFIG_HOME/vim/vimrc"
 WGETRC             DEFAULT="m4_env_config_XDG_CONFIG_HOME/wgetrc"
 
 # WINE
-m4_ifdef(??[[<<m4_env_config_WINE>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_WINE>>},m4_dnl
 WINEPREFIX         DEFAULT="m4_env_config_XDG_DATA_HOME/wine"
 )m4_dnl
 
@@ -131,6 +131,6 @@ XINITRC            DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc"
 XSERVERRC          DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc"
 
 # zoom
-m4_ifdef(??[[<<m4_env_config_ZOOM>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_ZOOM>>},m4_dnl
 SSB_HOME           DEFAULT="m4_env_config_XDG_CONFIG_HOME/zoom"
 )m4_dnl

@@ -4,7 +4,7 @@ m4_include(user_config.m4)m4_dnl
   inactive_color_offset = 1.0
 [profiles]
   [[default]]
-m4_ifdef(??[[<<m4_env_config_NETUSER>>]]??,m4_ifdef(??[[<<m4_env_config_SHELL>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_NETUSER>>},m4_ifdef({<<m4_env_config_SHELL>>},m4_dnl
     custom_command = m4_env_config_SHELL
     use_custom_command = True
 ))m4_dnl

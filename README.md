@@ -96,7 +96,7 @@ When developing M4 files, macros must be prefixed with `m4_`.
 Use `m4_include(user_config.m4)` and `m4_include(env_config.m4)` to import user
 and environment configuration variables, respectively.
 M4 does not allow escaping of quotes, so to avoid collisions, this project uses
-`??[[<<` and `??]]>>` as left and right quotes.
+`{<<` and `>>}` as left and right quotes.
 
 ### Links
 Links end with `.link` or `.dlink` and cause a symbolic link to be installed

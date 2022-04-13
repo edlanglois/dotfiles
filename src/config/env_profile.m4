@@ -78,34 +78,34 @@ fi
 
 # Browser
 if [ -n "$DISPLAY" ]; then
-m4_ifdef(??[[<<m4_env_config_BROWSER>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_BROWSER>>},m4_dnl
 	export BROWSER="m4_env_config_BROWSER",
 	true)
 else
-m4_ifdef(??[[<<m4_env_config_TERMINAL_BROWSER>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_TERMINAL_BROWSER>>},m4_dnl
 	export BROWSER="m4_env_config_TERMINAL_BROWSER",
 	true)
 fi
 
-m4_ifdef(??[[<<m4_env_config_BREW_BIN_PATH>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_BREW_BIN_PATH>>},m4_dnl
 # Homebrew Path
 PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_GOROOT>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_GOROOT>>},m4_dnl
 # Go Path
 export GOROOT="m4_env_config_GOROOT"
 PATH="$(pathappend_if_isdir "$PATH" "$GOROOT/bin")"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_MUJOCO_PATH>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_MUJOCO_PATH>>},m4_dnl
 # Mujoco Library Path
 LD_LIBRARY_PATH="$(pathappend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_MUJOCO_PATH/bin")"
 export MUJOCO_PY_MUJOCO_PATH="m4_env_config_MUJOCO_PATH"
 export MUJOCO_PY_MJKEY_PATH="m4_env_config_MJKEY_PATH"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_PERL_ROOT>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_PERL_ROOT>>},m4_dnl
 # Perl Path
 PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_PERL_ROOT/bin")"
 export PERL5LIB="$(pathappend_if_isdir "$PERL5LIB" "m4_env_config_PERL_ROOT/lib/perl5")"
@@ -114,14 +114,14 @@ export PERL_MB_OPT="--install_base \"m4_env_config_PERL_ROOT\""
 export PERL_MM_OPT="INSTALL_BASE=m4_env_config_PERL_ROOT"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_GEM_BIN_PATH>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_GEM_BIN_PATH>>},m4_dnl
 # Ruby Gem Paths
 while IFS=: read -d: -r gempath; do
   PATH="$(pathappend_if_isdir "$PATH" "$gempath")"
 done <<< "m4_env_config_GEM_BIN_PATH:"
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_CARGO_CUSTOM_PATH>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_CARGO_CUSTOM_PATH>>},m4_dnl
 # Custom Cargo (Rust) Paths
 PATH="$(pathprepend_if_isdir "$PATH" "m4_env_config_CARGO_CUSTOM_PATH")"
 )m4_dnl

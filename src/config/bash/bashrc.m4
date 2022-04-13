@@ -79,7 +79,7 @@ set_hostname_icon
 
 if [ "$colour_prompt" = yes ]; then
 	# Print username in cyan if last command succeeded and red if it failed.
-	m4_ifdef(??[[<<m4_env_config_ROOT>>]]??,
+	m4_ifdef({<<m4_env_config_ROOT>>},
 	export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;30\;43m\]; else echo \[\e[0\;31\;43m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] ",
 	export PS1="\[\e[33m\]${HOSTNAME_ICON} \`if [ \$? = 0 ]; then echo \[\e[0\;36m\]; else echo \[\e[0\;31m\]; fi\`\u\[\e[m\]:\[\e[1;33m\]\w\[\e[m\]>\[\e[m\] "
 )m4_dnl
@@ -145,13 +145,13 @@ man() {
 	man "$@"
 }
 
-m4_ifdef(??[[<<m4_env_config_MODULE_GE_4>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_MODULE_GE_4>>},m4_dnl
 # Enable the "module" command
 eval "$(modulecmd bash autoinit)"
-m4_ifdef(??[[<<m4_env_config_MODULE_DEFAULT_COLLECTION>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_MODULE_DEFAULT_COLLECTION>>},m4_dnl
 # Install the default modules
 module restore "m4_env_config_MODULE_DEFAULT_COLLECTION" >/dev/null
-),m4_ifdef(??[[<<m4_env_config_MODULE_INIT_DIR>>]]??,m4_dnl
+),m4_ifdef({<<m4_env_config_MODULE_INIT_DIR>>},m4_dnl
 # Enable the "module" command
 if [ -f "m4_env_config_MODULE_INIT_DIR/bash" ]; then
 	source "m4_env_config_MODULE_INIT_DIR/bash"
@@ -159,13 +159,13 @@ fi
 ))m4_dnl
 
 function torch-activate() {
-m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
-??[[<<m4_dnl
+m4_ifdef({<<m4_env_config_TORCH_ACTIVATE>>},m4_dnl
+{<<m4_dnl
 	# Source torch-activate. Sets environment variables for running torch (th).
-	source "m4_env_config_TORCH_ACTIVATE">>]]??,
-??[[<<m4_dnl
+	source "m4_env_config_TORCH_ACTIVATE">>},
+{<<m4_dnl
 	echo "Could not find torch-activate script."
-	return 1>>]]??)
+	return 1>>})
 }
 
 # If $HOME is a symlink then `cd` so that we are pointing to the logical value

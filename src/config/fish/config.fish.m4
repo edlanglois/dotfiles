@@ -35,25 +35,25 @@ set -x HOSTNAME_ICON (hostname-icon)
 # Source environment variables from env_profile using the foreign env plugin.
 fenv source m4_user_config_XDG_CONFIG_HOME/env_profile
 
-m4_ifdef(??[[<<m4_env_config_MODULE_GE_4>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_MODULE_GE_4>>},m4_dnl
 # Enable the "module" command
 modulecmd fish autoinit | source -
-m4_ifdef(??[[<<m4_env_config_MODULE_DEFAULT_COLLECTION>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_MODULE_DEFAULT_COLLECTION>>},m4_dnl
 # Install the default modules
 module restore "m4_env_config_MODULE_DEFAULT_COLLECTION" >/dev/null
-),m4_ifdef(??[[<<m4_env_config_MODULE_INIT_DIR>>]]??,m4_dnl
+),m4_ifdef({<<m4_env_config_MODULE_INIT_DIR>>},m4_dnl
 # Enable the "module" command
 if test -f "m4_env_config_MODULE_INIT_DIR/fish"
   source "m4_env_config_MODULE_INIT_DIR/fish"
 end
 ))m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_DIRENV>>]]??,m4_dnl
+m4_ifdef({<<m4_env_config_DIRENV>>},m4_dnl
 # Enable direnv
 m4_env_config_DIRENV hook fish | source
 )m4_dnl
 
-m4_ifdef(??[[<<m4_env_config_VIRTUALFISH_INIT>>]]??,
+m4_ifdef({<<m4_env_config_VIRTUALFISH_INIT>>},
 # Enable virtualfish auto-activation.
 set -x VIRTUALFISH_HOME m4_user_config_XDG_DATA_HOME/python-virtualenvs
 m4_env_config_VIRTUALFISH_INIT

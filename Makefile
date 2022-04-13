@@ -552,8 +552,8 @@ help:
 USER_CONFIG_PREFIX:=m4_user_config_
 ENV_CONFIG_PREFIX:=m4_env_config_
 # Hopefully unlikely to appear in the dotfiles.
-QUOTE_START:=??[[<<
-QUOTE_END:=>>]]??
+QUOTE_START:={<<
+QUOTE_END:=>>}
 
 # TODO: Support %.local dependencies
 # Add a list of files that might have .local dependencies and template the

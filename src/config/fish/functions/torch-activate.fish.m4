@@ -1,7 +1,7 @@
 m4_include(env_config.m4)m4_dnl
 function torch-activate --description "Set environment variables to activate torch."
-m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
-??[[<<m4_dnl
+m4_ifdef({<<m4_env_config_TORCH_ACTIVATE>>},m4_dnl
+{<<m4_dnl
 	# Source torch-activate. Sets environment variables for running torch (th).
 	# torch-activate sets environment variables in the BASH style.
 	# Translate for fish:
@@ -15,8 +15,8 @@ m4_ifdef(??[[<<m4_env_config_TORCH_ACTIVATE>>]]??,m4_dnl
 		sed 's/^export *\([^=][^=]*\)=/set -xg \1 /' | \
 		sed 's/:/ /g' | \
 		sed 's/$/ /' | sed 's/\([ $]\)PATH /\1fish_user_paths /g' | sed 's/ $//' | \
-		source>>]]??,
-??[[<<m4_dnl
+		source>>},
+{<<m4_dnl
 	echo "Could not find torch-activate script."
-	return 1>>]]??)
+	return 1>>})
 end
