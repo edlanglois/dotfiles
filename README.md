@@ -126,7 +126,7 @@ If possible, conditionally enable the variable creation by checking for the
 relevant program in `src/env/programs` (or another script in `src/env/`).
 
 If an existing environment variable needs to be modified or otherwise given
-a dynamic assignment (e.g.\ appending to `$PATH`) then use
+a dynamic assignment (e.g. appending to `$PATH`) then use
 `src/config/env_profile.m4`. This file is read on shell startup.
 
 ## Development
