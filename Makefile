@@ -157,6 +157,7 @@ CONFIG_FBI:=\
 	bash/bashrc\
 	bash/profile\
 	cargo/config.toml\
+	conda/condarc\
 	conky/default-popup.lua\
 	dircolors/database\
 	duplicacy-web/settings.json\
