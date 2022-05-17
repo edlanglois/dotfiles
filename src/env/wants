@@ -16,6 +16,9 @@ echo
 echo "# Reorder python imports; used automatically by ALE"
 find_program ISORT isort || true
 echo
+echo "# Rust code checking; used automatically by ALE"
+find_program RUST_ANALYZER rust-analyzer || true
+echo
 echo "# Fast code search"
 find_program THE_SILVER_SEARCHER ag || true
 echo
