@@ -22,12 +22,22 @@ m4_ifdef({<<m4_env_config_I3_MAX_FLOAT_WIDTH>>},m4_dnl
 floating_maximum_size m4_env_config_I3_MAX_FLOAT_WIDTH x m4_env_config_I3_MAX_FLOAT_HEIGHT
 )m4_dnl
 
+# NOTE on --no-starup-id
+# Include it to avoid the waiting cursor appearing on the desktop
+# The default behaviour is use startup-notifications to have applications launch
+# from the workspace in which the command was invoked.
+# But for the many applications that don't support startup-notifications,
+# i3 instead displays a waiting for some time.
+#
+# Reference:
+# https://i3wm.org/docs/userguide.html#exec
+
 # start a terminal
-bindsym $mod+Return exec m4_ifdef({<<m4_env_config_TERMINAL>>},m4_dnl
-m4_env_config_TERMINAL, i3-sensible-terminal)
+bindsym $mod+Return exec --no-startup-id m4_ifdef(m4_dnl
+{<<m4_env_config_TERMINAL>>}, m4_env_config_TERMINAL, i3-sensible-terminal)
 
 # Open a browser window
-bindsym $mod+b exec xdg-open http://
+bindsym $mod+b exec --no-startup-id xdg-open http://
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -165,17 +175,17 @@ bindsym $mod+r mode "resize"
 
 m4_ifdef({<<m4_env_config_MANUAL_LOCK_CMD>>},m4_dnl
 # Lock screen
-bindsym $mod+Mod4+l exec "m4_env_config_MANUAL_LOCK_CMD"
+bindsym $mod+Mod4+l exec --no-startup-id "m4_env_config_MANUAL_LOCK_CMD"
 )m4_dnl
 
 m4_ifdef({<<m4_env_config_PLAYERCTL>>},m4_dnl
 # Media player controls
-bindsym XF86AudioPlay exec "pplayerctl play-pause; sleep 0.1; pkill -RTMIN+2 i3blocks"
-bindsym XF86AudioPause exec "pplayerctl play-pause; sleep 0.1; pkill -RTMIN+2 i3blocks"
-bindsym XF86AudioNext exec "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
-bindsym XF86AudioPrev exec "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
-bindsym XF86Forward exec "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
-bindsym XF86Back exec "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioPlay exec --no-startup-id "pplayerctl play-pause; sleep 0.1; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioPause exec --no-startup-id "pplayerctl play-pause; sleep 0.1; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioNext exec --no-startup-id "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym XF86AudioPrev exec --no-startup-id "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym XF86Forward exec --no-startup-id "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym XF86Back exec --no-startup-id "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
 )
 # Volume
 m4_define({<<m4_ALSA_DEVICE>>},m4_dnl
@@ -187,25 +197,25 @@ m4_ifdef({<<m4_env_config_PULSEAUDIO>>},-D pulse))
 # cat /proc/asound/cards to see the available cards.
 # The card can be set with `-c` or in /etc/asound.conf or ~/.asoundrc
 # https://wiki.archlinux.org/title/Advanced_Linux_Sound_Architecture#Set_the_default_sound_card
-bindsym $mod+comma exec "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
-bindsym $mod+period exec "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
-bindsym XF86AudioRaiseVolume exec "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
-bindsym XF86AudioLowerVolume exec "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
-bindsym XF86AudioMute exec "amixer -M -q m4_ALSA_DEVICE set Master toggle; pkill -RTMIN+1 i3blocks"
+bindsym $mod+comma exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
+bindsym $mod+period exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Master 3%+ unmute; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
+bindsym XF86AudioMute exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Master toggle; pkill -RTMIN+1 i3blocks"
 
 m4_ifdef({<<m4_env_config_XBACKLIGHT>>},m4_dnl
 # Brightness
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 10"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 10"
-bindsym $mod+XF86MonBrightnessUp exec "xbacklight -inc 1"
-bindsym $mod+XF86MonBrightnessDown exec "xbacklight -dec 1"
+bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 10"
+bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 10"
+bindsym $mod+XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
+bindsym $mod+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 )m4_dnl
 
 m4_ifdef({<<m4_env_config_MAIM>>},m4_dnl
 # Screenshots
-bindsym Print exec "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
-bindsym Control+Print exec "mkdir -p ~/Pictures/screenshots && maim ~/Pictures/screenshots/$(date -Iseconds | sed 's/:/_/g').png"
-bindsym $mod+g exec "maim -s | xclip -selection clipboard -t image/png")
+bindsym Print exec --no-startup-id "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+bindsym Control+Print exec --no-startup-id "mkdir -p ~/Pictures/screenshots && maim ~/Pictures/screenshots/$(date -Iseconds | sed 's/:/_/g').png"
+bindsym $mod+g exec --no-startup-id "maim -s | xclip -selection clipboard -t image/png")
 
 # Program special cases
 for_window [class="stellaris"] floating disable, fullscreen enable
@@ -221,7 +231,7 @@ m4_ifdef({<<m4_env_config_I3BLOCKS>>},m4_dnl
 
 m4_ifdef({<<m4_env_config_DEX>>},m4_dnl
 {<<# Auto-start desktop entries>>}
-exec m4_env_config_DEX -ae i3 -s /etc/xdg/autostart:m4_user_config_XDG_CONFIG_HOME/autostart)
+exec --no-startup-id m4_env_config_DEX -ae i3 -s /etc/xdg/autostart:m4_user_config_XDG_CONFIG_HOME/autostart)
 
 m4_ifdef({<<m4_env_config_PICOM>>},m4_dnl
 {<<# Run the picom compositor>>}
