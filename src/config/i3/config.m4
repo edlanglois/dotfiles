@@ -55,8 +55,9 @@ bindsym $mod+Escape mode "passthrough"
 # Switch to window when activated
 focus_on_window_activation focus
 
+m4_ifdef({<<m4_env_config_I3_CONFIG_EDGE_BORDERS>>},m4_dnl
 # Hide window borders when the only window
-hide_edge_borders smart
+hide_edge_borders m4_env_config_I3_CONFIG_EDGE_BORDERS)
 
 # change focus
 bindsym $mod+h focus left

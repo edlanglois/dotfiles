@@ -435,6 +435,7 @@ ENV_FIRST_BUILD:=\
 	git\
 	github_id\
 	go\
+	i3\
 	lock\
 	modules\
 	mujoco\
