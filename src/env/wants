@@ -31,15 +31,6 @@ find_program SHELLCHECK shellcheck || true
 # installed file, which then gets updated using the built file, making the build
 # out of date, etc.
 
-GPMDP_SETTINGS_FILE="$CONFIG_DIR/Google Play Music Desktop Player/json_store/.settings.json"
-if [ -f "$GPMDP_SETTINGS_FILE" ]; then
-	MINIMIZE_TO_TRAY="$(sed -n '/^[^"]*"minToTray"[[:space:]]*:[[:space:]]*\([[:alpha:]]*\)[[:space:]]*,/{s//\1/p;q}' "$GPMDP_SETTINGS_FILE")"
-	echo
-	echo "# Set \"minToTray\": false in \"$GPMDP_SETTINGS_FILE\""
-	echo "# Prevents GPMDP from closing when true."
-	echo "MINIMIZE_TO_TRAY=$MINIMIZE_TO_TRAY"
-fi
-
 PICOM_FILE="$HOME/.config/picom.conf"
 if ! [ -f "$PICOM_FILE" ]; then
 	PICOM_FILE="/etc/xdg/picom.conf"

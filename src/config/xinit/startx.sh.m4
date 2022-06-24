@@ -1,5 +1,5 @@
 m4_include(env_config.m4)m4_dnl
-# Start an X session with fish
+# Start an X session with sh
 
 # Save startx output to a log file
 # xorg also logs to /home/eric/.local/share/xorg/Xorg.0.log

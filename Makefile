@@ -206,6 +206,7 @@ CONFIG_FBI:=\
 	wgetrc\
 	xbindkeys/config\
 	xinit/startx.fish\
+	xinit/startx.sh\
 	xinit/xinitrc\
 	xinit/Xmodmap\
 	xinit/Xresources\
@@ -435,6 +436,7 @@ ENV_FIRST_BUILD:=\
 	git\
 	github_id\
 	go\
+	i3\
 	lock\
 	modules\
 	mujoco\

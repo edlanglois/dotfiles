@@ -1,0 +1,9 @@
+#!/bin/bash
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+I3_VERSION="$(i3 --version)"
+if version_ge "$I3_VERSION" "i3 version 4.15"; then
+	echo I3_CONFIG_EDGE_BORDERS=smart
+fi;
