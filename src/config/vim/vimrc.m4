@@ -245,10 +245,10 @@ if has('termguicolors')
 endif
 set background=dark
 
-let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
-hi Normal ctermbg=black guibg=black ctermfg=white guifg=white
-hi Comment ctermfg=darkcyan guifg=darkcyan
+hi Normal ctermbg=black guibg=black ctermfg=white guifg=snow2
+hi Comment ctermfg=lightblue guifg=SkyBlue
+hi SpecialComment ctermfg=magenta guifg=Plum
 " HACK: Gruvbox sets this highlight but there are false positives so unset it.
 " See https://github.com/tpope/vim-markdown/issues/164
 hi clear markdownCodeBlock
