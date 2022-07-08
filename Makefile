@@ -206,6 +206,7 @@ CONFIG_FBI:=\
 	wgetrc\
 	xbindkeys/config\
 	xinit/startx.fish\
+	xinit/startx.sh\
 	xinit/xinitrc\
 	xinit/Xmodmap\
 	xinit/Xresources\
