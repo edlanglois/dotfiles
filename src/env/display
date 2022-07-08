@@ -22,13 +22,18 @@ if [ -n "$DISPLAY_NAME" ]; then
 	echo "DISPLAY_WIDTH_PX=$DISPLAY_WIDTH_PX"
 	echo "DISPLAY_HEIGHT_PX=$DISPLAY_HEIGHT_PX"
 
-	# True DPI
-	DPI=$(( (DISPLAY_WIDTH_PX * 254) / (10 * DISPLAY_WIDTH_MM) ))
-	# Unused (as of the time of this comment) but nice to have in show-config
-	echo "DPI=$DPI"
+	if (( DISPLAY_WIDTH_MM > 0 )); then
+		# True DPI
+		DPI=$(( (DISPLAY_WIDTH_PX * 254) / (10 * DISPLAY_WIDTH_MM) ))
+		# Unused (as of the time of this comment) but nice to have in show-config
+		echo "DPI=$DPI"
+		# DPI ajusted for viewer
+		ADJUSTED_DPI=$DPI
+	else
+		# Default
+		ADJUSTED_DPI=96 
+	fi
 
-	# DPI ajusted for viewer
-	ADJUSTED_DPI=$DPI
 	if (( DISPLAY_WIDTH_MM < 300 )); then
 		# Smaller screen, assume the viewer is closer.
 		ADJUSTED_DPI=$(( ADJUSTED_DPI * 3 / 4 ))
