@@ -41,4 +41,5 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-exec i3
+m4_ifdef({<<m4_env_config_I3>>},m4_dnl
+exec m4_env_config_I3)
