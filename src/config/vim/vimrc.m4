@@ -59,9 +59,9 @@ let &viminfo .= ",'1000,n" . g:xdg_cache_home . "/vim/viminfo"
 filetype off
 
 " Add Vundle to the runtime path
-let s:bundledir = g:xdg_data_home . "/vim/bundle"
-let &runtimepath .= "," . s:bundledir . "/Vundle.vim"
-call vundle#begin(s:bundledir)
+let g:plugin_dir = g:xdg_data_home . "/vim/bundle"
+let &runtimepath .= "," . g:plugin_dir . "/Vundle.vim"
+call vundle#begin(g:plugin_dir)
 
 " Let Vundle manage Vundle. Required
 Plugin 'VundleVim/Vundle.vim'  " MIT
