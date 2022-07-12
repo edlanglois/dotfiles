@@ -1,3 +1,7 @@
+m4_include(user_config.m4)m4_dnl
+
+let g:snips_author = "m4_user_config_NAME"
+
 " Snippets from vim-snippets as well as my custom snippets
 " This variable defaults to ["UltiSnips"] which does a recursive search of
 " directories in the vim runtimepath.
