@@ -60,7 +60,7 @@ m4_env_config_VIRTUALFISH_INIT
 )m4_dnl
 
 # Start X at login
-if status is-login
+if status --is-login
     if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
         exec fish m4_env_config_XDG_CONFIG_HOME/xinit/startx.fish
     end
