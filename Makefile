@@ -114,6 +114,7 @@ BIN_INSTALL:=\
 	print24bitcolours\
 	print256colours\
 	pyproject\
+	send-terminfo\
 	tmuxm\
 	xopen\
 

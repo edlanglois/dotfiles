@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -eu
+# Send terminfo for the current terminal ($TERM) to a remote machine.
+# usage: send-terminfo REMOTE_HOST [TERM]
+infocmp "${2:-$TERM}" | ssh "$1" tic -
