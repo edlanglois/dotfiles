@@ -451,7 +451,6 @@ ENV_FIRST_BUILD:=\
 	ruby\
 	rust\
 	sys-monitor\
-	terminfo\
 	tmux\
 	torch\
 	touchpad\

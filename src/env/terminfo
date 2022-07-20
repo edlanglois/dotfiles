@@ -1,9 +1,0 @@
-#!/bin/bash
-# Check whether we need to specify user TERMINFO directory.
-set -eu
-
-TERMINFO="${DATA_DIR}/terminfo"
-if [ -d "$TERMINFO" ] || \
-		! infocmp xterm-termite 1>/dev/null 2>&1; then
-	echo "TERMINFO=${TERMINFO}"
-fi

@@ -108,14 +108,12 @@ m4_ifdef({<<m4_env_config_TASK>>},m4_dnl
 TASKRC             DEFAULT="m4_env_config_XDG_CONFIG_HOME/task/config"
 )m4_dnl
 
-m4_ifdef({<<m4_env_config_TERMINFO>>},m4_dnl
 # terminfo
 # Setting TERMINFO causes the system path to no longer be checked by default
 # Need to set TERMINFO_DIRS as well; and an empty entry (ends with :) searches
 # the system path
-TERMINFO           DEFAULT="m4_env_config_TERMINFO"
-TERMINFO_DIRS      DEFAULT="m4_env_config_TERMINFO:"
-)m4_dnl
+TERMINFO           DEFAULT="m4_env_config_XDG_DATA_HOME/terminfo"
+TERMINFO_DIRS      DEFAULT="m4_env_config_XDG_DATA_HOME/terminfo:"
 
 # tmux
 TMUX_TMPDIR        DEFAULT="${XDG_RUNTIME_DIR}"
