@@ -98,6 +98,11 @@ RLWRAP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rlwrap"
 # ssh-agent
 SSH_AUTH_SOCK      DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
+m4_ifdef({<<m4_env_config_STACK>>},m4_dnl
+# Haskell Stack package manager
+STACK_ROOT         DEFAULT="m4_env_config_XDG_DATA_HOME/stack"
+)m4_dnl
+
 m4_ifdef({<<m4_env_config_TASK>>},m4_dnl
 # Task configuration file
 TASKRC             DEFAULT="m4_env_config_XDG_CONFIG_HOME/task/config"

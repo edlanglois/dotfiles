@@ -21,6 +21,7 @@ find_program PULSEAUDIO pulseaudio || true
 find_program RLWRAP rlwrap || true
 find_program SETXKBMAP setxkbmap || true
 find_program SHELL fish || true
+find_program STACK stack || true
 find_program SYSTEMCTL systemctl || true
 find_program TASK task || true
 find_program TERMINAL alacritty terminator termite gnome-terminal xterm || true
