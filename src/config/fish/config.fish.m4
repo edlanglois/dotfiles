@@ -5,6 +5,14 @@ m4_include(env_config.m4)m4_dnl
 # character, which is only expanded to $HOME if the string is unqouted.
 set fish_function_path $fish_function_path m4_user_config_XDG_CONFIG_HOME/fish/plugins/foreign-env/functions
 
+# Source static environment variables from pam_env if not already loaded
+if not set -q PAM_USER_ENV
+	sed ~/.pam_environment -ne 's/^\([[:alnum:]_]\+\) \+DEFAULT=/set -x \1 /p' | source
+end
+
+# Source dynamic environment variables from env_profile using the foreign env plugin.
+fenv source m4_user_config_XDG_CONFIG_HOME/env_profile
+
 set -g fish_color_cwd yellow
 set -g fish_pager_color_description cea746
 
@@ -31,9 +39,6 @@ set -x LESS_TERMCAP_us (printf \e"[04;38;5;146m")
 
 # Set hostname icon
 set -x HOSTNAME_ICON (hostname-icon)
-
-# Source environment variables from env_profile using the foreign env plugin.
-fenv source m4_user_config_XDG_CONFIG_HOME/env_profile
 
 m4_ifdef({<<m4_env_config_MODULE_GE_4>>},m4_dnl
 # Enable the "module" command
