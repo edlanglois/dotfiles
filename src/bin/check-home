@@ -1,7 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Check home directory for unwanted configuration files."""
-from __future__ import annotations
-
 import argparse
 import datetime
 import enum
@@ -15,7 +13,7 @@ from typing import Optional, Sequence
 from termcolor import colored
 
 
-def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+def parse_args(argv = None):
     """Parse command-line arguments.
 
     Args:
@@ -92,7 +90,7 @@ KNOWN_FILES = {
 }
 
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
+def main(argv = None):
     """Run script.
 
     Args:
@@ -139,7 +137,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                 last_modified_time = datetime.datetime.fromtimestamp(
                     os.stat(file)[stat.ST_MTIME]
                 )
-                extras.append(f"[{last_modified_time}]")
+                extras.append("[{}]".format(last_modified_time))
             except KeyError:
                 pass
 
