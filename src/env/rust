@@ -3,7 +3,7 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
-if find_program CARGO cargo; then
-	# Binaries managed by cargo / rustup
-	find_directory CARGO_BIN "${DATA_DIR}/cargo/bin" || true
-fi
+find_program CARGO cargo "${DATA_DIR}/cargo/bin/cargo" || true
+
+# Binaries managed by cargo / rustup
+find_directory CARGO_BIN "${DATA_DIR}/cargo/bin" || true
