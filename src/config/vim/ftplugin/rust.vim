@@ -4,8 +4,11 @@ let b:ale_linters = ['analyzer']
 " Maybe ALE will support `cargo fmt` eventually.
 " https://github.com/dense-analysis/ale/issues/3814
 let g:ale_rust_rustfmt_options = '--edition 2021'
+" TODO: Remove the useRustcWrapper config once rust-analyzer is fixed
+" https://github.com/rust-lang/rust-analyzer/issues/12973
 let g:ale_rust_analyzer_config = {
-	\ 'checkOnSave': {'command': 'clippy', 'enable': v:true }
+	\ 'cargo': {'buildScripts': {'useRustcWrapper': v:false }},
+	\ 'checkOnSave': {'command': 'clippy', 'enable': v:true },
 	\ }
 
 " Only if using the linter 'cargo'
