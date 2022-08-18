@@ -138,6 +138,7 @@ CONFIG_FBI_SYSTEMD:=\
 	systemd/user/xsession.target\
 
 CONFIG_FBI_VIM:=\
+	vim/ftplugin/rust.vim\
 	vim/plugin/settings/airline.vim\
 	vim/plugin/settings/tmuxline.vim\
 	vim/plugin/settings/ultisnips.vim\
@@ -339,6 +340,7 @@ DATA_INSTALL:=\
 	$(DATA_FONTS)\
 	$(DATA_BI)\
 	$(DATA_VUNDLE_DIR)\
+	rust-analyzer-debug/rust-analyzer-debug\
 	tig/.\
 	wget/.\
 
