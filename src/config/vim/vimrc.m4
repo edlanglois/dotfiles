@@ -91,7 +91,6 @@ Plugin 'edlanglois/vim-pkgbuild'              " MIT
 Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
 Plugin 'edlanglois/vim-textobj-parameter'     " MIT
 Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
-Plugin 'edlanglois/vim-toml'                  " MIT
 Plugin 'google/vim-codefmt'                   " Apache 2.0
 Plugin 'google/vim-glaive'                    " Apache 2.0
 Plugin 'google/vim-maktaba'                   " Apache 2.0
