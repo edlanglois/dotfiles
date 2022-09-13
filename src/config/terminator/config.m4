@@ -8,6 +8,7 @@ m4_ifdef({<<m4_env_config_NETUSER>>},m4_ifdef({<<m4_env_config_SHELL>>},m4_dnl
     custom_command = m4_env_config_SHELL
     use_custom_command = True
 ))m4_dnl
+    term = terminator
     font = monospace m4_user_config_TERMINAL_FONT_SIZE
     foreground_color = "#m4_env_config_COLOUR_FOREGROUND"
     background_color = "#m4_env_config_COLOUR_BACKGROUND"
