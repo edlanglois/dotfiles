@@ -263,14 +263,6 @@ set listchars=tab:⇥\ ,
 " And show them as dark grey
 hi SpecialKey ctermfg=234 guifg=grey20
 
-" HACK: Fix undercurl
-" t_Cs (undercurl) is being set on terminals that do not support it, so change
-" to empty string causing vim to fall back to underline.
-" This appears to be necessary on all/most terminals without undercurl support.
-" This can be wrapped in an if to exclude terminals with undercurl.
-let &t_Cs=""
-let &t_Ce=""
-
 let &spelllang = tolower("m4_user_config_LANG")
 let &spellfile = g:xdg_data_home . "/vim/spell/en.utf-8.add"
 
