@@ -104,6 +104,7 @@ Plugin 'mileszs/ack.vim'                      " Vim
 Plugin 'morhetz/gruvbox'                      " MIT
 Plugin 'plytophogy/vim-virtualenv'            " Vim
 Plugin 'rdnetto/YCM-Generator'                " GPL 3.0
+Plugin 'rust-lang/rust.vim'                   " MIT or Apache 2.0
 Plugin 'SirVer/ultisnips'                     " GPL 3.0
 Plugin 'tpope/vim-commentary'                 " Vim
 Plugin 'tpope/vim-fugitive'                   " Vim
