@@ -67,6 +67,7 @@ KNOWN_FILES = {
     ".local": Status.APPROVED,
     ".mono": Status.TO_INVESTIGATE,
     ".mozilla": Status.TOLERATED_SYMLINK,
+    ".nv": Status.REMOVE,  # CUDA_CACHE_PATH
     ".oracle_jre_usage": Status.REMOVE,
     ".Osmos": Status.TOLERATED_SYMLINK,
     ".pam_environment": Status.APPROVED_SYMLINK,
