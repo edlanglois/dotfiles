@@ -80,6 +80,7 @@ KNOWN_FILES = {
     ".SteamCloud": Status.TO_INVESTIGATE,
     ".steampath": Status.TOLERATED_SYMLINK,
     ".steampid": Status.TOLERATED_SYMLINK,
+    ".sudo_as_admin_successful": Status.TOLERATED,
     ".terminfo": Status.TOLERATED_SYMLINK, # optional, fish can be initd b4 TERMINFO set
     ".thumbnails": Status.TO_INVESTIGATE,  # I can't figure out what's making this
     ".thunderbird": Status.TOLERATED_SYMLINK,
