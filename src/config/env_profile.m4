@@ -87,6 +87,12 @@ m4_ifdef({<<m4_env_config_TERMINAL_BROWSER>>},m4_dnl
 	true)
 fi
 
+m4_ifdef({<<m4_env_config_CUDA_ROOT>>},m4_dnl
+# CUDA Path
+PATH="$(pathprepend_if_isdir "$PATH" "m4_env_config_CUDA_ROOT/bin")"
+LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_CUDA_ROOT/lib64")"
+)m4_dnl
+
 m4_ifdef({<<m4_env_config_BREW_BIN_PATH>>},m4_dnl
 # Homebrew Path
 PATH="$(pathappend_if_isdir "$PATH" "m4_env_config_BREW_BIN_PATH")"
