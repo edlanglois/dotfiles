@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+if find_program CCACHE ccache; then
+	CCACHE_VERSION="$(ccache -V | cut -d' ' -f3 | head -n1)"
+	if ! version_ge "$CCACHE_VERSION" "4.0"; then
+		echo CCACHE_SET_XDG_DIRS=
+	fi
+fi

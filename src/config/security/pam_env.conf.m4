@@ -26,6 +26,12 @@ CARGO_HOME         DEFAULT="m4_env_config_XDG_DATA_HOME/cargo"
 RUSTUP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rustup"
 )m4_dnl
 
+m4_ifdef({<<m4_env_config_CCACHE_SET_XDG_DIRS>>},m4_dnl
+# CCache
+CCACHE_CONFIGPATH  DEFAULT="m4_env_config_XDG_CONFIG_HOME/ccache.config"
+CCACHE_DIR         DEFAULT="m4_env_config_XDG_CACHE_HOME/ccache"
+)m4_dnl
+
 m4_ifdef({<<m4_env_config_CONDA>>},m4_dnl
 # Conda Root
 CONDA_ROOT         DEFAULT="m4_env_config_XDG_DATA_HOME/conda"

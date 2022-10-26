@@ -432,6 +432,7 @@ SYSTEM_INSTALL:=\
 ENV_FIRST_BUILD:=\
 	applications\
 	battery\
+	ccache\
 	colours\
 	cpu\
 	cuda\
