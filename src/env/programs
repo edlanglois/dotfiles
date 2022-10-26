@@ -8,6 +8,7 @@ find_program CONDA conda || true
 find_program DEX dex || true
 find_program DIRENV direnv || true
 find_program DMENU j4-dmenu-desktop i3-dmenu-desktop dmenu_run || true
+find_program DOCKER docker || true
 find_program FEH feh || true
 find_program GRADLE gradle || true
 find_program GRIP grip || true

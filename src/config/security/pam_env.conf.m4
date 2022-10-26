@@ -42,6 +42,11 @@ m4_ifdef({<<m4_env_config_CUDA_ROOT>>},m4_dnl
 CUDA_CACHE_PATH    DEFAULT="m4_env_config_XDG_CACHE_HOME/nv"
 )m4_dnl
 
+m4_ifdef({<<m4_env_config_DOCKER>>},m4_dnl
+# Docker
+DOCKER_CONFIG      DEFAULT="m4_env_config_XDG_CONFIG_HOME/docker"
+)m4_dnl
+
 m4_ifdef({<<m4_env_config_RUBY_GEM>>},m4_dnl
 # Ruby Gem Configuration Directories
 GEMRC              DEFAULT="m4_env_config_XDG_CONFIG_HOME/gem/config.yaml"
