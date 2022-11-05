@@ -89,7 +89,7 @@ class GithubGitignore:
             return json.loads(response.read().decode(encoding))
 
     def _query_repo_info(self):
-        return self._query_json(self.base_url + "/git/trees/master")
+        return self._query_json(self.base_url + "/git/trees/main")
 
     def get_repo_info(self):
         """Repository metadata."""
