@@ -144,4 +144,7 @@ PATH="$(pathprepend_if_isdir "$PATH" "m4_env_config_CARGO_BIN")"
 
 export PATH
 export LD_LIBRARY_PATH
+# Make sure that MANPATH (if non-empty) ends in a ':' so that the system
+# paths are searched as well
+MANPATH="$(pathappend "$MANPATH" "")"
 export MANPATH
