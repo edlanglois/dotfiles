@@ -14,22 +14,26 @@ import urllib.request
 class _ListLanguagesAction(argparse.Action):
     """Argparse action that lists available gitignore languages."""
 
-    def __init__(self,
-                 option_strings,
-                 dest=argparse.SUPPRESS,
-                 default=argparse.SUPPRESS,
-                 help=None):
+    def __init__(
+        self,
+        option_strings,
+        dest=argparse.SUPPRESS,
+        default=argparse.SUPPRESS,
+        help=None,
+    ):
         super().__init__(
             option_strings=option_strings,
             dest=dest,
             default=default,
             nargs=0,
-            help=help)
+            help=help,
+        )
 
     def __call__(self, parser, namespace, values, option_string=None):
         repo = GithubGitignore()
-        parser.exit(message='\n'.join(
-            sorted(repo.get_gitignore_file_map().keys())) + '\n')
+        parser.exit(
+            message="\n".join(sorted(repo.get_gitignore_file_map().keys())) + "\n"
+        )
 
 
 def parse_args():
@@ -39,38 +43,39 @@ def parse_args():
         An `argparse.Namespace` object containing the parsed arguments.
     """
     parser = argparse.ArgumentParser(
-        description=__doc__.splitlines()[0] if __doc__ else None)
+        description=__doc__.splitlines()[0] if __doc__ else None
+    )
     parser.add_argument(
-        'language',
-        type=str,
-        help='Get .gitignore for this programming language.')
+        "language", type=str, help="Get .gitignore for this programming language."
+    )
     parser.add_argument(
-        '-l',
-        '--list-languages',
+        "-l",
+        "--list-languages",
         action=_ListLanguagesAction,
-        help='List all available languages.')
+        help="List all available languages.",
+    )
     return parser.parse_args()
 
 
 class GithubGitignore:
     """Interface to Github's gitignore repository."""
 
-    def __init__(self,
-                 owner_name='github',
-                 repo_name='gitignore',
-                 cache_file=None,
-                 cache_timeout=86400):
-        self.api_url = 'https://api.github.com'
-        repo_request = '/repos/{owner}/{repo}'.format(
-            owner=owner_name, repo=repo_name)
+    def __init__(
+        self,
+        owner_name="github",
+        repo_name="gitignore",
+        cache_file=None,
+        cache_timeout=86400,
+    ):
+        self.api_url = "https://api.github.com"
+        repo_request = "/repos/{owner}/{repo}".format(owner=owner_name, repo=repo_name)
         self.base_url = self.api_url + repo_request
         self.headers = {
-            'Accept': 'application/vnd.github.v3+json',
+            "Accept": "application/vnd.github.v3+json",
         }
 
         if cache_file is None:
-            cache_file = os.path.join(tempfile.gettempdir(),
-                                      'gitignore-files.json')
+            cache_file = os.path.join(tempfile.gettempdir(), "gitignore-files.json")
         self.cache_file = cache_file
         self.cache_timeout = cache_timeout
         self._repo_info = None
@@ -84,7 +89,7 @@ class GithubGitignore:
             return json.loads(response.read().decode(encoding))
 
     def _query_repo_info(self):
-        return self._query_json(self.base_url + '/git/trees/master')
+        return self._query_json(self.base_url + "/git/trees/master")
 
     def get_repo_info(self):
         """Repository metadata."""
@@ -92,19 +97,19 @@ class GithubGitignore:
             return self._repo_info
 
         try:
-            with open(self.cache_file, 'r') as f:
+            with open(self.cache_file, "r") as f:
                 info_cache = json.load(f)
 
-            cache_age_seconds = time.time() - info_cache['timestamp']
+            cache_age_seconds = time.time() - info_cache["timestamp"]
             if cache_age_seconds < self.cache_timeout:
-                self._repo_info = info_cache['info']
+                self._repo_info = info_cache["info"]
                 return self._repo_info
         except FileNotFoundError:
             pass
 
         self._repo_info = self._query_repo_info()
-        info_cache = {'info': self._repo_info, 'timestamp': time.time()}
-        with open(self.cache_file, 'w') as f:
+        info_cache = {"info": self._repo_info, "timestamp": time.time()}
+        with open(self.cache_file, "w") as f:
             json.dump(info_cache, f)
         return self._repo_info
 
@@ -112,11 +117,11 @@ class GithubGitignore:
         """Dictionary mapping languages names to URLs."""
         if self._gitignore_file_map is not None:
             return self._gitignore_file_map
-        suffix = '.gitignore'
+        suffix = ".gitignore"
         self._gitignore_file_map = {
-            file_info['path'][:-len(suffix)].lower(): file_info
-            for file_info in self.get_repo_info()['tree']
-            if file_info['path'].endswith(suffix)
+            file_info["path"][: -len(suffix)].lower(): file_info
+            for file_info in self.get_repo_info()["tree"]
+            if file_info["path"].endswith(suffix)
         }
         return self._gitignore_file_map
 
@@ -124,9 +129,9 @@ class GithubGitignore:
         """The gitignore file contents for a given language."""
         gitignore_file_map = self.get_gitignore_file_map()
         info = gitignore_file_map[language]
-        content_info = self._query_json(info['url'])
-        assert content_info['encoding'] == 'base64'
-        return base64.b64decode(content_info['content'])
+        content_info = self._query_json(info["url"])
+        assert content_info["encoding"] == "base64"
+        return base64.b64decode(content_info["content"])
 
 
 def main():
@@ -136,5 +141,5 @@ def main():
     sys.stdout.buffer.write(repo.get_gitignore_file(args.language.lower()))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
