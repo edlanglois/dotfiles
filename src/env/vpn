@@ -1,0 +1,10 @@
+#!/bin/bash
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+if find_program NMCLI nmcli; then
+	if nmcli --get-values type con | grep -iq vpn; then
+		echo NM_VPN=
+	fi
+fi

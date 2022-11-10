@@ -10,6 +10,7 @@ m4_define(m4_ICON_TEMPERATURE,)
 m4_define(m4_ICON_TIME,)
 m4_define(m4_ICON_WIFI,)
 m4_define(m4_ICON_WIFI_OFF,)
+m4_define(m4_ICON_VPN,)
 >>},{<<m4_dnl
 m4_define(m4_ICON_CALENDAR,📅)
 m4_define(m4_ICON_CPU,⌬)
@@ -20,6 +21,7 @@ m4_define(m4_ICON_TEMPERATURE,🌡)
 m4_define(m4_ICON_TIME,🕒︎)
 m4_define(m4_ICON_WIFI,📶︎)
 m4_define(m4_ICON_WIFI_OFF,⚠)
+m4_define(m4_ICON_VPN,↔)
 >>})m4_dnl
 # i3blocks config file
 #
@@ -110,7 +112,15 @@ LABEL_COLOUR=cyan
 RFKILL_WLAN_ID=m4_env_config_RFKILL_WLAN_ID
 instance=m4_env_config_WIRELESS_INTERFACE
 interval=10
-)
+)m4_dnl
+
+m4_ifdef({<<m4_env_config_NM_VPN>>},m4_dnl
+[nm-vpn]
+ICON=m4_ICON_VPN
+init_color=#FFFFFF
+on_color=#FFFFFF
+interval=10
+)m4_dnl
 
 m4_ifdef({<<m4_env_config_BATTERY_0>>},m4_dnl
 # Battery indicator
