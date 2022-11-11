@@ -16,7 +16,11 @@ m4_include(env_config.m4)m4_dnl
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
 # set by alacritty itself.
-#env:
+env:
+  # If alacritty is run under snap then XDG_CACHE_HOME is set to some snap- and
+  # alacritty- specific location, but that messes with other software started
+  # from the terminal. So fix it here.
+  XDG_CACHE_HOME: m4_env_config_XDG_CACHE_HOME
   # TERM variable
   #
   # This value is used to set the `$TERM` environment variable for

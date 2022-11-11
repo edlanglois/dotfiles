@@ -147,6 +147,7 @@ CONFIG_FBI_VIM:=\
 
 CONFIG_I3BLOCKS_CONTRIB:=\
 	memory/memory\
+	nm-vpn/nm-vpn\
 	temperature/temperature\
 	volume/volume\
 
@@ -432,6 +433,7 @@ SYSTEM_INSTALL:=\
 ENV_FIRST_BUILD:=\
 	applications\
 	battery\
+	ccache\
 	colours\
 	cpu\
 	cuda\
@@ -459,6 +461,7 @@ ENV_FIRST_BUILD:=\
 	touchpad\
 	user\
 	virtualfish\
+	vpn\
 	wifi\
 
 ENV_CONFIG_TARGETS=$(addsuffix .m4,\

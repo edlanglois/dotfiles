@@ -26,6 +26,12 @@ CARGO_HOME         DEFAULT="m4_env_config_XDG_DATA_HOME/cargo"
 RUSTUP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rustup"
 )m4_dnl
 
+m4_ifdef({<<m4_env_config_CCACHE_SET_XDG_DIRS>>},m4_dnl
+# CCache
+CCACHE_CONFIGPATH  DEFAULT="m4_env_config_XDG_CONFIG_HOME/ccache.config"
+CCACHE_DIR         DEFAULT="m4_env_config_XDG_CACHE_HOME/ccache"
+)m4_dnl
+
 m4_ifdef({<<m4_env_config_CONDA>>},m4_dnl
 # Conda Root
 CONDA_ROOT         DEFAULT="m4_env_config_XDG_DATA_HOME/conda"
@@ -34,6 +40,11 @@ CONDA_ROOT         DEFAULT="m4_env_config_XDG_DATA_HOME/conda"
 m4_ifdef({<<m4_env_config_CUDA_ROOT>>},m4_dnl
 # CUDA Configuration
 CUDA_CACHE_PATH    DEFAULT="m4_env_config_XDG_CACHE_HOME/nv"
+)m4_dnl
+
+m4_ifdef({<<m4_env_config_DOCKER>>},m4_dnl
+# Docker
+DOCKER_CONFIG      DEFAULT="m4_env_config_XDG_CONFIG_HOME/docker"
 )m4_dnl
 
 m4_ifdef({<<m4_env_config_RUBY_GEM>>},m4_dnl
@@ -96,7 +107,7 @@ RLWRAP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rlwrap"
 )m4_dnl
 
 # ssh-agent
-SSH_AUTH_SOCK      DEFAULT="$XDG_RUNTIME_DIR/ssh-agent.socket"
+SSH_AUTH_SOCK      DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 m4_ifdef({<<m4_env_config_STACK>>},m4_dnl
 # Haskell Stack package manager
@@ -116,7 +127,7 @@ TERMINFO           DEFAULT="m4_env_config_XDG_DATA_HOME/terminfo"
 TERMINFO_DIRS      DEFAULT="m4_env_config_XDG_DATA_HOME/terminfo:"
 
 # tmux
-TMUX_TMPDIR        DEFAULT="$XDG_RUNTIME_DIR"
+TMUX_TMPDIR        DEFAULT="${XDG_RUNTIME_DIR}"
 
 # Vim Environment
 VIMINIT            DEFAULT=":source m4_env_config_XDG_CONFIG_HOME/vim/vimrc"

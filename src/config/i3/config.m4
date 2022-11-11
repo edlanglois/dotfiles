@@ -225,7 +225,7 @@ for_window [class="zoom"] floating enable
 # Start a status bar.
 bar {
 m4_ifdef({<<m4_env_config_I3BLOCKS>>},m4_dnl
-	status_command i3blocks,
+	status_command m4_env_config_I3BLOCKS,
 	status_command i3status)
 	position bottom
 }

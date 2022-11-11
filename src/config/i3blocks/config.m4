@@ -1,8 +1,8 @@
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
-m4_ifelse({<<m4_env_config_FONT_AWESOME>>},6,{<<m4_dnl
+m4_ifdef({<<m4_env_config_FONT_AWESOME>>},{<<m4_dnl
 m4_define(m4_ICON_CALENDAR,)
-m4_define(m4_ICON_CPU,)
+m4_define(m4_ICON_CPU,)
 m4_define(m4_ICON_GPU,)
 m4_define(m4_ICON_MEMORY,)
 m4_define(m4_ICON_SPEAKER,)
@@ -10,6 +10,7 @@ m4_define(m4_ICON_TEMPERATURE,)
 m4_define(m4_ICON_TIME,)
 m4_define(m4_ICON_WIFI,)
 m4_define(m4_ICON_WIFI_OFF,)
+m4_define(m4_ICON_VPN,)
 >>},{<<m4_dnl
 m4_define(m4_ICON_CALENDAR,📅)
 m4_define(m4_ICON_CPU,⌬)
@@ -20,6 +21,10 @@ m4_define(m4_ICON_TEMPERATURE,🌡)
 m4_define(m4_ICON_TIME,🕒︎)
 m4_define(m4_ICON_WIFI,📶︎)
 m4_define(m4_ICON_WIFI_OFF,⚠)
+m4_define(m4_ICON_VPN,↔)
+>>})m4_dnl
+m4_ifelse(m4_env_config_FONT_AWESOME,6,{<<m4_dnl
+m4_define({<<m4_ICON_CPU>>},)
 >>})m4_dnl
 # i3blocks config file
 #
@@ -110,7 +115,15 @@ LABEL_COLOUR=cyan
 RFKILL_WLAN_ID=m4_env_config_RFKILL_WLAN_ID
 instance=m4_env_config_WIRELESS_INTERFACE
 interval=10
-)
+)m4_dnl
+
+m4_ifdef({<<m4_env_config_NM_VPN>>},m4_dnl
+[nm-vpn]
+ICON=m4_ICON_VPN
+init_color=#FFFFFF
+on_color=#FFFFFF
+interval=10
+)m4_dnl
 
 m4_ifdef({<<m4_env_config_BATTERY_0>>},m4_dnl
 # Battery indicator

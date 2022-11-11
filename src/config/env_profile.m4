@@ -1,5 +1,6 @@
 m4_dnl Dynamic variable assignments
 m4_dnl Use src/config/security/pam_env.conf.m4 for static assignments.
+#!/usr/bin/sh
 m4_include(user_config.m4)
 m4_include(env_config.m4)
 # Set environment variables
@@ -69,10 +70,19 @@ PATH="$(pathprepend_if_isdir "$PATH" "$LOCAL_PREFIX_/bin")"
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/man")"
 MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 
-# lightdm supposedly does not work when this is changed
-# so to be on the safe side only make the change if lightdm is not installed.
-# gdm also doesn't work if this is changed.
-if ! command -v lightdm >/dev/null && ! command -v gdm >/dev/null && [ -n "$XDG_RUNTIME_DIR" ]; then
+# ==== TROUBLESHOOTING: CAN CAUSE GUI LOGIN TO FAIL  ====
+# Set XAUTHORITY to avoid the creation of an .Xauthority file.
+# Setting XAUTHORITY causes login to fail with some login managers.
+# In that case, the user is returned to the login screen after trying to log in.
+# Avoid setting XAUTHORITY if any of the following login managers are installed.
+# Also do not set XAUTHORITY if it is already set to a value that does not end
+# in .Xauthority
+if \
+	! command -v lightdm > /dev/null && \
+	! command -v gdm > /dev/null && \
+	! command -v gdm3 > /dev/null && \
+	[ -z "$XAUTHORITY" -o "$(basename "$XAUTHORITY")" = .Xauthority ]
+then
 	export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 fi
 
@@ -86,6 +96,12 @@ m4_ifdef({<<m4_env_config_TERMINAL_BROWSER>>},m4_dnl
 	export BROWSER="m4_env_config_TERMINAL_BROWSER",
 	true)
 fi
+
+m4_ifdef({<<m4_env_config_CUDA_ROOT>>},m4_dnl
+# CUDA Path
+PATH="$(pathprepend_if_isdir "$PATH" "m4_env_config_CUDA_ROOT/bin")"
+LD_LIBRARY_PATH="$(pathprepend_if_isdir "$LD_LIBRARY_PATH" "m4_env_config_CUDA_ROOT/lib64")"
+)m4_dnl
 
 m4_ifdef({<<m4_env_config_BREW_BIN_PATH>>},m4_dnl
 # Homebrew Path
@@ -128,4 +144,7 @@ PATH="$(pathprepend_if_isdir "$PATH" "m4_env_config_CARGO_BIN")"
 
 export PATH
 export LD_LIBRARY_PATH
+# Make sure that MANPATH (if non-empty) ends in a ':' so that the system
+# paths are searched as well
+MANPATH="$(pathappend "$MANPATH" "")"
 export MANPATH
