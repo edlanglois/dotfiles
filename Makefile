@@ -167,6 +167,7 @@ CONFIG_FBI:=\
 	duplicacy-web/settings.json\
 	duplicacy/filters\
 	env_profile\
+	fish/completions/ros2.fish\
 	fish/config.fish\
 	fish/functions/ccopy.fish\
 	fish/functions/cpaste.fish\
