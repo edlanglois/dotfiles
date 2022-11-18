@@ -26,8 +26,8 @@ repos:
       - id: debug-statements
       - id: end-of-file-fixer
       - id: trailing-whitespace
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: master
+  - repo: https://github.com/PyCQA/flake8
+    rev: main
     hooks:
       - id: flake8
   - repo: https://github.com/pre-commit/mirrors-mypy
