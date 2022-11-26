@@ -683,7 +683,7 @@ PYGMENTIZE:=$(shell command -v pygmentize)
 ifdef PYGMENTIZE
 # pygmentize does not apply the right colours for dark background on
 # vim style so use a different style that does work.
-COLORIZE_CONFIG:=pygmentize -l 'cfg' -O style=native -f terminal256
+COLORIZE_CONFIG:=pygmentize -l 'cfg' -O style=inkpot -f terminal256
 else
 COLORIZE_CONFIG:=cat
 endif
