@@ -16,6 +16,9 @@ echo
 echo "# Python linting"
 find_program FLAKE8 flake8 || true
 echo
+echo "# Mouse button bindings (audio control)"
+find_program IMWHEEL imwheel || true
+echo
 echo "# Reorder python imports; used automatically by ALE"
 find_program ISORT isort || true
 echo
