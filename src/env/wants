@@ -10,11 +10,23 @@ echo "# User Checks #"
 echo "###############"
 
 echo
+echo "# View images and set background"
+find_program FEH feh || true
+echo
 echo "# Python linting"
 find_program FLAKE8 flake8 || true
 echo
 echo "# Reorder python imports; used automatically by ALE"
 find_program ISORT isort || true
+echo
+echo "# Take screenshots"
+find_program MAIM maim || true
+echo
+echo "# Control music"
+find_program PLAYERCTL playerctl || true
+echo
+echo "# REPL autocomplete"
+find_program RLWRAP rlwrap || true
 echo
 echo "# Rust code checking; used automatically by ALE"
 find_program RUST_ANALYZER rust-analyzer || true
