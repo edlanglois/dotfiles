@@ -572,16 +572,20 @@ ENV_CONFIG_PREFIX:=m4_env_config_
 QUOTE_START:={<<
 QUOTE_END:=>>}
 
-# TODO: Support %.local dependencies
-# Add a list of files that might have .local dependencies and template the
-# dependence
-
 $(BUILD_DIR)/%: $(SOURCE_DIR)/%.m4 \
 		$(BUILD_DIR)/user_config.m4 $(BUILD_DIR)/env_config.m4
 	echo "m4_changecom()m4_changequote($(QUOTE_START),$(QUOTE_END))m4_dnl" | \
 		cat - "$<" | \
 		m4 --prefix-builtins -I "$(BUILD_DIR)" > "$@"
 	! grep m4_ "$@" || (echo "Undefined m4 variables" && rm "$@" && false)
+
+define BUILD_WITH_LOCAL_TEMPLATE
+ifneq ("$(wildcard $(SOURCE_DIR)/$1.local)","")
+$(BUILD_DIR)/$1: $(SOURCE_DIR)/$1.local
+endif
+endef
+
+$(eval $(call BUILD_WITH_LOCAL_TEMPLATE,home/.ssh/config))
 
 ##############################
 ##  Build I3Blocks Contrib  ##
