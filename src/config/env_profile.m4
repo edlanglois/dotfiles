@@ -86,6 +86,15 @@ then
 	export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 fi
 
+m4_ifdef({<<m4_env_config_XLSCLIENTS>>},m4_dnl
+# Check if a standard display server exists that we can connect to.
+# This is useful for ssh + remote desktop
+# allowing the SSH terminals to access the remote desktop display.
+if [ -z "$DISPLAY" ] && m4_env_config_XLSCLIENTS -display ":1" >/dev/null; then
+	export DISPLAY=":1"
+fi
+)m4_dnl
+
 # Browser
 if [ -n "$DISPLAY" ]; then
 m4_ifdef({<<m4_env_config_BROWSER>>},m4_dnl
