@@ -90,8 +90,13 @@ m4_ifdef({<<m4_env_config_XLSCLIENTS>>},m4_dnl
 # Check if a standard display server exists that we can connect to.
 # This is useful for ssh + remote desktop
 # allowing the SSH terminals to access the remote desktop display.
-if [ -z "$DISPLAY" ] && m4_env_config_XLSCLIENTS -display ":1" >/dev/null; then
-	export DISPLAY=":1"
+if [ -z "$DISPLAY" ]; then
+	for i in  {0..9}; do
+		if m4_env_config_XLSCLIENTS -display ":$i" >/dev/null 2>&1; then
+			export DISPLAY=":$i"
+			break
+		fi
+	done
 fi
 )m4_dnl
 
