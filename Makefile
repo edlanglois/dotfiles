@@ -640,20 +640,20 @@ $(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP):\
 $(BUILD_DIR)/env/%.m4: $(SOURCE_DIR)/env/% \
 		$(SOURCE_DIR)/env/env_utils\
 		$(BUILD_DIR)/env/paths.sh\
-		$(UTILS_DIR)/config_replace.sh
+		$(UTILS_DIR)/config-replace.sh
 	source "$(BUILD_DIR)/env/paths.sh" && \
 		"$<" | \
-		$(UTILS_DIR)/config_replace.sh \
+		$(UTILS_DIR)/config-replace.sh \
 			"$(ENV_CONFIG_PREFIX)" "$(QUOTE_START)" "$(QUOTE_END)" | \
 		(echo "m4_dnl $<" && cat) > "$@"
 
 $(BUILD_DIR)/env/colours.m4: $(SOURCE_DIR)/env/colours.toml
 
 $(BUILD_DIR)/user_config.m4: user.cfg\
-		$(UTILS_DIR)/config_replace.sh\
+		$(UTILS_DIR)/config-replace.sh\
 		| $(BUILD_DIR)/.
 	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
-		$(UTILS_DIR)/config_replace.sh \
+		$(UTILS_DIR)/config-replace.sh \
 			"${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
 $(BUILD_DIR)/env/paths.sh: user.cfg | $(BUILD_DIR)/env/.
@@ -661,11 +661,11 @@ $(BUILD_DIR)/env/paths.sh: user.cfg | $(BUILD_DIR)/env/.
 		sed -e "s/^/export /" > "$@"
 
 $(BUILD_DIR)/env/absolute_paths.m4: user.cfg\
-		$(UTILS_DIR)/config_replace.sh\
+		$(UTILS_DIR)/config-replace.sh\
 		| $(BUILD_DIR)/env/.
 	# Will fail if $HOME contains | characters
 	sed user.cfg -n -e "s|=~|=$(HOME)|" -e "/\(HOME\|PREFIX\)=/p" |\
-		$(UTILS_DIR)/config_replace.sh \
+		$(UTILS_DIR)/config-replace.sh \
 			"${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" |\
 		(echo "m4_dnl $<" && cat) > "$@"
 
