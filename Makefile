@@ -260,11 +260,15 @@ CONFIG_INSTALL_FISH_FOREIGN_ENV:=$(addprefix fish/plugins/foreign-env/,\
 CONFIG_INSTALL_VIM_DIRECT:=\
 	$(shell cd "$(SOURCE_DIR)/config" && find vim -type f -not -name '*.m4')
 
+CONFIG_FONTS:=\
+	fontconfig/fonts.conf\
+	fontconfig/conf.d/10-powerline-symbols.conf\
+
 CONFIG_INSTALL:=\
+	$(CONFIG_FONTS)\
 	$(CONFIG_INSTALL_FISH_FOREIGN_ENV)\
 	$(CONFIG_INSTALL_VIM_DIRECT)\
 	$(CONFIG_FBI)\
-	fontconfig/fonts.conf\
 	gkrellm/user-config-cpu\
 	gkrellm/user-config-memory\
 	i3blocks/scripts/battery\
@@ -510,7 +514,9 @@ INSTALL_ONCE_TARGETS:=\
 INSTALL_SYSTEM_TARGETS:=$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_INSTALL))
 
 INSTALLED_SYSTEMD_CONFIGS:=$(addprefix $(CONFIG_DIR)/,$(CONFIG_FBI_SYSTEMD))
-INSTALLED_FONTS:=$(addprefix $(DATA_DIR)/,$(DATA_FONTS))
+INSTALLED_FONT_FILES:=\
+	$(addprefix $(DATA_DIR)/,$(DATA_FONTS))\
+	$(addprefix $(CONFIG_DIR)/,$(CONFIG_FONTS))
 
 ############
 # Commands #
@@ -837,7 +843,7 @@ endif
 
 font-cache: $(BUILD_DIR)/make/font-cache
 
-$(BUILD_DIR)/make/font-cache: $(INSTALLED_FONTS) | $(BUILD_DIR)/make/.
+$(BUILD_DIR)/make/font-cache: $(INSTALLED_FONT_FILES) | $(BUILD_DIR)/make/.
 	fc-cache -v $(DATA_DIR)/fonts/
 	touch "$@"
 
