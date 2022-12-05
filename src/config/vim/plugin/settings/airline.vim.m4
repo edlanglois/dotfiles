@@ -17,11 +17,12 @@ let g:airline#extensions#whitespace#checks = ['trailing']
 " Set the airline theme
 let g:airline_theme = 'wombat'
 
-m4_ifelse(m4_user_config_POWERLINE_SYMBOLS,true,
+m4_ifelse(m4_user_config_POWERLINE_SYMBOLS,true,{<<
 " Use non-standard symbols for a better-looking airline.
 " Requires installing the powerline fonts:
 " https://powerline.readthedocs.org/en/master/installation.html#patched-fonts
 let g:airline_powerline_fonts = 1
+>>},{<<
 " Use standard symbols. Don't have to install special font.
 let g:airline_powerline_fonts = 0
-)
+>>})m4_dnl
