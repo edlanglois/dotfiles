@@ -92,6 +92,7 @@ Plugin 'edlanglois/vim-gdl-syntax'            " MIT
 Plugin 'edlanglois/vim-hledger-syntax'        " MIT
 Plugin 'edlanglois/vim-pkgbuild'              " MIT
 Plugin 'edlanglois/vim-qrc'                   " GPL 3.0
+Plugin 'edlanglois/vim-singularity-syntax'    " MIT
 Plugin 'edlanglois/vim-textobj-parameter'     " MIT
 Plugin 'edlanglois/vim-tmux-focus-events'     " MIT
 Plugin 'google/vim-codefmt'                   " Apache 2.0
