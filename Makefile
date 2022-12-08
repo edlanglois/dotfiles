@@ -294,6 +294,7 @@ CONFIG_INSTALL:=\
 	pyproject/templates/root/setup.cfg\
 	pyproject/templates/root/setup.py\
 	python/startup.py\
+	simplescreenrecorder/.\
 	zathura/zathurarc\
 
 # Data
