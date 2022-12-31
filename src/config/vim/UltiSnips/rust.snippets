@@ -1,3 +1,9 @@
+snippet fn "fn name(?) -> ? {}"
+fn ${1:function_name}($2)${3/..*/ -> /}$3 {
+	${0:${VISUAL:todo!()}}
+}
+endsnippet
+
 snippet gfn "fn name<?>(?) -> ? {}" b
 fn ${1:function_name}<${2:T}>($3)${4/..*/ -> /}$4
 ${5/..*/where
