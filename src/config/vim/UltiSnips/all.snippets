@@ -7,3 +7,7 @@ endglobal
 snippet todo "TODO comment" bw
 `!p snip.rv=get_comment_format()[0]` ${2:TODO}: $0${3: <${4:`!v strftime('%Y-%m-%d')`}${5:, `!v g:snips_author`}>} `!p snip.rv=get_comment_format()[2]`
 endsnippet
+
+snippet ( "Closing paren" i
+(${VISUAL}$1${1/[^\n]*(\n.*)?/(?1:\\n)/})
+endsnippet
