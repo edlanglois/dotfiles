@@ -64,6 +64,14 @@ if [ -z "$XDG_RUNTIME_DIR" ]; then
 	fi
 fi
 
+# Sometimes XDG_RUNTIME_DIR is not set for .pam_environment
+# even if it is set now. Correct the affected variables.
+if [ -z "$PAM_RUNTIME_DIR" ]; then
+	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+	export TMUX_TMPDIR="$PAM_RUNTIME_DIR"
+fi
+unset PAM_RUNTIME_DIR
+
 # Add user local directories to environment paths
 PATH="$(pathprepend_if_isdir "$PATH" "$LOCAL_PREFIX_/bin")"
 

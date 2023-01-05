@@ -5,6 +5,8 @@ m4_include(env_config.m4)m4_dnl
 
 # Used to check whether this file has been read
 PAM_USER_ENV       DEFAULT=1
+# Check whether XDG_RUNTIME_DIR was set when running PAM
+PAM_RUNTIME_DIR    DEFAULT="${XDG_RUNTIME_DIR}"
 
 EDITOR             DEFAULT=vim
 VISUAL             DEFAULT=vim
