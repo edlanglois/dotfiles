@@ -22,6 +22,13 @@ XDG_CACHE_HOME     DEFAULT="m4_env_config_XDG_CACHE_HOME"
 # bash history
 HISTFILE           DEFAULT="m4_env_config_XDG_DATA_HOME/bash/history"
 
+
+m4_ifdef({<<m4_env_config_AWS>>},m4_dnl
+# AWS Configuration
+AWS_SHARED_CREDENTIALS_FILE  DEFAULT="m4_env_config_XDG_CONFIG_HOME/aws/credentials"
+AWS_CONFIG_FILE    DEFAULT="m4_env_config_XDG_CONFIG_HOME/aws/config"
+)m4_dnl
+
 m4_ifdef({<<m4_env_config_CARGO>>},m4_dnl
 # Rust Cargo Configuration
 CARGO_HOME         DEFAULT="m4_env_config_XDG_DATA_HOME/cargo"
