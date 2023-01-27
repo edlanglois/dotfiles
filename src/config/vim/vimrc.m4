@@ -120,6 +120,9 @@ Plugin 'vim-airline/vim-airline-themes'       " MIT
 Plugin 'vim-python/python-syntax'             " MIT
 Plugin 'vimwiki/vimwiki'                      " MIT
 Plugin 'w0rp/ale'                             " BSD 2-Clause
+if v:versionlong < 8023519
+	Plugin 'cespare/vim-toml'                 " MIT
+endif
 m4_ifelse(m4_user_config_ALLOW_LICENSE_AGPL,true,
 Plugin 'moll/vim-bbye'                        " GNU AGPL v3
 )m4_dnl
