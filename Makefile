@@ -732,10 +732,18 @@ show-links: build $(UTILS_DIR)/check-links
 # Args: INSTALL_DIR SOURCE_TYPE
 define INSTALL_TEMPLATE
 $1/%: $(SOURCE_DIR)/$2/%
-	@install -v "$$<" "$$@"
+	@if [ -x "$$<" ]; then \
+		install -v -m 755 "$$<" "$$@"; \
+	else \
+		install -v -m 644 "$$<" "$$@"; \
+	fi
 
 $1/%: $(BUILD_DIR)/$2/%
-	@install -v "$$<" "$$@"
+	@if [ -x "$$<" ]; then \
+		install -v -m 755 "$$<" "$$@"; \
+	else \
+		install -v -m 644 "$$<" "$$@"; \
+	fi
 
 $1/%: | $(BUILD_DIR)/$2/%.link
 	DEST="$$$$(grep -m 1 "[^[:space:]]" "$$(patsubst $1/%,$(BUILD_DIR)/$2/%.link,$$@)")"; \
