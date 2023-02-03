@@ -60,11 +60,9 @@ if [ -f "$PICOM_FILE" ]; then
 fi
 
 # Check if user is administrator
-if ! groups | grep -q wheel; then
+if ! groups | grep -q 'wheel\|sudo\|admin'; then
 	echo
 	echo "# Not administrator -- skipping system-wide checks."
-	echo "# Add user to the 'wheel' group if you should be"
-	echo "# and uncomment '%wheel ALL=(ALL) ALL'"
 	exit
 fi
 
