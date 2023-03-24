@@ -85,11 +85,14 @@ MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 # Avoid setting XAUTHORITY if any of the following login managers are installed.
 # Also do not set XAUTHORITY if it is already set to a value that does not end
 # in .Xauthority
-if \
+if [ -n "$XAUTHORITY" -a "$(basename "$XAUTHORITY")" != .Xauthority ]; then
+	: # Already a good XAUTHORITY value
+elif [ -e "$XDG_RUNTIME_DIR/gdm/Xauthority" ]; then
+	export XAUTHORITY="$XDG_RUNTIME_DIR/gdm/Xauthority"
+elif \
 	! command -v lightdm > /dev/null && \
 	! command -v gdm > /dev/null && \
-	! command -v gdm3 > /dev/null && \
-	[ -z "$XAUTHORITY" -o "$(basename "$XAUTHORITY")" = .Xauthority ]
+	! command -v gdm3 > /dev/null
 then
 	export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority
 fi
