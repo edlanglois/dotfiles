@@ -4,6 +4,7 @@ snippet newscript "New python script template." b
 from __future__ import annotations
 
 import argparse
+import logging
 import shutil
 import sys
 from typing import Optional, Sequence
@@ -22,7 +23,26 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         description=__doc__.splitlines()[0] if __doc__ else None,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    return parser.parse_args(argv)
+    parser.add_argument(
+        "-l",
+        "--log-level",
+        type=log_level,
+        default=logging.WARNING,
+        help="set the log level",
+    )
+    args = parser.parse_args(argv)
+    logging.basicConfig(level=args.log_level)
+    return args
+
+
+def log_level(level: str) -> int:
+    try:
+        return int(level)
+    except ValueError:
+        try:
+            return getattr(logging, level.upper())
+        except AttributeError:
+            raise ValueError(level)
 
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
@@ -33,6 +53,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     """
     args = parse_args(argv)
     ${2}
+
 
 if __name__ == "__main__":
     try:
