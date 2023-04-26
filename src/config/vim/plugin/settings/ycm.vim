@@ -10,3 +10,4 @@ let g:ycm_filetype_blacklist = {
 nnoremap gt :YcmCompleter GoTo<CR>
 nnoremap <leader>d :YcmCompleter GetDoc<CR>
 nnoremap <leader>t :YcmCompleter GetType<CR>
+nnoremap <leader>s <Plug>(YCMFindSymbolInWorkspace)
