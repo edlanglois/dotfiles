@@ -21,6 +21,9 @@ SYSTEM_PREFIX=/
 
 TERMINAL_FONT_SIZE=9
 
+# Default editor line length in columns
+LINE_LENGTH=80
+
 # Whether to use powerline symbols.
 # Requires a powerline font - a fallback powerline font is in data/fonts/
 POWERLINE_SYMBOLS=true

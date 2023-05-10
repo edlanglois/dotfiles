@@ -184,7 +184,7 @@ set noshiftround     " Do not round indent to a multiple of shiftwidth
 set noexpandtab      " Tabs do not expand to spaces
 set copyindent       " Default to same indentation structure as previous line
 
-set textwidth=80     " Auto wrap at 80 char line width
+set textwidth=m4_user_config_LINE_LENGTH  " Auto wrap at this line length
 " Note: I occasionally swap the t setting. I'll start recording what filetype
 " I have in mind when doing so.
 "  * vimwiki: +t

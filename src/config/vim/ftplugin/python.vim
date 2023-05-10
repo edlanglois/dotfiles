@@ -35,6 +35,8 @@ if exists("g:python_linelength")
   let &l:textwidth=g:python_linelength
   " Call explicitly as the autocmds don't work at this point in setup.
   call UpdateTextwidthVars(g:python_linelength)
+else
+  call UpdateTextwidthVars(&l:textwidth)
 endif
 
 " I can't find a way to make this buffer local but it doesn't matter much
