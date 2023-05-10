@@ -31,6 +31,9 @@ echo
 echo "# REPL autocomplete"
 find_program RLWRAP rlwrap || true
 echo
+echo "# Fast python linting; used automatically by ALE"
+find_program RUFF ruff || true
+echo
 echo "# Rust code checking; used automatically by ALE"
 find_program RUST_ANALYZER rust-analyzer || true
 echo
