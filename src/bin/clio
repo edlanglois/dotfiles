@@ -1,0 +1,317 @@
+#!/usr/bin/env python
+"""Save and restore backups of a file with cached history.
+
+Identifies files by path and tracks version history with timestamps.
+Maintains a LRU cache of old versions.
+"""
+from __future__ import annotations
+
+import argparse
+import datetime
+import hashlib
+import operator
+import shutil
+import sys
+from pathlib import Path
+from typing import Iterable, List, Optional, Sequence, Tuple
+
+import tabulate
+from xdg import BaseDirectory
+
+_RESOURCE_NAME = "clio"
+
+
+def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+    """Parse command-line arguments.
+
+    Args:
+        argv: A list of argument strings to use instead of sys.argv.
+
+    Returns:
+        An `argparse.Namespace` object containing the parsed arguments.
+    """
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+    )
+    parser.add_argument("-d", "--data", type=Path, help="alternate data directory")
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="produce more status output"
+    )
+    command_parser = parser.add_subparsers(required=True)
+
+    save_parser = command_parser.add_parser("save", help="save a file backup")
+    save_parser.add_argument("file", type=Path, help="file to backup")
+    save_parser.set_defaults(func=save_backup)
+
+    restore_parser = command_parser.add_parser("restore", help="restore a file backup")
+    restore_parser.add_argument("file", type=Path, help="file to restore")
+    restore_parser.add_argument(
+        "index",
+        type=int,
+        default=0,
+        nargs="?",
+        help="file history index (default: %(default)s, most recent)",
+    )
+    restore_parser.set_defaults(func=restore_backup)
+
+    list_parser = command_parser.add_parser("list", help="list saved file versions")
+    list_parser.add_argument(
+        "file", type=Path, nargs="?", help="list backups of this file only"
+    )
+    list_parser.set_defaults(func=list_backups)
+
+    prune_parser = command_parser.add_parser("prune", help="prune old backups")
+    prune_parser.add_argument(
+        "file", type=Path, nargs="?", help="prune backups of this file only"
+    )
+    prune_parser.add_argument(
+        "-a",
+        "--all",
+        action="store_true",
+        help="prune all backups; implies '--include-latest'",
+    )
+    prune_parser.add_argument(
+        "-o",
+        "--old",
+        action="store_true",
+        help="prune all old versions of each file",
+    )
+    prune_parser.add_argument(
+        "-s",
+        "--to-size",
+        type=parse_bytes,
+        help="prune to maximum cache size (e.g. '1 GB')",
+    )
+    prune_parser.add_argument(
+        "-b",
+        "--before",
+        type=datetime.datetime.fromisoformat,
+        help="prune all files older than this (ISO datetime)",
+    )
+    prune_parser.add_argument(
+        "-l",
+        "--include-latest",
+        action="store_true",
+        help="allow the most recent backup of each file to be included in the prune;"
+        " these are excluded by default",
+    )
+    prune_action_group = prune_parser.add_mutually_exclusive_group(required=True)
+    prune_action_group.add_argument(
+        "-d",
+        "--dry-run",
+        action="store_const",
+        dest="prune_mode",
+        const="dry-run",
+        help="display backups to be deleted without deleting anything",
+    )
+    prune_action_group.add_argument(
+        "-f",
+        "--force",
+        action="store_const",
+        dest="prune_mode",
+        const="force",
+        help="delete the backups",
+    )
+    prune_parser.set_defaults(func=prune_backups)
+
+    return parser.parse_args(argv)
+
+
+def parse_bytes(s: str) -> int:
+    suffixes = {
+        "kB": 10**3,
+        "MB": 10**6,
+        "GB": 10**9,
+        "TB": 10**12,
+    }
+    s = s.strip()
+    for suffix, value in suffixes.items():
+        if s.endswith(suffix):
+            return int(s[: -len(suffix)].rstrip()) * value
+    return int(s)
+
+
+def debug_print(verbose: bool, msg: str, *args) -> None:
+    if not verbose:
+        return
+    print(msg % args, file=sys.stderr)
+
+
+def get_data_dir(data_dir: Optional[Path]) -> Path:
+    """Path to data storage directory, ensuring it is exists."""
+    if data_dir is not None:
+        data_dir.mkdir(parents=True, exist_ok=True)
+        return data_dir
+
+    return Path(BaseDirectory.save_data_path(_RESOURCE_NAME))
+
+
+def iter_backup_dirs(data_dir: Path) -> Iterable[Path]:
+    """Iterator over all file backup directories in a data directory."""
+    return (d for d in (data_dir / "backups").iterdir() if d.is_dir())
+
+
+def get_file_backup_dir(file: Path, data_dir: Path) -> Path:
+    """Path to the file backup directory, not guaranteed to exist."""
+    file = file.resolve()
+    hash_str = hashlib.sha256(bytes(file)).hexdigest()[:16]
+    return data_dir / "backups" / hash_str
+
+
+def get_file_backups(
+    backup_dir: Path,
+) -> List[Tuple[datetime.datetime, Path]]:
+    """List of backups in a directory, ordered by increasing age."""
+    dated_files = []
+    for file in backup_dir.iterdir():
+        try:
+            date = datetime.datetime.fromisoformat(file.name)
+        except ValueError:
+            continue
+        dated_files.append((date, file))
+    return sorted(dated_files, key=operator.itemgetter(0), reverse=True)
+
+
+def save_backup(args: argparse.Namespace) -> None:
+    debug_print(args.verbose, "Saving backup of %s", args.file)
+    data_dir = get_data_dir(args.data)
+    debug_print(args.verbose, "Data dir   : %s", data_dir)
+    backup_dir = get_file_backup_dir(args.file, data_dir)
+    debug_print(args.verbose, "Backup dir : %s", backup_dir)
+    if not backup_dir.exists():
+        backup_dir.mkdir(parents=True)
+        (backup_dir / "path").write_text(str(args.file.resolve()))
+
+    modification_time = datetime.datetime.fromtimestamp(args.file.stat().st_mtime)
+    backup_file = backup_dir / modification_time.isoformat(sep="_")
+    debug_print(args.verbose, "Backup file: %s", backup_file)
+    if backup_file.exists():
+        raise FileExistsError(backup_file)
+
+    shutil.copy2(args.file, backup_file)
+    print(f"Saved {backup_file}", file=sys.stderr)
+
+
+def restore_backup(args: argparse.Namespace) -> None:
+    debug_print(args.verbose, "Restoring idx %d of %s", args.index, args.file)
+    data_dir = get_data_dir(args.data)
+    debug_print(args.verbose, "Data dir   : %s", data_dir)
+
+    backup_dir = get_file_backup_dir(args.file, data_dir)
+    debug_print(args.verbose, "Backup dir : %s", backup_dir)
+
+    _, backup_file = get_file_backups(backup_dir)[args.index]
+    debug_print(args.verbose, "Backup file: %s", backup_file)
+
+    shutil.copy2(backup_file, args.file)
+    print(f"Restored {backup_file}", file=sys.stderr)
+
+
+def list_backups(args: argparse.Namespace) -> None:
+    data_dir = get_data_dir(args.data)
+    debug_print(args.verbose, "Data dir   : %s", data_dir)
+
+    if args.file is not None:
+        backup_dirs: Iterable[Path] = [get_file_backup_dir(args.file, data_dir)]
+    else:
+        backup_dirs = iter_backup_dirs(data_dir)
+
+    for backup_dir in backup_dirs:
+        print()
+        path = (backup_dir / "path").read_text().rstrip("\n")
+        print(path)
+        print(
+            tabulate.tabulate(
+                (
+                    (i, time, file.stat().st_size // 1000)
+                    for i, (time, file) in enumerate(get_file_backups(backup_dir))
+                ),
+                headers=["Index", "Modification Time", "Size (kB)"],
+                tablefmt="rounded_outline",
+            )
+        )
+
+
+def prune_backups(args: argparse.Namespace) -> None:
+    data_dir = get_data_dir(args.data)
+    debug_print(args.verbose, "Data dir   : %s", data_dir)
+
+    if args.file is not None:
+        backup_dirs: Iterable[Path] = [get_file_backup_dir(args.file, data_dir)]
+    else:
+        backup_dirs = iter_backup_dirs(data_dir)
+
+    backups: List[Tuple[Path, int, datetime.datetime, Path]] = []
+    for backup_dir in backup_dirs:
+        path = Path((backup_dir / "path").read_text().rstrip("\n"))
+        backups.extend(
+            (path, idx, modified, file)
+            for idx, (modified, file) in enumerate(get_file_backups(backup_dir))
+        )
+
+    remove = [args.all] * len(backups)
+
+    if args.old:
+        for i, (_, idx, _, _) in enumerate(backups):
+            if idx > 0:
+                remove[i] = True
+
+    if args.before:
+        for i, (_, idx, modified, _) in enumerate(backups):
+            if (args.include_latest or idx > 0) and modified < args.before:
+                remove[i] = True
+
+    sizes = [file.stat().st_size for _, _, _, file in backups]
+    if args.to_size:
+        total_size = sum(sizes)
+        excess = total_size - args.to_size
+        if excess > 0:
+            candidates = sorted(
+                (size, i)
+                for i, size in enumerate(sizes)
+                if args.include_latest or backups[i][1] > 0
+            )
+            for size, i in candidates:
+                remove[i] = True
+                excess -= size
+                if excess <= 0:
+                    break
+
+    if args.prune_mode == "dry-run":
+        print(
+            tabulate.tabulate(
+                (
+                    (path, i, modified, size // 1000, to_remove)
+                    for (path, i, modified, _), size, to_remove in zip(
+                        backups, sizes, remove
+                    )
+                ),
+                headers=["File", "Index", "Modification Time", "Size (kB)", "Remove"],
+                tablefmt="rounded_outline",
+            )
+        )
+    elif args.prune_mode == "force":
+        for (_, _, _, file), to_remove in zip(backups, remove):
+            if to_remove:
+                file.unlink()
+        for backup_dir in iter_backup_dirs(data_dir):
+            if not get_file_backups(backup_dir):
+                (backup_dir / "path").unlink()
+                backup_dir.rmdir()
+
+    else:
+        raise ValueError(args.prune_mode)
+
+
+def main(argv: Optional[Sequence[str]] = None) -> None:
+    """Run script.
+
+    Args:
+        argv: A list of argument strings to use instead of sys.argv.
+    """
+    args = parse_args(argv)
+    args.func(args)
+
+
+if __name__ == "__main__":
+    main()
