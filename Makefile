@@ -592,6 +592,7 @@ $(BUILD_DIR)/$1: $(SOURCE_DIR)/$1.local
 endif
 endef
 
+$(eval $(call BUILD_WITH_LOCAL_TEMPLATE,config/i3/config))
 $(eval $(call BUILD_WITH_LOCAL_TEMPLATE,home/.ssh/config))
 
 ##############################
