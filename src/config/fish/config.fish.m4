@@ -42,29 +42,33 @@ set -x LESS_TERMCAP_us (printf \e"[04;38;5;146m")
 # Set hostname icon
 set -x HOSTNAME_ICON (hostname-icon)
 
-m4_ifdef({<<m4_env_config_MODULE_GE_4>>},m4_dnl
-# Enable the "module" command
-modulecmd fish autoinit | source -
-m4_ifdef({<<m4_env_config_MODULE_DEFAULT_COLLECTION>>},m4_dnl
-# Install the default modules
-module restore "m4_env_config_MODULE_DEFAULT_COLLECTION" >/dev/null
-),m4_ifdef({<<m4_env_config_MODULE_INIT_DIR>>},m4_dnl
-# Enable the "module" command
-if test -f "m4_env_config_MODULE_INIT_DIR/fish"
-  source "m4_env_config_MODULE_INIT_DIR/fish"
+# Interactive shell features
+# 'module' in particular produces output and must only be enabled in interactive shells
+if status --is-interactive
+	m4_ifdef({<<m4_env_config_MODULE_GE_4>>},m4_dnl
+	# Enable the "module" command
+	modulecmd fish autoinit | source -
+	m4_ifdef({<<m4_env_config_MODULE_DEFAULT_COLLECTION>>},m4_dnl
+	# Install the default modules
+	module restore "m4_env_config_MODULE_DEFAULT_COLLECTION" >/dev/null
+	),m4_ifdef({<<m4_env_config_MODULE_INIT_DIR>>},m4_dnl
+	# Enable the "module" command
+	if test -f "m4_env_config_MODULE_INIT_DIR/fish"
+	  source "m4_env_config_MODULE_INIT_DIR/fish"
+	end
+	))m4_dnl
+
+	m4_ifdef({<<m4_env_config_DIRENV>>},m4_dnl
+	# Enable direnv
+	m4_env_config_DIRENV hook fish | source
+	)m4_dnl
+
+	m4_ifdef({<<m4_env_config_VIRTUALFISH_INIT>>},
+	# Enable virtualfish auto-activation.
+	set -x VIRTUALFISH_HOME m4_user_config_XDG_DATA_HOME/python-virtualenvs
+	m4_env_config_VIRTUALFISH_INIT
+	)m4_dnl
 end
-))m4_dnl
-
-m4_ifdef({<<m4_env_config_DIRENV>>},m4_dnl
-# Enable direnv
-m4_env_config_DIRENV hook fish | source
-)m4_dnl
-
-m4_ifdef({<<m4_env_config_VIRTUALFISH_INIT>>},
-# Enable virtualfish auto-activation.
-set -x VIRTUALFISH_HOME m4_user_config_XDG_DATA_HOME/python-virtualenvs
-m4_env_config_VIRTUALFISH_INIT
-)m4_dnl
 
 # Start X at login
 if status --is-login
