@@ -779,7 +779,7 @@ $(VUNDLE_TARGET): | $(dir $(VUNDLE_TARGET)).
 	cd $(dir $@) && git clone https://github.com/VundleVim/Vundle.vim.git
 
 vim-plugins: vim-vundle
-	vim +PluginInstall +PluginUpdate +qall
+	vim -E +PluginInstall +PluginUpdate +qall
 
 YCM_DIR:=$(DATA_DIR)/vim/bundle/YouCompleteMe
 YCM_CORE:=$(YCM_DIR)/third_party/ycmd/ycm_core.so
