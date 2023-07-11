@@ -26,7 +26,7 @@ function find_application() {
 	return 1
 }
 
-GUI_BROWSERS=(firefox chromium google-chrome)
+GUI_BROWSERS=(vivaldi firefox chromium google-chrome)
 find_program BROWSER "${GUI_BROWSERS[@]}" || true
 find_application BROWSER_APP "${GUI_BROWSERS[@]}" || true
 find_program TERMINAL_BROWSER elinks lynx || true
