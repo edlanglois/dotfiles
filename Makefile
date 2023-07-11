@@ -841,7 +841,10 @@ ifdef SYSTEMCTL
 $(BUILD_DIR)/make/systemd-reload: \
 		$(INSTALLED_SYSTEMD_CONFIGS) \
 		| $(BUILD_DIR)/make/.
-	systemctl --user daemon-reload
+	if systemctl --quiet --user is-system-running; then \
+		echo "Reloading systemd user configuration"; \
+		systemctl --user daemon-reload; \
+	fi
 else
 $(BUILD_DIR)/make/systemd-reload: | $(BUILD_DIR)/make/.
 endif
