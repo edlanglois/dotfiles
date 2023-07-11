@@ -9,8 +9,8 @@ pathprepend() {
   # Usage: pathprepend $PATH /path/to/add
   # Update a PATH-like colon-separated variable by prepending a new value if not
   # already present.
-  local value="$2"
-  local paths="${1:-$value}"
+  value="$2"
+  paths="${1:-$value}"
   case ":$paths:" in
     *:$value:*)
       echo "$paths";;
@@ -32,8 +32,8 @@ pathappend() {
   # Usage: pathappend $PATH /path/to/add
   # Update a PATH-like colon-separated variable by appending a new value if not
   # already present.
-  local value="$2"
-  local paths="${1:-$value}"
+  value="$2"
+  paths="${1:-$value}"
   case ":$paths:" in
     *:$value:*)
       echo "$paths";;
@@ -85,7 +85,7 @@ MANPATH="$(pathprepend_if_isdir "$MANPATH" "$LOCAL_PREFIX_/share/man")"
 # Avoid setting XAUTHORITY if any of the following login managers are installed.
 # Also do not set XAUTHORITY if it is already set to a value that does not end
 # in .Xauthority
-if [ -n "$XAUTHORITY" -a "$(basename "$XAUTHORITY")" != .Xauthority ]; then
+if [ -n "$XAUTHORITY" ] && [ "$(basename "$XAUTHORITY")" != .Xauthority ]; then
 	: # Already a good XAUTHORITY value
 elif [ -e "$XDG_RUNTIME_DIR/gdm/Xauthority" ]; then
 	export XAUTHORITY="$XDG_RUNTIME_DIR/gdm/Xauthority"
@@ -102,7 +102,7 @@ m4_ifdef({<<m4_env_config_XLSCLIENTS>>},m4_dnl
 # This is useful for ssh + remote desktop
 # allowing the SSH terminals to access the remote desktop display.
 if [ -z "$DISPLAY" ]; then
-	for i in  {0..9}; do
+	for i in $(seq 0 9); do
 		if m4_env_config_XLSCLIENTS -display ":$i" >/dev/null 2>&1; then
 			export DISPLAY=":$i"
 			break
@@ -157,9 +157,9 @@ export PERL_MM_OPT="INSTALL_BASE=m4_env_config_PERL_ROOT"
 
 m4_ifdef({<<m4_env_config_GEM_BIN_PATH>>},m4_dnl
 # Ruby Gem Paths
-while IFS=: read -d: -r gempath; do
+for gempath in $(echo "m4_env_config_GEM_BIN_PATH:" | tr ':' '\n'); do
   PATH="$(pathappend_if_isdir "$PATH" "$gempath")"
-done <<< "m4_env_config_GEM_BIN_PATH:"
+done
 )m4_dnl
 
 m4_ifdef({<<m4_env_config_CARGO_BIN>>},m4_dnl

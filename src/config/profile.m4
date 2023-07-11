@@ -11,7 +11,7 @@
 # Manually load pam_environment if PAM didn't
 if [ -z "$PAM_USER_ENV" ]; then
 	# Parse VAR_NAME DEFAULT=... entries
-	. <(sed ~/.pam_environment -ne 's/^\([[:alnum:]_]\+\) \+DEFAULT=/export \1=/p')
+	eval "$(sed ~/.pam_environment -ne 's/^\([[:alnum:]_]\+\) \+DEFAULT=/export \1=/p')"
 fi
 
 . "${XDG_CONFIG_HOME:-$HOME/.config}/env_profile"
