@@ -26,7 +26,8 @@ function find_application() {
 	return 1
 }
 
-GUI_BROWSERS=(vivaldi firefox chromium google-chrome)
+# Vivaldi's desktop file is called vivaldi-stable.desktop
+GUI_BROWSERS=(vivaldi vivaldi-stable firefox chromium google-chrome)
 find_program BROWSER "${GUI_BROWSERS[@]}" || true
 find_application BROWSER_APP "${GUI_BROWSERS[@]}" || true
 find_program TERMINAL_BROWSER elinks lynx || true
