@@ -2,7 +2,7 @@ m4_include(env_config.m4)m4_dnl
 alias apox='apropos'
 alias quit='exit'
 alias hex='xxd -c 4'
-alias tmux='tmux -2 -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"'
+alias tmux='tmux -f "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"'
 
 alias la='ls -a'
 alias ll='ls -l'
