@@ -6,8 +6,9 @@ set -g default-shell m4_env_config_SHELL
 # Force >=256 colours.
 set -g default-terminal "tmux-256color"
 # Enable True Colour (24-bit colour).
-set -ga terminal-overrides ",xterm-termite:Tc"
-set -ga terminal-overrides ",xterm-256color:Tc"
+set -sa terminal-overrides ",alacritty:Tc"
+set -sa terminal-overrides ",terminator:Tc"
+set -sa terminal-overrides ",xterm-termite:Tc"
 
 # Set Ctrl-a as the default prefix
 unbind C-b
