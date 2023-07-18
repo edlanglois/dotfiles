@@ -5,8 +5,8 @@ BASE_SESSION_NAME=main
 CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf"
 # Create a session called BASE_SESSION_NAME in the background if one doesn't
 # exist. This session persists through disconnects.
-tmux -f "$CONFIG_FILE" new-session -d -s "${BASE_SESSION_NAME}" 2>/dev/null || true
+/usr/bin/env tmux -f "$CONFIG_FILE" new-session -d -s "${BASE_SESSION_NAME}" 2>/dev/null || true
 # Create a new session and attach to BASE_SESSION_NAME.
 # This session is transient and disappears on disconnect.
-tmux -f "$CONFIG_FILE" new-session -t "${BASE_SESSION_NAME}" \; \
+/usr/bin/env tmux -f "$CONFIG_FILE" new-session -t "${BASE_SESSION_NAME}" \; \
 	set-option destroy-unattached
