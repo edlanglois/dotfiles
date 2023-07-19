@@ -144,7 +144,6 @@ CONFIG_FBI_VIM:=\
 	vim/plugin/settings/tmuxline.vim\
 	vim/plugin/settings/ultisnips.vim\
 	vim/vimrc\
-	vim/ycm_extra_conf.py\
 
 CONFIG_I3BLOCKS_CONTRIB:=\
 	memory/memory\
