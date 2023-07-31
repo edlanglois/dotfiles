@@ -98,7 +98,7 @@ min_width=m4_ICON_GPU 100%
 [memory]
 ICON=m4_ICON_MEMORY
 m4_ifdef({<<m4_env_config_I3BLOCKS_MEM_POPUP>>},m4_dnl
-command=m4_I3BLOCKS_DIR/$BLOCK_NAME | {<<sed -e '1,2s/^/<span color="cyan">'"$ICON"'<\/span> /'>>} && ( if [ "$BLOCK_BUTTON" == "1" ]; then m4_env_config_I3BLOCKS_MEM_POPUP; fi ))
+command=m4_I3BLOCKS_DIR/$BLOCK_NAME | {<<sed -e '1,2s/^/<span color="cyan">'"$ICON"'<\/span> /'>>} && ( if [ "$BLOCK_BUTTON" = "1" ]; then m4_env_config_I3BLOCKS_MEM_POPUP >/dev/null; fi ))
 interval=30
 
 [temperature]
