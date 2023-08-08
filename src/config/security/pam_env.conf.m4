@@ -103,6 +103,7 @@ PYLINTRC           DEFAULT="m4_env_config_XDG_CONFIG_HOME/pylint/config"
 PYLINTHOME         DEFAULT="m4_env_config_XDG_CACHE_HOME/pylint"
 THEANORC           DEFAULT="m4_env_config_XDG_CONFIG_HOME/theano/config"
 IPYTHONDIR         DEFAULT="m4_env_config_XDG_CONFIG_HOME/ipython"
+KERAS_HOME         DEFAULT="m4_env_config_XDG_DATA_HOME/keras"
 # Set Tensorflow loglevel to WARNING (default INFO)
 TF_CPP_MIN_LOG_LEVEL DEFAULT=1
 )m4_dnl

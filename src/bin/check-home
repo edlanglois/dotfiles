@@ -60,7 +60,7 @@ KNOWN_FILES = {
     ".grip": Status.FIXED,  # Fixed with env var
     ".java": Status.TO_INVESTIGATE,  # Possible to relocate with env var
     ".jssc": Status.TOLERATED_SYMLINK,  # https://github.com/arduino/Arduino/issues/3915
-    ".keras": Status.REMOVE,  # https://github.com/keras-team/keras/issues/14186
+    ".keras": Status.FIXED,
     ".klei": Status.TOLERATED_SYMLINK,
     ".lldb": Status.REMOVE,
     ".local": Status.APPROVED,
