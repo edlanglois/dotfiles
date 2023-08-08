@@ -75,6 +75,7 @@ KNOWN_FILES = {
     ".Private": Status.APPROVED,
     ".profile": Status.APPROVED_SYMLINK,
     ".pulse-cookie": Status.TO_INVESTIGATE,  # Config ignored? See man pulse-client.conf
+    ".sqlite_history": Status.FIXED,
     ".ssh": Status.APPROVED,
     ".steam": Status.TOLERATED,
     ".SteamCloud": Status.TO_INVESTIGATE,
