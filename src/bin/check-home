@@ -8,12 +8,11 @@ import pathlib
 import shutil
 import stat
 import sys
-from typing import Optional, Sequence
 
 from termcolor import colored
 
 
-def parse_args(argv = None):
+def parse_args(argv=None):
     """Parse command-line arguments.
 
     Args:
@@ -82,7 +81,7 @@ KNOWN_FILES = {
     ".steampath": Status.TOLERATED_SYMLINK,
     ".steampid": Status.TOLERATED_SYMLINK,
     ".sudo_as_admin_successful": Status.TOLERATED,
-    ".terminfo": Status.TOLERATED_SYMLINK, # optional, fish can be initd b4 TERMINFO set
+    ".terminfo": Status.TOLERATED_SYMLINK,  # optional, fish can be initd b4 TERMINFO set
     ".thumbnails": Status.TO_INVESTIGATE,  # I can't figure out what's making this
     ".thunderbird": Status.TOLERATED_SYMLINK,
     ".Xauthority": Status.TOLERATED,  # XAUTHORITY breaks lightdm. Maybe make SYMLINK?
@@ -93,7 +92,7 @@ KNOWN_FILES = {
 }
 
 
-def main(argv = None):
+def main(argv=None):
     """Run script.
 
     Args:
@@ -137,9 +136,7 @@ def main(argv = None):
 
         if status in (Status.UNKNOWN, status.TO_INVESTIGATE):
             try:
-                last_modified_time = datetime.datetime.fromtimestamp(
-                    os.stat(file)[stat.ST_MTIME]
-                )
+                last_modified_time = datetime.datetime.fromtimestamp(os.stat(file)[stat.ST_MTIME])
                 extras.append("[{}]".format(last_modified_time))
             except KeyError:
                 pass
@@ -163,7 +160,7 @@ if __name__ == "__main__":
     except KeyError:
         pass
     else:
-        _np.set_printoptions(  # type: ignore
-            linewidth=shutil.get_terminal_size().columns
-        )
+        _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)  # type: ignore
     main()
+
+# vim: tw=100
