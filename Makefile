@@ -377,6 +377,9 @@ HOME_DLINKS:=
 ifneq ($(strip $(shell command -v arduino)),)
 HOME_DLINKS += .arduino15 .jssc
 endif
+ifneq ($(strip $(shell command -v cmake)),)
+HOME_DLINKS += .cmake
+endif
 ifneq ($(strip $(shell command -v duplicacy-web)),)
 HOME_DLINKS += .duplicacy-web
 endif
