@@ -3,7 +3,7 @@ m4_include(env_config.m4)m4_dnl
 
 # Note: The path cannot be quoted. The XDG_CONFIG_HOME variable may use the `~` 
 # character, which is only expanded to $HOME if the string is unqouted.
-set fish_function_path $fish_function_path m4_user_config_XDG_CONFIG_HOME/fish/plugins/foreign-env/functions
+set fish_function_path $fish_function_path m4_user_config_XDG_CONFIG_HOME/fish/plugins/bass/functions
 
 # Source static environment variables from pam_env if not already loaded
 if not set -q PAM_USER_ENV
@@ -13,7 +13,7 @@ if not set -q PAM_USER_ENV
 end
 
 # Source dynamic environment variables from env_profile using the foreign env plugin.
-fenv source m4_user_config_XDG_CONFIG_HOME/env_profile
+bass source m4_user_config_XDG_CONFIG_HOME/env_profile
 
 set -g fish_color_cwd yellow
 set -g fish_pager_color_description cea746

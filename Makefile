@@ -245,15 +245,11 @@ CONFIG_BUILD:=\
 	$(CONFIG_FBI)\
 	$(CONFIG_FB)\
 
-CONFIG_INSTALL_FISH_FOREIGN_ENV:=$(addprefix fish/plugins/foreign-env/,\
-	functions/fenv.apply.fish\
-	functions/fenv.fish\
-	functions/fenv.main.fish\
-	functions/fenv.parse.after.fish\
-	functions/fenv.parse.before.fish\
-	functions/fenv.parse.diff.fish\
-	functions/fenv.parse.divider.fish\
+CONFIG_INSTALL_FISH_BASS:=$(addprefix fish/plugins/bass/,\
+	functions/__bass.py\
+	functions/bass.fish\
 	LICENSE\
+	Makefile\
 	README.md\
 )
 
@@ -266,7 +262,7 @@ CONFIG_FONTS:=\
 
 CONFIG_INSTALL:=\
 	$(CONFIG_FONTS)\
-	$(CONFIG_INSTALL_FISH_FOREIGN_ENV)\
+	$(CONFIG_INSTALL_FISH_BASS)\
 	$(CONFIG_INSTALL_VIM_DIRECT)\
 	$(CONFIG_FBI)\
 	gkrellm/user-config-cpu\

@@ -1,7 +1,6 @@
-[submodule ".config/fish/plugins/foreign-env"]
-	path = src/config/fish/plugins/foreign-env
-	url = https://github.com/edlanglois/plugin-foreign-env.git
-	branch = env-stderr
+[submodule "src/config/fish/plugins/bass"]
+	path = src/config/fish/plugins/bass
+	url = https://github.com/edc/bass.git
 [submodule ".config/i3blocks/i3blocks-contrib"]
 	path = src/config/i3blocks/i3blocks-contrib
 	url = https://github.com/vivien/i3blocks-contrib.git
