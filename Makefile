@@ -170,8 +170,6 @@ CONFIG_FBI:=\
 	fish/completions/ros2.fish\
 	fish/completions/timetrace.fish\
 	fish/config.fish\
-	fish/functions/ccopy.fish\
-	fish/functions/cpaste.fish\
 	fish/functions/fish_prompt.fish\
 	fish/functions/hostname-icon.fish\
 	fish/functions/ip.fish\
@@ -266,6 +264,7 @@ CONFIG_INSTALL:=\
 	$(CONFIG_INSTALL_VIM_DIRECT)\
 	$(CONFIG_FBI)\
 	gkrellm/user-config-cpu\
+	fish/functions/xcb.fish\
 	gkrellm/user-config-memory\
 	i3blocks/scripts/battery\
 	i3blocks/scripts/conky-toggle\
