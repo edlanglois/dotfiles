@@ -48,6 +48,7 @@ KNOWN_FILES = {
     ".bash_profile": Status.TOLERATED_SYMLINK,
     ".bashrc": Status.TOLERATED_SYMLINK,
     ".bean-shell-history": Status.REMOVE,  # Beancount
+    ".Braid": Status.TOLERATED_SYMLINK,
     ".cache": Status.APPROVED,
     ".cmake": Status.TOLERATED_SYMLINK,  # https://gitlab.kitware.com/cmake/cmake/-/issues/22480
     ".config": Status.APPROVED,
