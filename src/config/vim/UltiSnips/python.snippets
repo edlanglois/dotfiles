@@ -42,7 +42,7 @@ def log_level(level: str) -> int:
         try:
             return getattr(logging, level.upper())
         except AttributeError:
-            raise ValueError(level)
+            raise ValueError(level) from None
 
 
 def main(argv: Optional[Sequence[str]] = None) -> None:
