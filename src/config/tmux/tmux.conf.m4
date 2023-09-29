@@ -56,18 +56,6 @@ bind - split-window -v
 bind h split-window -h
 bind v split-window -v
 
-# Smart pane switching with awareness of vim splits
-# Ctrl-h,j,k,l => left,down,up,right
-is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(-p3)?(diff)?$"'
-bind -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
-bind -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
-bind -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
-bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
-
-# Ctrl-\ previous split
-# But disabled since I don't want to conflict with C-\ to send SIGQUIT
-# bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
-
 # Make the current pane the first pane
 bind Enter swap-pane -s 0
 
