@@ -12,6 +12,12 @@ if not set -q PAM_USER_ENV
 		| source
 end
 
+# Source system environment variables from profile if login shell
+if status --is-login
+	and test -f /etc/profile
+	bass source /etc/profile
+end
+
 # Source dynamic environment variables from env_profile using the foreign env plugin.
 bass source m4_user_config_XDG_CONFIG_HOME/env_profile
 
