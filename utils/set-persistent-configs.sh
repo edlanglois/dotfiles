@@ -10,6 +10,9 @@ if command -v gsettings 2>/dev/null && [ -n "${DISPLAY:-}" ]; then
 	# Fix Nautilus on i3.
 	# Otherwise creates an invisible, unresponsive something when opened.
 	gsettings set org.gnome.desktop.background show-desktop-icons false || true
+
+	# Set dark mode
+	gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 fi
 
 # Enable user systemd units
