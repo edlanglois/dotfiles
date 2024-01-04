@@ -155,7 +155,7 @@ CONFIG_FBI:=\
 	$(CONFIG_FBI_SYSTEMD)\
 	$(CONFIG_FBI_VIM)\
 	$(addprefix i3blocks/scripts/,$(notdir $(CONFIG_I3BLOCKS_CONTRIB)))\
-	alacritty/alacritty.yml\
+	alacritty/alacritty.toml\
 	arduino/preferences.txt\
 	bash/aliases\
 	bash/bashrc\
