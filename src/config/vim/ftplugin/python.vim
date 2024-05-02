@@ -12,7 +12,6 @@ let b:ale_fixers = ['black', 'isort', 'trim_whitespace']
 
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 let g:ale_python_mypy_options='--ignore-missing-imports'
-let g:ale_python_mypy_options.=' --follow-imports="silent"'
 " By default mypy creates .mypy_cache in the directory in which it is run.
 " I prefer that it use XDG cache instead.
 " I don't know if there will be a problem with multiple projects sharing the
