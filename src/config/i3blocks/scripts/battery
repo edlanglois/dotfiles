@@ -50,7 +50,7 @@ while read -r PERCENT TIME; do
 	(( ++NUM_BATTERIES ))
 	(( SUM_PCT += PERCENT ))
 
-done <<< "$(acpi -b | sed -ne 's/Battery *\([[:digit:]]\+\): *\([[:alpha:]]\+\), *\([[:digit:]]\+\)\%\(, *\([[:digit:]]\+:[[:digit:]]\+\)\)\?.*/\3 \5/p')"
+done <<< "$(acpi -b | sed -Ene 's/Battery *([[:digit:]]+): *([[:alpha:] ]+), *([[:digit:]]+)\%(, *([[:digit:]]+:[[:digit:]]+))?.*/\3 \5/p')"
 
 if [ "$NUM_BATTERIES" -eq 0 ]; then
 	return
