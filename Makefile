@@ -367,7 +367,8 @@ HOME_LINKS:=\
 	.profile\
 	.xprofile\
 
-HOME_DLINKS:=
+HOME_DLINKS:=\
+	.pki\
 
 ifneq ($(strip $(shell command -v arduino)),)
 HOME_DLINKS += .arduino15 .jssc

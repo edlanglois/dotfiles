@@ -73,7 +73,7 @@ KNOWN_FILES = {
     ".Osmos": Status.TOLERATED_SYMLINK,
     ".pam_environment": Status.APPROVED_SYMLINK,
     ".paradoxlauncher": Status.TOLERATED_SYMLINK,
-    ".pki": Status.TO_INVESTIGATE,  # Supposedly fixed but keeps reappearing. Delete OK
+    ".pki": Status.TOLERATED_SYMLINK,
     ".Private": Status.APPROVED,
     ".profile": Status.APPROVED_SYMLINK,
     ".pulse-cookie": Status.TO_INVESTIGATE,  # Config ignored? See man pulse-client.conf
