@@ -150,6 +150,14 @@ if [ -f "$PULSE_DAEMON" ]; then
 	echo "ENABLE_DEFERRED_VOLUME=$(sed -ne 's/^enable-deferred-volume =\s\+\(.*\)/\1/p' "$PULSE_DAEMON")"
 fi
 
+PULSE_CONFIG="/etc/pulse/default.pa"
+if [ -f "$PULSE_CONFIG" ]; then
+	echo
+	echo "# Pulse audio cork module; should be blank"
+	echo "# Comment out the line if not"
+	echo "LOAD_CORK_MODULE=$(sed -ne '/^\s*load-module module-role-cork/p' "$PULSE_CONFIG")"
+fi
+
 IMAGEMAGICK_POLICY="/etc/ImageMagick-7/policy.xml"
 if [ -f "$IMAGEMAGICK_POLICY" ]; then
 	echo
