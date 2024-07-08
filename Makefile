@@ -192,7 +192,6 @@ CONFIG_FBI:=\
 	isort.cfg\
 	latexmk/latexmkrc\
 	locale.conf\
-	matplotlib/matplotlibrc\
 	mimeapps.list\
 	npm/config\
 	pacman/makepkg.conf\
