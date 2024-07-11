@@ -17,6 +17,7 @@ find_program GSIMPLECAL gsimplecal || true
 find_program I3BLOCKS i3blocks || true
 find_program IP_CMD ip || true
 find_program MAIM maim || true
+find_program NODE node || true
 find_program PICOM picom || true
 find_program PLAYERCTL playerctl || true
 find_program PULSEAUDIO pulseaudio || true
