@@ -187,6 +187,8 @@ bindsym XF86AudioPlay exec --no-startup-id "pplayerctl play-pause; sleep 0.1; pk
 bindsym XF86AudioPause exec --no-startup-id "pplayerctl play-pause; sleep 0.1; pkill -RTMIN+2 i3blocks"
 bindsym XF86AudioNext exec --no-startup-id "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
 bindsym XF86AudioPrev exec --no-startup-id "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym $mod+m exec --no-startup-id "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
+bindsym $mod+n exec --no-startup-id "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
 bindsym XF86Forward exec --no-startup-id "pplayerctl next; sleep 0.2; pkill -RTMIN+2 i3blocks"
 bindsym XF86Back exec --no-startup-id "pplayerctl previous; sleep 0.2; pkill -RTMIN+2 i3blocks"
 )
