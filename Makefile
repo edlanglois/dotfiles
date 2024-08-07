@@ -149,7 +149,7 @@ CONFIG_I3BLOCKS_CONTRIB:=\
 	memory/memory\
 	nm-vpn/nm-vpn\
 	temperature/temperature\
-	volume/volume\
+	volume-pulseaudio/volume-pulseaudio\
 
 CONFIG_FBI:=\
 	$(CONFIG_FBI_SYSTEMD)\

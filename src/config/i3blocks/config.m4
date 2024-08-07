@@ -6,6 +6,9 @@ m4_define(m4_ICON_CPU,)
 m4_define(m4_ICON_GPU,)
 m4_define(m4_ICON_MEMORY,)
 m4_define(m4_ICON_SPEAKER,)
+m4_define(m4_ICON_SPEAKER_LOW,)
+m4_define(m4_ICON_SPEAKER_MED,)
+m4_define(m4_ICON_SPEAKER_HIGH,)
 m4_define(m4_ICON_TEMPERATURE,)
 m4_define(m4_ICON_TIME,)
 m4_define(m4_ICON_WIFI,)
@@ -16,7 +19,9 @@ m4_define(m4_ICON_CALENDAR,📅)
 m4_define(m4_ICON_CPU,⌬)
 m4_define(m4_ICON_GPU,⊞)
 m4_define(m4_ICON_MEMORY,⎍)
-m4_define(m4_ICON_SPEAKER,🔊︎)
+m4_define(m4_ICON_SPEAKER_LOW,🔈︎)
+m4_define(m4_ICON_SPEAKER_MED,🔉︎)
+m4_define(m4_ICON_SPEAKER_HIGH,🔊︎)
 m4_define(m4_ICON_TEMPERATURE,🌡)
 m4_define(m4_ICON_TIME,🕒︎)
 m4_define(m4_ICON_WIFI,📶︎)
@@ -68,8 +73,12 @@ ICON=♫
 interval=5
 signal=2
 
-[volume]
-ICON=m4_ICON_SPEAKER
+[volume-pulseaudio]
+LONG_FORMAT=<span color="cyan">${SYMB}</span> ${VOL}%
+SHORT_FORMAT=<span color="cyan">${SYMB}</span> ${VOL}%
+AUDIO_LOW_SYMBOL=m4_ICON_SPEAKER_LOW
+AUDIO_MED_SYMBOL=m4_ICON_SPEAKER_MED
+AUDIO_HIGH_SYMBOL=m4_ICON_SPEAKER_HIGH
 STEP=3%
 instance=Master
 interval=once
