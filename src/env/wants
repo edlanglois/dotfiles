@@ -170,10 +170,13 @@ fi
 
 SPOTIFY_LAUNCHER_CONFIG="/etc/spotify-launcher.conf"
 if [ -f "$SPOTIFY_LAUNCHER_CONFIG" ]; then
-	echo
-	echo "# Spotify launcher config does not auto-scale for high DPI monitors"
-	echo "# If high-dpi, should include --force-device-scale-factor <scale>"
-	echo "EXTRA_ARGUMENTS=$(sed -Ene 's/^\s*extra_arguments\s*=\s*//p' "$SPOTIFY_LAUNCHER_CONFIG")"
+	GDK_SCALE="$("${BASH_SOURCE%/*}/display" | sed -Ene 's/^GDK_SCALE=//p')"
+	if [ "$GDK_SCALE" -ne 1 ]; then
+		echo
+		echo "# Spotify launcher config does not auto-scale for high DPI monitors"
+		echo "# Should include --force-device-scale-factor=$GDK_SCALE.0"
+		echo "EXTRA_ARGUMENTS=$(sed -Ene 's/^\s*extra_arguments\s*=\s*//p' "$SPOTIFY_LAUNCHER_CONFIG")"
+	fi
 fi
 
 

@@ -717,7 +717,9 @@ endif
 			-e "s/,/=/" | \
 		$(COLORIZE_CONFIG)
 
-show-wants: $(SOURCE_DIR)/env/wants $(SOURCE_DIR)/env/env_utils
+show-wants: $(SOURCE_DIR)/env/wants \
+		$(SOURCE_DIR)/env/env_utils \
+		$(SOURCE_DIR)/env/display
 	@"$<" | $(COLORIZE_CONFIG)
 
 show-links: build $(UTILS_DIR)/check-links
