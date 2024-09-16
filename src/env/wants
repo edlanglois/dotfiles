@@ -168,6 +168,14 @@ if [ -f "$IMAGEMAGICK_POLICY" ]; then
 	echo "GHOSTSCRIPT_RIGHTS=$(sed -ne 's/^\s*<policy\b.*\brights="\([^"]*\)"\s\+.*\bpattern="gs".*\/>/\1/p' "$IMAGEMAGICK_POLICY")"
 fi
 
+SPOTIFY_LAUNCHER_CONFIG="/etc/spotify-launcher.conf"
+if [ -f "$SPOTIFY_LAUNCHER_CONFIG" ]; then
+	echo
+	echo "# Spotify launcher config does not auto-scale for high DPI monitors"
+	echo "# If high-dpi, should include --force-device-scale-factor <scale>"
+	echo "EXTRA_ARGUMENTS=$(sed -Ene 's/^\s*extra_arguments\s*=\s*//p' "$SPOTIFY_LAUNCHER_CONFIG")"
+fi
+
 
 function service_status() {
 	if ! systemctl cat "$2" >/dev/null 2>&1; then
