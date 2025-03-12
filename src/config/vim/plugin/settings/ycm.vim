@@ -4,6 +4,10 @@ let g:ycm_filetype_blacklist = {
 	\ 'tex': 1
 	\}
 
+" Remove <Tab> from mappings
+let g:ycm_key_list_select_completion = [ '<Down>' ]
+let g:ycm_key_list_previous_completion = [ '<Up>' ]
+
 " YCM shortcuts
 nnoremap gt :YcmCompleter GoTo<CR>
 nnoremap <leader>d :YcmCompleter GetDoc<CR>
