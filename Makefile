@@ -443,6 +443,7 @@ SYSTEM_INSTALL:=\
 # Environment
 # -----------
 ENV_FIRST_BUILD:=\
+	alacritty\
 	applications\
 	battery\
 	ccache\

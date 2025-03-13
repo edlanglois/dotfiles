@@ -4,7 +4,8 @@ m4_include(env_config.m4)m4_dnl
 [env]
 XDG_CACHE_HOME = "m4_env_config_XDG_CACHE_HOME"
 
-[terminal.shell]
+m4_ifdef({<<m4_env_config_ALACRITTY_GE_0_14>>},m4_dnl
+[terminal.shell],[shell])
 program = "m4_env_config_SHELL"
 
 [font]
