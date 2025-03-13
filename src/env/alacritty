@@ -1,0 +1,11 @@
+#!/bin/bash
+set -eu
+# shellcheck source=env_utils
+source "${BASH_SOURCE%/*}/env_utils"
+
+if find_program ALACRITTY alacritty >/dev/null; then
+	ALACRITTY_VERSION="$(alacritty --version | cut -d' ' -f2)"
+	if version_ge "$ALACRITTY_VERSION" "0.14"; then
+		echo ALACRITTY_GE_0_14=
+	fi
+fi
