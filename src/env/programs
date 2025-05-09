@@ -5,6 +5,7 @@ set -eu
 source "${BASH_SOURCE%/*}/env_utils"
 
 find_program AWS aws || true
+find_program BRIGHTNESSCTL brightnessctl || true
 find_program CONDA conda || true
 find_program DEX dex || true
 find_program DIRENV direnv || true

@@ -208,12 +208,20 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE s
 bindsym XF86AudioLowerVolume exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Master 3%- unmute; pkill -RTMIN+1 i3blocks"
 bindsym XF86AudioMute exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Master toggle; pkill -RTMIN+1 i3blocks"
 
+m4_ifdef({<<m4_env_config_BRIGHTNESSCTL>>},m4_dnl
+# Brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id "brightnessctl 10%+"
+bindsym XF86MonBrightnessDown exec --no-startup-id "brightnessctl 10%-"
+bindsym $mod+XF86MonBrightnessUp exec --no-startup-id "brightnessctl 1%+"
+bindsym $mod+XF86MonBrightnessDown exec --no-startup-id "brightnessctl 1%-"
+,m4_dnl
 m4_ifdef({<<m4_env_config_XBACKLIGHT>>},m4_dnl
 # Brightness
 bindsym XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 10"
 bindsym XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 10"
 bindsym $mod+XF86MonBrightnessUp exec --no-startup-id "xbacklight -inc 1"
 bindsym $mod+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
+)m4_dnl
 )m4_dnl
 
 m4_ifdef({<<m4_env_config_MAIM>>},m4_dnl
