@@ -210,10 +210,10 @@ bindsym XF86AudioMute exec --no-startup-id "amixer -M -q m4_ALSA_DEVICE set Mast
 
 m4_ifdef({<<m4_env_config_BRIGHTNESSCTL>>},m4_dnl
 # Brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id "brightnessctl 10%+"
-bindsym XF86MonBrightnessDown exec --no-startup-id "brightnessctl 10%-"
-bindsym $mod+XF86MonBrightnessUp exec --no-startup-id "brightnessctl 1%+"
-bindsym $mod+XF86MonBrightnessDown exec --no-startup-id "brightnessctl 1%-"
+bindsym XF86MonBrightnessUp exec --no-startup-id "brightnessctl set 10%+"
+bindsym XF86MonBrightnessDown exec --no-startup-id "brightnessctl set 10%-"
+bindsym $mod+XF86MonBrightnessUp exec --no-startup-id "brightnessctl set 1%+"
+bindsym $mod+XF86MonBrightnessDown exec --no-startup-id "brightnessctl set 1%-"
 ,m4_dnl
 m4_ifdef({<<m4_env_config_XBACKLIGHT>>},m4_dnl
 # Brightness
