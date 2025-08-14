@@ -8,7 +8,7 @@ if executable('ruff')
   let b:ale_linters_ignore += ['flake8']
 endif
 
-let b:ale_fixers = ['black', 'isort', 'trim_whitespace']
+let b:ale_fixers = ['black', 'ruff', 'trim_whitespace']
 
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 let g:ale_python_mypy_options='--ignore-missing-imports'
