@@ -7,10 +7,10 @@ import argparse
 import logging
 import shutil
 import sys
-from typing import Optional, Sequence
+from collections.abc import Sequence
 
 
-def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     """Parse command-line arguments.
 
     Args:
@@ -39,13 +39,14 @@ def log_level(level: str) -> int:
     try:
         return int(level)
     except ValueError:
-        try:
-            return getattr(logging, level.upper())
-        except AttributeError:
-            raise ValueError(level) from None
+        pass
+    try:
+        return getattr(logging, level.upper())
+    except AttributeError:
+        raise ValueError(f"Invalid log level name or integer literal: {level!r}") from None
 
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
+def main(argv: Sequence[str] | None = None) -> None:
     """Run script.
 
     Args:
@@ -61,9 +62,7 @@ if __name__ == "__main__":
     except KeyError:
         pass
     else:
-        _np.set_printoptions(  # type: ignore
-            linewidth=shutil.get_terminal_size().columns
-        )
+        _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)
     main()
 endsnippet
 
