@@ -86,6 +86,7 @@ Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
 Plugin 'edlanglois/lark-syntax.vim'           " MIT
 Plugin 'edlanglois/latex-unicoder.vim'        " MIT
+Plugin 'edlanglois/python-syntax'             " MIT
 Plugin 'edlanglois/vim-edict'                 " MIT
 Plugin 'edlanglois/vim-fish'                  " MIT
 Plugin 'edlanglois/vim-gdl-syntax'            " MIT
@@ -116,7 +117,6 @@ Plugin 'tpope/vim-surround'                   " Vim
 Plugin 'tpope/vim-unimpaired'                 " Vim
 Plugin 'vim-airline/vim-airline'              " MIT
 Plugin 'vim-airline/vim-airline-themes'       " MIT
-Plugin 'vim-python/python-syntax'             " MIT
 Plugin 'vimwiki/vimwiki'                      " MIT
 Plugin 'w0rp/ale'                             " BSD 2-Clause
 if v:versionlong < 8023519
