@@ -293,6 +293,10 @@ CONFIG_INSTALL:=\
 
 # Data
 # ----
+DATA_FBI:=\
+	konsole/Custom.colorscheme\
+	konsole/Custom.profile\
+
 DATA_LINKS:=\
 	arduino/preferences.txt\
 	cargo/config.toml\
@@ -324,6 +328,7 @@ SOURCE_STEAM_DESKTOP:=/usr/share/applications/steam.desktop
 DATA_STEAM_DESKTOP:=applications/steam.desktop
 
 DATA_FIRST_BUILD:=\
+	$(DATA_FBI)\
 	$(DATA_FB)\
 	$(DATA_SPOTIFY_DESKTOP).sed\
 	$(DATA_STEAM_DESKTOP).sed\
@@ -337,6 +342,7 @@ DATA_BI+=$(DATA_STEAM_DESKTOP)
 endif
 
 DATA_BUILD:=\
+	$(DATA_FBI)\
 	$(DATA_FB)\
 	$(DATA_BI)\
 
@@ -347,6 +353,7 @@ DATA_VUNDLE_DIR:=vim/bundle/Vundle.vim
 
 DATA_INSTALL:=\
 	$(DATA_FONTS)\
+	$(DATA_FBI)\
 	$(DATA_BI)\
 	$(DATA_VUNDLE_DIR)\
 	rust-analyzer-debug/rust-analyzer-debug\
