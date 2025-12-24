@@ -798,7 +798,9 @@ vim-ycm: $(YCM_CORE)
 
 $(YCM_CORE): $(YCM_GIT_CHECKOUT)
 	cd $(YCM_DIR) && \
-		$(PYTHON) ./install.py --clangd-completer --verbose \
+		$(PYTHON) ./install.py --verbose \
+		--clang-completer \
+		--rust-completer \
 		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)
 
 
