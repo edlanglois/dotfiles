@@ -10,6 +10,9 @@ endif
 
 let b:ale_fixers = ['black', 'ruff', 'trim_whitespace']
 
+" Ignore unused import; don't delete imports while editing
+let g:ale_python_ruff_options = '--ignore F401'
+
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 let g:ale_python_mypy_options='--ignore-missing-imports'
 " By default mypy creates .mypy_cache in the directory in which it is run.
@@ -26,7 +29,7 @@ let g:ale_python_mypy_options.=' --sqlite-cache'
 function! UpdateTextwidthVars(width)
   let b:ale_python_black_options=printf('--line-length=%d', a:width)
   let b:ale_python_flake8_options=printf('--max-line-length=%d', a:width)
-  let b:ale_python_ruff_options=printf('--line-length=%d', a:width)
+  let b:ale_python_ruff_options=printf('%s --line-length=%d', g:ale_python_ruff_options, a:width)
   let b:black_linelength=a:width
 endfunction
 
