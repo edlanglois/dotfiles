@@ -3,6 +3,10 @@ set -eu
 # shellcheck source=env_utils
 source "${BASH_SOURCE%/*}/env_utils"
 
+IFS=":" read -ra DATA_DIRS <<< \
+	"$XDG_DATA_HOME:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+APPLICATION_DIRS=( "${DATA_DIRS[@]/%/\/applications}" )
+
 function find_application() {
 	# Search for an application desktop file
 	#
@@ -10,16 +14,18 @@ function find_application() {
 	#
 	# Outputs
 	#   VAR_NAME=NAME.desktop
-	# for the first NAME.desktop in /usr/share/applications
+	# for the first NAME.desktop in $XDG_DATA_HOME:$XDG_DATA_DIRS
 	#
 	# Returns 0 if a program was found, 1 otherwise
 	VARIABLE_NAME="$1"
 	shift
 	for NAME in "$@"; do
-		if [ -f "/usr/share/applications/$NAME.desktop" ]; then
-			echo "$VARIABLE_NAME=$NAME.desktop"
-			return 0
-		fi
+		for DIR in "${APPLICATION_DIRS[@]}"; do
+			if [ -f "$DIR/$NAME.desktop" ]; then
+				echo "$VARIABLE_NAME=$NAME.desktop"
+				return 0
+			fi
+		done
 	done
 	# Echo commented out so that it shows up in `make show`
 	echo "# $VARIABLE_NAME not found"
