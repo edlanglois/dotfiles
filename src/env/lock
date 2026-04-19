@@ -5,6 +5,8 @@ source "${BASH_SOURCE%/*}/env_utils"
 
 MANUAL_LOCK_CMD=""
 ENABLE_LOCKER_CMD=""
+LOCK_CMD=""
+DIMMER=""
 
 # Prefer xscreensaver if present
 if XSCREENSAVER="$(command -v xscreensaver 2>/dev/null)"; then
@@ -25,12 +27,10 @@ if XSECURELOCK="$(command -v xsecurelock 2>/dev/null)"; then
 	MANUAL_LOCK_CMD="$LOCK_CMD"
 	if [ -f "/usr/lib/xsecurelock/dimmer" ]; then
 		DIMMER="/usr/lib/xsecurelock/dimmer"
-	else
-		DIMMER=""
 	fi
 fi
 
-if XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
+if [ -n "$LOCK_CMD" ] && XSS_LOCK="$(command -v xss-lock 2>/dev/null)"; then
 	XSS_ARGS=()
 	if [ -n "$DIMMER" ]; then
 		XSS_ARGS+=('-n' "$DIMMER")
