@@ -28,7 +28,7 @@ fi
 # PREFIX="$1"
 # START_QUOTE="$2"
 # END_QUOTE="$3"
-# Used in a sed expression so escape the chracters: \ / &
+# Used in a sed expression so escape the characters: \ / &
 PREFIX_SED=$(sed -e 's/[\/&]/\\&/g' <<< "$1")
 START_QUOTE_SED=$(sed -e 's/[\/&]/\\&/g' <<< "$2")
 END_QUOTE_SED=$(sed -e 's/[\/&]/\\&/g' <<< "$3")
