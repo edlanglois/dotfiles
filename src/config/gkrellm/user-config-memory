@@ -19,12 +19,12 @@ update_HZ 10
 allow_multiple_instances 0
 float_factor 1000
 hostname sysname_mode 1
-clock_cal clock_launch 
-clock_cal clock_tooltip 
-clock_cal cal_launch 
-clock_cal cal_tooltip 
-clock_cal hour_chime_command 
-clock_cal quarter_chime_command 
+clock_cal clock_launch
+clock_cal clock_tooltip
+clock_cal cal_launch
+clock_cal cal_tooltip
+clock_cal hour_chime_command
+clock_cal quarter_chime_command
 clock_cal loop_chime_enable 0
 clock_cal clock_options 0
 clock_cal cal_options 0
@@ -59,8 +59,8 @@ cpu config_tracking 0
 cpu sensor_mode 0
 cpu text_format $T
 proc enable 1 1
-proc launch 
-proc tooltip_comment 
+proc launch
+proc tooltip_comment
 proc sensor_mode 0
 proc text_format \w88\a$p\f procs\n\e$u\f users
 proc chart_config 40 100 0 0 0 0 : 1 0 0 0 500 : 0 0 0 0 500
@@ -85,8 +85,8 @@ net enables lo 0 1 0
 net timer_enabled 0
 net timer_seconds 1
 net timer_iface none
-net timer_on 
-net timer_off 
+net timer_on
+net timer_off
 net text_format $T\b\c\f$L
 net reset_mday 1
 net net_enabled_as_default 1
@@ -95,11 +95,11 @@ meminfo mem_meter 1 1 0
 meminfo swap_meter 1 1
 meminfo swap_chart 0 0
 meminfo chart_config 20 1000 0 1 0 0 : 0 0 0 0 500 : 0 0 0 0 500
-meminfo mem_launch 
-meminfo mem_tooltip 
+meminfo mem_launch
+meminfo mem_tooltip
 meminfo mem_data_format $t - $f free
-meminfo swap_launch 
-meminfo swap_tooltip 
+meminfo swap_launch
+meminfo swap_tooltip
 meminfo swap_data_format $t - $f free
 meminfo text_format $T
 fs fs_check_timeout 2
@@ -107,9 +107,9 @@ fs nfs_check_timeout 16
 fs auto_eject 0
 fs binary_units 0
 fs data_format $t - $f free
-mail mua 
-mail notify 
-mail fetch_command 
+mail mua
+mail notify
+mail fetch_command
 mail remote_check_timeout 5
 mail local_check_timeout 4
 mail fetch_check_is_local 0
@@ -132,5 +132,5 @@ battery full_cap_fallback 5000
 battery poll_interval 5
 battery alert_units_percent 0
 uptime enable 0
-uptime launch 
-uptime tooltip 
+uptime launch
+uptime tooltip

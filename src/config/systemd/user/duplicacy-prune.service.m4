@@ -11,5 +11,5 @@ StartLimitBurst=3
 # Keep 1 snapshot every 30 day(s) if older than 180 day(s)
 # Keep 1 snapshot every 7 day(s) if older than 30 day(s)
 # Keep 1 snapshot every 1 day(s) if older than 7 day(s)
-ExecStart=duplicacy -log prune --keep 360:360 -keep 30:180 -keep 7:30 -keep 1:7 
+ExecStart=duplicacy -log prune --keep 360:360 -keep 30:180 -keep 7:30 -keep 1:7
 Type=simple

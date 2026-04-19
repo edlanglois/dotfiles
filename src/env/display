@@ -31,7 +31,7 @@ if [ -n "$DISPLAY_NAME" ]; then
 		ADJUSTED_DPI=$DPI
 	else
 		# Default
-		ADJUSTED_DPI=96 
+		ADJUSTED_DPI=96
 	fi
 
 	if (( DISPLAY_WIDTH_MM < 300 )); then

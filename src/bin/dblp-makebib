@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Create a DBLP-sourced bibliography for keys found in the input.
-# 
+#
 # Usage:
 #   dblp-makebib [BIBFILE.bib] < [SOURCE.tex]
 #

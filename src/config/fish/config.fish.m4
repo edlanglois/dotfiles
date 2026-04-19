@@ -1,7 +1,7 @@
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 
-# Note: The path cannot be quoted. The XDG_CONFIG_HOME variable may use the `~` 
+# Note: The path cannot be quoted. The XDG_CONFIG_HOME variable may use the `~`
 # character, which is only expanded to $HOME if the string is unqouted.
 set fish_function_path $fish_function_path m4_user_config_XDG_CONFIG_HOME/fish/plugins/bass/functions
 
