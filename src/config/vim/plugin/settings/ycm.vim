@@ -10,6 +10,7 @@ let g:ycm_key_list_previous_completion = [ '<Up>' ]
 
 " YCM shortcuts
 nnoremap gt :YcmCompleter GoTo<CR>
+nnoremap gp :YcmCompleter GoToType<CR>
+nnoremap gs <Plug>(YCMFindSymbolInWorkspace)
 nnoremap <leader>d :YcmCompleter GetDoc<CR>
 nnoremap <leader>t :YcmCompleter GetType<CR>
-nnoremap <leader>s <Plug>(YCMFindSymbolInWorkspace)
