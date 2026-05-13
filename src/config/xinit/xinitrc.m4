@@ -9,7 +9,7 @@ userresources=m4_user_config_XDG_CONFIG_HOME/xinit/Xresources
 usermodmap=m4_user_config_XDG_CONFIG_HOME/xinit/Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
-userprofile=~/.xprofile
+userprofile=m4_user_config_XDG_CONFIG_HOME/xprofile
 
 # merge in defaults and keymaps
 
