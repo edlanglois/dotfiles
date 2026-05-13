@@ -13,12 +13,12 @@ userprofile=m4_user_config_XDG_CONFIG_HOME/xprofile
 
 # merge in defaults and keymaps
 
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
+if [ -f "$sysresources" ]; then
+    xrdb -merge "$sysresources"
 fi
 
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
+if [ -f "$sysmodmap" ]; then
+    xmodmap "$sysmodmap"
 fi
 
 if [ -f "$userresources" ]; then
@@ -29,8 +29,8 @@ if [ -f "$usermodmap" ]; then
     xmodmap "$usermodmap"
 fi
 
-if [ -f $userprofile ]; then
-	. $userprofile
+if [ -f "$userprofile" ]; then
+	. "$userprofile"
 fi
 
 # start some nice programs
