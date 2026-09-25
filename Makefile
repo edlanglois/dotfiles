@@ -321,26 +321,18 @@ DATA_FB:=\
 	$(addsuffix .link,$(DATA_LINKS))\
 	$(addsuffix .dlink,$(DATA_DLINKS))\
 
-# Custom for desktop files
-SOURCE_SPOTIFY_DESKTOP:=/usr/share/applications/spotify.desktop
-DATA_SPOTIFY_DESKTOP:=applications/spotify.desktop
-
-SOURCE_STEAM_DESKTOP:=/usr/share/applications/steam.desktop
-DATA_STEAM_DESKTOP:=applications/steam.desktop
+DATA_DESKTOP_FILES:=\
+	org.gnome.Settings.desktop\
+	spotify.desktop\
+	steam.desktop\
 
 DATA_FIRST_BUILD:=\
 	$(DATA_FBI)\
 	$(DATA_FB)\
-	$(DATA_SPOTIFY_DESKTOP).sed\
-	$(DATA_STEAM_DESKTOP).sed\
+	$(addprefix applications/,$(DATA_DESKTOP_FILES))
 
-DATA_BI:=
-ifneq ("$(wildcard $(SOURCE_SPOTIFY_DESKTOP))","")
-DATA_BI+=$(DATA_SPOTIFY_DESKTOP)
-endif
-ifneq ("$(wildcard $(SOURCE_STEAM_DESKTOP))","")
-DATA_BI+=$(DATA_STEAM_DESKTOP)
-endif
+DATA_BI:=\
+	$(addprefix applications/,$(notdir $(wildcard $(addprefix /usr/share/applications/,$(DATA_DESKTOP_FILES)))))\
 
 DATA_BUILD:=\
 	$(DATA_FBI)\
@@ -601,6 +593,16 @@ endef
 $(eval $(call BUILD_WITH_LOCAL_TEMPLATE,config/i3/config))
 $(eval $(call BUILD_WITH_LOCAL_TEMPLATE,home/.ssh/config))
 
+###############
+#  Build sed  #
+###############
+
+# Data files
+$(BUILD_DIR)/data/%: \
+	$(BUILD_DIR)/data/%.sed \
+	/usr/share/%
+	sed -f "$<" "/usr/share/$*" > "$@"
+
 ##############################
 ##  Build I3Blocks Contrib  ##
 ##############################
@@ -626,20 +628,6 @@ $(BUILD_DIR)/config/i3blocks/scripts/cpu_usage2: \
 	$(BUILD_DIR)/config/i3blocks/scripts/cpu_usage2.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
-###########################
-##  Build Desktop Files  ##
-###########################
-
-$(BUILD_DIR)/data/$(DATA_SPOTIFY_DESKTOP):\
-		$(BUILD_DIR)/data/$(DATA_SPOTIFY_DESKTOP).sed\
-		$(SOURCE_SPOTIFY_DESKTOP)
-	sed -f "$<" "$(SOURCE_SPOTIFY_DESKTOP)" > "$@"
-
-
-$(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP):\
-		$(BUILD_DIR)/data/$(DATA_STEAM_DESKTOP).sed\
-		$(SOURCE_STEAM_DESKTOP)
-	sed -f "$<" "$(SOURCE_STEAM_DESKTOP)" > "$@"
 
 #########################
 ##  Build Environment  ##
