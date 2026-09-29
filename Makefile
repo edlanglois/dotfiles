@@ -149,6 +149,7 @@ CONFIG_I3BLOCKS_CONTRIB:=\
 	memory/memory\
 	nm-vpn/nm-vpn\
 	temperature/temperature\
+	volume-pipewire/volume-pipewire\
 	volume-pulseaudio/volume-pulseaudio\
 	volume/volume\
 
