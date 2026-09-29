@@ -133,8 +133,6 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'          " WTFPL
 m4_ifelse(m4_user_config_ALLOW_LICENSE_NONE,true,
 Plugin 'edlanglois/vim-HiLinkTrace'           " None
 Plugin 'JamshedVesuna/vim-markdown-preview'   " None
-" Must go after nerdtree
-Plugin 'edlanglois/nerdtree-chmod'            " None
 )m4_dnl
 Plugin 'edlanglois/nerdtree-async-open'       " MIT
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
