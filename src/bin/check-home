@@ -46,6 +46,7 @@ class Status(enum.Enum):
 
 KNOWN_FILES = {
     ".arduino15": Status.TOLERATED_SYMLINK,  # https://github.com/arduino/Arduino/issues/3915
+    ".bash_history": Status.FIXED,
     ".bash_profile": Status.TOLERATED_SYMLINK,
     ".bashrc": Status.TOLERATED_SYMLINK,
     ".bean-shell-history": Status.REMOVE,  # Beancount
