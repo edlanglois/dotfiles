@@ -314,6 +314,7 @@ DATA_DLINKS:=\
 # program to use this directory then the program expects it to exist.
 DATA_DIRS:=\
 	arduino/sketchbook/.\
+	bash/.\
 	gnupg/.\
 
 DATA_INSTALL_ONCE=$(DATA_LINKS) $(DATA_DLINKS) $(DATA_DIRS)
