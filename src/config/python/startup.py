@@ -4,11 +4,11 @@ import os
 
 
 def register_xdg_history_file():
-    """Maintain the REPL history file at $XDG_DATA_DIR/python/history
+    """Maintain the REPL history file at $XDG_DATA_HOME/python/history
 
     Reference https://docs.python.org/3.11/library/readline.html
     """
-    data_dir = os.environ.get("XDG_DATA_DIR")
+    data_dir = os.environ.get("XDG_DATA_HOME")
     if not data_dir:
         home = os.environ.get("HOME")
         if not home:
