@@ -30,4 +30,4 @@ if [ -z "$MISSING_KEYS" ]; then
 fi
 
 readarray -t URLS < <(while read -r dblp_id; do echo "${URL_PREFIX}${dblp_id}${URL_SUFFIX}"; done <<< "$MISSING_KEYS")
-curl "${URLS[@]}" >> "$OUTPUT"
+curl --fail --rate '10/m' "${URLS[@]}" >> "$OUTPUT"
