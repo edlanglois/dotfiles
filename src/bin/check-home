@@ -142,7 +142,7 @@ def main(argv=None):
             try:
                 last_modified_time = datetime.datetime.fromtimestamp(os.stat(file)[stat.ST_MTIME])
                 extras.append(f"[{last_modified_time}]")
-            except KeyError:
+            except (KeyError, FileNotFoundError):
                 pass
 
         status_colour = {
