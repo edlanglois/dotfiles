@@ -80,6 +80,7 @@ KNOWN_FILES = {
     ".profile": Status.APPROVED_SYMLINK,
     ".pulse-cookie": Status.TO_INVESTIGATE,  # Config ignored? See man pulse-client.conf
     ".python_history": Status.FIXED,
+    ".rustup": Status.FIXED,
     ".sqlite_history": Status.FIXED,
     ".ssh": Status.APPROVED,
     ".steam": Status.TOLERATED,
