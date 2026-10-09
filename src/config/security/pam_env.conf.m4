@@ -164,6 +164,12 @@ WINEPREFIX         DEFAULT="m4_env_config_XDG_DATA_HOME/wine"
 XINITRC            DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xinitrc"
 XSERVERRC          DEFAULT="m4_env_config_XDG_CONFIG_HOME/xinit/xserverrc"
 
+# X11 configuration
+USERXSESSION       DEFAULT="m4_env_config_XDG_CACHE_HOME/X11/xsession"
+USERXSESSIONRC     DEFAULT="m4_env_config_XDG_CACHE_HOME/X11/xsessionrc"
+ALTUSERXSESSION    DEFAULT="m4_env_config_XDG_CACHE_HOME/X11/Xsession"
+ERRFILE            DEFAULT="m4_env_config_XDG_CACHE_HOME/X11/xsession-errors"
+
 # zoom
 m4_ifdef({<<m4_env_config_ZOOM>>},m4_dnl
 SSB_HOME           DEFAULT="m4_env_config_XDG_CONFIG_HOME/zoom"

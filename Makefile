@@ -123,6 +123,13 @@ ifneq ($(strip $(shell command -v dwarffortress)),)
 BIN_INSTALL+=dwarffortress
 endif
 
+# Cache
+# -----
+CACHE_DIRS:=\
+	X11/.
+
+CACHE_INSTALL_ONCE=$(CACHE_DIRS)
+
 # Config
 # ------
 CONFIG_FBI_SYSTEMD:=\
@@ -508,6 +515,7 @@ INSTALL_TARGETS:=\
 
 INSTALL_ONCE_TARGETS:=\
 	$(addprefix $(BIN_DIR)/,$(BIN_INSTALL_ONCE))\
+	$(addprefix $(CACHE_DIR)/,$(CACHE_INSTALL_ONCE))\
 	$(addprefix $(CONFIG_DIR)/,$(CONFIG_INSTALL_ONCE))\
 	$(addprefix $(DATA_DIR)/,$(DATA_INSTALL_ONCE))\
 	$(addprefix $(HOME_DIR)/,$(HOME_INSTALL_ONCE))\
