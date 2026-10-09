@@ -30,6 +30,7 @@ function! UpdateTextwidthVars(width)
   let b:ale_python_black_options=printf('--line-length=%d', a:width)
   let b:ale_python_flake8_options=printf('--max-line-length=%d', a:width)
   let b:ale_python_ruff_options=printf('%s --line-length=%d', g:ale_python_ruff_options, a:width)
+  let b:ale_python_ruff_format_options=printf('%s --line-length=%d', g:ale_python_ruff_format_options, a:width)
   let b:black_linelength=a:width
 endfunction
 
