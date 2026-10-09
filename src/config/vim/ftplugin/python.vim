@@ -3,12 +3,12 @@ setlocal formatoptions-=t
 
 " Exclude pylint: slow, must run on files in filesystem
 let b:ale_linters_ignore = ['pylint']
-" Exclude flake8 if ruff is available
 if executable('ruff')
   let b:ale_linters_ignore += ['flake8']
+  let b:ale_fixers = ['ruff', 'ruff_format', 'trim_whitespace']
+else
+  let b:ale_fixers = ['black', 'trim_whitespace']
 endif
-
-let b:ale_fixers = ['black', 'ruff', 'trim_whitespace']
 
 " Ignore unused import; don't delete imports while editing
 let g:ale_python_ruff_options = '--ignore F401'
