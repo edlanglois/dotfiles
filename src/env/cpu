@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 set -eu
 
-NUM_CPU_CORES="$(lscpu --parse=cpu | grep --invert --count '^#')"
+if command -v nproc >/dev/null 2>&1; then
+	NUM_CPU_CORES="$(nproc)"
+elif command -v lscpu >/dev/null 2>&1; then
+	NUM_CPU_CORES="$(lscpu --parse=cpu | grep --invert --count '^#')"
+else
+	echo "Missing nproc and lscpu; cannot determine number of cores" >&2
+	exit 1
+fi
 echo "NUM_CPU_CORES=$NUM_CPU_CORES"
