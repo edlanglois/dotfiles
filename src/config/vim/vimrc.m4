@@ -268,7 +268,6 @@ hi SpecialKey ctermfg=234 guifg=grey20
 let &spelllang = tolower("m4_user_config_LANG")
 let &spellfile = g:xdg_data_home . "/vim/spell/en.utf-8.add"
 
-set exrc    " Enable per-directory .vimrc files
 set secure  " Disable unsafe commands in local .vimrc files
 
 let g:tex_flavor = "latex" " Load .tex files as latex
