@@ -822,8 +822,8 @@ persistent-configs: $(BUILD_DIR)/make/persistent-configs
 
 $(BUILD_DIR)/make/persistent-configs: \
 		$(UTILS_DIR)/set-persistent-configs.sh \
-		$(INSTALLED_SYSTEMD_FILES) \
-		| $(BUILD_DIR)/make/
+		$(INSTALLED_SYSTEMD_CONFIGS) \
+		| $(BUILD_DIR)/make/.
 	$(UTILS_DIR)/set-persistent-configs.sh
 	touch "$@"
 
