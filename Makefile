@@ -839,14 +839,16 @@ ifdef SYSTEMCTL
 $(BUILD_DIR)/make/systemd-reload: \
 		$(INSTALLED_SYSTEMD_CONFIGS) \
 		| $(BUILD_DIR)/make/.
-	if systemctl --quiet --user is-system-running; then \
+	if systemctl --user show-environment >/dev/null 2>&1; then \
 		echo "Reloading systemd user configuration"; \
-		systemctl --user daemon-reload; \
+		systemctl --user daemon-reload && touch "$@"; \
+	else \
+		echo "systemd user manager not reachable; skipping reload" >&2; \
 	fi
 else
 $(BUILD_DIR)/make/systemd-reload: | $(BUILD_DIR)/make/.
-endif
 	touch "$@"
+endif
 
 ##################
 ##  Font Cache  ##
