@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Check home directory for unwanted configuration files."""
+
 import argparse
 import datetime
 import enum
@@ -140,7 +141,7 @@ def main(argv=None):
         if status in (Status.UNKNOWN, status.TO_INVESTIGATE):
             try:
                 last_modified_time = datetime.datetime.fromtimestamp(os.stat(file)[stat.ST_MTIME])
-                extras.append("[{}]".format(last_modified_time))
+                extras.append(f"[{last_modified_time}]")
             except KeyError:
                 pass
 
@@ -163,7 +164,7 @@ if __name__ == "__main__":
     except KeyError:
         pass
     else:
-        _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)  # type: ignore
+        _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)
     main()
 
 # vim: tw=100

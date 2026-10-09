@@ -4,6 +4,7 @@
 Identifies files by path and tracks version history with timestamps.
 Maintains a LRU cache of old versions.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -12,8 +13,8 @@ import hashlib
 import operator
 import shutil
 import sys
+from collections.abc import Iterable, Sequence
 from pathlib import Path
-from typing import Iterable, List, Optional, Sequence, Tuple
 
 import tabulate
 from xdg import BaseDirectory
@@ -21,7 +22,7 @@ from xdg import BaseDirectory
 _RESOURCE_NAME = "clio"
 
 
-def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     """Parse command-line arguments.
 
     Args:
@@ -137,7 +138,7 @@ def debug_print(verbose: bool, msg: str, *args) -> None:
     print(msg % args, file=sys.stderr)
 
 
-def get_data_dir(data_dir: Optional[Path]) -> Path:
+def get_data_dir(data_dir: Path | None) -> Path:
     """Path to data storage directory, ensuring it is exists."""
     if data_dir is not None:
         data_dir.mkdir(parents=True, exist_ok=True)
@@ -160,7 +161,7 @@ def get_file_backup_dir(file: Path, data_dir: Path) -> Path:
 
 def get_file_backups(
     backup_dir: Path,
-) -> List[Tuple[datetime.datetime, Path]]:
+) -> list[tuple[datetime.datetime, Path]]:
     """List of backups in a directory, ordered by increasing age."""
     dated_files = []
     for file in backup_dir.iterdir():
@@ -241,7 +242,7 @@ def prune_backups(args: argparse.Namespace) -> None:
     else:
         backup_dirs = iter_backup_dirs(data_dir)
 
-    backups: List[Tuple[Path, int, datetime.datetime, Path]] = []
+    backups: list[tuple[Path, int, datetime.datetime, Path]] = []
     for backup_dir in backup_dirs:
         path = Path((backup_dir / "path").read_text().rstrip("\n"))
         backups.extend(
@@ -303,7 +304,7 @@ def prune_backups(args: argparse.Namespace) -> None:
         raise ValueError(args.prune_mode)
 
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
+def main(argv: Sequence[str] | None = None) -> None:
     """Run script.
 
     Args:

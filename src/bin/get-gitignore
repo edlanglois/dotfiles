@@ -68,7 +68,7 @@ class GithubGitignore:
         cache_timeout=86400,
     ):
         self.api_url = "https://api.github.com"
-        repo_request = "/repos/{owner}/{repo}".format(owner=owner_name, repo=repo_name)
+        repo_request = f"/repos/{owner_name}/{repo_name}"
         self.base_url = self.api_url + repo_request
         self.headers = {
             "Accept": "application/vnd.github.v3+json",

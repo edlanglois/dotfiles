@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 """Initialize a Python project repository"""
+
 from __future__ import annotations
 
 import argparse
@@ -10,7 +11,8 @@ import pwd
 import shutil
 import subprocess
 import sys
-from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple, Union
+from collections.abc import Callable, Sequence
+from typing import Any
 
 import xdg.BaseDirectory
 
@@ -34,12 +36,14 @@ def parse_args(argv=None):
     return parser.parse_args(argv)
 
 
-def _get_author_name(config: Dict[str, Any]) -> str:
+def _get_author_name(config: dict[str, Any]) -> str:
+    del config
     gecos = pwd.getpwuid(os.getuid()).pw_gecos
     return gecos.split(",")[0]
 
 
-def _get_author_email(config: Dict[str, Any]) -> str:
+def _get_author_email(config: dict[str, Any]) -> str:
+    del config
     try:
         result = subprocess.run(
             ["git", "config", "--get", "user.email"], check=True, capture_output=True
@@ -60,11 +64,11 @@ def _get_author_email(config: Dict[str, Any]) -> str:
     return ""
 
 
-def _get_project_name(config: Dict[str, Any]) -> str:
+def _get_project_name(config: dict[str, Any]) -> str:
     return config["PROJECT_DIR"].name
 
 
-def _get_project_title(config: Dict[str, Any]) -> str:
+def _get_project_title(config: dict[str, Any]) -> str:
     try:
         return config["PROJECT_NAME"].replace("_", " ").title()
     except KeyError:
@@ -77,13 +81,13 @@ LICENSES = {"mit": ("MIT.txt", "MIT", "License :: OSI Approved :: MIT License")}
 # If the value is valid they return None
 
 
-def _check_nonempty(value: Optional[str]) -> Optional[str]:
+def _check_nonempty(value: str | None) -> str | None:
     if not value:
         return "Must specify a nonempty value"
     return None
 
 
-def _check_license(value: Optional[str]) -> Optional[str]:
+def _check_license(value: str | None) -> str | None:
     if not value:
         return None
     if value.lower() not in LICENSES:
@@ -94,11 +98,11 @@ def _check_license(value: Optional[str]) -> Optional[str]:
     return None
 
 
-_Context = Dict[str, Any]
-_GetDefaultFn = Callable[[_Context], Optional[str]]
-_ValidateFn = Callable[[Optional[str]], Optional[str]]
+_Context = dict[str, Any]
+_GetDefaultFn = Callable[[_Context], str | None]
+_ValidateFn = Callable[[str | None], str | None]
 # ID, description, get_default, validate
-SETTINGS: List[Tuple[str, str, Optional[_GetDefaultFn], Optional[_ValidateFn]]] = [
+SETTINGS: list[tuple[str, str, _GetDefaultFn | None, _ValidateFn | None]] = [
     ("AUTHOR_NAME", "Author Full Name", _get_author_name, _check_nonempty),
     ("AUTHOR_EMAIL", "Author Email Address", _get_author_email, _check_nonempty),
     ("PROJECT_NAME", "Project Name", _get_project_name, _check_nonempty),
@@ -131,7 +135,7 @@ def prompt_yes_no(question: str, default=None) -> bool:
         print(f"Invalid answer: '{response}'")
 
 
-def main(argv: Optional[Sequence[str]] = None) -> None:
+def main(argv: Sequence[str] | None = None) -> None:
     """Run script.
 
     Args:
@@ -146,7 +150,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         sys.exit(f"Missing configuration directory '{missing_config_dir}'")
     config_dir = pathlib.Path(config_dir)
 
-    config: Dict[str, Any] = {
+    config: dict[str, Any] = {
         "PROJECT_DIR": project_dir,
         "YEAR": datetime.datetime.now().year,
     }
@@ -154,7 +158,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     for id_, description, get_default, validate in SETTINGS:
         while True:
             if get_default is not None:
-                default: Optional[str] = get_default(config)
+                default: str | None = get_default(config)
             else:
                 default = None
 
@@ -193,7 +197,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
         if not prompt_yes_no("Continue?", "y"):
             return
 
-    def add_file(src_path: pathlib.Path, relative_path: Union[str, pathlib.Path]):
+    def add_file(src_path: pathlib.Path, relative_path: str | pathlib.Path):
         print(f"Adding {relative_path}")
         with open(src_path, "r") as f:
             contents = f.read()
@@ -236,6 +240,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             ["git", "rev-parse", "--is-inside-work-tree"],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
+            check=False,
         ).returncode
         == 0
     )
@@ -253,6 +258,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
                 ["git", "rev-parse", "--short", "HEAD"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
+                check=False,
             ).returncode
             != 0
         )
@@ -267,7 +273,9 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
             subprocess.run(["git", "add", "."], check=True)
             # This can fail from pre-commit fixers so run again if it fails the first
             # time.
-            result = subprocess.run(["git", "commit", "-m", "Empty project"])
+            result = subprocess.run(
+                ["git", "commit", "-m", "Empty project"], check=False
+            )
             if result.returncode != 0:
                 subprocess.run(["git", "add", "."], check=True)
                 result = subprocess.run(
@@ -286,7 +294,5 @@ if __name__ == "__main__":
     except KeyError:
         pass
     else:
-        _np.set_printoptions(  # type: ignore
-            linewidth=shutil.get_terminal_size().columns
-        )
+        _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)
     main()
