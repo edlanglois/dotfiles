@@ -27,7 +27,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "-l",
         "--log-level",
         type=log_level,
-        default=logging.WARNING,
+        default=logging.INFO,
         help="set the log level",
     )
     args = parser.parse_args(argv)
@@ -57,11 +57,7 @@ def main(argv: Sequence[str] | None = None) -> None:
 
 
 if __name__ == "__main__":
-    try:
-        _np = sys.modules["numpy"]
-    except KeyError:
-        pass
-    else:
+    if (_np := sys.modules.get("numpy")) is not None:
         _np.set_printoptions(linewidth=shutil.get_terminal_size().columns)
     main()
 endsnippet

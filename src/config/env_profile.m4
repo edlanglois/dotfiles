@@ -68,7 +68,7 @@ fi
 # even if it is set now. Correct the affected variables.
 if [ -z "$PAM_RUNTIME_DIR" ]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-	export TMUX_TMPDIR="$PAM_RUNTIME_DIR"
+	export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 fi
 unset PAM_RUNTIME_DIR
 
