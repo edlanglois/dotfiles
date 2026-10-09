@@ -78,7 +78,7 @@ set -g mouse off,
 set -g mode-mouse off)
 
 # reload config file
-bind R source-file ~/.tmux.conf \; display-message "Config reloaded."
+bind R source-file m4_env_config_XDG_CONFIG_HOME/tmux/tmux.conf \; display-message "Config reloaded."
 
 # Status bar
 set -g status-keys vi
