@@ -50,7 +50,7 @@ fi
 if [ -f "$PICOM_FILE" ]; then
 	echo
 	echo "# Picom; set shadow=false and fading=false in $PICOM_FILE"
-	SHADOW="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
+	SHADOW="$(sed -n '/^[[:space:]]*shadow[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
 	echo "PICOM_SHADOW=$SHADOW"
 	FADING="$(sed -n '/^[[:space:]]*fading[[:space:]]*=[[:space:]]*\([[:alpha:]]*\)[[:space:]]*;/{s//\1/;p;q}' "$PICOM_FILE")"
 	echo "PICOM_FADING=$FADING"
