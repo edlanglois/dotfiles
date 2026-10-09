@@ -34,6 +34,9 @@ $(call check_defined, CONFIG_DIR)
 DATA_DIR := $(shell sed -n -e 's/^XDG_DATA_HOME=\(.*\)/\1/p' user.cfg)
 $(call check_defined, DATA_DIR)
 
+STATE_DIR := $(shell sed -n -e 's/^XDG_STATE_HOME=\(.*\)/\1/p' user.cfg)
+$(call check_defined, STATE_DIR)
+
 CACHE_DIR := $(shell sed -n -e 's/^XDG_CACHE_HOME=\(.*\)/\1/p' user.cfg)
 $(call check_defined, CACHE_DIR)
 
@@ -47,6 +50,7 @@ export LOCAL_PREFIX  := $(shell echo $(LOCAL_PREFIX))
 BIN_DIR := $(shell echo $(BIN_DIR))
 export CONFIG_DIR := $(shell echo $(CONFIG_DIR))
 export DATA_DIR := $(shell echo $(DATA_DIR))
+export STATE_DIR := $(shell echo $(STATE_DIR))
 export CACHE_DIR := $(shell echo $(CACHE_DIR))
 export SYSTEM_PREFIX := $(shell echo $(SYSTEM_PREFIX))
 
@@ -362,6 +366,13 @@ DATA_INSTALL:=\
 	tig/.\
 	wget/.\
 
+# State
+# -----
+STATE_DIRS:=\
+	vim/.\
+
+STATE_INSTALL_ONCE=$(STATE_DIRS)
+
 # Home
 # ----
 HOME_FBI:=\
@@ -518,6 +529,7 @@ INSTALL_ONCE_TARGETS:=\
 	$(addprefix $(CACHE_DIR)/,$(CACHE_INSTALL_ONCE))\
 	$(addprefix $(CONFIG_DIR)/,$(CONFIG_INSTALL_ONCE))\
 	$(addprefix $(DATA_DIR)/,$(DATA_INSTALL_ONCE))\
+	$(addprefix $(STATE_DIR)/,$(STATE_INSTALL_ONCE))\
 	$(addprefix $(HOME_DIR)/,$(HOME_INSTALL_ONCE))\
 
 INSTALL_SYSTEM_TARGETS:=$(addprefix $(SYSTEM_PREFIX)/,$(SYSTEM_INSTALL))

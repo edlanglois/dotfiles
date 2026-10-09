@@ -35,6 +35,11 @@ if empty($XDG_DATA_HOME)
 else
   let g:xdg_data_home = $XDG_DATA_HOME
 endif
+if empty($XDG_STATE_HOME)
+  let g:xdg_state_home = $HOME . "/.local/state"
+else
+  let g:xdg_state_home = $XDG_STATE_HOME
+endif
 if empty($XDG_CACHE_HOME)
   let g:xdg_cache_home = $HOME . "/.cache"
 else
@@ -55,7 +60,7 @@ else
 	call mkdir(&undodir, 'p')
 endif
 
-let &viminfo .= ",'1000,n" . g:xdg_cache_home . "/vim/viminfo"
+let &viminfo .= ",'1000,n" . g:xdg_state_home . "/vim/viminfo"
 
 " Run :PluginInstall to install or update plugins managed by Vundle
 " Vundle

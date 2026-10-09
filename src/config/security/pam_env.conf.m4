@@ -17,6 +17,7 @@ LANGUAGE           DEFAULT=m4_user_config_LANGUAGE
 
 XDG_CONFIG_HOME    DEFAULT="m4_env_config_XDG_CONFIG_HOME"
 XDG_DATA_HOME      DEFAULT="m4_env_config_XDG_DATA_HOME"
+XDG_STATE_HOME     DEFAULT="m4_env_config_XDG_STATE_HOME"
 XDG_CACHE_HOME     DEFAULT="m4_env_config_XDG_CACHE_HOME"
 
 # bash history
