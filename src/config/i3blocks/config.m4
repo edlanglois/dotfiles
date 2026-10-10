@@ -73,8 +73,7 @@ ICON=♫
 interval=5
 signal=2
 
-m4_ifdef(m4_dnl,
-{<<m4_env_config_PACTL>>},m4_dnl
+m4_ifdef({<<m4_env_config_PACTL>>},m4_dnl
 [volume-pipewire]
 LONG_FORMAT=<span color="cyan">${SYMB}</span> ${VOL}%
 SHORT_FORMAT=<span color="cyan">${SYMB}</span> ${VOL}%
@@ -82,7 +81,7 @@ AUDIO_LOW_SYMBOL=m4_ICON_SPEAKER_LOW
 AUDIO_MED_SYMBOL=m4_ICON_SPEAKER_MED
 AUDIO_HIGH_SYMBOL=m4_ICON_SPEAKER_HIGH
 ,m4_dnl
-{<<m4_env_config_PULSEAUDIO>>},m4_dnl
+m4_ifdef({<<m4_env_config_PULSEAUDIO>>},m4_dnl
 [volume-pulseaudio]
 LONG_FORMAT=<span color="cyan">${SYMB}</span> ${VOL}%
 SHORT_FORMAT=<span color="cyan">${SYMB}</span> ${VOL}%
@@ -92,7 +91,7 @@ AUDIO_HIGH_SYMBOL=m4_ICON_SPEAKER_HIGH
 ,m4_dnl
 [volume]
 ICON=m4_ICON_SPEAKER_HIGH
-)m4_dnl
+))m4_dnl
 STEP=3%
 instance=Master
 interval=once
