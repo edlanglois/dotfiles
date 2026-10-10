@@ -3,8 +3,6 @@ set -eu
 
 if [ -e ~/.ssh/id_ed25519_github ]; then
 	echo "GITHUB_ID=~/.ssh/id_ed25519_github"
-fi
-
-if [ -e ~/.ssh/id_rsa_github ]; then
+elif [ -e ~/.ssh/id_rsa_github ]; then
 	echo "GITHUB_ID=~/.ssh/id_rsa_github"
 fi
