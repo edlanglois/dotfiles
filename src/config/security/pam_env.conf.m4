@@ -123,7 +123,7 @@ RLWRAP_HOME        DEFAULT="m4_env_config_XDG_DATA_HOME/rlwrap"
 )m4_dnl
 
 # ssh-agent
-SSH_AUTH_SOCK      DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+SSH_AUTH_SOCK      DEFAULT="${XDG_RUNTIME_DIR}/m4_env_config_SSH_AUTH_SOCK_NAME"
 
 m4_ifdef({<<m4_env_config_SQLITE>>},m4_dnl
 # Sqlite REPL history file

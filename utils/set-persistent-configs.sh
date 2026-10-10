@@ -27,6 +27,8 @@ if hash systemctl 2>/dev/null; then
     systemctl --user enable --now duplicacy-backup.timer
   fi
 
-  # SSH Agent
-  systemctl --user enable --now ssh-agent.service
+  # SSH Agent (unless another agent is available)
+  if ! ./src/env/ssh-agent | grep -q '^SSH_AGENT_EXTERNAL='; then
+    systemctl --user enable --now ssh-agent.service
+  fi
 fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+# Outputs SSH_AUTH_SOCK_NAME, the ssh-agent socket relative to XDG_RUNTIME_DIR.
+# Uses the first enabled agent from KNOWN_AGENTS and outputs its unit as
+# SSH_AGENT_EXTERNAL. Otherwise uses the custom systemd/user/ssh-agent.service.
+set -eu
+
+# "<systemd user unit> <socket relative to XDG_RUNTIME_DIR>" in preference order
+KNOWN_AGENTS=(
+	"gcr-ssh-agent.socket gcr/ssh" # GNOME
+)
+
+unit_enabled() {
+	local state
+	state="$(systemctl --user is-enabled "$1" 2>/dev/null)" && return 0
+	# No state means no user manager to ask (e.g. building over ssh)
+	# so fall back to checking whether the unit is installed.
+	[ -z "$state" ] && [ -e "/usr/lib/systemd/user/$1" ]
+}
+
+for AGENT in "${KNOWN_AGENTS[@]}"; do
+	read -r UNIT SOCKET <<<"$AGENT"
+	if unit_enabled "$UNIT"; then
+		echo "SSH_AGENT_EXTERNAL=$UNIT"
+		echo "SSH_AUTH_SOCK_NAME=$SOCKET"
+		exit 0
+	fi
+done
+echo SSH_AUTH_SOCK_NAME=ssh-agent.socket

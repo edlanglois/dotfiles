@@ -488,6 +488,7 @@ ENV_FIRST_BUILD:=\
 	root\
 	ruby\
 	rust\
+	ssh-agent\
 	sys-monitor\
 	tmux\
 	torch\
