@@ -67,7 +67,12 @@ fi
 # Sometimes XDG_RUNTIME_DIR is not set for .pam_environment
 # even if it is set now. Correct the affected variables.
 if [ -z "$PAM_RUNTIME_DIR" ]; then
-	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+	# Keep any other agent socket (e.g. forwarded over ssh)
+	case "${SSH_AUTH_SOCK:-}" in
+		""|/m4_env_config_SSH_AUTH_SOCK_NAME)
+			export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/m4_env_config_SSH_AUTH_SOCK_NAME"
+			;;
+	esac
 	export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 fi
 unset PAM_RUNTIME_DIR
