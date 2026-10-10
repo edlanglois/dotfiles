@@ -136,7 +136,9 @@ m4_ifdef({<<m4_env_config_WIRELESS_INTERFACE>>},m4_dnl
 LABEL=m4_ICON_WIFI
 LABEL_OFF=m4_ICON_WIFI_OFF
 LABEL_COLOUR=cyan
+m4_ifdef({<<m4_env_config_RFKILL_WLAN_ID>>},m4_dnl
 RFKILL_WLAN_ID=m4_env_config_RFKILL_WLAN_ID
+)m4_dnl
 instance=m4_env_config_WIRELESS_INTERFACE
 interval=10
 )m4_dnl
