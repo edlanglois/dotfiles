@@ -22,9 +22,10 @@ if hash systemctl 2>/dev/null; then
     systemctl --user enable --now low-battery.timer
   fi
 
-  # Backup timer
+  # Backup and prune timers
   if hash duplicacy 2>/dev/null; then
     systemctl --user enable --now duplicacy-backup.timer
+    systemctl --user enable --now duplicacy-prune.timer
   fi
 
   # SSH Agent (unless another agent is available)
