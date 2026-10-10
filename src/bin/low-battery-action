@@ -57,7 +57,12 @@ for supply in /sys/class/power_supply/*; do
   fi
 done
 
-MAX_CAPACITY=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | sort -gr | head -n 1)
+CAPACITIES=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null || true)
+if [ -z "$CAPACITIES" ]; then
+  echo "No batteries found" >&2
+  exit 1
+fi
+MAX_CAPACITY=$(sort -gr <<< "$CAPACITIES" | head -n 1)
 
 if [ "$MAX_CAPACITY" -le "$SUSPEND_PERCENT" ]; then
   do_suspend
