@@ -1,35 +1,35 @@
 m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 m4_ifdef({<<m4_env_config_FONT_AWESOME>>},{<<m4_dnl
-m4_define(m4_ICON_CALENDAR,)
-m4_define(m4_ICON_CPU,)
-m4_define(m4_ICON_GPU,)
-m4_define(m4_ICON_MEMORY,)
-m4_define(m4_ICON_SPEAKER,)
-m4_define(m4_ICON_SPEAKER_LOW,)
-m4_define(m4_ICON_SPEAKER_MED,)
-m4_define(m4_ICON_SPEAKER_HIGH,)
-m4_define(m4_ICON_TEMPERATURE,)
-m4_define(m4_ICON_TIME,)
-m4_define(m4_ICON_WIFI,)
-m4_define(m4_ICON_WIFI_OFF,)
-m4_define(m4_ICON_VPN,)
+m4_define(m4_ICON_CALENDAR,)m4_dnl
+m4_define(m4_ICON_CPU,)m4_dnl
+m4_define(m4_ICON_GPU,)m4_dnl
+m4_define(m4_ICON_MEMORY,)m4_dnl
+m4_define(m4_ICON_SPEAKER,)m4_dnl
+m4_define(m4_ICON_SPEAKER_LOW,)m4_dnl
+m4_define(m4_ICON_SPEAKER_MED,)m4_dnl
+m4_define(m4_ICON_SPEAKER_HIGH,)m4_dnl
+m4_define(m4_ICON_TEMPERATURE,)m4_dnl
+m4_define(m4_ICON_TIME,)m4_dnl
+m4_define(m4_ICON_WIFI,)m4_dnl
+m4_define(m4_ICON_WIFI_OFF,)m4_dnl
+m4_define(m4_ICON_VPN,)m4_dnl
 >>},{<<m4_dnl
-m4_define(m4_ICON_CALENDAR,📅)
-m4_define(m4_ICON_CPU,⌬)
-m4_define(m4_ICON_GPU,⊞)
-m4_define(m4_ICON_MEMORY,⎍)
-m4_define(m4_ICON_SPEAKER_LOW,🔈︎)
-m4_define(m4_ICON_SPEAKER_MED,🔉︎)
-m4_define(m4_ICON_SPEAKER_HIGH,🔊︎)
-m4_define(m4_ICON_TEMPERATURE,🌡)
-m4_define(m4_ICON_TIME,🕒︎)
-m4_define(m4_ICON_WIFI,📶︎)
-m4_define(m4_ICON_WIFI_OFF,⚠)
-m4_define(m4_ICON_VPN,↔)
+m4_define(m4_ICON_CALENDAR,📅)m4_dnl
+m4_define(m4_ICON_CPU,⌬)m4_dnl
+m4_define(m4_ICON_GPU,⊞)m4_dnl
+m4_define(m4_ICON_MEMORY,⎍)m4_dnl
+m4_define(m4_ICON_SPEAKER_LOW,🔈︎)m4_dnl
+m4_define(m4_ICON_SPEAKER_MED,🔉︎)m4_dnl
+m4_define(m4_ICON_SPEAKER_HIGH,🔊︎)m4_dnl
+m4_define(m4_ICON_TEMPERATURE,🌡)m4_dnl
+m4_define(m4_ICON_TIME,🕒︎)m4_dnl
+m4_define(m4_ICON_WIFI,📶︎)m4_dnl
+m4_define(m4_ICON_WIFI_OFF,⚠)m4_dnl
+m4_define(m4_ICON_VPN,↔)m4_dnl
 >>})m4_dnl
 m4_ifelse(m4_env_config_FONT_AWESOME,6,{<<m4_dnl
-m4_define({<<m4_ICON_CPU>>},)
+m4_define({<<m4_ICON_CPU>>},)m4_dnl
 >>})m4_dnl
 # i3blocks config file
 #
@@ -101,7 +101,8 @@ signal=1
 m4_ifdef({<<m4_user_config_OPEN_WEATHER_MAP_API_KEY>>},m4_dnl
 [weather]
 command=m4_I3BLOCKS_DIR/weather 'm4_user_config_OPEN_WEATHER_MAP_API_KEY' --name '{<<m4_user_config_OPEN_WEATHER_MAP_CITY>>}' --units 'm4_user_config_OPEN_WEATHER_MAP_UNITS' --fmt '<span color="cyan">%i</span> %t %s (%c)' --sfmt '<span color="cyan">%i</span> %t'
-interval=600)
+interval=600
+)m4_dnl
 
 [cpu_usage2]
 command=m4_I3BLOCKS_DIR/$BLOCK_NAME
@@ -111,12 +112,12 @@ REFRESH_TIME=10
 DECIMALS=0
 interval=persist
 
-m4_ifelse(m4_env_config_NUM_GPUS,0,,
+m4_ifelse(m4_env_config_NUM_GPUS,0,,m4_dnl
 [gpu-usage m4_env_config_NUM_GPUS 80 95]
 ICON=m4_ICON_GPU
 interval=10
 min_width=m4_ICON_GPU 100%
-)
+)m4_dnl
 
 [memory]
 ICON=m4_ICON_MEMORY
@@ -154,7 +155,8 @@ m4_ifdef({<<m4_env_config_BATTERY_0>>},m4_dnl
 # The battery instance defaults to 0.
 [battery]
 interval=30
-ICON_COLOUR=cyan)
+ICON_COLOUR=cyan
+)m4_dnl
 
 # Date
 [date-calendar m4_ifdef({<<m4_env_config_GSIMPLECAL>>},gsimplecal)]
