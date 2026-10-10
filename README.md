@@ -46,7 +46,6 @@ Decide on a case-by-case basis whether to run these.
 
 Various persistent configurations: `utils/set-persistent-configs.sh`
 Powerline symbols: `utils/install-powerline-symbols.sh`
-Noto fonts: `utils/install-noto-fonts.sh`
 And more in `utils/`
 
 ### Help
