@@ -198,6 +198,11 @@ def main(argv: Sequence[str] | None = None) -> None:
             return
 
     def add_file(src_path: pathlib.Path, relative_path: str | pathlib.Path):
+        relative_path = pathlib.Path(relative_path)
+        # Allow appending .template to hide actual file types from other tools
+        # e.g. prek discovers and tries to run .pre-commit-config
+        if relative_path.suffix == ".template":
+            relative_path = relative_path.with_suffix("")
         print(f"Adding {relative_path}")
         with open(src_path, "r") as f:
             contents = f.read()

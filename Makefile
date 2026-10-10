@@ -294,7 +294,7 @@ CONFIG_INSTALL:=\
 	pyproject/templates/pyroot/__init__.py\
 	pyproject/templates/pyroot/version.py\
 	pyproject/templates/root/.gitignore\
-	pyproject/templates/root/.pre-commit-config.yaml\
+	pyproject/templates/root/.pre-commit-config.yaml.template\
 	pyproject/templates/root/MANIFEST.in\
 	pyproject/templates/root/pyproject.toml\
 	pyproject/templates/root/README.md\
