@@ -108,11 +108,9 @@ BIN_INSTALL:=\
 	dfix\
 	geolocate\
 	get-gitignore\
-	git-w\
 	gr\
 	low-battery-action\
 	mdlynx\
-	pip-deps\
 	pip-update-all\
 	plot\
 	pplayerctl\
