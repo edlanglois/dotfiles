@@ -458,6 +458,7 @@ SYSTEM_INSTALL:=\
 	$(SYSTEM_FBI)\
 	etc/udev/rules.d/90-backlight.rules\
 	etc/X11/xorg.conf.d/90-keyboard.conf\
+	etc/geoclue/conf.d/90-beacondb.conf\
 
 # Environment
 # -----------
