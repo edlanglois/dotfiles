@@ -23,7 +23,7 @@ else
 	MISSING_KEYS="$REQUIRED_KEYS"
 	OUTPUT="/dev/stdout"
 fi
-echo "$MISSING_KEYS"
+echo "$MISSING_KEYS" >&2
 
 if [ -z "$MISSING_KEYS" ]; then
 	exit 0
