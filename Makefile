@@ -282,7 +282,6 @@ CONFIG_INSTALL:=\
 	i3blocks/scripts/gkrellm-toggle\
 	i3blocks/scripts/gpu-usage\
 	i3blocks/scripts/music\
-	i3blocks/scripts/ssid\
 	i3blocks/scripts/weather\
 	i3blocks/scripts/wifi\
 	keepassxc/keepassxc.ini\
@@ -290,10 +289,8 @@ CONFIG_INSTALL:=\
 	pudb/pudb.cfg\
 	pyproject/templates/license/MIT.txt\
 	pyproject/templates/pyroot/__init__.py\
-	pyproject/templates/pyroot/version.py\
 	pyproject/templates/root/.gitignore\
 	pyproject/templates/root/.pre-commit-config.yaml.template\
-	pyproject/templates/root/MANIFEST.in\
 	pyproject/templates/root/pyproject.toml\
 	pyproject/templates/root/README.md\
 	pyproject/templates/root/setup.cfg\
@@ -775,6 +772,11 @@ $1/%: | $(BUILD_DIR)/$2/%.dlink
 	[ -n "$$$$DEST" ] && ! [ -d "$$@" ] && \
 	ln -s -f "$$$$DEST" "$$@" && \
 	mkdir -p "$$$$DEST"
+
+# Fallback when no rule above applies (no source file). Must be last.
+# Without this, the mkdir order-only rule makes missing sources a silent no-op.
+$1/%:
+	@echo "No source to install $$@ from" >&2; false
 endef
 
 $(eval $(call INSTALL_TEMPLATE,$(BIN_DIR),bin))
