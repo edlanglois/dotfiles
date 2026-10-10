@@ -1,9 +1,6 @@
 #!/bin/bash
-# Outputs NETUSER if the user account is not defined locally.
-# TODO: This is actually used when we want to know if the home directory is
-# a network mount across multiple systems. Should make something that actually
-# checks that.
+# Outputs NETUSER if the user account is not defined locally (e.g. LDAP / SSSD).
 set -eu
-if ! grep "$USER" /etc/passwd >/dev/null; then
+if ! getent -s files passwd "$(id -un)" >/dev/null; then
 	echo NETUSER=
 fi

@@ -478,6 +478,7 @@ ENV_FIRST_BUILD:=\
 	lock\
 	modules\
 	mujoco\
+	nethome\
 	netuser\
 	nvidia-smi\
 	osx\

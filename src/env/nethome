@@ -1,0 +1,9 @@
+#!/bin/bash
+# Outputs NETHOME if the home directory is on a network filesystem.
+set -eu
+FSTYPE="$(findmnt -n -o FSTYPE -T "${HOME_DIR:-$HOME}" 2>/dev/null || true)"
+case "$FSTYPE" in
+	nfs*|cifs|smb*|afs|ceph|glusterfs|lustre|gpfs|beegfs|fuse.sshfs)
+		echo NETHOME=
+		;;
+esac
