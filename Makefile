@@ -673,7 +673,7 @@ $(BUILD_DIR)/env/colours.m4: $(SOURCE_DIR)/env/colours.toml
 $(BUILD_DIR)/user_config.m4: user.cfg\
 		$(UTILS_DIR)/config-replace.sh\
 		| $(BUILD_DIR)/.
-	sed -e 's/\s*#.*$$//' -e '/^\s*$$/d' $< | \
+	sed -e '/^\s*#/d' -e '/^\s*$$/d' $< | \
 		$(UTILS_DIR)/config-replace.sh \
 			"${USER_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > $@
 
