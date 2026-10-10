@@ -31,9 +31,8 @@ class _ListLanguagesAction(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         repo = GithubGitignore()
-        parser.exit(
-            message="\n".join(sorted(repo.get_gitignore_file_map().keys())) + "\n"
-        )
+        print("\n".join(sorted(repo.get_gitignore_file_map().keys())))
+        parser.exit()
 
 
 def parse_args():
@@ -138,7 +137,13 @@ def main():
     """Run script."""
     args = parse_args()
     repo = GithubGitignore()
-    sys.stdout.buffer.write(repo.get_gitignore_file(args.language.lower()))
+    language = args.language.lower()
+    if language not in repo.get_gitignore_file_map():
+        sys.exit(
+            f"Unknown language: {args.language}\n"
+            "Use --list-languages to see the available languages."
+        )
+    sys.stdout.buffer.write(repo.get_gitignore_file(language))
 
 
 if __name__ == "__main__":
