@@ -82,11 +82,10 @@ Plugin 'VundleVim/Vundle.vim'  " MIT
 "                                               License
 "                                               -------
 Plugin 'airblade/vim-gitgutter'               " MIT
-Plugin 'alfredodeza/coveragepy.vim'           " Apache 2.0
 Plugin 'chrisbra/csv.vim'                     " Vim
 Plugin 'chrisbra/Recover.vim'                 " Vim
-Plugin 'chriskempson/base16-vim'              " MIT
 Plugin 'ctrlpvim/ctrlp.vim'                   " Vim
+Plugin 'dense-analysis/ale'                   " BSD 2-Clause
 Plugin 'editorconfig/editorconfig-vim'        " BSD 2-Clause
 Plugin 'edkolev/tmuxline.vim',                " MIT
 Plugin 'edlanglois/lark-syntax.vim'           " MIT
@@ -105,14 +104,12 @@ Plugin 'google/vim-codefmt'                   " Apache 2.0
 Plugin 'google/vim-glaive'                    " Apache 2.0
 Plugin 'google/vim-maktaba'                   " Apache 2.0
 Plugin 'honza/vim-snippets'                   " MIT
-Plugin 'hynek/vim-python-pep8-indent'         " CC0 1.0 Universal
 Plugin 'Julian/vim-textobj-variable-segment'  " MIT
 Plugin 'kana/vim-textobj-user'                " MIT
 Plugin 'lervag/vimtex'                        " MIT
-Plugin 'majutsushi/tagbar'                    " Vim
 Plugin 'mileszs/ack.vim'                      " Vim
 Plugin 'morhetz/gruvbox'                      " MIT
-Plugin 'plytophogy/vim-virtualenv'            " Vim
+Plugin 'preservim/tagbar'                     " Vim
 Plugin 'rust-lang/rust.vim'                   " MIT or Apache 2.0
 Plugin 'SirVer/ultisnips'                     " GPL 3.0
 Plugin 'tpope/vim-commentary'                 " Vim
@@ -123,7 +120,6 @@ Plugin 'tpope/vim-unimpaired'                 " Vim
 Plugin 'vim-airline/vim-airline'              " MIT
 Plugin 'vim-airline/vim-airline-themes'       " MIT
 Plugin 'vimwiki/vimwiki'                      " MIT
-Plugin 'w0rp/ale'                             " BSD 2-Clause
 if v:versionlong < 8023519
 	Plugin 'cespare/vim-toml'                 " MIT
 endif
@@ -142,7 +138,7 @@ Plugin 'JamshedVesuna/vim-markdown-preview'   " None
 Plugin 'edlanglois/nerdtree-async-open'       " MIT
 m4_ifelse(m4_user_config_LIGHTWEIGHT,true,,
 " Heavywight plugins
-Plugin 'Valloric/YouCompleteMe'               " GPL 3.0
+Plugin 'ycm-core/YouCompleteMe'               " GPL 3.0
 )m4_dnl
 
 " End Vundle
