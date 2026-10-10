@@ -42,6 +42,11 @@ CCACHE_CONFIGPATH  DEFAULT="m4_env_config_XDG_CONFIG_HOME/ccache.config"
 CCACHE_DIR         DEFAULT="m4_env_config_XDG_CACHE_HOME/ccache"
 )m4_dnl
 
+m4_ifdef({<<m4_env_config_CLAUDE>>},m4_dnl
+# Claude Code
+CLAUDE_CONFIG_DIR  DEFAULT="m4_env_config_XDG_CONFIG_HOME/claude"
+)m4_dnl
+
 m4_ifdef({<<m4_env_config_CONDA>>},m4_dnl
 # Conda Root
 CONDA_ROOT         DEFAULT="m4_env_config_XDG_DATA_HOME/conda"
