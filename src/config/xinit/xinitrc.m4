@@ -2,9 +2,6 @@ m4_include(user_config.m4)m4_dnl
 m4_include(env_config.m4)m4_dnl
 #!/bin/sh
 
-m4_ifdef({<<m4_env_config_SYSTEMCTL>>},m4_dnl
-systemctl --no-block --user start xsession.target)
-
 userresources=m4_user_config_XDG_CONFIG_HOME/xinit/Xresources
 usermodmap=m4_user_config_XDG_CONFIG_HOME/xinit/Xmodmap
 sysresources=/etc/X11/xinit/.Xresources

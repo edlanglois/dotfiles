@@ -1,3 +1,4 @@
 [Unit]
 Description=X session running
 BindsTo=graphical-session.target
+After=graphical-session.target
