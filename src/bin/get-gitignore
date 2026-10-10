@@ -74,7 +74,10 @@ class GithubGitignore:
         }
 
         if cache_file is None:
-            cache_file = os.path.join(tempfile.gettempdir(), "gitignore-files.json")
+            cache_dir = os.environ.get("XDG_CACHE_HOME") or os.path.expanduser(
+                "~/.cache"
+            )
+            cache_file = os.path.join(cache_dir, "get-gitignore", "files.json")
         self.cache_file = cache_file
         self.cache_timeout = cache_timeout
         self._repo_info = None
@@ -103,13 +106,19 @@ class GithubGitignore:
             if cache_age_seconds < self.cache_timeout:
                 self._repo_info = info_cache["info"]
                 return self._repo_info
-        except FileNotFoundError:
+        except (OSError, ValueError, KeyError, TypeError):
+            # Missing or corrupt cache; refetch
             pass
 
         self._repo_info = self._query_repo_info()
         info_cache = {"info": self._repo_info, "timestamp": time.time()}
-        with open(self.cache_file, "w") as f:
+        os.makedirs(os.path.dirname(self.cache_file), exist_ok=True)
+        # Write then rename so an interrupted write can't leave a partial cache
+        with tempfile.NamedTemporaryFile(
+            "w", dir=os.path.dirname(self.cache_file), delete=False
+        ) as f:
             json.dump(info_cache, f)
+        os.replace(f.name, self.cache_file)
         return self._repo_info
 
     def get_gitignore_file_map(self):
