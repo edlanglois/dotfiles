@@ -49,10 +49,13 @@ do_suspend () {
   systemctl suspend
 }
 
-CHARGING=$(cat /sys/class/power_supply/AC/online 2>/dev/null)
-if [ "$CHARGING" -eq "1" ]; then
-  exit 0
-fi
+# If any non-battery power supply is online then take no action
+for supply in /sys/class/power_supply/*; do
+  if [ "$(cat "$supply/type" 2>/dev/null)" != "Battery" ] &&
+    [ "$(cat "$supply/online" 2>/dev/null)" = "1" ]; then
+    exit 0
+  fi
+done
 
 MAX_CAPACITY=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | sort -gr | head -n 1)
 
