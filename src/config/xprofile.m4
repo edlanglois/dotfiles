@@ -30,3 +30,10 @@ fi
 m4_ifdef({<<m4_env_config_ENABLE_LOCKER_CMD>>},m4_dnl
 m4_env_config_ENABLE_LOCKER_CMD &
 )m4_dnl
+
+m4_ifdef({<<m4_env_config_SYSTEMCTL>>},m4_dnl
+# Start user services that run with the X session (e.g. redshift).
+# Sourced by both xinitrc (startx) and the display manager.
+systemctl --user import-environment DISPLAY ${XAUTHORITY:+XAUTHORITY}
+systemctl --no-block --user start xsession.target
+)m4_dnl
