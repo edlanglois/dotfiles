@@ -1,14 +1,11 @@
 #!/bin/bash
 # combinediff but returns non-zero if anything went wrong
-set -eu
-tmpbase="/tmp/$(basename "$0").$$"
-stderrfile="${tmpbase}.stderr"
-syncpipe="${tmpbase}.sync.pipe"
+set -eu -o pipefail
+stderrfile="$(mktemp)"
+trap 'rm -f "$stderrfile"' EXIT
 
-# >(...) runs asynchronously so use pipe to synchronize
-mkfifo "$syncpipe"
-combinediff "$@" 2> >(tee "$stderrfile" >&2; echo >"$syncpipe")
-read -r < "$syncpipe"
-rm "$syncpipe"
+# Swap stdout and stderr so stderr can be copied to a file while still shown.
+# Unlike >(...), the pipeline has finished writing when it returns.
+{ combinediff "$@" 2>&1 1>&3 3>&- | tee "$stderrfile" >&2; } 3>&1
 
 ! [ -s "$stderrfile" ]
