@@ -59,7 +59,7 @@ LOCAL_PREFIX_=m4_user_config_LOCAL_PREFIX
 if [ -z "$XDG_RUNTIME_DIR" ]; then
 	BACKUP_RUNTIME_DIR="/run/user/$(id -u)"
 	if [ -d "$BACKUP_RUNTIME_DIR" ]; then
-		echo "XDG_RUNTIME_DIR unset. Setting to '$BACKUP_RUNTIME_DIR'"
+		echo "XDG_RUNTIME_DIR unset. Setting to '$BACKUP_RUNTIME_DIR'" >&2
 		export XDG_RUNTIME_DIR="$BACKUP_RUNTIME_DIR"
 	fi
 fi
