@@ -226,7 +226,11 @@ bindsym $mod+XF86MonBrightnessDown exec --no-startup-id "xbacklight -dec 1"
 
 m4_ifdef({<<m4_env_config_MAIM>>},m4_dnl
 # Screenshots
+m4_ifdef({<<m4_env_config_XDOTOOL>>},m4_dnl
 bindsym Print exec --no-startup-id "maim -i $(xdotool getactivewindow) | xclip -selection clipboard -t image/png"
+,m4_dnl
+bindsym Print exec --no-startup-id "maim | xclip -selection clipboard -t image/png"
+)m4_dnl
 bindsym Control+Print exec --no-startup-id "mkdir -p ~/Pictures/screenshots && maim ~/Pictures/screenshots/$(date -Iseconds | sed 's/:/_/g').png"
 bindsym $mod+g exec --no-startup-id "maim -s | xclip -selection clipboard -t image/png")
 
