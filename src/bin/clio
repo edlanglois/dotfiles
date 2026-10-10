@@ -268,11 +268,17 @@ def prune_backups(args: argparse.Namespace) -> None:
         excess = total_size - args.to_size
         if excess > 0:
             candidates = sorted(
-                (size, i)
-                for i, size in enumerate(sizes)
-                if args.include_latest or backups[i][1] > 0
+                [
+                    (i, size, modified)
+                    for i, ((_, idx, modified, _), size) in enumerate(
+                        zip(backups, sizes)
+                    )
+                    if idx > 0 or args.include_latest
+                ],
+                key=operator.itemgetter(2),
             )
-            for size, i in candidates:
+
+            for i, size, _ in candidates:
                 remove[i] = True
                 excess -= size
                 if excess <= 0:
