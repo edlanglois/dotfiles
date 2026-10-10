@@ -9,9 +9,7 @@ SHORT_FORMAT_STR=""
 URL="https://api.openweathermap.org/data/2.5/weather"
 CURLARGS=("-s" "-G")
 
-APIKEY="$1"
-shift
-CURLARGS+=("--data-urlencode" "appid=${APIKEY}")
+API_KEY="${OPEN_WEATHER_MAP_API_KEY:?not set}"
 
 while [[ "$#" -gt 1 ]]; do
 	key=$1
@@ -48,7 +46,8 @@ CURLARGS+=("--data-urlencode" "units=${UNITS}")
 CURLARGS+=("--data-urlencode" "lang=${LANG}")
 CURLARGS+=("$URL")
 
-REPORT=$(curl "${CURLARGS[@]}")
+# Pass API key through STDIN so that it doesn't show up in ps
+REPORT=$(curl "${CURLARGS[@]}" --config - <<<"data-urlencode = \"appid=$API_KEY\"")
 
 CITY_REGEXP='"name"[[:space:]]*:[[:space:]]*"([^"]*)"'
 [[ "$REPORT" =~ $CITY_REGEXP ]]
