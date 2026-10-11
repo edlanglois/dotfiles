@@ -28,3 +28,12 @@ rev = "v0.11.0.1"
 hooks = [
   { id = "shellcheck", args = ["--norc", "-e", "SC1091"] },
 ]
+
+[[repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "v0.17.0"
+# Excludes: pre-commit's generated hook shim, project templates
+hooks = [
+  { id = "ruff-check", exclude = '^src/config/(git/template/hooks/|pyproject/templates/)' },
+  { id = "ruff-format", exclude = '^src/config/(git/template/hooks/|pyproject/templates/)' },
+]

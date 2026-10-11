@@ -146,7 +146,9 @@ def main(argv=None):
 
         if status in (Status.UNKNOWN, status.TO_INVESTIGATE):
             try:
-                last_modified_time = datetime.datetime.fromtimestamp(os.stat(file)[stat.ST_MTIME])
+                last_modified_time = datetime.datetime.fromtimestamp(
+                    os.stat(file)[stat.ST_MTIME]
+                )
                 extras.append(f"[{last_modified_time}]")
             except (KeyError, FileNotFoundError):
                 pass
