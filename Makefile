@@ -603,6 +603,7 @@ $(BUILD_DIR)/%: $(SOURCE_DIR)/%.m4 \
 		cat - "$<" | \
 		m4 --prefix-builtins -I "$(BUILD_DIR)" > "$@"
 	! grep m4_ "$@" || (echo "Undefined m4 variables" && rm "$@" && false)
+	if [ -x "$<" ]; then chmod +x "$@"; fi
 
 define BUILD_WITH_LOCAL_TEMPLATE
 ifneq ("$(wildcard $(SOURCE_DIR)/$1.local)","")

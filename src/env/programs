@@ -23,6 +23,7 @@ find_program NODE node || true
 find_program PACTL pactl || true
 find_program PICOM picom || true
 find_program PLAYERCTL playerctl || true
+find_program PREK prek || true
 find_program PULSEAUDIO pulseaudio || true
 find_program PYTHON_ARGCOMPLETE register-python-argcomplete || true
 find_program RLWRAP rlwrap || true

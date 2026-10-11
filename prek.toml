@@ -26,14 +26,15 @@ hooks = [
 repo = "https://github.com/shellcheck-py/shellcheck-py"
 rev = "v0.11.0.1"
 hooks = [
-  { id = "shellcheck", args = ["--norc", "-e", "SC1091"] },
+  # m4 sources are not valid shell until built
+  { id = "shellcheck", args = ["--norc", "-e", "SC1091"], exclude = '\.m4$' },
 ]
 
 [[repos]]
 repo = "https://github.com/astral-sh/ruff-pre-commit"
 rev = "v0.17.0"
-# Excludes: pre-commit's generated hook shim, project templates
+# Excludes: project templates
 hooks = [
-  { id = "ruff-check", exclude = '^src/config/(git/template/hooks/|pyproject/templates/)' },
-  { id = "ruff-format", exclude = '^src/config/(git/template/hooks/|pyproject/templates/)' },
+  { id = "ruff-check", exclude = '^src/config/pyproject/templates/' },
+  { id = "ruff-format", exclude = '^src/config/pyproject/templates/' },
 ]
