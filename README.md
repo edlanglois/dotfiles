@@ -130,9 +130,9 @@ a dynamic assignment (e.g. appending to `$PATH`) then use
 
 ## Development
 ### Pre-commit
-Set up pre-commit hooks by installing the [pre-commit](http://pre-commit.com)
-package (`pip install pre-commit`) and running
+Set up pre-commit hooks by installing [prek](https://prek.j178.dev)
+(e.g. `uv tool install prek`) and running
 
 ```bash
-pre-commit install
+prek install
 ```

@@ -1,0 +1,26 @@
+# Configuration file for `prek`, a git hook framework written in Rust.
+# See https://prek.j178.dev for more information.
+#:schema https://www.schemastore.org/prek.json
+
+[[repos]]
+repo = "https://github.com/pre-commit/pre-commit-hooks"
+rev = "v6.0.0"
+hooks = [
+  { id = "check-docstring-first" },
+  { id = "check-executables-have-shebangs" },
+  { id = "check-json" },
+  { id = "check-merge-conflict" },
+  { id = "check-toml" },
+  { id = "check-xml" },
+  { id = "check-yaml" },
+  { id = "detect-private-key" },
+  { id = "end-of-file-fixer" },
+  { id = "trailing-whitespace", exclude = '^.*\.patch$' },
+]
+
+[[repos]]
+repo = "https://github.com/shellcheck-py/shellcheck-py"
+rev = "v0.11.0.1"
+hooks = [
+  { id = "shellcheck", args = ["--norc", "-e", "SC1091"] },
+]
