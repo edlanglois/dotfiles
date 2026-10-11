@@ -9,6 +9,8 @@ VAR_NAMES=(
 	INSTALL_TARGETS INSTALL_ONCE_TARGETS INSTALL_SYSTEM_TARGETS
 )
 declare -A MAKE_VAR
+# The --eval rule prints NAME=value for print-NAME. Make expands its $s.
+# shellcheck disable=SC2016
 while IFS='=' read -r name value; do
 	MAKE_VAR["$name"]="$value"
 done < <(make -s --eval 'print-%: ; @echo "$*=$($*)"' "${VAR_NAMES[@]/#/print-}")
