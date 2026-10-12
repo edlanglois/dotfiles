@@ -1,0 +1,21 @@
+{
+  "theme": "auto",
+  "permissions": {
+    "deny": [
+      "Read(~/.ssh/**)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": false,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "allowWrite": [
+        "~/.cache/prek"
+      ],
+      "denyRead": [
+        "~/.ssh"
+      ]
+    }
+  }
+}

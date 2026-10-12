@@ -273,6 +273,8 @@ CONFIG_INSTALL:=\
 	$(CONFIG_INSTALL_FISH_BASS)\
 	$(CONFIG_INSTALL_VIM_DIRECT)\
 	$(CONFIG_FBI)\
+	claude/CLAUDE.md\
+	claude/settings.json\
 	gkrellm/user-config-cpu\
 	fish/functions/xcb.fish\
 	gkrellm/user-config-memory\
