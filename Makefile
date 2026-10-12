@@ -275,8 +275,8 @@ CONFIG_INSTALL:=\
 	$(CONFIG_FBI)\
 	claude/CLAUDE.md\
 	claude/settings.json\
-	gkrellm/user-config-cpu\
 	fish/functions/xcb.fish\
+	gkrellm/user-config-cpu\
 	gkrellm/user-config-memory\
 	i3blocks/scripts/battery\
 	i3blocks/scripts/conky-toggle\
