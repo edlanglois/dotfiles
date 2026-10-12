@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=77", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{PROJECT_NAME}"
+description = "{SHORT_DESCRIPTION}"
+readme = "README.md"
+authors = [{{ name = "{AUTHOR_NAME}", email = "{AUTHOR_EMAIL}" }}]
+{LICENSE_FIELDS}classifiers = [
+{CLASSIFIERS}
+]
+requires-python = ">=3.10"
+dependencies = []
+dynamic = ["version"]
+
+[project.scripts]
+
+[tool.setuptools.packages.find]
+include = ["{PACKAGE_NAME}*"]
+
+[tool.setuptools_scm]
+version_file = "{PACKAGE_NAME}/version.py"
+
+[tool.ruff]
+line-length = 88
+extend-exclude = ["third_party"]
+
+[tool.ruff.lint]
+select = ["B", "C4", "E", "F", "I", "W"]
+# E501 - line length is handled by the formatter
+ignore = ["E501"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["{PACKAGE_NAME}"]
+
+[tool.pytest.ini_options]
+# Don't show deprecation warning for dependencies
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "default::DeprecationWarning:__main__",
+    "default::DeprecationWarning:{PACKAGE_NAME}",
+    "ignore::PendingDeprecationWarning",
+    "default::PendingDeprecationWarning:__main__",
+    "default::PendingDeprecationWarning:{PACKAGE_NAME}",
+]

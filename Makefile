@@ -293,10 +293,8 @@ CONFIG_INSTALL:=\
 	pyproject/templates/pyroot/__init__.py\
 	pyproject/templates/root/.gitignore\
 	pyproject/templates/root/.pre-commit-config.yaml.template\
-	pyproject/templates/root/pyproject.toml\
+	pyproject/templates/root/pyproject.toml.template\
 	pyproject/templates/root/README.md\
-	pyproject/templates/root/setup.cfg\
-	pyproject/templates/root/setup.py\
 	python/startup.py\
 	simplescreenrecorder/.\
 	zathura/zathurarc\

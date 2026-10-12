@@ -9,7 +9,7 @@ pip install {PROJECT_NAME}
 ## Development
 ### Editable Install
 ```sh
-python setup.py develop [--user]
+pip install -e .
 ```
 Re-run this command to refresh the version number (based on git tags).
 

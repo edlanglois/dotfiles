@@ -1,4 +1,4 @@
-{PROJECT_NAME}/version.py
+{PACKAGE_NAME}/version.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

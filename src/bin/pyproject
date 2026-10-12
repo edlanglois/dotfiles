@@ -75,7 +75,8 @@ def _get_project_title(config: dict[str, Any]) -> str:
         return ""
 
 
-LICENSES = {"mit": ("MIT.txt", "MIT", "License :: OSI Approved :: MIT License")}
+# Short names are SPDX license expressions (PEP 639)
+LICENSES = {"mit": ("MIT.txt", "MIT")}
 
 # Validation functions return an error message if the value is valid.
 # If the value is valid they return None
@@ -186,6 +187,7 @@ def main(argv: Sequence[str] | None = None) -> None:
 
     if not config["PROJECT_NAME"]:
         sys.exit("Must set nonempty project_id")
+    config["PACKAGE_NAME"] = config["PROJECT_NAME"].replace("-", "_")
 
     project_dir.mkdir(parents=True, exist_ok=True)
     if list(project_dir.glob("*")):
@@ -216,26 +218,26 @@ def main(argv: Sequence[str] | None = None) -> None:
     print()
     license = config["LICENSE"].lower()
     if license:
-        license_file_name, license_short, license_classifier = LICENSES[license]
-        config["LICENSE_SHORT"] = license_short
-        classifiers.append(license_classifier)
+        license_file_name, license_short = LICENSES[license]
+        config["LICENSE_FIELDS"] = (
+            f'license = "{license_short}"\nlicense-files = ["LICENSE"]\n'
+        )
         license_file = template_dir / "license" / license_file_name
         add_file(license_file, "LICENSE")
     else:
-        config["LICENSE_SHORT"] = ""
+        config["LICENSE_FIELDS"] = ""
 
-    config["CLASSIFIERS"] = "\n".join("\t" + c for c in classifiers)
+    config["CLASSIFIERS"] = "\n".join(f'    "{c}",' for c in classifiers)
 
     root_template_dir = template_dir / "root"
     for template_file in root_template_dir.rglob("*"):
         add_file(template_file, template_file.relative_to(root_template_dir))
 
     pyroot_template_dir = template_dir / "pyroot"
-    pyproject_dir = config["PROJECT_NAME"].replace("-", "_")
     for template_file in pyroot_template_dir.rglob("*"):
         add_file(
             template_file,
-            pyproject_dir / template_file.relative_to(pyroot_template_dir),
+            config["PACKAGE_NAME"] / template_file.relative_to(pyroot_template_dir),
         )
 
     os.chdir(project_dir)
@@ -255,8 +257,8 @@ def main(argv: Sequence[str] | None = None) -> None:
 
     if in_git_repo:
         if (project_dir / ".pre-commit-config.yaml").exists():
-            subprocess.run(["pre-commit", "install"], check=True)
-            subprocess.run(["pre-commit", "autoupdate"], check=True)
+            subprocess.run(["prek", "install", "-f"], check=True)
+            subprocess.run(["prek", "update"], check=True)
 
         no_commits = (
             subprocess.run(
