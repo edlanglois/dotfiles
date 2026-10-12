@@ -2,9 +2,10 @@
   "theme": "auto",
   "permissions": {
     "deny": [
+      "Read(~/.ecryptfs/**)",
       "Read(~/.ssh/**)",
       "Read(~/Private/**)",
-      "Read(~/.ecryptfs/**)"
+      "Read(~/Shared/**)"
     ]
   },
   "sandbox": {
@@ -24,9 +25,10 @@
         "~/.cache/uv"
       ],
       "denyRead": [
+        "~/.ecryptfs",
         "~/.ssh",
         "~/Private",
-        "~/.ecryptfs"
+        "~/Shared"
       ]
     }
   }
