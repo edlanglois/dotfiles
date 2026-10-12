@@ -11,7 +11,15 @@
     "allowUnsandboxedCommands": false,
     "filesystem": {
       "allowWrite": [
-        "~/.cache/prek"
+        "~/.cache/black",
+        "~/.cache/cargo",
+        "~/.cache/go-build",
+        "~/.cache/matplotlib",
+        "~/.cache/pip",
+        "~/.cache/pre-commit",
+        "~/.cache/prek",
+        "~/.cache/ty",
+        "~/.cache/uv"
       ],
       "denyRead": [
         "~/.ssh"
