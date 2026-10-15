@@ -238,6 +238,12 @@ bindsym $mod+g exec --no-startup-id "maim -s | xclip -selection clipboard -t ima
 for_window [class="stellaris"] floating disable, fullscreen enable
 for_window [class="zoom"] floating enable
 
+# App workspaces
+# Spotify sets its WM_CLASS only after the window is mapped, so `assign` never
+# matches it; for_window re-checks when the class changes.
+for_window [class="^Spotify$"] move to workspace 4
+assign [class="(?i)^slack$"] workspace 10
+
 # Start a status bar.
 bar {
 m4_ifdef({<<m4_env_config_I3BLOCKS>>},m4_dnl
