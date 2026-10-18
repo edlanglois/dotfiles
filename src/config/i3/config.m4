@@ -242,6 +242,7 @@ for_window [class="zoom"] floating enable
 # Spotify sets its WM_CLASS only after the window is mapped, so `assign` never
 # matches it; for_window re-checks when the class changes.
 for_window [class="^Spotify$"] move to workspace 4
+assign [class="(?i)^steam$"] workspace 5
 assign [class="(?i)^slack$"] workspace 10
 
 # Start a status bar.
