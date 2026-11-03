@@ -9,6 +9,15 @@ set -g default-terminal "tmux-256color"
 set -sa terminal-overrides ",alacritty:Tc"
 set -sa terminal-overrides ",terminator:Tc"
 set -sa terminal-overrides ",xterm-termite:Tc"
+m4_ifdef({<<m4_env_config_TMUX_GE_3_4>>},{<<m4_dnl
+# Pass OSC 8 hyperlinks through to the outer terminal.
+# Over ssh, alacritty may appear as xterm-256color if the remote host lacks its
+# terminfo; tmux* covers tmux nested inside a local tmux.
+set -sa terminal-features ",alacritty*:hyperlinks"
+set -sa terminal-features ",terminator*:hyperlinks"
+set -sa terminal-features ",xterm*:hyperlinks"
+set -sa terminal-features ",tmux*:hyperlinks"
+>>})m4_dnl
 
 # Set Ctrl-a as the default prefix
 unbind C-b

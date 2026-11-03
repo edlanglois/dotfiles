@@ -13,3 +13,6 @@ fi;
 if version_ge "$TMUX_VERSION" "tmux 2.2"; then
 	echo TMUX_GE_2_2=
 fi;
+if version_ge "$TMUX_VERSION" "tmux 3.4"; then
+	echo TMUX_GE_3_4=
+fi;
