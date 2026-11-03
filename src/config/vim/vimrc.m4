@@ -3,7 +3,7 @@ m4_include(user_config.m4)m4_dnl
 " -------------
 " F3  - Toggle Tagbar
 " F4  - Select buffer
-" F5  - YCM Recompile and Regenerate diagnostics
+" F5  - ALE lint (regenerate diagnostics)
 " F6  - Generate ctags
 " F7  - Python lint
 " F10 - Syntax Group under cursor

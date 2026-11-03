@@ -576,7 +576,7 @@ vim                : Run all `vim-*` commands.
                      Uses the installed configurations so install first.
 vim-vundle         : Install the Vundle vim plugin.
 vim-plugins        : Install and update vim plugins.
-vim-ycm            : Compile YouCompleteMe for vim.
+vim-ycm            : Compile YouCompleteMe for vim (identifier completion).
 vim-tmuxline       : Create the tmuxline configuration.
 
 systemd-reload     : Reload user systemd units if any changed.
@@ -812,10 +812,7 @@ vim-ycm: $(YCM_CORE)
 
 $(YCM_CORE): $(YCM_GIT_CHECKOUT)
 	cd $(YCM_DIR) && \
-		$(PYTHON) ./install.py --verbose \
-		--clang-completer \
-		--rust-completer \
-		$$(if [[ "$$(uname -r)" == *ARCH* ]]; then echo --system-libclang; fi)
+		$(PYTHON) ./install.py --verbose
 
 
 TMUXLINE_CONFIG:=tmux/tmuxline.conf

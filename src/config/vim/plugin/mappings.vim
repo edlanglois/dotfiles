@@ -60,8 +60,8 @@ nnoremap <F3> :TagbarToggle<CR>
 " Show list of buffers and select one by number
 nnoremap <F4> :buffers<CR>:buffer<Space>
 
-" Refresh YCM diagnostics on F5
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>
+" Refresh ALE diagnostics on F5
+nnoremap <F5> :ALELint<CR>
 
 " Generate CTags
 nnoremap <F6> :!echo 'Generating ctags' && ctags -R --fields=+ialsSfk --extra=+q --options=.ctags.conf --verbose .<CR>
