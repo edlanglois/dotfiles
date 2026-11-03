@@ -13,6 +13,8 @@ augroup ale_completion_filetypes
 	autocmd FileType * let b:ale_completion_enabled =
 		\ index(g:ale_lsp_filetypes, &filetype) >= 0
 augroup END
+" Don't suggest symbols that would need a new import (or #include) to be added
+let g:ale_completion_autoimport = 0
 
 let g:ale_fix_on_save = 1
 nnoremap <leader>a :ALEFix<CR>
