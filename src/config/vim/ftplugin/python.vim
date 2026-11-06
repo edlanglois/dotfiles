@@ -13,8 +13,8 @@ if executable('ty')
   let b:ale_linters_ignore += ['mypy']
 endif
 
-" Ignore unused import; don't delete imports while editing
-let g:ale_python_ruff_options = '--ignore F401'
+" Don't delete unused imports while editing
+let g:ale_python_ruff_options = '--unfixable F401'
 let g:ale_python_ruff_format_options = ''
 
 let g:ale_python_mypy_ignore_invalid_syntax = 1
