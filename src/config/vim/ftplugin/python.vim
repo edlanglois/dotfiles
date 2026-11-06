@@ -9,6 +9,9 @@ if executable('ruff')
 else
   let b:ale_fixers = ['black', 'trim_whitespace']
 endif
+if executable('ty')
+  let b:ale_linters_ignore += ['mypy']
+endif
 
 " Ignore unused import; don't delete imports while editing
 let g:ale_python_ruff_options = '--ignore F401'
