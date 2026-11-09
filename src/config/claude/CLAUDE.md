@@ -13,3 +13,17 @@ When posting on GitLab (or similar) with the user's credentials, e.g. MR/issue
 comments or thread replies, start the comment with this header (then a blank line):
 
 > 🤖 **Posted autonomously by Claude Code**
+
+# Writing for others
+
+Documentation, MR/PR descriptions, comments, and similar writing must be concise,
+simple and readable. Avoid walls of text and unnecessary detail: respect the
+reader's time by including only what is useful for them to read.
+
+# Comments describe the current state
+
+Code comments and documentation must help the reader understand the system as it is
+now, not the change that produced it. Don't narrate what the code used to do or no
+longer does (e.g. "No debouncing here: the agent now..."); that history belongs in
+commit messages and MR/PR descriptions. Exception: when historical behaviour still
+matters to the reader, e.g. for backward compatibility.
