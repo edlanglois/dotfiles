@@ -1,3 +1,10 @@
+m4_include(env_config.m4)m4_dnl
+# About this file
+
+This file is generated from the user's dotfiles repo at `m4_env_config_DOTFILES_DIR`
+(source: `src/config/claude/CLAUDE.md.m4`) and is overwritten on install. Don't edit
+the installed copy: make changes as git commits to the dotfiles repo.
+
 # Sandbox placeholder files
 
 When running sandboxed, untracked files like `.bashrc`, `.bash_profile`,

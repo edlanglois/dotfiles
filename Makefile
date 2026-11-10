@@ -172,6 +172,7 @@ CONFIG_FBI:=\
 	bash/bashrc\
 	bash/profile\
 	cargo/config.toml\
+	claude/CLAUDE.md\
 	conda/condarc\
 	conky/default-popup.lua\
 	dircolors/database\
@@ -273,7 +274,6 @@ CONFIG_INSTALL:=\
 	$(CONFIG_INSTALL_FISH_BASS)\
 	$(CONFIG_INSTALL_VIM_DIRECT)\
 	$(CONFIG_FBI)\
-	claude/CLAUDE.md\
 	claude/settings.json\
 	fish/functions/xcb.fish\
 	gkrellm/user-config-cpu\
@@ -686,8 +686,15 @@ $(BUILD_DIR)/env/absolute_paths.m4: user.cfg\
 			"${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" |\
 		(echo "m4_dnl $<" && cat) > "$@"
 
+$(BUILD_DIR)/env/dotfiles_dir.m4: $(UTILS_DIR)/config-replace.sh\
+		| $(BUILD_DIR)/env/.
+	echo "DOTFILES_DIR=$(CURDIR)" |\
+		$(UTILS_DIR)/config-replace.sh \
+			"${ENV_CONFIG_PREFIX}" "${QUOTE_START}" "${QUOTE_END}" > "$@"
+
 $(BUILD_DIR)/env_config.m4: $(ENV_CONFIG_TARGETS) \
-		$(BUILD_DIR)/env/absolute_paths.m4 |\
+		$(BUILD_DIR)/env/absolute_paths.m4 \
+		$(BUILD_DIR)/env/dotfiles_dir.m4 |\
 		$(BUILD_DIR)/.
 	cat $^ > "$@"
 
